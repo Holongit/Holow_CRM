@@ -1,0 +1,153 @@
+{% extends 'index.html' %}
+{% block content %}
+    <section class="content-header">
+      <h1>
+        Urządzenia
+      </h1>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fa fa-address-book"></i></a></li>
+        <li class="breadcrumb-item active">Urządzenia</li>
+      </ol>
+    </section>
+    <section class="content">
+        <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Urządzenia</h3>
+          <ul class="box-controls pull-right">
+			<li><a class="box-btn-close" href="#"></a></li>
+			<li><a class="box-btn-slide" href="#"></a></li>	
+			<li><a class="box-btn-fullscreen" href="#"></a></li>
+		  </ul>
+        </div>
+        <div class="box-body">
+            <!-- CONTENT_MAIN -->
+            
+        <!-- Modal -->
+              <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							</div>
+							<div class="modal-body">
+								<h4>Overflowing text to show scroll behavior</h4>
+								<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+								<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+        <!-- /.modal -->
+        
+        {% if is_paginated %}
+                <form class="navbar-form navbar-right">
+
+            <nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item {% if not prev_url %} disabled {% endif %}">
+      <a class="page-link" href="{{ prev_url }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+      {% for n in gadgets.paginator.page_range %}
+          
+          {% if gadgets.number == n %}
+              
+              <li class="page-item active">
+        <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+    </li>
+              
+          {% elif n > gadgets.number|add:-10 and n < gadgets.number|add:10 %}
+
+    <li class="page-item">
+        <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+    </li>
+        {% endif %}
+      {% endfor %}
+
+      <li class="page-item {% if not next_url %} disabled {% endif %}">
+      <a class="page-link" href="{{ next_url }}" aria-label="Next">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+        </form>
+            {% endif %}
+        
+            <form class="navbar-form navbar-left">
+                    <div class="input-group">
+                        <input class="form-control" type="search" name="q"  placeholder="Szukaj">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">Szukaj</button>
+                        </span>
+                    </div>
+                </form>
+          
+        <!-- table -->
+        <div class="box-body">
+				<div class="table-responsive">
+				  <table id="example1" class="table table-bordered table-striped">
+                      <thead>
+						<tr>
+							<th>id</th>
+							<th>Type</th>
+							<th>Brand</th>
+							<th>Model</th>
+							<th>Master</th>
+                            <th>Telefon</th>
+							<th>Status</th>
+                            <th>Date</th>
+						</tr>
+					</thead>
+
+                      {% for gadgets_data in gadgets %}
+
+					<tbody>
+						<tr>
+                            <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.id }}</a></td>
+                            <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.type_gadget }}</a></td>
+                            <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.brand_gadget }}</a></td>
+                            <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data }}</a></td>
+                            <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.master_gadget }}</a></td>
+                            <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.telefon_master_gadget }}</a></td>
+                            <td><a class="btn btn-success btn-xs" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.status }}</a></td>
+                            <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.created_at }}</a></td>
+							<td>
+                                <div class="clearfix">
+                                    <button class="btn btn-primary btn-xs" >Edit</button>
+                                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg">Delete</button>
+                            </td>
+						</tr>
+					</tbody>
+
+                      {% endfor %}
+
+					<tfoot>
+						<tr>
+							<th>id</th>
+							<th>Type</th>
+							<th>Brand</th>
+							<th>Model</th>
+							<th>Master</th>
+                            <th>Telefon</th>
+							<th>Status</th>
+                            <th>Date</th>
+						</tr>
+					</tfoot>
+				  </table>
+				</div>
+            </div>
+            
+            <div class="box-footer"></div>
+    </section>
+{% endblock content %}

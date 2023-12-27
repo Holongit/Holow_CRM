@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/images/favicon.ico">
+
+    <title>Holow-CRM</title>
+    
+	<!-- Bootstrap 4.0-->
+	<link rel="stylesheet" href="/static/assets/vendor_components/bootstrap/dist/css/bootstrap.css">
+	
+	<!-- Bootstrap extend-->
+	<link rel="stylesheet" href="/static/css/bootstrap-extend.css">
+	
+	<!-- theme style -->
+	<link rel="stylesheet" href="/static/css/master_style.css">
+	
+	<!-- Fab Admin skins -->
+	<link rel="stylesheet" href="/static/css/skins/_all-skins.css">
+   
+    <!-- Vector CSS -->
+    <link href="/static/assets/vendor_components/jvectormap/lib2/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+	
+	<!-- Morris charts -->
+	<link rel="stylesheet" href="/static/assets/vendor_components/morris.js/morris.css">
+	
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+     
+  </head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="{% url 'dashboard' %}" class="logo">
+      <!-- mini logo -->
+	  <b class="logo-mini">
+		  
+	  </b>
+      <!-- logo-->
+      <span class="logo-lg">
+		  
+	  </span>
+    </a>
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+	  <div>
+		  <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+			<span class="sr-only">Toggle navigation</span>
+		  </a>
+	  </div>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+
+		  <!-- User Account-->
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-cog"></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar-->
+    <section class="sidebar">
+      
+      <!-- sidebar menu-->
+        <ul class="sidebar-menu" data-widget="tree">
+         <li class="treeview">
+             <a href="#">
+                <i class="fa  fa-user-circle-o"></i><span>Andrej Khairov</span>
+                <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+                </span>
+            </a>
+		  <ul class="treeview-menu">
+            <li><a href="javascript:void()"><i class="fa fa-user mr-5"></i>My Profile </a></li>
+			<li><a href="javascript:void()"><i class="fa fa-cog mr-5"></i>Account Setting</a></li>
+			<li><a href="javascript:void()"><i class="fa fa-power-off mr-5"></i>Logout</a></li>
+          </ul>
+        </li>
+            
+        <li>
+          <a href="{% url "dashboard" %}">
+            <i class="fa  fa-dashboard"></i> <span>Strona Główna</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+        </li>    
+        <li>
+          <a href="{% url 'add_gadget' %}">
+            <i class="fa fa-edit"></i> <span>Nowa Naprawa</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url "gadgets" %}">
+            <i class="fa fa-share"></i> <span>Wydaj Urządzenie</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'gadgets' %}">
+            <i class="fa fa-laptop"></i> <span>Urządzenia</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'klienty' %}">
+            <i class="fa fa-address-book"></i> <span>Klienty</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa  fa-users"></i> <span>Pracowniki</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Nowa Naprawa
+      </h1>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
+        <li class="breadcrumb-item active">Nowa Naprawa</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Kartka Naprawy</h3>
+          <ul class="box-controls pull-right">
+			<li><a class="box-btn-close" href="#"></a></li>
+			<li><a class="box-btn-slide" href="#"></a></li>	
+			<li><a class="box-btn-fullscreen" href="#"></a></li>
+		  </ul>
+        </div>
+        <div class="box-body">
+            <!-- CONTENT_MAIN -->
+          <div class="box-body">
+          <div class="row">
+            <div class="col">
+            	<form action="{% url 'add_gadget' %}" method="post">
+                    {% csrf_token %}
+                    
+				  <div class="row">
+                      
+					<div class="col-lg-6 col-12">
+                        
+						<div class="form-group">
+							<h5>Imie Nazwisko<span class="text-danger">*</span></h5>
+							{{ form_gad.master_gadget }}
+						</div>
+                        <div class="form-group">
+							<h5>Telefon<span class="text-danger">*</span></h5>
+							{{ form_gad.telefon_master_gadget }}
+						</div>
+                       
+                        <div class="form-group">
+							<h5>Hasło/Login</h5>
+							{{ form_gad.password_gadget }}
+						</div>
+                        <div class="form-group">
+							<h5>Opis Usterki</h5>
+							{{ form_gad.opis_problem }}
+						</div>
+                        
+        			</div>
+                      
+					<div class="col-lg-6 col-12">
+                        
+						<div class="form-group">
+							<h5>Rodzaj Urządzenia<span class="text-danger">*</span></h5>
+                            {{ form_gad.type_gadget }}
+                        </div>
+                        <div class="form-group">
+							<h5>Brand<span class="text-danger">*</span></h5>
+							{{ form_gad.brand_gadget }}
+						</div>
+                        <div class="form-group">
+							<h5>Model<span class="text-danger">*</span></h5>
+							{{ form_gad.model_gadget }}
+                        </div>
+                        <div class="form-group">
+							<h5>SERIAL/SSID/SERWIS TAG</h5>
+							{{ form_gad.serial_gadget }}
+						</div>
+                        <div class="form-group">
+							<h5>Zestaw</h5>
+							{{ form_gad.zestaw }}
+						</div>
+                       
+					</div>
+                            
+					<div class="text-xs-right">
+						<button type="submit" class="btn btn-info">Save</button>
+					</div>
+				</form>
+            	
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+        </div>
+        <!-- /.box-footer-->
+      </div>
+      <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-light">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+      <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-cog"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane" id="control-sidebar-home-tab">
+        <h3 class="control-sidebar-heading">Recent Activity</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-birthday-cake bg-danger"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Admin Birthday</h4>
+
+                <p>Will be July 24th</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-user bg-warning"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Jhone Updated His Profile</h4>
+
+                <p>New Email : jhone_doe@demo.com</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-envelope-o bg-info"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Disha Joined Mailing List</h4>
+
+                <p>disha@demo.com</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-file-code-o bg-success"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Code Change</h4>
+
+                <p>Execution time 15 Days</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Web Design
+                <span class="label label-danger pull-right">40%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-danger" style="width: 40%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Update Data
+                <span class="label label-success pull-right">75%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-success" style="width: 75%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Order Process
+                <span class="label label-warning pull-right">89%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 89%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Development 
+                <span class="label label-primary pull-right">72%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-primary" style="width: 72%"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+      </div>
+      <!-- /.tab-pane -->
+      <!-- Stats tab content -->
+      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+      <!-- /.tab-pane -->
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-settings-tab">
+        <form method="post">
+          <h3 class="control-sidebar-heading">General Settings</h3>
+
+          <div class="form-group">
+            <input type="checkbox" id="report_panel" class="chk-col-grey" >
+			<label for="report_panel" class="control-sidebar-subheading ">Report panel usage</label>
+
+            <p>
+              general settings information
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <input type="checkbox" id="allow_mail" class="chk-col-grey" >
+			<label for="allow_mail" class="control-sidebar-subheading ">Mail redirect</label>
+
+            <p>
+              Other sets of options are available
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <input type="checkbox" id="expose_author" class="chk-col-grey" >
+			<label for="expose_author" class="control-sidebar-subheading ">Expose author name</label>
+
+            <p>
+              Allow the user to show his name in blog posts
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+          <div class="form-group">
+            <input type="checkbox" id="show_me_online" class="chk-col-grey" >
+			<label for="show_me_online" class="control-sidebar-subheading ">Show me as online</label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <input type="checkbox" id="off_notifications" class="chk-col-grey" >
+			<label for="off_notifications" class="control-sidebar-subheading ">Turn off notifications</label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">              
+              <a href="javascript:void(0)" class="text-red margin-r-5"><i class="fa fa-trash-o"></i></a>
+              Delete chat history
+            </label>
+          </div>
+          <!-- /.form-group -->
+        </form>
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  
+  <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+  
+</div>
+<!-- ./wrapper -->
+  	
+	<!-- jQuery 3 -->
+	<script src="/static/assets/vendor_components/jquery/dist/jquery.js"></script>
+	
+	<!-- jQuery UI 1.11.4 -->
+	<script src="/static/assets/vendor_components/jquery-ui/jquery-ui.js"></script>
+	
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+	  $.widget.bridge('uibutton', $.ui.button);
+	</script>
+	
+	<!-- popper -->
+	<script src="/static/assets/vendor_components/popper/dist/popper.min.js"></script>
+	
+	<!-- Bootstrap 4.0-->
+	<script src="/static/assets/vendor_components/bootstrap/dist/js/bootstrap.js"></script>
+	
+	<!-- ChartJS -->
+	<script src="/static/assets/vendor_components/chart.js-master/Chart.min.js"></script>
+	
+	<!-- Slimscroll -->
+	<script src="/static/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+	
+	<!-- FastClick -->
+	<script src="/static/assets/vendor_components/fastclick/lib/fastclick.js"></script>
+	
+	<!-- peity -->
+	<script src="/static/assets/vendor_components/jquery.peity/jquery.peity.js"></script>
+	
+	<!-- Morris.js charts -->
+	<script src="/static/assets/vendor_components/raphael/raphael.min.js"></script>
+	<script src="/static/assets/vendor_components/morris.js/morris.min.js"></script>
+	
+	<!-- Fab Admin App -->
+	<script src="/static/js/template.js"></script>
+	
+	<!-- Fab Admin dashboard demo (This is only for demo purposes) -->
+	<script src="/static/js/pages/dashboard.js"></script>
+	
+	<!-- Fab Admin for demo purposes -->
+	<script src="/static/js/demo.js"></script>
+	
+    <!-- Vector map JavaScript -->
+    <script src="/static/assets/vendor_components/jvectormap/lib2/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="/static/assets/vendor_components/jvectormap/lib2/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="/static/assets/vendor_components/jvectormap/lib2/jquery-jvectormap-us-aea-en.js"></script>
+
+    <!-- Formatter -->
+	<script src="/static/assets/vendor_components/formatter/formatter.js"></script>
+	<script src="/static/assets/vendor_components/formatter/jquery.formatter.js"></script>
+    <script src="/static/js/pages/formatter.js"></script>
+
+   <!-- Form validator JavaScript -->
+    <script src="/static/js/pages/validation.js"></script>
+    <script>
+    ! function(window, document, $) {
+        "use strict";
+			$("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
+		}(window, document, jQuery);
+    </script>
+	
+</body>
+</html>
+
+
+

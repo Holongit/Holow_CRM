@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Big Shoulders Text
+- Font Author: Copyright 2019 The Big Shoulders Project Authors (https://github.com/xotypeco/big_shoulders)
+- Font Source: http://fonts.gstatic.com/s/bigshoulderstext/v24/55xEezRtP9G3CGPIf49hxc8P0eytUxB2l66LmF6xc3kA3Y-q3TIPNl6P2pc.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
