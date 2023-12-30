@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 
 class Klient(models.Model):
@@ -7,6 +8,9 @@ class Klient(models.Model):
     telefon_klient = models.CharField(max_length=32, db_index=True)
     email_klient = models.CharField(max_length=64, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
+
+    # def get_absolute_url(self):
+    #     return reverse('klient', kwargs={'klient_id': self.pk})
 
     def __str__(self):
         return self.name_klient
@@ -30,8 +34,12 @@ class Gadget(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
 
+    def get_absolute_url(self):
+        return reverse('edit_gadget', kwargs={'pk': self.pk})
+
     class Meta:
         ordering = ('-created_at',)
+
 
     def __str__(self):
         return self.model_gadget

@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+import gadgets.views
 from dashboard.views import index_dash
 from gadgets.views import *
 from klienty.views import index_kli
@@ -27,5 +28,8 @@ urlpatterns = [
     path('klienty/', index_kli, name='klienty'),
     path('add_gadget/', AddGadgets.as_view(), name='add_gadget'),
     path('gadgets/', index_gad, name='gadgets'),
-    # path('edit_gadget/', EditGadgets.as_view(), name='edit_gadget'),
+    path('gadgets/edit_gadget/<int:pk>/', EditGadget.as_view(), name='edit_gadget'),
+    # path('gadgets/edit_gadget/<int:gadget_id>/', UpdateGadgets.as_view(), name='edit_gadget')
 ]
+
+

@@ -1,11 +1,13 @@
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.views.generic import View
-from django.shortcuts import redirect
+from django.views.generic import View, ListView, CreateView, DeleteView, UpdateView, DetailView
+from django.urls import reverse_lazy
 
-from gadgets.forms import *
-from gadgets.models import *
+
+from gadgets.forms import GadgetForm
+from gadgets.models import Gadget
 
 
 def index_gad(request):
@@ -60,11 +62,37 @@ class AddGadgets(View):
             bound_form_gad.save()
 
             return redirect('gadgets')
-        return redirect('dashboard')
+        return redirect('add_gadget')
 
+class EditGadget(View):
+    def get(self, request, **kwargs):
+        bound_form_gad = GadgetForm(initial={'master_gadget': Gadget.objects.get(id=kwargs['pk']).master_gadget,
+                                             'telefon_master_gadget': Gadget.objects.get(id=kwargs['pk']).telefon_master_gadget,
+                                             'serial_gadget': Gadget.objects.get(id=kwargs['pk']).serial_gadget,
+                                             'model_gadget': Gadget.objects.get(id=kwargs['pk']).model_gadget,
+                                             'brand_gadget': Gadget.objects.get(id=kwargs['pk']).brand_gadget,
+                                             'password_gadget': Gadget.objects.get(id=kwargs['pk']).password_gadget,
+                                             'opis_problem': Gadget.objects.get(id=kwargs['pk']).opis_problem,
+                                             'zestaw': Gadget.objects.get(id=kwargs['pk']).zestaw,
+                                             'type_gadget': Gadget.objects.get(id=kwargs['pk']).type_gadget
+                                             })
+        gadget_id = Gadget.objects.get(id=kwargs['pk'])
+        return render(request, 'gadgets/edit_gadget.html', context={'gadget': gadget_id, 'form_class': bound_form_gad})
 
-# class EditGadgets(View):
-#     def get(self, request, telefon_master_gadget):
-#         gadget = Gadget.objects.get(telefon_master_gadget__iexact=telefon_master_gadget)
-#         form_gad = GadgetForm(instance=gadget)
-#         return render(request, 'gadgets/edit_gadget.html', context={'form': form_gad, 'gadget': gadget})
+    def post(self, request, **kwargs):
+        bound_form_gad = GadgetForm(request.POST)
+        gadget_edit = Gadget.objects.get(id=kwargs['pk'])
+        if bound_form_gad.is_valid():
+            gadget_edit.master_gadget = request.POST['master_gadget']
+            gadget_edit.telefon_master_gadget = request.POST['telefon_master_gadget']
+            gadget_edit.serial_gadget = request.POST['serial_gadget']
+            gadget_edit.model_gadget = request.POST['model_gadget']
+            gadget_edit.brand_gadget = request.POST['brand_gadget']
+            gadget_edit.password_gadget = request.POST['password_gadget']
+            gadget_edit.opis_problem = request.POST['opis_problem']
+            gadget_edit.zestaw = request.POST['zestaw']
+            gadget_edit.type_gadget = request.POST['type_gadget']
+            gadget_edit.save()
+
+            return redirect('gadgets')
+        return redirect('edit_gadget', pk=kwargs['pk'])

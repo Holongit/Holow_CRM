@@ -74,7 +74,7 @@
 
       <li class="page-item {% if not next_url %} disabled {% endif %}">
       <a class="page-link" href="{{ next_url }}" aria-label="Next">
-        <span aria-hidden="true">&laquo;</span>
+        <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
       </a>
     </li>
@@ -105,9 +105,9 @@
 							<th>Model</th>
 							<th>Master</th>
                             <th>Telefon</th>
-							<th>Status</th>
                             <th>Date</th>
-						</tr>
+                            <th>Status</th>
+                        </tr>
 					</thead>
 
                       {% for gadgets_data in gadgets %}
@@ -120,12 +120,12 @@
                             <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data }}</a></td>
                             <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.master_gadget }}</a></td>
                             <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.telefon_master_gadget }}</a></td>
-                            <td><a class="btn btn-success btn-xs" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.status }}</a></td>
                             <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.created_at }}</a></td>
-							<td>
+                            <td><a class="btn btn-success btn-xs" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">{{ gadgets_data.status }}</a></td>
+                            <td>
                                 <div class="clearfix">
-                                    <button class="btn btn-primary btn-xs" >Edit</button>
-                                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg">Delete</button>
+                                    <a href="{{ gadgets_data.get_absolute_url }}"><button class="btn btn-primary btn-xs"  >Edit</button></a>
+                                    <a href=""><button class="btn btn-danger btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg">Delete</button></a>
                             </td>
 						</tr>
 					</tbody>
@@ -140,9 +140,9 @@
 							<th>Model</th>
 							<th>Master</th>
                             <th>Telefon</th>
-							<th>Status</th>
                             <th>Date</th>
-						</tr>
+                            <th>Status</th>
+                        </tr>
 					</tfoot>
 				  </table>
 				</div>

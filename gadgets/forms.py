@@ -3,6 +3,7 @@ from django import forms
 from gadgets.models import *
 
 
+
 class KlientForm(forms.ModelForm):
     class Meta:
         model = Klient
@@ -67,6 +68,8 @@ class GadgetForm(forms.Form):
             type_gadget=self.cleaned_data['type_gadget'],
         )
         return new_gadget
+
+
 
 
 
