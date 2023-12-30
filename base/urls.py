@@ -29,7 +29,7 @@ urlpatterns = [
     path('add_gadget/', AddGadgets.as_view(), name='add_gadget'),
     path('gadgets/', index_gad, name='gadgets'),
     path('gadgets/edit_gadget/<int:pk>/', EditGadget.as_view(), name='edit_gadget'),
-    # path('gadgets/edit_gadget/<int:gadget_id>/', UpdateGadgets.as_view(), name='edit_gadget')
+    path('gadgets/delete_gadget/<int:pk>/', delete_gadget, name='delete_gadget')
 ]
 
 

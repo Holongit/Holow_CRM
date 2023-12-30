@@ -96,3 +96,9 @@ class EditGadget(View):
 
             return redirect('gadgets')
         return redirect('edit_gadget', pk=kwargs['pk'])
+
+
+def delete_gadget(request, pk):
+    gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
+    gadget.delete()
+    return redirect('gadgets')
