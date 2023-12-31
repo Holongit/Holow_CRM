@@ -1,4 +1,5 @@
 from django import forms
+from django.core.validators import RegexValidator
 
 from gadgets.models import *
 
@@ -35,7 +36,7 @@ class GadgetForm(forms.Form):
                ('inne urządzenie', 'Inne Urządzenie'),
                )
     master_gadget = forms.CharField(max_length=64)
-    telefon_master_gadget = forms.CharField(max_length=32)
+    telefon_master_gadget = forms.RegexField(max_length=32, min_length=9, regex=r'^[0-9]*$')
     serial_gadget = forms.CharField(max_length=32, required=False)
     model_gadget = forms.CharField(max_length=32)
     brand_gadget = forms.CharField(max_length=32)

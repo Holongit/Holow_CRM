@@ -30,7 +30,7 @@ class Gadget(models.Model):
     opis_problem = models.TextField(null=True, blank=True)
     zestaw = models.CharField(max_length=64, null=True, blank=True)
     pilne = models.CharField(max_length=32, default='NO', null=True, blank=True, db_index=True)
-    status = models.CharField(max_length=32, default='NEW', null=True, blank=True, db_index=True)
+    status = models.CharField(max_length=32, default='NOWY', null=True, blank=True, db_index=True)
     created_at = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
 

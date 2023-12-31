@@ -95,10 +95,16 @@ class EditGadget(View):
             gadget_edit.save()
 
             return redirect('gadgets')
-        return redirect('edit_gadget', pk=kwargs['pk'])
+        return redirect(request.META.get('HTTP_REFERER'), pk=kwargs['pk'])
 
 
 def delete_gadget(request, pk):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     gadget.delete()
-    return redirect('gadgets')
+    return redirect(request.META.get('HTTP_REFERER'))
+
+def gadget_status_change(request, pk, status):
+    gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
+    gadget.status = status
+    gadget.save()
+    return redirect(request.META.get('HTTP_REFERER'))
