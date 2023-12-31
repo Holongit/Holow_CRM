@@ -9,8 +9,6 @@ class Klient(models.Model):
     email_klient = models.CharField(max_length=64, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
-    # def get_absolute_url(self):
-    #     return reverse('klient', kwargs={'klient_id': self.pk})
 
     def __str__(self):
         return self.name_klient
@@ -38,6 +36,7 @@ class Gadget(models.Model):
     paid = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     in_serwis = models.BooleanField(default=True)
     time_in_serwis = models.DurationField(null=True, blank=True)
+    opis_naprawy = models.TextField(null=True, blank=True)
 
 
     def get_absolute_url(self):

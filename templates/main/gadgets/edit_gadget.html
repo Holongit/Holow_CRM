@@ -4,7 +4,7 @@
 	<!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Edituj Naprawe
+        Edituj Naprawe {{ gadget.id }}
       </h1>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
@@ -18,7 +18,7 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Kartka Naprawy</h3>
+          <h3 class="box-title">Kartka Naprawy {{ gadget.id }}</h3>
           <ul class="box-controls pull-right">
 			<li><a class="box-btn-close" href="#"></a></li>
 			<li><a class="box-btn-slide" href="#"></a></li>	
@@ -84,10 +84,8 @@
                        
 					</div>
                             
-					<div class="text-xs-right">
-						<button type="submit" class="btn btn-info">Save</button>
-					</div>
-				</form>
+					
+				
             	
             </div>
             <!-- /.col -->
@@ -97,7 +95,12 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
+            
+            <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Zahowuj</button>
+           </form>
+            <a href="{% url 'gadgets' %}"><button class="btn btn-danger right-float"><i class="fa fa-close"></i> Anuluj</button></a>
         </div>
+            
         <!-- /.box-footer-->
       </div>
       <!-- /.box -->

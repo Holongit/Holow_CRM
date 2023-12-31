@@ -12,15 +12,23 @@ from gadgets.models import Gadget
 
 def index_gad(request):
     search_query = request.GET.get('q', '')
+    if search_query.isnumeric():
+        search_query_int = int(search_query)
+    else:
+        search_query_int = 0
 
     if search_query:
+
         serching_gad = Gadget.objects.filter(Q(brand_gadget__icontains=search_query) |
                                              Q(model_gadget__icontains=search_query) |
                                              Q(serial_gadget__icontains=search_query) |
                                              Q(master_gadget__icontains=search_query) |
+                                             Q(id=search_query_int) |
                                              Q(telefon_master_gadget__icontains=search_query))
     else:
         serching_gad = Gadget.objects.all()
+
+
 
     paginator = Paginator(serching_gad, 14)
 
@@ -96,6 +104,24 @@ class EditGadget(View):
 
             return redirect('gadgets')
         return redirect(request.META.get('HTTP_REFERER'), pk=kwargs['pk'])
+
+class OutgoGadget(View):
+    def get(self, request, pk):
+        gadget = Gadget.objects.get(id=pk)
+        return render(request, 'gadgets/outgo_gadget.html', context={'gadget': gadget})
+
+    def post(self, request, pk):
+        gadget = Gadget.objects.get(id=pk)
+
+        if gadget.in_serwis:
+            gadget.in_serwis = False
+            gadget.save()
+        elif not gadget.in_serwis:
+            gadget.in_serwis = True
+            gadget.save()
+
+        return redirect(request.META.get('HTTP_REFERER'))
+
 
 
 def delete_gadget(request, pk):

@@ -118,26 +118,21 @@
 
                                 <tbody>
                                 <tr class="text-center font-size-14">
-                                    <td class="b-3 border-white" class="text-center "><a href="#" data-toggle="modal"
-                                                                                        data-target=".bs-example-modal-lg">{{ gadgets_data.id }}</a>
+                                    <td class="b-3 border-white" class="text-center "><a
+                                            href="#">{{ gadgets_data.id }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
-                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data.type_gadget }}</a>
+                                    <td class="b-3 border-white"><a href="#">{{ gadgets_data.type_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
-                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data.brand_gadget }}</a>
+                                    <td class="b-3 border-white"><a href="#">{{ gadgets_data.brand_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
-                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data }}</a>
+                                    <td class="b-3 border-white"><a href="#">{{ gadgets_data }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
-                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data.master_gadget }}</a>
+                                    <td class="b-3 border-white"><a href="#">{{ gadgets_data.master_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
-                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data.telefon_master_gadget }}</a>
+                                    <td class="b-3 border-white"><a
+                                            href="#">{{ gadgets_data.telefon_master_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
-                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data.created_at }}</a>
+                                    <td class="b-3 border-white"><a href="#">{{ gadgets_data.created_at }}</a>
                                     </td>
                                     <td class="b-3 border-white">
                                         <div class="btn-group">
@@ -171,9 +166,8 @@
 
                                         <div class="clearfix">
 
-                                            <a href="{% url 'delete_gadget' pk=gadgets_data.pk %}">
-                                                <button class="btn btn-primary btn-xs" data-toggle="modal"
-                                                        data-target=".bs-example-modal-lg">Wydaj
+                                            <a href="{% url 'outgo_gadget' pk=gadgets_data.pk %}">
+                                                <button class="btn btn-primary btn-xs">Wydaj
                                                 </button>
                                             </a>
                                             <a href="{{ gadgets_data.get_absolute_url }}">
@@ -181,17 +175,16 @@
                                             </a>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-danger
-
-                                                         dropdown-toggle btn-xs"
-
-                                                        data-toggle="dropdown">Delete
+                            
+                                                dropdown-toggle btn-xs" data-toggle="dropdown">Delete
                                                 </button>
-                                                <div  class="dropdown-menu">
+                                                <div class="dropdown-menu">
                                                     <a class="text-center" class="dropdown-item"
                                                        href=""><h2>Jesteś pewny?</h2>
                                                     </a>
                                                     <a class="text-center" class="dropdown-item"
-                                                       href="{% url 'delete_gadget' pk=gadgets_data.pk %}"><h2>DELETE</h2>  </a>
+                                                       href="{% url 'delete_gadget' pk=gadgets_data.pk %}"><h2>
+                                                        DELETE</h2></a>
                                                 </div>
                                             </div>
                                     </td>
