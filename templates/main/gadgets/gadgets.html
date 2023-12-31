@@ -32,12 +32,8 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div class="modal-body">
-                                <h4>Overflowing text to show scroll behavior</h4>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-                                    lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-                                    scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non
-                                    metus auctor fringilla.</p>
+
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger waves-effect text-left"
@@ -49,6 +45,8 @@
                     </div>
                     <!-- /.modal-dialog -->
                 </div>
+
+
                 <!-- /.modal -->
 
                 {% if is_paginated %}
@@ -105,47 +103,53 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>id</th>
-                                <th>Type</th>
-                                <th>Brand</th>
-                                <th>Model</th>
-                                <th>Master</th>
-                                <th>Telefon</th>
-                                <th>Date</th>
-                                <th>Status</th>
+                                <th class="text-center font-weight-bold">id</th>
+                                <th class="text-center font-weight-bold">Type</th>
+                                <th class="text-center font-weight-bold">Brand</th>
+                                <th class="text-center font-weight-bold">Model</th>
+                                <th class="text-center font-weight-bold">Master</th>
+                                <th class="text-center font-weight-bold">Telefon</th>
+                                <th class="text-center font-weight-bold">Date</th>
+                                <th class="text-center font-weight-bold">Status</th>
                             </tr>
                             </thead>
 
                             {% for gadgets_data in gadgets %}
 
                                 <tbody>
-                                <tr>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ gadgets_data.id }}</a></td>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ gadgets_data.type_gadget }}</a></td>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ gadgets_data.brand_gadget }}</a></td>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ gadgets_data }}</a></td>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ gadgets_data.master_gadget }}</a></td>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ gadgets_data.telefon_master_gadget }}</a>
+                                <tr class="text-center font-size-14">
+                                    <td class="b-3 border-white" class="text-center "><a href="#" data-toggle="modal"
+                                                                                        data-target=".bs-example-modal-lg">{{ gadgets_data.id }}</a>
                                     </td>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ gadgets_data.created_at }}</a></td>
-                                    <td>
+                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
+                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data.type_gadget }}</a>
+                                    </td>
+                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
+                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data.brand_gadget }}</a>
+                                    </td>
+                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
+                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data }}</a>
+                                    </td>
+                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
+                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data.master_gadget }}</a>
+                                    </td>
+                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
+                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data.telefon_master_gadget }}</a>
+                                    </td>
+                                    <td class="b-3 border-white"><a href="#" data-toggle="modal"
+                                                                    data-target=".bs-example-modal-lg">{{ gadgets_data.created_at }}</a>
+                                    </td>
+                                    <td class="b-3 border-white">
                                         <div class="btn-group">
-                                            <button type="button" class="btn 
+                                            <button type="button" class="btn
 
-                                                        {% if gadgets_data.status == 'NAPRAWIENIE' %} btn-secondary 
-                                                        {% elif gadgets_data.status == 'GOTOWY' %} btn-primary 
-                                                        {% elif gadgets_data.status == 'CZEKA NA CZĘŚCI' %} btn-warning 
+                                                        {% if gadgets_data.status == 'NAPRAWIENIE' %} btn-secondary
+                                                        {% elif gadgets_data.status == 'GOTOWY' %} btn-primary
+                                                        {% elif gadgets_data.status == 'CZEKA NA CZĘŚCI' %} btn-warning
                                                         {% elif gadgets_data.status == 'REZYGNACJA' %} btn-danger
-                                                        {% elif gadgets_data.status == 'NOWY' %} btn-info 
+                                                        {% elif gadgets_data.status == 'NOWY' %} btn-info
                                                         {% endif %} dropdown-toggle btn-xs"
-                                                    
+
                                                     data-toggle="dropdown">{{ gadgets_data.status }}
                                             </button>
                                             <div class="dropdown-menu">
@@ -163,32 +167,50 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="b-3 border-white">
+
                                         <div class="clearfix">
-                                            <a href="{{ gadgets_data.get_absolute_url }}">
-                                                <button class="btn btn-primary btn-xs">Edit</button>
-                                            </a>
+
                                             <a href="{% url 'delete_gadget' pk=gadgets_data.pk %}">
-                                                <button class="btn btn-danger btn-xs" data-toggle="modal"
-                                                        data-target=".bs-example-modal-lg">Delete
+                                                <button class="btn btn-primary btn-xs" data-toggle="modal"
+                                                        data-target=".bs-example-modal-lg">Wydaj
                                                 </button>
                                             </a>
+                                            <a href="{{ gadgets_data.get_absolute_url }}">
+                                                <button class="btn btn-info btn-xs">Edit</button>
+                                            </a>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-danger
+
+                                                         dropdown-toggle btn-xs"
+
+                                                        data-toggle="dropdown">Delete
+                                                </button>
+                                                <div  class="dropdown-menu">
+                                                    <a class="text-center" class="dropdown-item"
+                                                       href=""><h2>Jesteś pewny?</h2>
+                                                    </a>
+                                                    <a class="text-center" class="dropdown-item"
+                                                       href="{% url 'delete_gadget' pk=gadgets_data.pk %}"><h2>DELETE</h2>  </a>
+                                                </div>
+                                            </div>
                                     </td>
                                 </tr>
                                 </tbody>
+
 
                             {% endfor %}
 
                             <tfoot>
                             <tr>
-                                <th>id</th>
-                                <th>Type</th>
-                                <th>Brand</th>
-                                <th>Model</th>
-                                <th>Master</th>
-                                <th>Telefon</th>
-                                <th>Date</th>
-                                <th>Status</th>
+                                <th class="text-center font-weight-bold">id</th>
+                                <th class="text-center font-weight-bold">Type</th>
+                                <th class="text-center font-weight-bold">Brand</th>
+                                <th class="text-center font-weight-bold">Model</th>
+                                <th class="text-center font-weight-bold">Master</th>
+                                <th class="text-center font-weight-bold">Telefon</th>
+                                <th class="text-center font-weight-bold">Date</th>
+                                <th class="text-center font-weight-bold">Status</th>
                             </tr>
                             </tfoot>
                         </table>

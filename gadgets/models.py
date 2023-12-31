@@ -34,6 +34,12 @@ class Gadget(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
 
+    location = models.CharField(max_length=32, default='STOKŁOSY')
+    paid = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    in_serwis = models.BooleanField(default=True)
+    time_in_serwis = models.DurationField(null=True, blank=True)
+
+
     def get_absolute_url(self):
         return reverse('edit_gadget', kwargs={'pk': self.pk})
 
