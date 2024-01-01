@@ -120,20 +120,19 @@
                                 <tbody>
                                 <tr class="text-center font-size-14">
                                     <td class="b-3 border-white" class="text-center "><a
-                                            href="#">{{ gadgets_data.id }}</a>
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.id }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="#">{{ gadgets_data.type_gadget }}</a>
+                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.type_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="#">{{ gadgets_data.brand_gadget }}</a>
+                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.brand_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="#">{{ gadgets_data }}</a>
+                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="#">{{ gadgets_data.master_gadget }}</a>
+                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.master_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a
-                                            href="#">{{ gadgets_data.telefon_master_gadget }}</a>
+                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.telefon_master_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="#">{{ gadgets_data.created_at }}</a>
+                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.created_at }}</a>
                                     </td>
                                     <td class="b-3 border-white">
                                         <div class="btn-group">

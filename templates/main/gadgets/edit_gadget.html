@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Edituj Naprawe {{ gadget.id }}
+            Edycja Naprawy {{ gadget.id }}
         </h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
@@ -21,7 +21,7 @@
 
                 <h3 class="box-title">Kartka Urządzenia {{ gadget.id }} {% if gadget.in_serwis == True %}
                     <span class="badge badge-primary font-size-16">W serwise</span> {% elif gadget.in_serwis == False %}
-                    <span class="badge badge-warning font-size-16">Wydane</span> {% endif %}
+                    <span class="badge badge-secondary font-size-16">Wydane</span> {% endif %}
 
                     {% if gadget.status == 'NAPRAWIENIE' %}
                         <span class="badge badge-default font-size-16">NAPRAWIENIE</span>
@@ -125,10 +125,11 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
 
-                    <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Zahowuj</button>
+                    <button type="submit" class="btn btn-info float-left"><i class="fa fa-save"></i> Zahowuj</button>
                     </form>
+                    
                     <a href="{% url 'gadgets' %}">
-                        <button class="btn btn-danger right-float"><i class="fa fa-close"></i> Anuluj</button>
+                        <button class="btn btn-danger float-right"><i class="fa fa-close"></i> Zamknąć</button>
                     </a>
                 </div>
 

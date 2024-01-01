@@ -100,9 +100,10 @@ class EditGadget(View):
             gadget_edit.opis_problem = request.POST['opis_problem']
             gadget_edit.zestaw = request.POST['zestaw']
             gadget_edit.type_gadget = request.POST['type_gadget']
+            gadget_edit.type_service = request.POST['type_service']
             gadget_edit.save()
 
-            return redirect('gadgets')
+            return redirect('outgo_gadget', pk=kwargs['pk'])
         return redirect(request.META.get('HTTP_REFERER'), pk=kwargs['pk'])
 
 class OutgoGadget(View):

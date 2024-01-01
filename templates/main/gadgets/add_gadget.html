@@ -2,7 +2,7 @@
 {% block content %}
     <section class="content-header">
         <h1>
-            Nowa Naprawa
+            Tworzenie Kartki
         </h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
@@ -56,12 +56,12 @@
                                     <div class="col-lg-6 col-12">
 
                                         <div class="form-group">
-                                            <h5>Rodzaj Urządzenia<span class="text-danger">*</span></h5>
-                                            {{ form_gad.type_gadget }}
-                                        </div>
-                                        <div class="form-group">
                                             <h5>Rodzaj Naprawy<span class="text-danger">*</span></h5>
                                             {{ form_gad.type_service }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Rodzaj Urządzenia<span class="text-danger">*</span></h5>
+                                            {{ form_gad.type_gadget }}
                                         </div>
                                         <div class="form-group">
                                             <h5>Brand<span class="text-danger">*</span></h5>
@@ -95,7 +95,7 @@
                     </form>
 
                     <a href="{% url 'gadgets' %}">
-                        <button class="btn btn-danger right-float"><i class="fa fa-close"></i> Anuluj</button>
+                        <button class="btn btn-danger right-float"><i class="fa fa-close"></i> Zamknąć</button>
                     </a>
                 </div>
 
