@@ -1,135 +1,140 @@
-{% extends 'index.html' %} 
+{% extends 'index.html' %}
 
 {% block content %}
-	<!-- Content Header (Page header) -->
+    <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Edituj Naprawe {{ gadget.id }}
-      </h1>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
-        <li class="breadcrumb-item active">Edituj Naprawe</li>
-      </ol>
+        <h1>
+            Edituj Naprawe {{ gadget.id }}
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
+            <li class="breadcrumb-item active">Edituj Naprawe</li>
+        </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
 
-      <!-- Default box -->
-      <div class="box">
-        <div class="box-header with-border">
-        
-          <h3 class="box-title">Kartka Urządzenia {{ gadget.id }} {% if gadget.in_serwis == True %}
-                <span class="badge badge-primary font-size-16">W serwise</span> {% elif gadget.in_serwis == False %}
-                <span class="badge badge-warning font-size-16">Wydane</span> {% endif %}
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
 
-                {% if gadget.status == 'NAPRAWIENIE' %}
-                    <span class="badge badge-default font-size-16">NAPRAWIENIE</span>
-                {% elif gadget.status == 'GOTOWY' %} <span class="badge badge-primary font-size-16">GOTOWY</span>
-                {% elif gadget.status == 'CZEKA NA CZĘŚCI' %}
-                    <span class="badge badge-dark font-size-16">CZEKA NA CZĘŚCI</span>
-                {% elif gadget.status == 'REZYGNACJA' %}
-                    <span class="badge badge-purple font-size-16"> REZYGNACJA</span>
-                {% elif gadget.status == 'NOWY' %} <span class="badge badge-info font-size-16"> NOWY</span>
-                {% endif %}
-          
-                 {% if gadget.type_service == 'PŁATNE' %}
-                    <span class="badge badge-info font-size-16">PŁATNE</span>
-                {% elif gadget.type_service == 'GWARANCJA' %} <span class="badge badge-warning font-size-16">GWARANCJA</span>
-                {% elif gadget.type_service == 'REKLAMACJA' %}
-                    <span class="badge badge-danger font-size-16">REKLAMACJA</span>
-                {% endif %}
-          
+                <h3 class="box-title">Kartka Urządzenia {{ gadget.id }} {% if gadget.in_serwis == True %}
+                    <span class="badge badge-primary font-size-16">W serwise</span> {% elif gadget.in_serwis == False %}
+                    <span class="badge badge-warning font-size-16">Wydane</span> {% endif %}
 
-            </h3>
-          
-          
-          </h3>
-          <ul class="box-controls pull-right">
-			<li><a class="box-btn-close" href="#"></a></li>
-			<li><a class="box-btn-slide" href="#"></a></li>	
-			<li><a class="box-btn-fullscreen" href="#"></a></li>
-		  </ul>
-        </div>
-        <div class="box-body">
-            <!-- CONTENT_MAIN -->
-          <div class="box-body">
-          <div class="row">
-            <div class="col">
-            	<form action="{{ edit_gadget.get_absolute_url }}" method="post">
-                    {% csrf_token %}
-                    
-				  <div class="row">
-                      
-					<div class="col-lg-6 col-12">
-                        
-						<div class="form-group">
-							<h5>Imie Nazwisko<span class="text-danger">*</span></h5>
-                            {{ form_class.master_gadget }}
-							
-						</div>
-                        <div class="form-group">
-							<h5>Telefon<span class="text-danger">*</span></h5>
-                            {{ form_class.telefon_master_gadget }}
-						</div>
-                       
-                        <div class="form-group">
-							<h5>Hasło/Login</h5>
-							{{ form_class.password_gadget }}
-						</div>
-                        <div class="form-group">
-							<h5>Opis Usterki</h5>
-							{{ form_class.opis_problem }}
-                            
-						</div>
-                        
-        			</div>
-                      
-					<div class="col-lg-6 col-12">
-                        
-						<div class="form-group">
-							<h5>Rodzaj Urządzenia<span class="text-danger">*</span></h5>
-                            {{ form_class.type_gadget }}
-                        </div>
-                        <div class="form-group">
-							<h5>Brand<span class="text-danger">*</span></h5>
-							{{ form_class.brand_gadget }}
-						</div>
-                        <div class="form-group">
-							<h5>Model<span class="text-danger">*</span></h5>
-							{{ form_class.model_gadget }}
-                        </div>
-                        <div class="form-group">
-							<h5>SERIAL/SSID/SERWIS TAG</h5>
-							{{ form_class.serial_gadget }}
-						</div>
-                        <div class="form-group">
-							<h5>Zestaw</h5>
-							{{ form_class.zestaw }}
-						</div>
-                       
-					</div>
-                            
-					
-				
-            	
+                    {% if gadget.status == 'NAPRAWIENIE' %}
+                        <span class="badge badge-default font-size-16">NAPRAWIENIE</span>
+                    {% elif gadget.status == 'GOTOWY' %} <span class="badge badge-primary font-size-16">GOTOWY</span>
+                    {% elif gadget.status == 'CZEKA NA CZĘŚCI' %}
+                        <span class="badge badge-dark font-size-16">CZEKA NA CZĘŚCI</span>
+                    {% elif gadget.status == 'REZYGNACJA' %}
+                        <span class="badge badge-purple font-size-16"> REZYGNACJA</span>
+                    {% elif gadget.status == 'NOWY' %} <span class="badge badge-info font-size-16"> NOWY</span>
+                    {% endif %}
+
+                    {% if gadget.type_service == 'PŁATNE' %}
+                        <span class="badge badge-info font-size-16">PŁATNE</span>
+                    {% elif gadget.type_service == 'GWARANCJA' %}
+                        <span class="badge badge-warning font-size-16">GWARANCJA</span>
+                    {% elif gadget.type_service == 'REKLAMACJA' %}
+                        <span class="badge badge-danger font-size-16">REKLAMACJA</span>
+                    {% endif %}
+
+
+                </h3>
+
+
+                </h3>
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-close" href="#"></a></li>
+                    <li><a class="box-btn-slide" href="#"></a></li>
+                    <li><a class="box-btn-fullscreen" href="#"></a></li>
+                </ul>
             </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
-        </div>
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-            
-            <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Zahowuj</button>
-           </form>
-            <a href="{% url 'gadgets' %}"><button class="btn btn-danger right-float"><i class="fa fa-close"></i> Anuluj</button></a>
-        </div>
-            
-        <!-- /.box-footer-->
-      </div>
-      <!-- /.box -->
+            <div class="box-body">
+                <!-- CONTENT_MAIN -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col">
+                            <form action="{{ edit_gadget.get_absolute_url }}" method="post">
+                                {% csrf_token %}
+
+                                <div class="row">
+
+                                    <div class="col-lg-6 col-12">
+
+                                        <div class="form-group">
+                                            <h5>Imie Nazwisko<span class="text-danger">*</span></h5>
+                                            {{ form_class.master_gadget }}
+
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Telefon<span class="text-danger">*</span></h5>
+                                            {{ form_class.telefon_master_gadget }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <h5>Hasło/Login</h5>
+                                            {{ form_class.password_gadget }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Opis Usterki</h5>
+                                            {{ form_class.opis_problem }}
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <h5>Rodzaj Naprawy<span class="text-danger">*</span></h5>
+                                            {{ form_class.type_service }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <h5>Rodzaj Urządzenia<span class="text-danger">*</span></h5>
+                                            {{ form_class.type_gadget }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Brand<span class="text-danger">*</span></h5>
+                                            {{ form_class.brand_gadget }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Model<span class="text-danger">*</span></h5>
+                                            {{ form_class.model_gadget }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>SERIAL/SSID/SERWIS TAG</h5>
+                                            {{ form_class.serial_gadget }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Zestaw</h5>
+                                            {{ form_class.zestaw }}
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+
+                    <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Zahowuj</button>
+                    </form>
+                    <a href="{% url 'gadgets' %}">
+                        <button class="btn btn-danger right-float"><i class="fa fa-close"></i> Anuluj</button>
+                    </a>
+                </div>
+
+                <!-- /.box-footer-->
+            </div>
+            <!-- /.box -->
 
     </section>
     <!-- /.content -->

@@ -32,12 +32,12 @@ class Gadget(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
 
-    location = models.CharField(max_length=32, default='STOKŁOSY')
+    location = models.CharField(max_length=32, default='STOKŁOSY', db_index=True)
     paid = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    in_serwis = models.BooleanField(default=True)
+    in_serwis = models.BooleanField(default=True, db_index=True)
     time_in_serwis = models.DurationField(null=True, blank=True)
     opis_naprawy = models.TextField(null=True, blank=True)
-    type_service = models.TextField(default='PŁATNE')
+    type_service = models.CharField(max_length=32, default='PŁATNE')
 
 
     def get_absolute_url(self):
