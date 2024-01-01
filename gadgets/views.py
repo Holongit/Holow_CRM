@@ -134,3 +134,9 @@ def gadget_status_change(request, pk, status):
     gadget.status = status
     gadget.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+def service_status_change(request, pk, status):
+    gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
+    gadget.type_service = status
+    gadget.save()
+    return redirect(request.META.get('HTTP_REFERER'))

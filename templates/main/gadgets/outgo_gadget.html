@@ -15,8 +15,28 @@
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title">Kartka Urządzenia {{ gadget.id }} {% if gadget.in_serwis == True %}
-                <span class="badge badge-primary font-size-16" >W serwise</span> {% elif gadget.in_serwis == False %}
-                <span class="badge badge-warning font-size-16">Wydane</span> {% endif %}</h3>
+                <span class="badge badge-primary font-size-16">W serwise</span> {% elif gadget.in_serwis == False %}
+                <span class="badge badge-warning font-size-16">Wydane</span> {% endif %}
+
+                {% if gadget.status == 'NAPRAWIENIE' %}
+                    <span class="badge badge-default font-size-16">NAPRAWIENIE</span>
+                {% elif gadget.status == 'GOTOWY' %} <span class="badge badge-primary font-size-16">GOTOWY</span>
+                {% elif gadget.status == 'CZEKA NA CZĘŚCI' %}
+                    <span class="badge badge-dark font-size-16">CZEKA NA CZĘŚCI</span>
+                {% elif gadget.status == 'REZYGNACJA' %}
+                    <span class="badge badge-purple font-size-16"> REZYGNACJA</span>
+                {% elif gadget.status == 'NOWY' %} <span class="badge badge-info font-size-16"> NOWY</span>
+                {% endif %}
+          
+                 {% if gadget.type_service == 'PŁATNE' %}
+                    <span class="badge badge-info font-size-16">PŁATNE</span>
+                {% elif gadget.type_service == 'GWARANCJA' %} <span class="badge badge-warning font-size-16">GWARANCJA</span>
+                {% elif gadget.type_service == 'REKLAMACJA' %}
+                    <span class="badge badge-danger font-size-16">REKLAMACJA</span>
+                {% endif %}
+          
+
+            </h3>
             <ul class="box-controls pull-right">
                 <li><a class="box-btn-close" href="#"></a></li>
                 <li><a class="box-btn-slide" href="#"></a></li>
@@ -46,11 +66,11 @@
 
                                     </div>
                                     <div class="form-group">
-                                    <h5>Zestaw<span class="text-danger">: {{ gadget.zestaw }}</span></h5>
-                                </div>
+                                        <h5>Zestaw<span class="text-danger">: {{ gadget.zestaw }}</span></h5>
+                                    </div>
 
                                 </div>
-                                
+
 
                             </div>
 
@@ -88,14 +108,15 @@
         </div>
 
         <div class="box-footer">
-            
+
             {% if gadget.in_serwis == True %}
                 <button type="submit" class="btn btn-primary float-left"><i class="fa fa-reply"></i> Wydaj</button>
             {% elif gadget.in_serwis == False %}
-                <button type="submit" class="btn btn-info float-left"><i class="fa fa-mail-forward"></i> Przyjmij</button>
+                <button type="submit" class="btn btn-info float-left"><i class="fa fa-mail-forward"></i> Przyjmij
+                </button>
             {% endif %}
 
-            
+
             </form>
             <button type="" class="btn btn-warning float-left ml-20"><i class="fa fa-print"></i> Drukuj</button>
             <a href="{% url 'gadgets' %}">

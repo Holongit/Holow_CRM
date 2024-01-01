@@ -37,6 +37,7 @@ class Gadget(models.Model):
     in_serwis = models.BooleanField(default=True)
     time_in_serwis = models.DurationField(null=True, blank=True)
     opis_naprawy = models.TextField(null=True, blank=True)
+    type_service = models.TextField(default='PŁATNE')
 
 
     def get_absolute_url(self):

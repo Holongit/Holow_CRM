@@ -4,7 +4,6 @@ from django.core.validators import RegexValidator
 from gadgets.models import *
 
 
-
 class KlientForm(forms.ModelForm):
     class Meta:
         model = Klient
@@ -27,14 +26,22 @@ class KlientForm(forms.ModelForm):
         )
         return new_klient
 
+
 class GadgetForm(forms.Form):
-    CHOICES = (('Laptop', 'Laptop'),
-               ('Telefone', 'Telefone'),
-               ('Tablet', 'Tablet'),
-               ('Komputer Stacjonarny', 'Komputer Stacjonarny'),
-               ('Monitop', 'Monitor'),
-               ('inne urządzenie', 'Inne Urządzenie'),
-               )
+    CHOICES = (
+        ('Laptop', 'Laptop'),
+        ('Telefone', 'Telefone'),
+        ('Tablet', 'Tablet'),
+        ('Komputer Stacjonarny', 'Komputer Stacjonarny'),
+        ('Monitop', 'Monitor'),
+        ('inne urządzenie', 'Inne Urządzenie'),
+    )
+    CHOICES2 = (
+        ('PŁATNE', 'PŁATNE'),
+        ('GWARANCJA', 'GWARANCJA'),
+        ('REKLAMACJA', 'REKLAMACJA')
+    )
+
     master_gadget = forms.CharField(max_length=64)
     telefon_master_gadget = forms.RegexField(max_length=32, min_length=9, regex=r'^[0-9]*$')
     serial_gadget = forms.CharField(max_length=32, required=False)
@@ -44,6 +51,7 @@ class GadgetForm(forms.Form):
     opis_problem = forms.CharField(widget=forms.Textarea(attrs={'class': "form-control"}), required=False)
     zestaw = forms.CharField(max_length=64, required=False)
     type_gadget = forms.ChoiceField(choices=CHOICES)
+    type_service = forms.ChoiceField(choices=CHOICES2)
 
     master_gadget.widget.attrs.update({'class': 'form-control'})
     telefon_master_gadget.widget.attrs.update({'class': 'form-control'})
@@ -53,8 +61,7 @@ class GadgetForm(forms.Form):
     password_gadget.widget.attrs.update({'class': 'form-control'})
     zestaw.widget.attrs.update({'class': 'form-control'})
     type_gadget.widget.attrs.update({'class': 'form-control'})
-
-
+    type_service.widget.attrs.update({'class': 'form-control'})
 
     def save(self):
         new_gadget = Gadget.objects.create(
@@ -67,10 +74,6 @@ class GadgetForm(forms.Form):
             opis_problem=self.cleaned_data['opis_problem'],
             zestaw=self.cleaned_data['zestaw'],
             type_gadget=self.cleaned_data['type_gadget'],
+            type_service=self.cleaned_data['type_service'],
         )
         return new_gadget
-
-
-
-
-

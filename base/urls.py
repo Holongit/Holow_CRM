@@ -31,5 +31,6 @@ urlpatterns = [
     path('gadgets/edit_gadget/<int:pk>/', EditGadget.as_view(), name='edit_gadget'),
     path('gadgets/delete_gadget/<int:pk>/', delete_gadget, name='delete_gadget'),
     path('gadgets/gadget_status_change/<int:pk><str:status>/', gadget_status_change, name='gadget_status_change'),
+    path('gadgets/service_status_change/<int:pk><str:status>/', service_status_change, name='service_status_change'),
     path('gadgets/outgo_gadget/<int:pk>/', OutgoGadget.as_view(), name='outgo_gadget'),
 ]

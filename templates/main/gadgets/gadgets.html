@@ -12,7 +12,7 @@
     <section class="content">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Urządzenia</h3>
+                <h3 class="box-title">Lista Urządzeń</h3>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-close" href="#"></a></li>
                     <li><a class="box-btn-slide" href="#"></a></li>
@@ -103,14 +103,15 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th class="text-center font-weight-bold">id</th>
-                                <th class="text-center font-weight-bold">Type</th>
+                                <th class="text-center font-weight-bold">№</th>
+                                <th class="text-center font-weight-bold">Urządzenie</th>
                                 <th class="text-center font-weight-bold">Brand</th>
                                 <th class="text-center font-weight-bold">Model</th>
-                                <th class="text-center font-weight-bold">Master</th>
+                                <th class="text-center font-weight-bold">Właściciel</th>
                                 <th class="text-center font-weight-bold">Telefon</th>
-                                <th class="text-center font-weight-bold">Date</th>
-                                <th class="text-center font-weight-bold">Status</th>
+                                <th class="text-center font-weight-bold">Data</th>
+                                <th class="text-center font-weight-bold">Stan</th>
+                                <th class="text-center font-weight-bold">Rodzaj Naprawy</th>
                             </tr>
                             </thead>
 
@@ -140,8 +141,8 @@
 
                                                         {% if gadgets_data.status == 'NAPRAWIENIE' %} btn-secondary
                                                         {% elif gadgets_data.status == 'GOTOWY' %} btn-primary
-                                                        {% elif gadgets_data.status == 'CZEKA NA CZĘŚCI' %} btn-warning
-                                                        {% elif gadgets_data.status == 'REZYGNACJA' %} btn-danger
+                                                        {% elif gadgets_data.status == 'CZEKA NA CZĘŚCI' %} btn-dark
+                                                        {% elif gadgets_data.status == 'REZYGNACJA' %} btn-purple
                                                         {% elif gadgets_data.status == 'NOWY' %} btn-info
                                                         {% endif %} dropdown-toggle btn-xs"
 
@@ -161,6 +162,40 @@
                                                    href="{% url 'gadget_status_change' pk=gadgets_data.id status='NOWY' %}">NOWY</a>
                                             </div>
                                         </div>
+                                    </td>
+                                    <td class="b-3 border-white">
+
+
+                                        <div class="btn-group">
+                                            <button type="button" class="btn
+
+                                                        {% if gadgets_data.type_service == 'PŁATNE' %} btn-info
+                                                        {% elif gadgets_data.type_service == 'GWARANCJA' %} btn-warning
+                                                        {% elif gadgets_data.type_service == 'REKLAMACJA' %} btn-danger
+                                                  
+                                                        {% endif %} dropdown-toggle btn-xs"
+
+                                                    data-toggle="dropdown">{{ gadgets_data.type_service }}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item"
+                                                   href="{% url 'service_status_change' pk=gadgets_data.id status='PŁATNE' %}">PŁATNE</a>
+                                                <a class="dropdown-item"
+                                                   href="{% url 'service_status_change' pk=gadgets_data.id status='GWARANCJA' %}">GWARANCJA</a>
+                                                <a class="dropdown-item"
+                                                   href="{% url 'service_status_change' pk=gadgets_data.id status='REKLAMACJA' %}">REKLAMACJA</a>
+                                            </div>
+                                        </div>
+
+
+
+                                        {% if gadgets_data.type_service == 'Płatne' %}
+                                            <span class="btn btn-info btn-xs">PŁATNE</span>
+                                        {% elif gadgets_data.type_service == 'Gwarancja' %}
+                                            <span class="btn btn-warning btn-xs">GWARANCJA</span>
+                                        {% elif gadgets_data.type_service == 'Reklamacja' %}
+                                            <span class="btn btn-danger btn-xs">REKLAMACJA</span>
+                                        {% endif %}
                                     </td>
                                     <td class="b-3 border-white">
 
@@ -196,14 +231,15 @@
 
                             <tfoot>
                             <tr>
-                                <th class="text-center font-weight-bold">id</th>
-                                <th class="text-center font-weight-bold">Type</th>
+                                <th class="text-center font-weight-bold">№</th>
+                                <th class="text-center font-weight-bold">Urządzenie</th>
                                 <th class="text-center font-weight-bold">Brand</th>
                                 <th class="text-center font-weight-bold">Model</th>
-                                <th class="text-center font-weight-bold">Master</th>
+                                <th class="text-center font-weight-bold">Właściciel</th>
                                 <th class="text-center font-weight-bold">Telefon</th>
-                                <th class="text-center font-weight-bold">Date</th>
-                                <th class="text-center font-weight-bold">Status</th>
+                                <th class="text-center font-weight-bold">Data</th>
+                                <th class="text-center font-weight-bold">Stan</th>
+                                <th class="text-center font-weight-bold">Rodzaj Naprawy</th>
                             </tr>
                             </tfoot>
                         </table>
