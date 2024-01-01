@@ -1,117 +1,63 @@
 {% extends 'index.html' %}
 {% block content %}
     <section class="content-header">
-      <h1>
-        Strona główna
-      </h1>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i></a></li>
-        <li class="breadcrumb-item active">Strona główna</li>
-      </ol>
+        <h1>
+            Strona główna
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i></a></li>
+            <li class="breadcrumb-item active">Strona główna</li>
+        </ol>
     </section>
-<section class="content">
-	  <div class="row">
-        <div class="col-xl-3 col-md-6 col-12">
-          	<div class="box box-body">
-              <h6 class="text-uppercase">Urządzeń w Serwisie</h6>
-              <div class="flexbox mt-2">
-                <span class="fa fa-warning text-danger font-size-40"></span>
-                <span class=" font-size-30">{{ qnt_gadgets }}</span>
-              </div>
-            </div>
-        </div>
-        <!-- /.col -->
-        <div class="col-xl-3 col-md-6 col-12">
-          	<div class="box box-body">
-              <h6 class="text-uppercase">Gotowe Urządzenia</h6>
-              <div class="flexbox mt-2">
-                <span class="fa fa-picture-o text-info font-size-40"></span>
-                <span class=" font-size-30">0</span>
-              </div>
-            </div>
-        </div>
-        <!-- /.col -->
-
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-
-        <div class="col-xl-3 col-md-6 col-12">
-          	<div class="box box-body">
-              <h6 class="text-uppercase">Urządzeń u Techników</h6>
-              <div class="flexbox mt-2">
-                <span class="fa fa-user-plus font-size-40 text-primary"></span>
-                <span class=" font-size-30">0</span>
-              </div>
-            </div>
-        </div>
-        <!-- /.col -->
-        <div class="col-xl-3 col-md-6 col-12">
-          	<div class="box box-body">
-              <h6 class="text-uppercase">Czeka na Części</h6>
-              <div class="flexbox mt-2">
-                <span class="fa fa-building font-size-40 text-success"></span>
-                <span class=" font-size-30">0</span>
-              </div>
-            </div>
-        </div>
-        <!-- /.col -->
-      </div>
-
-      <div class="row">
-
-		  <div class="col-12 col-lg-6 col-xl-4">
-            <div class="box">
-              <div class="box-header with-border">
-                <h4 class="box-title">Statystyki Urządzeń</h4>
-				<div class="box-tools pull-right">
-					<ul class="card-controls">
-					  <li class="dropdown">
-						<a data-toggle="dropdown" href="#"><i class="ion-android-more-vertical"></i></a>
-						<div class="dropdown-menu dropdown-menu-right">
-						  <a class="dropdown-item active" href="#">Today</a>
-						  <a class="dropdown-item" href="#">Yesterday</a>
-						  <a class="dropdown-item" href="#">Last week</a>
-						  <a class="dropdown-item" href="#">Last month</a>
-						</div>
-					  </li>
-					  <li><a href="#" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="Refresh"><i class="fa fa-circle-thin"></i></a></li>
-					</ul>
-				</div>
-              </div>
-
-              <div class="box-body">
-                <div class="text-center py-20">
-					<div class="donut" data-peity='{ "fill": ["#7460ee", "#26c6da", "#fc4b6c", "#fc7d6c"], "radius": 130, "innerRadius": 60  }' >1,2,3, 4</div>
+    <section class="content">
+        <div class="row">
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="box box-body">
+                    <h6 class="text-uppercase">Urządzeń w Serwisie</h6>
+                    <div class="flexbox mt-2">
+                        <span class="fa fa-laptop text-info font-size-40"></span>
+                        <span class=" font-size-30">{{ qnt_gadgets }}</span>
+                    </div>
                 </div>
-
-                <ul class="flexbox flex-justified text-center mt-70">
-                  <li class="br-1">
-                    <div class="font-size-20 text-primary">{{ qnt_gadgets }}</div>
-                    <small class="font-size-12 text-fade">URZĄDZEŃ W SERWISIE</small>
-                  </li>
-
-                  <li class="br-1">
-                    <div class="font-size-20 text-success">2</div>
-                    <small class="font-size-12 text-fade">GOTOWE</small>
-                  </li>
-
-                  <li class="br-1">
-                    <div class="font-size-20 text-success">3</div>
-                    <small class="font-size-12 text-fade">CZEKA NA CZĘŚCI</small>
-                  </li>
-
-                  <li class="br-1">
-                    <div class="font-size-20 text-danger">4</div>
-                    <small class="font-size-12 text-fade">URZĄDZEŃ U TECHNIKÓW</small>
-                  </li>
-                </ul>
-              </div>
             </div>
-          </div>
+            <!-- /.col -->
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="box box-body">
+                    <h6 class="text-uppercase">Gotowe Urządzenia</h6>
+                    <div class="flexbox mt-2">
+                        <span class="fa fa-thumbs-o-up text-primary font-size-40"></span>
+                        <span class=" font-size-30">{{ gadgets_ok }}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col -->
 
-		  
+            <!-- fix for small devices only -->
+            <div class="clearfix visible-sm-block"></div>
 
-      </div>
-      <!-- /.row -->
-	</section>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="box box-body">
+                    <h6 class="text-uppercase">Urządzeń u Techników</h6>
+                    <div class="flexbox mt-2">
+                        <span class="fa fa-user-plus font-size-40 text-purple"></span>
+                        <span class=" font-size-30">{{ gadgets_serwis }}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="box box-body">
+                    <h6 class="text-uppercase">Czeka na Części</h6>
+                    <div class="flexbox mt-2">
+                        <span class="fa  fa-hourglass-start font-size-40 text-dark"></span>
+                        <span class=" font-size-30">{{ gadgets_czeka }}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+
+
+        <!-- /.row -->
+    </section>
 {% endblock content %}

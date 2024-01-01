@@ -1,5 +1,6 @@
 from django import forms
 from django.core.validators import RegexValidator
+from django.forms import RadioSelect
 
 from gadgets.models import *
 
@@ -77,3 +78,19 @@ class GadgetForm(forms.Form):
             type_service=self.cleaned_data['type_service'],
         )
         return new_gadget
+
+
+# class FilterForm(forms.Form):
+#
+#
+#     CHOICE_FILTER_GADGET = [
+#         ('Wszyscy', 'Wszyscy'),
+#         ('W serwisie', 'W serwisie'),
+#     ]
+#
+#     form_filter_gadget = forms.ChoiceField(choices=CHOICE_FILTER_GADGET)
+#     form_filter_gadget.widget.attrs.update({'class': 'form-control'})
+#
+
+
+

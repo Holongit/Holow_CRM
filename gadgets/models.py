@@ -49,3 +49,11 @@ class Gadget(models.Model):
 
     def __str__(self):
         return self.model_gadget
+
+class SetingsCRM(models.Model):
+    filter_gadget = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
+    filter_klient = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
+    filter_dashboar = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
+    filter_work = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
+    def __str__(self):
+        return self.filter_gadget

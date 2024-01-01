@@ -13,41 +13,59 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Lista Urządzeń</h3>
+
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-close" href="#"></a></li>
                     <li><a class="box-btn-slide" href="#"></a></li>
                     <li><a class="box-btn-fullscreen" href="#"></a></li>
                 </ul>
+
             </div>
+
             <div class="box-body">
-                <!-- CONTENT_MAIN -->
 
-                <!-- Modal -->
-                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-                     aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            </div>
-                            <div class="modal-body">
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger waves-effect text-left"
-                                        data-dismiss="modal">Close
-                                </button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
+                <form class="navbar-form navbar-left float-left">
+                    <div class="input-group">
+                        <input class="form-control" type="search" name="q" placeholder="Szukaj">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">Szukaj</button>
+                        </span>
                     </div>
-                    <!-- /.modal-dialog -->
-                </div>
+                </form>
+                <!-- CONTENT_MAIN -->
+                <form class="float-left ml-20 mt-20">
 
 
-                <!-- /.modal -->
+                    <div class="btn-group">
+                        <button type="button" class="btn
+
+                                                        {% if filters.filter_gadget == 'WSZYSCY' %} btn-primary
+                                                        {% elif filters.filter_gadget == 'W SERWISIE' %} btn-secondary
+                                                        
+                                                  
+                                                        {% endif %} dropdown-toggle btn-sm"
+
+                                data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_gadget }}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               href="{% url 'filters_gadget_change' status='WSZYSCY' %}">WSZYSCY</a>
+                            <a class="dropdown-item"
+                               href="{% url 'filters_gadget_change' status='W SERWISIE' %}">W SERWISIE</a>
+                        </div>
+                    </div>
+
+
+
+                    {% if gadgets_data.type_service == 'Płatne' %}
+                        <span class="btn btn-info btn-xs">PŁATNE</span>
+                    {% elif gadgets_data.type_service == 'Gwarancja' %}
+                        <span class="btn btn-warning btn-xs">GWARANCJA</span>
+                    {% elif gadgets_data.type_service == 'Reklamacja' %}
+                        <span class="btn btn-danger btn-xs">REKLAMACJA</span>
+                    {% endif %}
+
+                </form>
 
                 {% if is_paginated %}
                     <form class="navbar-form navbar-right">
@@ -68,7 +86,7 @@
                                             <a class="page-link" href="?page={{ n }}">{{ n }}</a>
                                         </li>
 
-                                    {% elif n > gadgets.number|add:-10 and n < gadgets.number|add:10 %}
+                                    {% elif n > gadgets.number|add:-4 and n < gadgets.number|add:4 %}
 
                                         <li class="page-item">
                                             <a class="page-link" href="?page={{ n }}">{{ n }}</a>
@@ -88,14 +106,7 @@
                     </form>
                 {% endif %}
 
-                <form class="navbar-form navbar-left">
-                    <div class="input-group">
-                        <input class="form-control" type="search" name="q" placeholder="Szukaj">
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default">Szukaj</button>
-                        </span>
-                    </div>
-                </form>
+
 
                 <!-- table -->
                 <div class="box-body">
@@ -122,17 +133,23 @@
                                     <td class="b-3 border-white" class="text-center "><a
                                             href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.id }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.type_gadget }}</a>
+                                    <td class="b-3 border-white"><a
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.type_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.brand_gadget }}</a>
+                                    <td class="b-3 border-white"><a
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.brand_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data }}</a>
+                                    <td class="b-3 border-white"><a
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.master_gadget }}</a>
+                                    <td class="b-3 border-white"><a
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.master_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.telefon_master_gadget }}</a>
+                                    <td class="b-3 border-white"><a
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.telefon_master_gadget }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.created_at }}</a>
+                                    <td class="b-3 border-white"><a
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.created_at }}</a>
                                     </td>
                                     <td class="b-3 border-white">
                                         <div class="btn-group">
@@ -207,6 +224,10 @@
                                             <a href="{{ gadgets_data.get_absolute_url }}">
                                                 <button class="btn btn-info btn-xs">Edit</button>
                                             </a>
+                                            <a href="#">
+                                                <button type="" class="btn btn-warning btn-xs"> Drukuj
+                                                </button>
+                                            </a>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-danger
                             
@@ -219,8 +240,11 @@
                                                     <a class="text-center" class="dropdown-item"
                                                        href="{% url 'delete_gadget' pk=gadgets_data.pk %}"><h2>
                                                         DELETE</h2></a>
+
                                                 </div>
                                             </div>
+
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>
