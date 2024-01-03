@@ -17,3 +17,4 @@ def index_dash(request):
     }
 
     return render(request, 'dashboard.html', context=context)
+

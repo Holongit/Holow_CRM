@@ -80,17 +80,6 @@ class GadgetForm(forms.Form):
         return new_gadget
 
 
-# class FilterForm(forms.Form):
-#
-#
-#     CHOICE_FILTER_GADGET = [
-#         ('Wszyscy', 'Wszyscy'),
-#         ('W serwisie', 'W serwisie'),
-#     ]
-#
-#     form_filter_gadget = forms.ChoiceField(choices=CHOICE_FILTER_GADGET)
-#     form_filter_gadget.widget.attrs.update({'class': 'form-control'})
-#
 
 
 

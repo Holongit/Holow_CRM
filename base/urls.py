@@ -35,3 +35,4 @@ urlpatterns = [
     path('gadgets/outgo_gadget/<int:pk>/', OutgoGadget.as_view(), name='outgo_gadget'),
     path('gadgets/filters/<str:status>/', filters_gadget_change, name='filters_gadget_change'),
 ]
+
