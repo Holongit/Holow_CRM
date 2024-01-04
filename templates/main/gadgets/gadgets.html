@@ -189,7 +189,7 @@
                                                         {% elif gadgets_data.type_service == 'GWARANCJA' %} btn-warning
                                                         {% elif gadgets_data.type_service == 'REKLAMACJA' %} btn-danger
                                                   
-                                                        {% endif %} dropdown-toggle btn-xs"
+                                                        {% endif %} btn-xs dropdown-toggle"
 
                                                     data-toggle="dropdown">{{ gadgets_data.type_service }}
                                             </button>
@@ -202,17 +202,6 @@
                                                    href="{% url 'service_status_change' pk=gadgets_data.id status='REKLAMACJA' %}">REKLAMACJA</a>
                                             </div>
                                         </div>
-                                        
-
-
-
-                                        {% if gadgets_data.type_service == 'Płatne' %}
-                                            <span class="btn btn-info btn-xs">PŁATNE</span>
-                                        {% elif gadgets_data.type_service == 'Gwarancja' %}
-                                            <span class="btn btn-warning btn-xs">GWARANCJA</span>
-                                        {% elif gadgets_data.type_service == 'Reklamacja' %}
-                                            <span class="btn btn-danger btn-xs">REKLAMACJA</span>
-                                        {% endif %}
                                     </td>
                                     <td class="b-3 border-white">
 
