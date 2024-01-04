@@ -189,7 +189,7 @@
                                                         {% elif gadgets_data.type_service == 'GWARANCJA' %} btn-warning
                                                         {% elif gadgets_data.type_service == 'REKLAMACJA' %} btn-danger
                                                   
-                                                        {% endif %} dropdown-toggle btn-xs"
+                                                        {% endif %} dropdown-toggle"
 
                                                     data-toggle="dropdown">{{ gadgets_data.type_service }}
                                             </button>
@@ -201,6 +201,21 @@
                                                 <a class="dropdown-item"
                                                    href="{% url 'service_status_change' pk=gadgets_data.id status='REKLAMACJA' %}">REKLAMACJA</a>
                                             </div>
+                                        </div>
+                                        <div class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" type="button"
+                                                    id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="true">
+                                                Выполнить
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <li><a href="#">Действие 1</a></li>
+                                                <li><a href="#">Действие 2</a></li>
+                                                <li><a href="#">Действие 3</a></li>
+                                                <li role="separator" class="divider"></li>
+                                                <li><a href="#">Действие 4</a></li>
+                                            </ul>
                                         </div>
 
 
