@@ -10,9 +10,20 @@
 
     <title>Holow-CRM</title>
 
+    <!-- jQuery 3 -->
+    <script src="/static/assets/vendor_components/jquery/dist/jquery.js"></script>
+
+    <!-- jQuery UI 1.11.4 -->
+    <script src="/static/assets/vendor_components/jquery-ui/jquery-ui.js"></script>
+
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+
     <!-- Bootstrap 4.0-->
     <link rel="stylesheet" href="/static/assets/vendor_components/bootstrap/dist/css/bootstrap.css">
-	
+
     <!-- Bootstrap extend-->
     <link rel="stylesheet" href="/static/css/bootstrap-extend.css">
 
@@ -342,17 +353,6 @@
 </div>
 <!-- ./wrapper -->
 
-
-<!-- jQuery 3 -->
-<script src="/static/assets/vendor_components/jquery/dist/jquery.js"></script>
-
-<!-- jQuery UI 1.11.4 -->
-<script src="/static/assets/vendor_components/jquery-ui/jquery-ui.js"></script>
-
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-    $.widget.bridge('uibutton', $.ui.button);
-</script>
 
 <!-- popper -->
 <script src="/static/assets/vendor_components/popper/dist/popper.min.js"></script>
