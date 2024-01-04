@@ -57,3 +57,4 @@ class SetingsCRM(models.Model):
     filter_work = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
     def __str__(self):
         return self.filter_gadget
+

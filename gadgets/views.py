@@ -156,3 +156,5 @@ def filters_gadget_change(request, status):
     setings_f.filter_gadget = status
     setings_f.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
