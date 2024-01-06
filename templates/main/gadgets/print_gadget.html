@@ -1,0 +1,174 @@
+{% extends 'index.html' %}
+{% block content %}
+    <style>
+        @media print {
+            section {
+                visibility: hidden;
+            }
+
+            .print {
+                visibility: visible;
+            }
+        }
+    </style>
+    <section class="content-header">
+        <h1>
+            Druk kartki naprawy {{ gadget.id }}
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
+            <li class="breadcrumb-item active">Druk kartki naprawy</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box">
+            <div class="box-header with-border print">
+                <h3 class="float-left">TPL Serwis <br>
+                    al.KEN 83 lok.U-5 <br>
+                    02-777 Warszawa <br>
+                    533-601-601, 533-602-602
+                </h3>
+                <img class="float-right mt-20" src="/static/images/TPL_LOGO.png" alt="TPL_LOGO">
+            </div>
+            <div class="print box-body">
+                <h3 class="print font-weight-bold text-center">Zgłoszenie do naprawy/przeglądu {{ gadget.id }}
+                    <br>
+                    <br>
+                    <br>
+                </h3>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-lg-6 col-12">
+                                <div class="form-group">
+                                    <h5>Zglaszający<span
+                                            class="text-danger">: {{ gadget.master_gadget }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Telefon<span
+                                            class="text-danger">: {{ gadget.telefon_master_gadget }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Zestaw<span class="text-danger">: {{ gadget.zestaw }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Rodzaj Urządzenia<span
+                                            class="text-danger">: {{ gadget.type_gadget }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Brand<span class="text-danger">: {{ gadget.brand_gadget }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Model<span class="text-danger">: {{ gadget }}</span></h5>
+                                    {{ form_gad.model_gadget }}
+                                </div>
+                                <div class="form-group">
+                                    <h5>SERIAL/SSID/SERWIS TAG<span
+                                            class="text-danger">: {{ gadget.serial_gadget }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Opis<span
+                                            class="text-danger">: {{ gadget.opis_problem }}</span></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               <h6 class="ml-90 float-left text-center" >
+                   <br>
+                   <br>
+                   <p6 class="font-weight-bold">Podtverdzenie odbioru sprzętu z serwisu</p6>
+                   <br>
+                   <br>
+                   <br>
+                   <br>
+                   ....................................................................................................
+               </h6>
+                <h6 class="float-right text-center">
+                    <br>
+                    <br>
+                    <p6 class="font-weight-bold">Zleceniobiorca TPL Serwis</p6>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    ....................................................................................................
+                </h6>
+            </div>
+            <div class="box-footer">
+                <button onclick="javascript:window.print()" class="btn btn-warning float-left"><i
+                        class="fa fa-print"></i> Drukuj
+                </button>
+                <a href="{% url 'gadgets' %}">
+                    <button class="btn btn-danger float-right"><i class="fa fa-close"></i> Zamknąć</button>
+                </a>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header with-border print text-center">
+                
+            </div>
+            <div class="print box-body">
+                <h3 class="font-weight-bold text-center">Zgłoszenie do naprawy/przeglądu {{ gadget.id }}
+                    <br>
+                    <br>
+                    <br>
+                </h3>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-lg-6 col-12">
+                                <div class="form-group">
+                                    <h5>Zglaszający<span
+                                            class="text-danger">: {{ gadget.master_gadget }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Telefon<span
+                                            class="text-danger">: {{ gadget.telefon_master_gadget }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Zestaw<span class="text-danger">: {{ gadget.zestaw }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Rodzaj Urządzenia<span
+                                            class="text-danger">: {{ gadget.type_gadget }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Brand<span class="text-danger">: {{ gadget.brand_gadget }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Model<span class="text-danger">: {{ gadget }}</span></h5>
+                                    {{ form_gad.model_gadget }}
+                                </div>
+                                <div class="form-group">
+                                    <h5>SERIAL/SSID/SERWIS TAG<span
+                                            class="text-danger">: {{ gadget.serial_gadget }}</span></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Opis<span
+                                            class="text-danger">: {{ gadget.opis_problem }}</span></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </h6>
+                <h6 class="float-right text-center">
+                    <br>
+                    <br>
+                    <p6 class="font-weight-bold">Oświadczam że zapoznałem sie z regulaminem i zgadzam sie z nim <br>
+                    bezwarunkowo oraz upoważniam okaziciela oryginału zgłoszenia do odbioru <br>
+                    sprzentu w moim imieniu
+                    </p6>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    ....................................................................................................
+                </h6>
+            </div>
+            
+        </div>
+
+    </section>
+{% endblock %}

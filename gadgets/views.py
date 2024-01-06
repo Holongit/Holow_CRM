@@ -157,4 +157,7 @@ def filters_gadget_change(request, status):
     setings_f.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
+def print_gadget(request, pk):
+    gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
+    return render(request, 'gadgets/print_gadget.html', context={'gadget': gadget})
 

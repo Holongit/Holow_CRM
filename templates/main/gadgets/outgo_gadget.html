@@ -1,5 +1,6 @@
 {% extends 'index.html' %}
 {% block content %}
+    
     <section class="content-header">
         <h1>
             Urządzenie {{ gadget.id }}
@@ -14,9 +15,12 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Kartka Urządzenia {{ gadget.id }} {% if gadget.in_serwis == True %}
-                    <span class="badge badge-primary font-size-16">W serwise</span> {% elif gadget.in_serwis == False %}
-                    <span class="badge badge-secondary font-size-16">Wydane</span> {% endif %}
+                <h3 class="box-title float-left mt-10">Kartka Urządzenia {{ gadget.id }} </h3>
+                <h3 class="float-left ml-20">
+
+                    {% if gadget.in_serwis == True %}
+                        <span class="badge badge-primary font-size-16">W serwise</span> {% elif gadget.in_serwis == False %}
+                        <span class="badge badge-secondary font-size-16">Wydane</span> {% endif %}
 
                     {% if gadget.status == 'NAPRAWIENIE' %}
                         <span class="badge badge-default font-size-16">NAPRAWIENIE</span>
@@ -40,13 +44,13 @@
                 </h3>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-close" href="#"></a></li>
-                    <li><a class="box-btn-slide" href="#"></a></li>
+                    <li><a class="box-btn-slide rotate-180" href="#"></a></li>
                     <li><a class="box-btn-fullscreen" href="#"></a></li>
                 </ul>
             </div>
             <div class="box-body">
                 <!-- CONTENT_MAIN -->
-                <div class="box-body">
+                
                     <div class="row">
                         <div class="col">
                             <form action="{% url 'outgo_gadget' pk=gadget.id %}" method="post">
@@ -69,9 +73,28 @@
                                         <div class="form-group">
                                             <h5>Zestaw<span class="text-danger">: {{ gadget.zestaw }}</span></h5>
                                         </div>
+                                        <div class="form-group">
+                                            <h5>Rodzaj Urządzenia<span
+                                                    class="text-danger">: {{ gadget.type_gadget }}</span></h5>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Brand<span class="text-danger">: {{ gadget.brand_gadget }}</span></h5>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Model<span class="text-danger">: {{ gadget }}</span></h5>
+                                            {{ form_gad.model_gadget }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>SERIAL/SSID/SERWIS TAG<span
+                                                    class="text-danger">: {{ gadget.serial_gadget }}</span></h5>
+
+
+                                        </div>
+
 
                                     </div>
-
 
                                 </div>
 
@@ -80,52 +103,83 @@
 
 
                         <div class="col-lg-6 col-12">
+                            <!-- CONTENT_NOTE -->
+                            <div class="timeline timeline-single-column timeline-single-full-column">
+                                <div class="timeline-item timeline-item-left">
+                                    <div class="timeline-point timeline-point-blank"></div>
+                                    <div class="timeline-event timeline-event-default">
+                                        <div class="timeline-heading">
+                                            <h7 class="timeline-title float-left">Andrej Diagnostyka</h7>
+                                            <h7 class="float-right">Feb-21-2014</h7>
+                                        </div>
+                                        <div class="timeline-body mt-15">
+                                            <p class="font-size-16">płyta do wymiany
+                                            </p>
+                                        </div>
 
-                            <div class="form-group">
-                                <h5>Rodzaj Urządzenia<span
-                                        class="text-danger">: {{ gadget.type_gadget }}</span></h5>
+                                    </div>
+                                </div>
+                                <div class="timeline-item timeline-item-left">
+                                    <div class="timeline-point timeline-point-blank"></div>
+                                    <div class="timeline-event timeline-event-default">
+                                        <div class="timeline-heading">
+                                            <h7 class="timeline-title float-left">Andrej Diagnostyka</h7>
+                                            <h7 class="float-right">Feb-21-2014</h7>
+                                        </div>
+                                        <div class="timeline-body mt-15">
+                                            <p class="font-size-16">płyta do wymiany
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="timeline-item timeline-item-left">
+                                    <div class="timeline-point timeline-point-blank"></div>
+                                    <div class="timeline-event timeline-event-default">
+                                        <div class="timeline-heading">
+                                            <h7 class="timeline-title float-left">Andrej Diagnostyka</h7>
+                                            <h7 class="float-right">Feb-21-2014</h7>
+                                        </div>
+                                        <div class="timeline-body mt-15">
+                                            <p class="font-size-16">płyta do wymiany
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
 
                             </div>
-                            <div class="form-group">
-                                <h5>Brand<span class="text-danger">: {{ gadget.brand_gadget }}</span></h5>
-
-                            </div>
-                            <div class="form-group">
-                                <h5>Model<span class="text-danger">: {{ gadget }}</span></h5>
-                                {{ form_gad.model_gadget }}
-                            </div>
-                            <div class="form-group">
-                                <h5>SERIAL/SSID/SERWIS TAG<span
-                                        class="text-danger">: {{ gadget.serial_gadget }}</span></h5>
-
-
-                            </div>
-
 
                         </div>
 
                     </div>
+               
+
+                <div class="box-footer">
+
+                    {% if gadget.in_serwis == True %}
+                        <button type="submit" class="btn btn-primary float-left"><i class="fa fa-reply"></i> Wydaj
+                        </button>
+                    {% elif gadget.in_serwis == False %}
+                        <button type="submit" class="btn btn-primary float-left"><i class="fa fa-mail-forward"></i>
+                            Przyjmij
+                        </button>
+                    {% endif %}
+                    </form>
+                    <a href="{% url 'print_gadget' pk=gadget.pk %}"><button class="btn btn-warning float-left ml-20"><i
+                            class="fa fa-print"></i> Drukuj
+                    </button></a>
+
+                    <a href="{% url 'edit_gadget' pk=gadget.pk %}">
+                        <button class="btn btn-info float-left ml-20"><i class="fa fa-edit"></i> Edituj</button>
+                    </a>
+                    <a href="{% url 'gadgets' %}">
+                        <button class="btn btn-danger float-right"><i class="fa fa-close"></i> Zamknąć</button>
+                    </a>
 
                 </div>
             </div>
-
-            <div class="box-footer">
-
-                {% if gadget.in_serwis == True %}
-                    <button type="submit" class="btn btn-primary float-left"><i class="fa fa-reply"></i> Wydaj</button>
-                {% elif gadget.in_serwis == False %}
-                    <button type="submit" class="btn btn-primary float-left"><i class="fa fa-mail-forward"></i> Przyjmij
-                    </button>
-                {% endif %}
-                </form>
-                <button type="" class="btn btn-warning float-left ml-20"><i class="fa fa-print"></i> Drukuj</button>
-                <a href="{% url 'edit_gadget' pk=gadget.id %}">
-                    <button class="btn btn-info float-left ml-20"><i class="fa fa-edit"></i> Edituj</button>
-                </a>
-                <a href="{% url 'gadgets' %}">
-                    <button class="btn btn-danger float-right"><i class="fa fa-close"></i> Zamknąć</button>
-                </a>
-
-            </div>
         </div>
+     </section>  
 {% endblock %}
