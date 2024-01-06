@@ -9,6 +9,7 @@ from gadgets.forms import GadgetForm
 from gadgets.models import Gadget, SetingsCRM
 
 
+
 def index_gad(request):
     search_query = request.GET.get('q', '')
     if search_query.isnumeric():
@@ -79,18 +80,22 @@ class AddGadgets(View):
 
 class EditGadget(View):
     def get(self, request, **kwargs):
-        bound_form_gad = GadgetForm(initial={'master_gadget': Gadget.objects.get(id=kwargs['pk']).master_gadget,
-                                             'telefon_master_gadget': Gadget.objects.get(
-                                                 id=kwargs['pk']).telefon_master_gadget,
-                                             'serial_gadget': Gadget.objects.get(id=kwargs['pk']).serial_gadget,
-                                             'model_gadget': Gadget.objects.get(id=kwargs['pk']).model_gadget,
-                                             'brand_gadget': Gadget.objects.get(id=kwargs['pk']).brand_gadget,
-                                             'password_gadget': Gadget.objects.get(id=kwargs['pk']).password_gadget,
-                                             'opis_problem': Gadget.objects.get(id=kwargs['pk']).opis_problem,
-                                             'zestaw': Gadget.objects.get(id=kwargs['pk']).zestaw,
-                                             'type_gadget': Gadget.objects.get(id=kwargs['pk']).type_gadget
-                                             })
+
+        bound_form_gad = GadgetForm(initial={
+
+            'master_gadget': Gadget.objects.get(id=kwargs['pk']).master_gadget,
+            'telefon_master_gadget': Gadget.objects.get(id=kwargs['pk']).telefon_master_gadget,
+            'serial_gadget': Gadget.objects.get(id=kwargs['pk']).serial_gadget,
+            'model_gadget': Gadget.objects.get(id=kwargs['pk']).model_gadget,
+            'brand_gadget': Gadget.objects.get(id=kwargs['pk']).brand_gadget,
+            'password_gadget': Gadget.objects.get(id=kwargs['pk']).password_gadget,
+            'opis_problem': Gadget.objects.get(id=kwargs['pk']).opis_problem,
+            'zestaw': Gadget.objects.get(id=kwargs['pk']).zestaw,
+            'type_gadget': Gadget.objects.get(id=kwargs['pk']).type_gadget
+            })
+
         gadget_id = Gadget.objects.get(id=kwargs['pk'])
+
         return render(request, 'gadgets/edit_gadget.html', context={'gadget': gadget_id, 'form_class': bound_form_gad})
 
     def post(self, request, **kwargs):
@@ -116,7 +121,8 @@ class EditGadget(View):
 class OutgoGadget(View):
     def get(self, request, pk):
         gadget = Gadget.objects.get(id=pk)
-        return render(request, 'gadgets/outgo_gadget.html', context={'gadget': gadget})
+        notes = gadget.note_set.all()
+        return render(request, 'gadgets/outgo_gadget.html', context={'gadget': gadget, 'notes': notes})
 
     def post(self, request, pk):
         gadget = Gadget.objects.get(id=pk)
@@ -129,6 +135,8 @@ class OutgoGadget(View):
             gadget.save()
 
         return redirect(request.META.get('HTTP_REFERER'))
+
+
 
 
 def delete_gadget(request, pk):

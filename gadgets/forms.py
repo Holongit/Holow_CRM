@@ -3,29 +3,8 @@ from django.core.validators import RegexValidator
 from django.forms import RadioSelect
 
 from gadgets.models import *
+from klienty.models import *
 
-
-class KlientForm(forms.ModelForm):
-    class Meta:
-        model = Klient
-        fields = ['name_klient',
-                  'telefon_klient',
-                  'email_klient'
-                  ]
-
-        widgets = {
-            'name_klient': forms.TextInput(attrs={'class': 'form-control'}),
-            'telefon_klient': forms.TextInput(attrs={'class': 'form-control'}),
-            'email_klient': forms.EmailInput(attrs={'class': 'form-control'})
-        }
-
-    def save(self):
-        new_klient = Klient.objects.create(
-            name_klient=self.cleaned_data['name_klient'],
-            telefon_klient=self.cleaned_data['telefon_klient'],
-            email_klient=self.cleaned_data['email_klient'],
-        )
-        return new_klient
 
 
 class GadgetForm(forms.Form):
@@ -53,6 +32,7 @@ class GadgetForm(forms.Form):
     zestaw = forms.CharField(max_length=64, required=False)
     type_gadget = forms.ChoiceField(choices=CHOICES)
     type_service = forms.ChoiceField(choices=CHOICES2)
+    klient = forms.CharField(max_length=64, required=False)
 
     master_gadget.widget.attrs.update({'class': 'form-control'})
     telefon_master_gadget.widget.attrs.update({'class': 'form-control'})

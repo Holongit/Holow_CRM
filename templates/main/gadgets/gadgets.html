@@ -111,7 +111,8 @@
                 <!-- table -->
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                        <table id="example"
+                               class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                             <thead>
                             <tr class="bg-secondary ">
                                 <th class="text-center font-weight-bold b-3 border-white">№</th>
@@ -209,13 +210,16 @@
                                         <div class="clearfix">
 
                                             <a href="{% url 'outgo_gadget' pk=gadgets_data.pk %}">
-                                                <button class="btn bg-pale-primary btn-xs">Wydaj
-                                                </button>
+                                                {% if gadgets_data.in_serwis == True %}
+                                                    <button class="btn bg-pale-primary btn-xs">Wydaj</button>
+                                                {% else %}
+                                                    <button class="btn bg-primary btn-xs">Przyjmij</button>
+                                                {% endif %}
                                             </a>
                                             <a href="{{ gadgets_data.get_absolute_url }}">
                                                 <button class="btn bg-pale-info btn-xs">Edit</button>
                                             </a>
-                                            
+
                                             <div class="btn-group">
                                                 <button type="button" class="btn bg-pale-danger
                             
@@ -241,7 +245,7 @@
                             {% endfor %}
 
                             <tfoot>
-                          
+
                             </tfoot>
                         </table>
                     </div>

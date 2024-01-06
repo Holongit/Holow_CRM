@@ -2,19 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 
-
-class Klient(models.Model):
-    name_klient = models.CharField(max_length=64, db_index=True)
-    telefon_klient = models.CharField(max_length=32, db_index=True)
-    email_klient = models.CharField(max_length=64, null=True, blank=True)
-    created_at = models.DateTimeField(default=timezone.now)
-
-
-    def __str__(self):
-        return self.name_klient
-
-    class Meta:
-        ordering = ('-created_at',)
+from klienty.models import Klient
 
 
 class Gadget(models.Model):
@@ -30,7 +18,9 @@ class Gadget(models.Model):
     pilne = models.CharField(max_length=32, default='NO', null=True, blank=True, db_index=True)
     status = models.CharField(max_length=32, default='NOWY', null=True, blank=True, db_index=True)
     created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
+    klient = models.ForeignKey(Klient, on_delete=models.PROTECT, null=True)
 
     location = models.CharField(max_length=32, default='STOKŁOSY', db_index=True)
     paid = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)

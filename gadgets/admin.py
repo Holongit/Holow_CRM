@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from gadgets.models import Klient, Gadget
+from gadgets.models import Gadget
 
 
-admin.site.register(Klient)
 admin.site.register(Gadget)

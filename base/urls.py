@@ -17,15 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-import gadgets.views
+
 from dashboard.views import index_dash
 from gadgets.views import *
-from klienty.views import index_kli
+from notes.views import NoteAdd
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_dash, name='dashboard'),
-    path('klienty/', index_kli, name='klienty'),
+    # path('klienty/', index_kli, name='klienty'),
     path('add_gadget/', AddGadgets.as_view(), name='add_gadget'),
     path('gadgets/', index_gad, name='gadgets'),
     path('gadgets/edit_gadget/<int:pk>/', EditGadget.as_view(), name='edit_gadget'),
@@ -35,5 +36,6 @@ urlpatterns = [
     path('gadgets/outgo_gadget/<int:pk>/', OutgoGadget.as_view(), name='outgo_gadget'),
     path('gadgets/filters/<str:status>/', filters_gadget_change, name='filters_gadget_change'),
     path('gadgets/print_gadget/<int:pk>/', print_gadget, name='print_gadget'),
+    path('note/add_note/<int:pk>/', NoteAdd.as_view(), name='add_note'),
 ]
 
