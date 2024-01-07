@@ -15,7 +15,8 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title float-left mt-10">Kartka Urządzenia {{ gadget.id }} </h3>
+                <h3 class="box-title float-left mt-10">Kartka Urządzenia
+                    №{{ gadget.id }} {{ gadget.location }} {{ gadget.created_at }}</h3>
                 <h3 class="float-left ml-20">
 
                     {% if gadget.in_serwis == True %}
@@ -40,7 +41,9 @@
                         <span class="badge badge-danger font-size-16">REKLAMACJA</span>
                     {% endif %}
 
-
+                    {% if gadget.pilne == 'NO' %}
+                        <span class="badge badge-danger font-size-16">PILNE</span>
+                    {% endif %}
                 </h3>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-close" href="#"></a></li>
@@ -59,42 +62,63 @@
 
                             <div class="col-lg-6 col-12">
 
-                                <div class="form-group">
-                                    <h5>Imie Nazwisko<span
-                                            class="text-danger">: {{ gadget.master_gadget }}</span></h5>
 
+                                <div class="form-group">
+                                    <h5>Urządzenie: <span class="font-weight-bold font-size-20">
+                                        {{ gadget.type_gadget }}
+                                        {{ gadget.brand_gadget }}
+                                        {{ gadget }}
+                                    </span>
+                                    </h5>
                                 </div>
                                 <div class="form-group">
-                                    <h5>Telefon<span
-                                            class="text-danger">: {{ gadget.telefon_master_gadget }}</span></h5>
+                                    <h5>SERIAL/SSID/SERWIS TAG: <span
+                                            class="font-weight-bold font-size-20">{{ gadget.serial_gadget }}</span>
+                                    </h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Imie Nazwisko: <span
+                                            class="font-weight-bold font-size-20">{{ gadget.master_gadget }}</span>
+                                    </h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Telefon: <span
+                                            class="font-weight-bold font-size-20">{{ gadget.telefon_master_gadget }}</span>
+                                    </h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Zestaw: <span class="font-weight-bold font-size-20">{{ gadget.zestaw }}</span>
+                                    </h5>
+                                </div>
 
-                                </div>
-                                <div class="form-group">
-                                    <h5>Zestaw<span class="text-danger">: {{ gadget.zestaw }}</span></h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Rodzaj Urządzenia<span
-                                            class="text-danger">: {{ gadget.type_gadget }}</span></h5>
 
+                                <div class="form-group">
+                                    <h5>Opis klienta: <span
+                                            class="font-weight-bold font-size-20">{{ gadget.opis_problem }}</span>
+                                    </h5>
                                 </div>
                                 <div class="form-group">
-                                    <h5>Brand<span class="text-danger">: {{ gadget.brand_gadget }}</span></h5>
-
-                                </div>
-                                <div class="form-group">
-                                    <h5>Model<span class="text-danger">: {{ gadget }}</span></h5>
+                                    <h5>Opis technika: <span
+                                            class="font-weight-bold font-size-20">{{ gadget.opis_naprawy }}</span>
+                                    </h5>
                                     {{ form_gad.model_gadget }}
-                                </div>
-                                <div class="form-group">
-                                    <h5>SERIAL/SSID/SERWIS TAG<span
-                                            class="text-danger">: {{ gadget.serial_gadget }}</span></h5>
-
-
                                 </div>
 
 
                             </div>
                             <div class="col-lg-6 col-12">
+                                <form action="{% url 'add_note' pk=gadget.id %}" method="post" class="navbar-form">
+                                    {% csrf_token %}
+                                    <div class="input-group">
+
+                                        {{ form.title }}
+                                        {{ form.content }}
+
+                                        <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-default">+</button>
+                                    </span>
+                                    </div>
+                                </form>
                                 {% for note in notes %}
                                     <!-- CONTENT_NOTE -->
                                     <div class="timeline timeline-single-column timeline-single-full-column">
@@ -102,15 +126,19 @@
                                             <div class="timeline-point timeline-point-blank"></div>
                                             <div class="timeline-event timeline-event-default">
                                                 <div class="timeline-heading">
-                                                    <h6 class="timeline-title float-left">{{ note.author }}  
-                                                        
+                                                    <h6 class="timeline-title float-left">{{ note.author }}
+
                                                         {% if note.title == 'none' %}
-                                                        {% else %} <badge class="badge-pill  bg-pale-info">{{ note.title }}</badge>
+                                                        {% else %}
+                                                            <badge class="badge-pill  bg-pale-info">{{ note.title }}</badge>
                                                         {% endif %}
-                                                    
+
                                                     </h6>
-                                                    <h6 class="float-right">{{ note.created_at }} <a href="{% url 'delete_note' pk=note.pk %}">
-                                                        <badge  class="badge-pill bg-pale-danger" ><i class="fa fa-close"></i></badge></a>
+                                                    <h6 class="float-right">{{ note.created_at }} <a
+                                                            href="{% url 'delete_note' pk=note.pk %}">
+                                                        <badge class="badge-pill bg-pale-danger"><i
+                                                                class="fa fa-close"></i></badge>
+                                                    </a>
                                                     </h6>
                                                 </div>
                                                 <div class="timeline-body mt-15">
@@ -120,50 +148,38 @@
                                         </div>
                                     </div>
                                 {% endfor %}
-                            <form action="{% url 'add_note' pk=gadget.id %}" method="post" class="navbar-form">
-                                {% csrf_token %}
-                                <div class="input-group">
-                                    
-                                    {{ form.title }}
-                                    {{ form.content }}
-                                    
-                                    <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-default">+</button>
-                                    </span>
-                                </div>
-                            </form>
+
                             </div>
-                            
+
 
                         </div>
-                        <form action="{% url 'outgo_gadget' pk=gadget.id %}" method="post" class="mt-20">
-                            {% csrf_token %}
-                            {% if gadget.in_serwis == True %}
-                                <button type="submit" class="btn btn-primary float-left"><i class="fa fa-reply"></i>
-                                    Wydaj
+                        {% if request.user.is_authenticated and request.user.is_staff %}
+                            <form action="{% url 'outgo_gadget' pk=gadget.id %}" method="post" class="mt-20">
+                                {% csrf_token %}
+                                {% if gadget.in_serwis == True %}
+                                    <button type="submit" class="btn btn-primary float-left"><i class="fa fa-reply"></i>
+                                        Wydaj
+                                    </button>
+                                {% elif gadget.in_serwis == False %}
+                                    <button type="submit" class="btn btn-primary float-left"><i
+                                            class="fa fa-mail-forward"></i>
+                                        Przyjmij
+                                    </button>
+                                {% endif %}
+                            </form>
+                            <a href="{% url 'print_gadget' pk=gadget.pk %}">
+                                <button class="btn btn-warning float-left ml-20"><i
+                                        class="fa fa-print"></i> Drukuj
                                 </button>
-                            {% elif gadget.in_serwis == False %}
-                                <button type="submit" class="btn btn-primary float-left"><i
-                                        class="fa fa-mail-forward"></i>
-                                    Przyjmij
-                                </button>
-                            {% endif %}
-                        </form>
-                        <a href="{% url 'print_gadget' pk=gadget.pk %}">
-                            <button class="btn btn-warning float-left ml-20"><i
-                                    class="fa fa-print"></i> Drukuj
-                            </button>
-                        </a>
-                        <a href="{% url 'edit_gadget' pk=gadget.pk %}">
-                            <button class="btn btn-info float-left ml-20"><i class="fa fa-edit"></i> Edituj</button>
-                        </a>
-
-                        {% csrf_token %}
-                        <badget class="btn btn-dark float-left ml-20"><i
+                            </a>
+                            <a href="{% url 'edit_gadget' pk=gadget.pk %}">
+                                <button class="btn btn-info float-left ml-20"><i class="fa fa-edit"></i> Edituj</button>
+                            </a>
+                        {% endif %}
+                        <button class="btn btn-dark float-left ml-20"><i
                                 class="fa fa-sticky-note"></i>
                             Notatka
-                        </badget>
-
+                        </button>
                         <a href="{% url 'gadgets' %}">
                             <button class="btn btn-danger float-right"><i class="fa fa-close"></i> Zamknąć</button>
                         </a>
@@ -171,6 +187,7 @@
                     </div>
                 </div>
             </div>
+
     </section>
 {% endblock %}
 

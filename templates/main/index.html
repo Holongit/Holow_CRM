@@ -163,6 +163,7 @@
             </span>
                     </a>
                 </li>
+            {% if request.user.is_authenticated and request.user.is_staff %}
                 <li>
                     <a href="{% url 'add_gadget' %}">
                         <i class="fa fa-edit"></i> <span class="font-size-18">Nowa Naprawa</span>
@@ -171,6 +172,7 @@
             </span>
                     </a>
                 </li>
+            {% endif %}
                 <li>
                     <a href="{% url 'gadgets' %}">
                         <i class="fa fa-laptop"></i> <span class="font-size-18">Urządzenia</span>
