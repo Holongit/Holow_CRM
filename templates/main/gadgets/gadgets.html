@@ -186,14 +186,12 @@
 
                                         <div class="btn-group">
                                             <button type="button" class="btn
-
                                                         {% if gadgets_data.type_service == 'PŁATNE' %} btn-info
                                                         {% elif gadgets_data.type_service == 'GWARANCJA' %} btn-warning
                                                         {% elif gadgets_data.type_service == 'REKLAMACJA' %} btn-danger
                                                   
-                                                        {% endif %} btn-xs dropdown-toggle "
-
-                                                    data-toggle="dropdown">{{ gadgets_data.type_service }}
+                                                        {% endif %}
+                                                        btn-xs dropdown-toggle" data-toggle="dropdown">{{ gadgets_data.type_service }}
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
@@ -221,9 +219,8 @@
                                             </a>
 
                                             <div class="btn-group">
-                                                <button type="button" class="btn bg-pale-danger
-                            
-                                                dropdown-toggle btn-xs" data-toggle="dropdown">Delete
+                                                <button type="button" class="btn btn-xs bg-pale-danger dropdown-toggle" data-toggle="dropdown">
+                                                    Delete
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="text-center dropdown-item"
