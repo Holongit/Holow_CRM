@@ -109,7 +109,9 @@
                                                         {% endif %}
                                                     
                                                     </h6>
-                                                    <h6 class="float-right">{{ note.created_at }}</h6>
+                                                    <h6 class="float-right">{{ note.created_at }} <a href="{% url 'delete_note' pk=note.pk %}">
+                                                        <badge  class="badge-pill bg-pale-danger" ><i class="fa fa-close"></i></badge></a>
+                                                    </h6>
                                                 </div>
                                                 <div class="timeline-body mt-15">
                                                     <p class="font-size-16">{{ note.content }}</p>

@@ -26,7 +26,7 @@
 
                 <form class="navbar-form navbar-left float-left">
                     <div class="input-group">
-                        <input class="form-control" type="search" name="q" placeholder="Szukaj">
+                        <input  class="form-control" type="search" name="q" aria-label="#" placeholder="Szukaj">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default">Szukaj</button>
                         </span>
@@ -132,7 +132,7 @@
 
                                 <tbody>
                                 <tr class="text-center font-size-14">
-                                    <td class="b-3 border-white" class="text-center "><a
+                                    <td class="b-3 border-white text-center "><a
                                             href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.id }}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
@@ -226,10 +226,10 @@
                                                 dropdown-toggle btn-xs" data-toggle="dropdown">Delete
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="text-center" class="dropdown-item"
+                                                    <a class="text-center dropdown-item"
                                                        href=""><h2>Jesteś pewny?</h2>
                                                     </a>
-                                                    <a class="text-center" class="dropdown-item"
+                                                    <a class="text-center dropdown-item"
                                                        href="{% url 'delete_gadget' pk=gadgets_data.pk %}"><h2>
                                                         DELETE</h2></a>
 

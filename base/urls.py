@@ -20,7 +20,7 @@ from django.urls import path
 
 from dashboard.views import index_dash
 from gadgets.views import *
-from notes.views import NoteAdd
+from notes.views import NoteAdd, delete_note
 
 
 urlpatterns = [
@@ -37,5 +37,6 @@ urlpatterns = [
     path('gadgets/filters/<str:status>/', filters_gadget_change, name='filters_gadget_change'),
     path('gadgets/print_gadget/<int:pk>/', print_gadget, name='print_gadget'),
     path('note/add_note/<int:pk>/', NoteAdd.as_view(), name='add_note'),
+    path('note/delete_note/<int:pk>/', delete_note, name='delete_note'),
 ]
 

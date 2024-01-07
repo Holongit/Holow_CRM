@@ -32,3 +32,7 @@ class NoteAdd(View):
 
 
 
+def delete_note(request, pk):
+    note = Note.objects.get(id=pk)
+    note.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
