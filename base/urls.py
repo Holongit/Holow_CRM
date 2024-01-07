@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 
 from dashboard.views import index_dash
@@ -26,6 +26,7 @@ from notes.views import NoteAdd, delete_note
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_dash, name='dashboard'),
+    path('users/', include('users.urls')),
     # path('klienty/', index_kli, name='klienty'),
     path('add_gadget/', AddGadgets.as_view(), name='add_gadget'),
     path('gadgets/', index_gad, name='gadgets'),

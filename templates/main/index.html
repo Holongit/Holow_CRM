@@ -142,7 +142,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa  fa-user-circle-o"></i><span>Andrej Khairov</span>
+                        <i class="fa  fa-user-circle-o"></i><span>{{ user }}</span>
                         <span class="pull-right-container">
                 <i class="fa fa-angle-right pull-right"></i>
                 </span>
@@ -150,7 +150,7 @@
                     <ul class="treeview-menu">
                         <li><a href="#"><i class="fa fa-user mr-5"></i>My Profile </a></li>
                         <li><a href="#"><i class="fa fa-cog mr-5"></i>Account Setting</a></li>
-                        <li><a href="#"><i class="fa fa-power-off mr-5"></i>Logout</a></li>
+                        <li><a href="{% url 'logout' %}"><i class="fa fa-power-off mr-5"></i>Logout</a></li>
                     </ul>
                 </li>
 

@@ -6,7 +6,7 @@ from gadgets.models import Gadget
 from klienty.models import Klient
 
 class Note(models.Model):
-    author = models.CharField(max_length=32, default='Andrej Khairov')
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=32, null=True, blank=True)
     content = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
