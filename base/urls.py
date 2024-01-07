@@ -24,7 +24,7 @@ from notes.views import NoteAdd, delete_note
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', index_dash, name='dashboard'),
     path('users/', include('users.urls')),
     # path('klienty/', index_kli, name='klienty'),

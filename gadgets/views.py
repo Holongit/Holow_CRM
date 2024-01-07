@@ -1,15 +1,17 @@
-from django.http import HttpResponseRedirect
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.views.generic import View, ListView, CreateView, DeleteView, UpdateView, DetailView
-from django.urls import reverse_lazy
+from django.views.generic import View
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 
 from gadgets.forms import GadgetForm
 from gadgets.models import Gadget, SetingsCRM
 
 
-
+@login_required(login_url='login')
 def index_gad(request):
     search_query = request.GET.get('q', '')
     if search_query.isnumeric():
@@ -62,6 +64,7 @@ def index_gad(request):
     return render(request, 'gadgets/gadgets.html', context)
 
 
+@method_decorator(login_required(login_url='login'), name='dispatch')
 class AddGadgets(View):
     def get(self, request):
         form_gad = GadgetForm()
@@ -78,6 +81,7 @@ class AddGadgets(View):
         return redirect('add_gadget')
 
 
+@method_decorator(login_required(login_url='login'), name="dispatch")
 class EditGadget(View):
     def get(self, request, **kwargs):
 
@@ -118,6 +122,7 @@ class EditGadget(View):
         return redirect(request.META.get('HTTP_REFERER'), pk=kwargs['pk'])
 
 
+@method_decorator(login_required(login_url='login'), name='dispatch')
 class OutgoGadget(View):
     def get(self, request, pk):
         gadget = Gadget.objects.get(id=pk)
@@ -137,14 +142,14 @@ class OutgoGadget(View):
         return redirect(request.META.get('HTTP_REFERER'))
 
 
-
-
+@login_required(login_url='login')
 def delete_gadget(request, pk):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     gadget.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
 
+@login_required(login_url='login')
 def gadget_status_change(request, pk, status):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     gadget.status = status
@@ -152,6 +157,7 @@ def gadget_status_change(request, pk, status):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
+@login_required(login_url='login')
 def service_status_change(request, pk, status):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     gadget.type_service = status
@@ -159,12 +165,15 @@ def service_status_change(request, pk, status):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
+@login_required(login_url='login')
 def filters_gadget_change(request, status):
     setings_f = get_object_or_404(SetingsCRM.objects.all(), pk=1)
     setings_f.filter_gadget = status
     setings_f.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
+
+@login_required(login_url='login')
 def print_gadget(request, pk):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     return render(request, 'gadgets/print_gadget.html', context={'gadget': gadget})

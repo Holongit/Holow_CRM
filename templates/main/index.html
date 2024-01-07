@@ -148,8 +148,9 @@
                 </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-user mr-5"></i>My Profile </a></li>
-                        <li><a href="#"><i class="fa fa-cog mr-5"></i>Account Setting</a></li>
+                        {% if request.user.is_authenticated and request.user.is_staff %}
+                        <li><a href="/admin"><i class="fa fa-cog mr-5"></i>Admin Panel</a></li>
+                        {% endif %}
                         <li><a href="{% url 'logout' %}"><i class="fa fa-power-off mr-5"></i>Logout</a></li>
                     </ul>
                 </li>

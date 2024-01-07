@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from gadgets.models import *
 
+
+@login_required(login_url='login')
 def index_dash(request):
     gadgets_all = Gadget.objects.all()
     qnt_gadgetsq = gadgets_all.__len__()
