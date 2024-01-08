@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            Pracowniki
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
+            <li class="breadcrumb-item active">###</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Pracowniki</h3>
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-close" href="#"></a></li>
+                    <li><a class="box-btn-slide" href="#"></a></li>
+                    <li><a class="box-btn-fullscreen" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+{% for pracownik in pracowniki %}
+                <div class="col-xl-4 col-lg-6 col-12">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-primary">
+                            <div class="widget-user-image">
+                                <img class="rounded-circle" src="/static/images/user7-128x128.jpg" alt="User Avatar">
+                            </div>
+                            <!-- /.widget-user-image -->
+                            <h3 class="widget-user-username">{{ pracownik.worker }}</h3>
+                            <h6 class="widget-user-desc"></h6>
+                        </div>
+                        <div class="box-footer no-padding">
+                            <ul class="nav d-block nav-stacked">
+                                <li class="nav-item"><a href="#" class="nav-link">Sales <span
+                                        class="pull-right badge bg-info">1310</span></a></li>
+                                <li class="nav-item"><a href="#" class="nav-link">Projects <span
+                                        class="pull-right badge bg-success">120</span></a></li>
+                                <li class="nav-item"><a href="#" class="nav-link">Followers <span
+                                        class="pull-right badge bg-warning">8K</span></a></li>
+                                <li class="nav-item"><a href="#" class="nav-link">Tasks <span
+                                        class="pull-right badge bg-danger">58</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </div>
+{% endfor %}
+            </div>
+            <div class="box-footer">
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

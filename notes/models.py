@@ -9,7 +9,7 @@ class Note(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=32, null=True, blank=True)
     content = models.TextField()
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(default=timezone.now, db_index=True)
     destination = models.CharField(max_length=32, default='MANAGER')
     gadget = models.ForeignKey(Gadget, on_delete=models.CASCADE, null=True)
     klient = models.ForeignKey(Klient, on_delete=models.CASCADE, null=True)
