@@ -21,35 +21,46 @@
                 </ul>
             </div>
             <div class="box-body">
-{% for pracownik in pracowniki %}
-                <div class="col-xl-4 col-lg-6 col-12">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user-2">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-primary">
-                            <div class="widget-user-image">
-                                <img class="rounded-circle" src="/static/images/user7-128x128.jpg" alt="User Avatar">
+                <div class="row">
+                    {% for item_u in users %}
+                        {% if item_u.workers_set.exists %}
+                            <div class="col-xl-4 col-lg-6 col-12">
+                                <!-- Widget: user widget style 1 -->
+                                <div class="box box-widget widget-user-2">
+                                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                                    <div class="widget-user-header bg-dark">
+                                        <div class="widget-user-image">
+                                            <img class="rounded-circle" src="/static/images/user7-128x128.jpg"
+                                                 alt="User Avatar">
+                                        </div>
+                                        <!-- /.widget-user-image -->
+                                        <h3 class="widget-user-username">{{ item_u.username }}</h3>
+                                        <h6 class="widget-user-desc float-right">
+                                            <span class="font-size-30  ">{{ item_u.workers_set.count }} </span> <span
+                                                class="fa fa-laptop font-size-30 "></span></h6>
+                                        <h6 class="widget-user-desc float-right">
+                                            <span class="font-size-30  ">{{ item_u.workers_set.count}} </span> <span
+                                                class="fa fa-thumbs-o-up font-size-30 "></span></h6>
+                                        <h6 class="widget-user-desc float-right">
+                                            <span class="font-size-30  ">{{ item_u.workers_set.count }} </span> <span
+                                                class="fa fa-hourglass-start font-size-30 "></span></h6>
+                                    </div>
+                                    {% for item_g in item_u.workers_set.all %}
+                                        <div class="box-footer no-padding">
+                                            <ul class="nav d-block nav-stacked font-size-16">
+                                                <li class="nav-item"><a href="#"
+                                                                        class="nav-link">{{ item_g.gadget }}<span
+                                                        class="pull-right badge bg-info">{{ item_g.added_at }}</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <!-- /.widget-user-image -->
-                            <h3 class="widget-user-username">{{ pracownik.worker }}</h3>
-                            <h6 class="widget-user-desc"></h6>
-                        </div>
-                        <div class="box-footer no-padding">
-                            <ul class="nav d-block nav-stacked">
-                                <li class="nav-item"><a href="#" class="nav-link">Sales <span
-                                        class="pull-right badge bg-info">1310</span></a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Projects <span
-                                        class="pull-right badge bg-success">120</span></a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Followers <span
-                                        class="pull-right badge bg-warning">8K</span></a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Tasks <span
-                                        class="pull-right badge bg-danger">58</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /.widget-user -->
+
+                        {% endif %}
+                    {% endfor %}
                 </div>
-{% endfor %}
             </div>
             <div class="box-footer">
 

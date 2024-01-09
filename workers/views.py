@@ -8,7 +8,6 @@ from workers.models import Workers
 
 
 def workers(request):
-    worker = Workers.objects.all()
-    group = User.objects.last()
+    users = User.objects.all()
 
-    return render(request, 'workers/workers.html', {'pracowniki': worker, 'users': group})
+    return render(request, 'workers/workers.html', {'users': users})

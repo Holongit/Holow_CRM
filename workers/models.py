@@ -13,9 +13,11 @@ class Workers(models.Model):
     description = models.CharField(max_length=64, null=True, blank=True)
     status = models.CharField(max_length=16, null=True, blank=True, default='W_PRACE')
 
+
+
     class Meta:
         ordering = ('-added_at',)
 
     def __str__(self):
-        return self.worker
+        return self.gadget
 
