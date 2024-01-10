@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
@@ -28,6 +29,7 @@ class Gadget(models.Model):
     time_in_serwis = models.DurationField(null=True, blank=True)
     opis_naprawy = models.TextField(null=True, blank=True)
     type_service = models.CharField(max_length=32, default='PŁATNE')
+
 
 
     def get_absolute_url(self):
