@@ -12,6 +12,7 @@ from gadgets.models import Gadget, SetingsCRM
 from workers.models import Workers
 
 
+
 def workers(request):
     users = User.objects.all()
 
@@ -25,18 +26,19 @@ def workers_gad_list(request, pk):
     else:
         search_query_int = 0
 
-    if SetingsCRM.objects.get(pk=1).filter_gadget == 'WSZYSCY':
-        gadget_in_serwis = Gadget.objects.all()
-    if SetingsCRM.objects.get(pk=1).filter_gadget == 'W SERWISIE':
-        gadget_in_serwis = Gadget.objects.filter(in_serwis=True)
+    if SetingsCRM.objects.get(pk=1).filter_work == 'WSZYSCY':
+        gadget_in_serwis = Workers.objects.filter(worker=pk)
+
+    if SetingsCRM.objects.get(pk=1).filter_work == 'W SERWISIE':
+        gadget_in_serwis = Workers.objects.filter(worker=pk, gadget__in_serwis=True)
 
     if search_query:
-        serching_gad = gadget_in_serwis.filter(Q(brand_gadget__icontains=search_query) |
-                                               Q(model_gadget__icontains=search_query) |
-                                               Q(serial_gadget__icontains=search_query) |
-                                               Q(master_gadget__icontains=search_query) |
-                                               Q(id=search_query_int) |
-                                               Q(telefon_master_gadget__icontains=search_query))
+        serching_gad = gadget_in_serwis.filter(Q(gadget__brand_gadget__icontains=search_query) |
+                                               Q(gadget__model_gadget__icontains=search_query) |
+                                               Q(gadget__serial_gadget__icontains=search_query) |
+                                               Q(gadget__master_gadget__icontains=search_query) |
+                                               Q(gadget__id=search_query_int) |
+                                               Q(gadget__telefon_master_gadget__icontains=search_query))
     else:
         serching_gad = gadget_in_serwis
 
@@ -59,14 +61,24 @@ def workers_gad_list(request, pk):
 
     setings_filter = SetingsCRM.objects.get(pk=1)
 
+    user = User.objects.get(id=pk)
+
     context = {
         'filters': setings_filter,
         'gadgets': page,
         'is_paginated': is_paginated,
         'next_url': next_url,
         'prev_url': prev_url,
+        'user': user,
     }
 
-    return render(request, 'gadgets/gadgets.html', context)
+    return render(request, 'workers/worker_gad_list.html', context)
+
+@login_required(login_url='login')
+def filters_work_change(request, status):
+    setings_f = get_object_or_404(SetingsCRM.objects.all(), pk=1)
+    setings_f.filter_work = status
+    setings_f.save()
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
