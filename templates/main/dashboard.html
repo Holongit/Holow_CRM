@@ -54,6 +54,30 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="col-md-6 col-lg-4">
+            <div class="box">
+				<div class="box-header with-border">
+              		<h5 class="box-title">Notatki</h5>
+				</div>
+                {% for note in notatki %}
+				<div class="box-body p-0">
+				  <div class="media-list media-list-hover">
+					<div class="media">
+					  <a class="align-self-center" href="#"><img class="avatar avatar-lg" src="../../../images/avatar/1.jpg" alt="..."></a>
+					  <div class="media-body">
+						<p>
+						  <a class="hover-primary" href="#"><strong>{{ note.author }} {{ note.title }}</strong></a>
+						  <time class="float-right">{{ note.created_at_format }}</time>
+						</p>
+						<p>{{ note.content }}</p>
+					  </div>
+					</div>
+				  </div>
+				</div>
+                {% endfor %}
+            </div>
+          </div>
             <!-- /.col -->
         </div>
 
