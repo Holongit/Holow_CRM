@@ -30,6 +30,13 @@ class Gadget(models.Model):
     opis_naprawy = models.TextField(null=True, blank=True)
     type_service = models.CharField(max_length=32, default='PŁATNE')
 
+    def created_at_format(self):
+        return self.created_at.strftime("%d.%m.%y %H:%M")
+
+
+    def time_in_serwis_get(self):
+        time = timezone.now() - self.created_at
+        return time.days
 
 
     def get_absolute_url(self):

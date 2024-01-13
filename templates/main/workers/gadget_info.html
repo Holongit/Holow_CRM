@@ -138,7 +138,7 @@
                             </div>
                         </div>
                         {% if request.user.is_authenticated and request.user.is_staff %}
-                            <form action="{% url 'outgo_gadget' pk=gadget.id %}" method="post" class="mt-20">
+                            <form action="{% url 'gadget_info' pk=gadget.id user_pk=user_pk %}" method="post" class="mt-20">
                                 {% csrf_token %}
                                 {% if gadget.in_serwis == True %}
                                     <button type="submit" class="btn btn-primary float-left"><i class="fa fa-reply"></i>
@@ -167,9 +167,9 @@
                             </button>
                         </a>
 
-                        <a href="{% url 'gadgets' %}">
+                        <a href="{% url 'workers_list' pk=user_pk %}">
                             <button type="submit" class="btn btn-danger float-right ml-20"><i
-                                    class="fa fa-sticky-note"></i>
+                                    class="fa fa-close"></i>
                                 Zamknąć
                             </button>
                         </a>
@@ -181,4 +181,3 @@
     </section>
 
 {% endblock %}
-

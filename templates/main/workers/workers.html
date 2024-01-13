@@ -29,32 +29,57 @@
                                 <div class="box box-widget widget-user-2">
                                     <!-- Add the bg color to the header using any of the bg-* classes -->
                                     <div class="widget-user-header bg-dark">
-                                        
+
                                         <!-- /.widget-user-image -->
-                                       <a href="{% url 'workers_list' pk=item_u.id %}" class="btn btn-primary"> <h6 class="widget-user-username float-left">{{ item_u.username }}</h6>
-                                           </a>
+                                        <a href="{% url 'workers_list' pk=item_u.id %}" class="btn btn-primary"><h6
+                                                class="widget-user-username float-left">{{ item_u.username }}</h6>
+                                        </a>
                                         <h6 class="widget-user-desc float-right">
                                             <span class="font-size-30  ">{{ item_u.workers_set.count }} </span> <span
                                                 class="fa fa-laptop font-size-30 "></span></h6>
-                                        <h6 class="widget-user-desc float-right">
-                                            <span class="font-size-30  ">{{ item_u.workers_set.count}} </span> <span
-                                                class="fa fa-thumbs-o-up font-size-30 "></span></h6>
-                                        <h6 class="widget-user-desc float-right">
-                                            <span class="font-size-30  ">{{ item_u.workers_set.count }} </span> <span
-                                                class="fa fa-hourglass-start font-size-30 "></span></h6>
-                                        <h6 class="widget-user-desc float-right">
-                                            <span class="font-size-30  ">{{ item_u.workers_set.count }} </span> <span
-                                                class="fa fa-gears font-size-30 "></span></h6>
                                     </div>
                                     {% for item_g in item_u.workers_set.all %}
-                                        <div class="box-footer no-padding">
-                                            <ul class="nav d-block nav-stacked font-size-16">
-                                                <li class="nav-item"><a href="#"
-                                                                        class="nav-link">{{ item_g.gadget }}<span
-                                                        class="pull-right badge bg-info">{{ item_g.added_at }}</span></a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        {% if item_g.gadget.in_serwis %}
+                                            <div class="box-footer no-padding">
+                                                <ul class="nav d-block nav-stacked font-size-16">
+                                                    <li class="nav-item"><a
+                                                            href="{% url 'gadget_info' pk=item_g.gadget.id user_pk=item_u.id %}"
+                                                            class="nav-link">{{ item_g.gadget }}
+
+                                                        <span class="pull-right mr-10 badge ml-10                                                        
+                                                        {% if item_g.gadget.time_in_serwis_get <= 3 %} bg-info
+                                                        {% elif item_g.gadget.time_in_serwis_get > 3 and item_g.gadget.time_in_serwis_get <= 14 %} bg-warning
+                                                        {% elif item_g.gadget.time_in_serwis_get > 14 %} bg-danger                                              
+                                                        {% endif %}                                                        
+                                                        ">{{ item_g.gadget.time_in_serwis_get }} dni
+                                                        </span>
+
+                                                        <span class="pull-right badge                                                         
+                                                        {% if item_g.gadget.status == 'NAPRAWIENIE' %} bg-secondary
+                                                        {% elif item_g.gadget.status == 'GOTOWY' %} bg-primary
+                                                        {% elif item_g.gadget.status == 'CZEKA NA CZĘŚCI' %} bg-dark
+                                                        {% elif item_g.gadget.status == 'REZYGNACJA' %} bg-purple
+                                                        {% elif item_g.gadget.status == 'NOWY' %} bg-info
+                                                        {% endif %}                                                        
+                                                        ">{{ item_g.gadget.status }}
+                                                        </span>
+
+                                                        <span class="pull-right mr-10 badge                                                         
+                                                        {% if item_g.gadget.type_service == 'PŁATNE' %} bg-info
+                                                        {% elif item_g.gadget.type_service == 'GWARANCJA' %} bg-warning
+                                                        {% elif item_g.gadget.type_service == 'REKLAMACJA' %} bg-danger                                              
+                                                        {% endif %}                                                        
+                                                        ">{{ item_g.gadget.type_service }}
+
+
+                                                    </a>
+
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+                                        {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>

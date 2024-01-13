@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.http import HttpResponseRedirect
 
 
 from gadgets.forms import GadgetForm
@@ -81,4 +82,19 @@ def filters_work_change(request, status):
     setings_f.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
+@method_decorator(login_required(login_url='login'), name='dispatch')
+class GadgetInfo(View):
+    def get(self, request, pk, user_pk):
+        gadget = Gadget.objects.get(id=pk)
+        notes = gadget.note_set.all()
+        return render(request, 'workers/gadget_info.html', context={'gadget': gadget, 'notes': notes, 'user_pk': user_pk})
 
+    def post(self, request, pk):
+        gadget = Gadget.objects.get(id=pk)
+        if gadget.in_serwis:
+            gadget.in_serwis = False
+            gadget.save()
+        elif not gadget.in_serwis:
+            gadget.in_serwis = True
+            gadget.save()
+        return redirect(request.META.get('HTTP_REFERER'))

@@ -16,7 +16,7 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title float-left mt-10">Kartka Urządzenia
-                    №{{ gadget.id }} {{ gadget.location }} {{ gadget.created_at }}</h3>
+                    №{{ gadget.id }} {{ gadget.location }} {{ gadget.created_at_format }}</h3>
                 <h3 class="float-left ml-20">
 
                     {% if gadget.in_serwis == True %}
@@ -134,7 +134,7 @@
                                                         {% endif %}
 
                                                     </h6>
-                                                    <h6 class="float-right">{{ note.created_at }} <a
+                                                    <h6 class="float-right">{{ note.created_at_format }} <a
                                                             href="{% url 'delete_note' pk=note.pk %}">
                                                         <badge class="badge-pill bg-pale-danger"><i
                                                                 class="fa fa-close"></i></badge>
@@ -180,10 +180,7 @@
                                 class="fa fa-sticky-note"></i>
                             Notatka
                         </button>
-                        <a href="{% url 'gadgets' %}">
-                            <button class="btn btn-danger float-right"><i class="fa fa-close"></i> Zamknąć</button>
-                        </a>
-
+                        <input type="button" class="btn btn-danger float-right" onclick="history.back();" value="Zamknąć"/>
                     </div>
                 </div>
             </div>

@@ -20,6 +20,7 @@ from django.urls import path, include
 
 from dashboard.views import index_dash
 
+
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', index_dash, name='dashboard'),
@@ -29,4 +30,3 @@ urlpatterns = [
     path('note/', include('notes.urls')),
     path('klienty/', include('klienty.urls')),
 ]
-

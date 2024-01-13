@@ -131,14 +131,12 @@ class OutgoGadget(View):
 
     def post(self, request, pk):
         gadget = Gadget.objects.get(id=pk)
-
         if gadget.in_serwis:
             gadget.in_serwis = False
             gadget.save()
         elif not gadget.in_serwis:
             gadget.in_serwis = True
             gadget.save()
-
         return redirect(request.META.get('HTTP_REFERER'))
 
 
@@ -177,4 +175,3 @@ def filters_gadget_change(request, status):
 def print_gadget(request, pk):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     return render(request, 'gadgets/print_gadget.html', context={'gadget': gadget})
-

@@ -29,6 +29,7 @@
                     533-601-601, 533-602-602
                 </h3>
                 <img class="float-right mt-20" src="/static/images/TPL_LOGO.png" alt="TPL_LOGO">
+                <h3 class="text-center font-weight-bold">{{ gadget.created_at_format }}</h3> 
             </div>
             <div class="print box-body">
                 <h3 class="print font-weight-bold text-center">Zgłoszenie do naprawy/przeglądu {{ gadget.id }}
@@ -99,16 +100,15 @@
                 <button onclick="javascript:window.print()" class="btn btn-warning float-left"><i
                         class="fa fa-print"></i> Drukuj
                 </button>
-                <a href="{% url 'gadgets' %}">
-                    <button class="btn btn-danger float-right"><i class="fa fa-close"></i> Zamknąć</button>
-                </a>
+                <input type="button" class="btn btn-danger float-right" onclick="history.back();" value="Zamknąć"/>
             </div>
         </div>
         <div class="box">
             <div class="box-header with-border print text-center">
-                
+                <h3 class="font-weight-bold">{{ gadget.created_at_format }}</h3>
             </div>
             <div class="print box-body">
+                 
                 <h3 class="font-weight-bold text-center">Zgłoszenie do naprawy/przeglądu {{ gadget.id }}
                     <br>
                     <br>
