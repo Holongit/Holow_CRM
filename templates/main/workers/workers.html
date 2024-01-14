@@ -46,6 +46,7 @@
                                                             href="{% url 'gadget_info' pk=item_g.gadget.id user_pk=item_u.id %}"
                                                             class="nav-link">{{ item_g.gadget.id }} {{ item_g.gadget.brand_gadget }} {{ item_g.gadget.model_gadget }}
 
+
                                                         <span class="pull-right mr-10 badge ml-10                                                        
                                                         {% if item_g.gadget.time_in_serwis_get <= 3 %} bg-info
                                                         {% elif item_g.gadget.time_in_serwis_get > 3 and item_g.gadget.time_in_serwis_get <= 14 %} bg-dark
@@ -63,13 +64,14 @@
                                                         {% endif %}                                                        
                                                         ">{{ item_g.gadget.status }}
                                                         </span>
-
+                                                    
                                                         <span class="pull-right mr-10 badge                                                         
-                                                        {% if item_g.gadget.type_service == 'PŁATNE' %} bg-info
-                                                        {% elif item_g.gadget.type_service == 'GWARANCJA' %} bg-warning
-                                                        {% elif item_g.gadget.type_service == 'REKLAMACJA' %} bg-danger                                              
+                                                        {% if item_g.gadget.pilne == 'PILNE' %} bg-danger
+                                                        {% elif item_g.gadget.pilne == 'ŚREDNIO' %} bg-warning
+                                                        {% elif item_g.gadget.pilne == 'NIE' %} bg-secondary                                              
                                                         {% endif %}                                                        
-                                                        ">{{ item_g.gadget.type_service }}
+                                                        ">{{ item_g.gadget.pilne }}
+                                                        </span>
 
 
                                                     </a>

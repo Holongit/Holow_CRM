@@ -11,7 +11,7 @@ from gadgets.models import Gadget, SetingsCRM
 from workers.models import Workers
 
 
-
+@login_required(login_url='login')
 def workers(request):
     users = User.objects.all()
 
@@ -87,7 +87,7 @@ class GadgetInfo(View):
         notes = gadget.note_set.all()
         return render(request, 'workers/gadget_info.html', context={'gadget': gadget, 'notes': notes, 'user_pk': user_pk})
 
-    def post(self, request, pk):
+    def post(self, request, pk, user_pk):
         gadget = Gadget.objects.get(id=pk)
         if gadget.in_serwis:
             gadget.in_serwis = False
@@ -97,6 +97,7 @@ class GadgetInfo(View):
             gadget.save()
         return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def add_gadget_to_worker(request, pk):
     user = request.user
     gadget = Gadget.objects.get(id=pk)
@@ -111,8 +112,9 @@ def add_gadget_to_worker(request, pk):
         return redirect(request.META.get('HTTP_REFERER'))
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required(login_url='login')
 def delete_gadget_to_worker(request, pk):
     worker = Workers.objects.filter(gadget__id=pk)
     worker.delete()
     return redirect(request.META.get('HTTP_REFERER'))
+

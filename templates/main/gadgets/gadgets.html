@@ -121,6 +121,7 @@
                                 <th class="text-center font-weight-bold b-3 border-white">Właściciel</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Telefon</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Data</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Technik</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Czas</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Stan</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy</th>
@@ -155,6 +156,22 @@
                                     </td>
                                     <td class="b-3 border-white"><a
                                             href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.created_at_format }}</a>
+                                    </td>
+                                    <td class="b-3 border-white">
+                                    {% if gadgets_data.in_serwis %}
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-secondary dropdown-toggle btn-xs font-size-12 font-weight-medium" data-toggle="dropdown">{{ gadgets_data.workers.worker }}</button>
+                                            <div class="dropdown-menu">
+                                                {% for user in users %}
+                                                <a class="dropdown-item"
+                                                   href="{% url 'technik_change' gadget_id=gadgets_data.pk user_id=user.pk %}">{{ user.username }}
+                                                </a>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <button type="button" class="btn btn-secondary btn-xs font-size-12 font-weight-medium">{{ gadgets_data.workers.worker }}</button>
+                                    {% endif %}
                                     </td>
                                     <td class="b-3 border-white"><a
                                             href="{% url 'outgo_gadget' pk=gadgets_data.id %}">

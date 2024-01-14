@@ -31,4 +31,5 @@ urlpatterns = [
     path('filters/<str:status>/', filters_gadget_change, name='filters_gadget_change'),
     path('print_gadget/<int:pk>/', print_gadget, name='print_gadget'),
     path('pilne_status_change/<int:pk><str:status>/', pilne_status_change, name='pilne_status_change'),
+    path('worker_change/<int:gadget_id><int:user_id>/', technik_change, name='technik_change'),
 ]

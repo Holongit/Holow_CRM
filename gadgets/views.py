@@ -1,4 +1,4 @@
-
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -9,6 +9,8 @@ from django.utils.decorators import method_decorator
 
 from gadgets.forms import GadgetForm
 from gadgets.models import Gadget, SetingsCRM
+from workers.models import Workers
+from workers.views import add_gadget_to_worker
 
 
 @login_required(login_url='login')
@@ -52,9 +54,11 @@ def index_gad(request):
         next_url = ''
 
     setings_filter = SetingsCRM.objects.get(pk=1)
+    users = User.objects.all()
 
     context = {
         'filters': setings_filter,
+        'users': users,
         'gadgets': page,
         'is_paginated': is_paginated,
         'next_url': next_url,
@@ -175,9 +179,21 @@ def filters_gadget_change(request, status):
 def print_gadget(request, pk):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     return render(request, 'gadgets/print_gadget.html', context={'gadget': gadget})
-
+@login_required(login_url='login')
 def pilne_status_change(request, pk, status):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     gadget.pilne = status
     gadget.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required(login_url='login')
+def technik_change(request, gadget_id, user_id):
+    if Workers.objects.filter(gadget__id=gadget_id):
+        worker_change = Workers.objects.get(gadget__id=gadget_id)
+        worker_change.worker = User.objects.get(pk=user_id)
+        worker_change.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        add_gadget_to_worker(request, gadget_id)
+        return redirect(request.META.get('HTTP_REFERER'))
+
