@@ -5,10 +5,8 @@ from django.db.models import Q
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import HttpResponseRedirect
+from django.utils import timezone
 
-
-from gadgets.forms import GadgetForm
 from gadgets.models import Gadget, SetingsCRM
 from workers.models import Workers
 
@@ -98,3 +96,23 @@ class GadgetInfo(View):
             gadget.in_serwis = True
             gadget.save()
         return redirect(request.META.get('HTTP_REFERER'))
+
+def add_gadget_to_worker(request, pk):
+    user = request.user
+    gadget = Gadget.objects.get(id=pk)
+    if gadget.in_serwis:
+        if Workers.objects.filter(gadget__id=pk).exists():
+            s = Workers.objects.get(gadget__id=pk)
+            s.updated_at = timezone.now()
+            s.worker = user
+            s.save()
+        else:
+            Workers.objects.create(worker=user, gadget=gadget)
+        return redirect(request.META.get('HTTP_REFERER'))
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def delete_gadget_to_worker(request, pk):
+    worker = Workers.objects.filter(gadget__id=pk)
+    worker.delete()
+    return redirect(request.META.get('HTTP_REFERER'))

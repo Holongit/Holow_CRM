@@ -175,3 +175,9 @@ def filters_gadget_change(request, status):
 def print_gadget(request, pk):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     return render(request, 'gadgets/print_gadget.html', context={'gadget': gadget})
+
+def pilne_status_change(request, pk, status):
+    gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
+    gadget.pilne = status
+    gadget.save()
+    return redirect(request.META.get('HTTP_REFERER'))

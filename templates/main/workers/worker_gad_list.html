@@ -123,7 +123,12 @@
                                 <th class="text-center font-weight-bold b-3 border-white">Data</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Stan</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy</th>
-                                <th></th>
+                                <th class="text-center font-weight-bold b-3 border-white">Pilne</th>
+                                {% if request.user.is_authenticated and not request.user.is_staff %}
+                                    <th class="text-center font-weight-bold b-3 border-white">Do naprawy</th>
+                                {% elif request.user.is_authenticated and request.user.is_staff %}
+                                    <th></th>
+                                {% endif %}
                             </tr>
                             </thead>
 
@@ -210,41 +215,74 @@
                                     </td>
                                     <td class="b-3 border-white">
                                     {% if request.user.is_authenticated and request.user.is_staff %}
-
-                                        <div class="clearfix">
-
-                                            <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.pk %}">
-                                                {% if gadgets_data.gadget.in_serwis == True %}
-                                                    <button class="btn bg-pale-primary btn-xs">Wydaj</button>
-                                                {% else %}
-                                                    <button class="btn bg-primary btn-xs">Przyjmij</button>
-                                                {% endif %}
-                                            </a>
-                                            <a href="{{ gadgets_data.gadget.get_absolute_url }}">
-                                                <button class="btn bg-pale-info btn-xs">Edit</button>
-                                            </a>
-
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-xs bg-pale-danger dropdown-toggle"
-                                                        data-toggle="dropdown">
-                                                    Delete
+                                                <button type="button" class="btn
+                                                        {% if gadgets_data.gadget.pilne == 'PILNE' %} btn-danger
+                                                        {% elif gadgets_data.gadget.pilne == 'ŚREDNIO' %} btn-warning
+                                                        {% elif gadgets_data.gadget.pilne == 'NIE' %} btn-secondary
+                                                  
+                                                        {% endif %}
+                                                        btn-xs dropdown-toggle"
+                                                        data-toggle="dropdown">{{ gadgets_data.gadget.pilne }}
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="text-center dropdown-item"
-                                                       href=""><h2>Jesteś pewny?</h2>
-                                                    </a>
-                                                    <a class="text-center dropdown-item"
-                                                       href="{% url 'delete_gadget' pk=gadgets_data.gadget.pk %}"><h2>
-                                                        DELETE</h2></a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'pilne_status_change' pk=gadgets_data.gadget.id status='PILNE' %}">PILNE</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'pilne_status_change' pk=gadgets_data.gadget.id status='ŚREDNIO' %}">ŚREDNIO</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'pilne_status_change' pk=gadgets_data.gadget.id status='NIE' %}">NIE</a>
                                                 </div>
                                             </div>
-                                        </div>
-                                        
-                                    {% elif gadgets_data.gadget.pilne == 'NO' %}
-                                        
-                                        <span class="btn bg-danger btn-xs">PILNE</span>
-                                        
-                                    {% endif %}
+                                        {% else %}
+                                            <button type="button" class="btn
+                                                        {% if gadgets_data.gadget.pilne == 'NIE' %} btn-secondary
+                                                        {% elif gadgets_data.gadget.pilne == 'ŚREDNIO' %} btn-warning
+                                                        {% elif gadgets_data.gadget.pilne == 'PILNE' %} btn-danger
+                                                        {% endif %}
+                                                        btn-xs">{{ gadgets_data.gadget.pilne }}
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                    <td class="b-3 border-white">
+                                        {% if request.user.is_authenticated and request.user.is_staff %}
+
+                                            <div class="clearfix">
+
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.pk %}">
+                                                    {% if gadgets_data.gadget.in_serwis == True %}
+                                                        <button class="btn bg-pale-primary btn-xs">Wydaj</button>
+                                                    {% else %}
+                                                        <button class="btn bg-primary btn-xs">Przyjmij</button>
+                                                    {% endif %}
+                                                </a>
+                                                <a href="{{ gadgets_data.gadget.get_absolute_url }}">
+                                                    <button class="btn bg-pale-info btn-xs">Edit</button>
+                                                </a>
+
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn btn-xs bg-pale-danger dropdown-toggle"
+                                                            data-toggle="dropdown">
+                                                        Delete
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="text-center dropdown-item"
+                                                           href=""><h2>Jesteś pewny?</h2>
+                                                        </a>
+                                                        <a class="text-center dropdown-item"
+                                                           href="{% url 'delete_gadget' pk=gadgets_data.gadget.id %}"><h2>
+                                                            DELETE</h2></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        {% elif gadgets_data.gadget.in_serwis %}
+                                            <a href="{% url 'delete_gadget_to_worker' pk=gadgets_data.gadget.id %}">
+                                            <span class="btn bg-danger btn-xs">Usuń</span>
+                                            </a>
+
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 </tbody>

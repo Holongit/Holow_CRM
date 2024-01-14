@@ -5,8 +5,8 @@ from django.utils import timezone
 
 
 class Workers(models.Model):
-    worker = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
-    gadget = models.OneToOneField(Gadget, on_delete=models.DO_NOTHING, null=True)
+    worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    gadget = models.OneToOneField(Gadget, on_delete=models.CASCADE, null=True)
     added_at = models.DateTimeField(default=timezone.now, db_index=True)
     time_in = models.DurationField(null=True, blank=True)
     updated_at = models.DateTimeField(default=timezone.now)
