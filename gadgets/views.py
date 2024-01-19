@@ -197,3 +197,6 @@ def technik_change(request, gadget_id, user_id):
         add_gadget_to_worker(request, gadget_id)
         return redirect(request.META.get('HTTP_REFERER'))
 
+def add_opis_naprawy(request, pk):
+    gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
+    pass
