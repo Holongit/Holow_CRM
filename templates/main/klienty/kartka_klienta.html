@@ -1,0 +1,163 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            Klient {{ klient.name_klient }}
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
+            <li class="breadcrumb-item active">Urządzenie</li>
+        </ol>
+    </section>
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title float-left mt-10">Kartka Klienta
+                    №{{ klient.id }} {{ klient.created_at_format }} {{ klient.time_with_serwis_get }} dni</h3>
+                <h3 class="float-left ml-20">
+
+                </h3>
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-close" href="#"></a></li>
+                    <li><a class="box-btn-slide rotate-180" href="#"></a></li>
+                    <li><a class="box-btn-fullscreen" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <!-- CONTENT_MAIN -->
+
+                <div class="row">
+                    <div class="col">
+
+
+                        <div class="row">
+
+                            <div class="col-lg-6 col-12">
+
+
+                                <div class="form-group">
+                                    <h5>Imie Nazwisko: <span
+                                            class="font-weight-bold font-size-20">{{ klient.name_klient }}</span>
+                                    </h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Telefon: <span
+                                            class="font-weight-bold font-size-20">{{ klient.telefon_klient }}</span>
+                                    </h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Email: <span
+                                            class="font-weight-bold font-size-20">{{ klient.email_klient }}</span>
+                                    </h5>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <h5>Opis klienta: <span
+                                            class="font-weight-bold font-size-20">{{ klient.opis_klient }}</span>
+                                    </h5>
+                                </div>
+
+                                <div class="form-group">
+                                    <h5>Urządzenia:
+                                        <div>
+                                            {% for gadget in klient.gadget_set.all %}
+                                                <br>
+                                                <span class="font-weight-bold font-size-20">
+                                        {{ gadget.id }} {{ gadget.type_gadget }} {{ gadget.brand_gadget }} {{ gadget.model_gadget }} {{ gadget.created_at_format }}
+                                        </span>
+                                                <br>
+                                            {% endfor %}
+                                        </div>
+                                    </h5>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                {% for note in notes %}
+                                    <!-- CONTENT_NOTE -->
+                                    <div class="timeline timeline-single-column timeline-single-full-column">
+                                        <div class="timeline-item timeline-item-left">
+                                            <div class="timeline-point timeline-point-blank"></div>
+                                            <div class="timeline-event timeline-event-default">
+                                                <div class="timeline-heading">
+                                                    <h6 class="timeline-title float-left">{{ note.author }}
+                                                        {% if note.title == 'none' %}
+                                                        {% else %}
+                                                            <badge class="badge-pill  bg-pale-info">{{ note.title }}</badge>
+                                                        {% endif %}
+                                                    </h6>
+                                                    <h6 class="float-right">{{ note.created_at_format }} <a
+                                                            href="{% url 'delete_note' pk=note.pk %}">
+                                                        <badge class="badge-pill bg-pale-danger"><i
+                                                                class="fa fa-close"></i></badge>
+                                                    </a>
+                                                    </h6>
+                                                </div>
+                                                <div class="timeline-body mt-15">
+                                                    <p class="font-size-16">{{ note.content }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {#                        {% if request.user.is_authenticated and request.user.is_staff %}#}
+                        {#                            <form action="{% url 'outgo_gadget' pk=gadget.id %}" method="post" class="mt-20">#}
+                        {#                                {% csrf_token %}#}
+                        {#                                {% if gadget.in_serwis == True %}#}
+                        {#                                    <button type="submit" class="btn btn-primary float-left"><i class="fa fa-reply"></i>#}
+                        {#                                        Wydaj#}
+                        {#                                    </button>#}
+                        {#                                {% elif gadget.in_serwis == False %}#}
+                        {#                                    <button type="submit" class="btn btn-primary float-left"><i#}
+                        {#                                            class="fa fa-mail-forward"></i>#}
+                        {#                                        Przyjmij#}
+                        {#                                    </button>#}
+                        {#                                {% endif %}#}
+                        {#                            </form>#}
+                        {#                            <a href="{% url 'print_gadget' pk=gadget.pk %}">#}
+                        {#                                <button class="btn btn-warning float-left ml-20"><i#}
+                        {#                                        class="fa fa-print"></i> Drukuj#}
+                        {#                                </button>#}
+                        {#                            </a>#}
+                        {#                            <a href="{% url 'edit_gadget' pk=gadget.pk %}">#}
+                        {#                                <button class="btn btn-info float-left ml-20"><i class="fa fa-edit"></i> Edituj</button>#}
+                        {#                            </a>#}
+                        {#                        {% else %}#}
+                        {##}
+                        {#                            <a href="{% url 'add_opis_naprawy' pk=gadget.id %}">#}
+                        {#                                <button type="submit" class="btn btn-info float-left ml-20"><i#}
+                        {#                                        class="fa fa-sticky-note"></i>#}
+                        {#                                    Dodaj opis naprawy#}
+                        {#                                </button>#}
+                        {#                            </a>#}
+                        {##}
+                        {#                        {% endif %}#}
+                        {#                        <a href="{% url 'add_note' pk=klient.id %}">#}
+                        {#                            <button type="submit" class="btn btn-dark float-left ml-20"><i#}
+                        {#                                    class="fa fa-comments"></i>#}
+                        {#                                Notatka#}
+                        {#                            </button>#}
+                        {#                        </a>#}
+
+                        <a href="{% url 'klienty' %}">
+                            <button type="submit" class="btn btn-danger float-right ml-20"><i
+                                    class="fa fa-close"></i>
+                                Zamknąć
+                            </button>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+    </section>
+
+{% endblock %}
+

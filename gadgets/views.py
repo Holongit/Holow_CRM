@@ -11,6 +11,8 @@ from gadgets.forms import GadgetForm, OpisNaprawyForm
 from gadgets.models import Gadget, SetingsCRM
 from workers.models import Workers
 from workers.views import add_gadget_to_worker
+from klienty.models import Klient
+
 
 @login_required(login_url='login')
 def index_gad(request):
@@ -73,8 +75,40 @@ def index_gad(request):
 class AddGadgets(View):
     def get(self, request):
         form_gad = GadgetForm()
+        search_query = request.GET.get('q', '')
 
-        return render(request, 'gadgets/add_gadget.html', context={'form_gad': form_gad})
+        if search_query:
+            serching_kli = Klient.objects.filter(Q(name_klient__icontains=search_query) |
+                                                 Q(telefon_klient__icontains=search_query))
+        else:
+            serching_kli = Klient.objects.all()
+
+        paginator = Paginator(serching_kli, 14)
+
+        page_number = request.GET.get('page', 1)
+        page = paginator.get_page(page_number)
+
+        is_paginated = page.has_other_pages()
+
+        if page.has_previous():
+            prev_url = '?page={}'.format(page.previous_page_number())
+        else:
+            prev_url = ''
+
+        if page.has_next():
+            next_url = '?page={}'.format(page.next_page_number())
+        else:
+            next_url = ''
+
+        context = {
+            'klients': page,
+            'is_paginated': is_paginated,
+            'next_url': next_url,
+            'prev_url': prev_url,
+            'form_gad': form_gad,
+        }
+
+        return render(request, 'gadgets/add_gadget.html', context=context)
 
     def post(self, request):
         bound_form_gad = GadgetForm(request.POST)
@@ -200,7 +234,7 @@ def technik_change(request, gadget_id, user_id):
         add_gadget_to_worker(request, gadget_id)
         return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required(login_url='login')
 def add_opis_naprawy(request, pk):
     if request.method == "GET":
         gadget = Gadget.objects.get(pk=pk)

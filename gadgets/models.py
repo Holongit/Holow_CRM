@@ -24,7 +24,7 @@ class Gadget(models.Model):
     klient = models.ForeignKey(Klient, on_delete=models.PROTECT, null=True)
 
     location = models.CharField(max_length=32, default='STOKŁOSY', db_index=True)
-    paid = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    paid = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     in_serwis = models.BooleanField(default=True, db_index=True)
     time_in_serwis = models.DurationField(null=True, blank=True)
     opis_naprawy = models.CharField(max_length=512, null=True, blank=True)

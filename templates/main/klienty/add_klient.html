@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+{% block content %}
+    <section class="content-header">
+        <h1>
+            Nowa Naprawa
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
+            <li class="breadcrumb-item active">Urządzenie</li>
+        </ol>
+    </section>
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Nowy Klient</h3>
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-close" href="#"></a></li>
+                    <li><a class="box-btn-slide" href="#"></a></li>
+                    <li><a class="box-btn-fullscreen" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <!-- CONTENT_MAIN -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col">
+                            <form action="#" method="post">
+                                {% csrf_token %}
+
+                                <div class="row">
+
+                                    <div class="col-lg-6 col-12">
+
+                                        <div class="form-group">
+                                            <h5>Imie Nazwisko<span class="text-danger">*</span></h5>
+                                            {{ form_kli.name_klient }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Telefon<span class="text-danger">*</span></h5>
+                                            {{ form_kli.telefon_klient }}
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <h5>Opis Klienta</h5>
+                                            {{ form_kli.opis_klient }}
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-6 col-12">
+
+                                        <div class="form-group">
+                                            <h5>Typ Klienta<span class="text-danger">*</span></h5>
+                                            {{ form_kli.types_klient }}
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <h5>Email</h5>
+                                            {{ form_kli.email_klient }}
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Zahowuj</button>
+                    </form>
+
+                    <input type="button" class="btn btn-danger float-right" onclick="history.back();" value="Zamknąć"/>
+                </div>
+
+
+            </div>
+            <!-- /.box-footer-->
+        </div>
+
+        
+
+    </section>
+{% endblock %}
+
