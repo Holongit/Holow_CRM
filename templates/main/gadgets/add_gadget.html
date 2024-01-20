@@ -73,35 +73,30 @@
 
                 <!-- table -->
                 <div class="box-body">
-                    <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-striped">
+                     <div class="table-responsive">
+                        <table id="example1" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                             <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>name</th>
-                                <th>telefon_</th>
-                                <th>Email</th>
-                                <th>Date</th>
-                                <th></th>
+                            <tr class="bg-secondary">
+                                <th class="text-center font-weight-bold b-3 border-white">id</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Imie Nazwisko</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Telefon</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Email</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Data</th>
+                                <th class="text-center font-weight-bold b-3 border-white"></th>
                             </tr>
                             </thead>
 
                             {% for klient_data in klients %}
 
-                                <tbody>
-                                <tr>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ klient_data.id }}</a></td>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ klient_data.name_klient }}</a></td>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ klient_data.telefon_klient }}</a></td>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ klient_data.email_klient }}</a></td>
-                                    <td><a href="#" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">{{ klient_data.created_at_format }}</a>
+                               <tbody>
+                                <tr class="text-center font-size-14">
+                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}" >{{ klient_data.id }}</a></td>
+                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.name_klient }}</a></td>
+                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.telefon_klient }}</a></td>
+                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.email_klient }}</a></td>
+                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.created_at_format }}</a>
                                     </td>
-                                    <td>
+                                    <td class="b-3 border-white">
                                         <div class="clearfix">
                                             <a href="{% url 'add_serwis' pk=klient_data.id %}"><button class="btn btn-primary btn-xs">Wybrać
                                             </button></a>

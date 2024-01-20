@@ -33,9 +33,9 @@ def index_gad(request):
         serching_gad = gadget_in_serwis.filter(Q(brand_gadget__icontains=search_query) |
                                                Q(model_gadget__icontains=search_query) |
                                                Q(serial_gadget__icontains=search_query) |
-                                               Q(master_gadget__icontains=search_query) |
+                                               Q(klient__name_klient__icontains=search_query) |
                                                Q(id=search_query_int) |
-                                               Q(telefon_master_gadget__icontains=search_query))
+                                               Q(klient__telefon_klient__icontains=search_query))
     else:
         serching_gad = gadget_in_serwis
 

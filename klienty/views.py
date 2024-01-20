@@ -19,7 +19,7 @@ def index_kli(request):
 
     if search_query:
         serching_kli = Klient.objects.filter(Q(name_klient__icontains=search_query) |
-                                             Q(telefon_klien__icontains=search_query))
+                                             Q(telefon_klient__icontains=search_query))
     else:
         serching_kli = Klient.objects.all()
     paginator = Paginator(serching_kli, 14)
@@ -97,9 +97,9 @@ def add_serwis(request, pk):
             serching_gad = gadget_in_serwis.filter(Q(brand_gadget__icontains=search_query) |
                                                    Q(model_gadget__icontains=search_query) |
                                                    Q(serial_gadget__icontains=search_query) |
-                                                   Q(master_gadget__icontains=search_query) |
+                                                   Q(klient__name_klient__icontains=search_query) |
                                                    Q(id=search_query_int) |
-                                                   Q(telefon_master_gadget__icontains=search_query))
+                                                   Q(klient__telefon_klient__icontains=search_query))
         else:
             serching_gad = gadget_in_serwis
         paginator = Paginator(serching_gad, 14)
@@ -149,5 +149,5 @@ def add_gadget_serwis(request, pk):
             gadget.klient = Klient.objects.get(pk=pk)
             gadget.save()
 
-            return redirect('gadgets')
+            return redirect('outgo_gadget', pk=gadget.id)
         return redirect(request.META.get('HTTP_REFERER'), pk=pk)

@@ -19,29 +19,6 @@
             </div>
             <div class="box-body">
                 <!-- CONTENT_MAIN -->
-                <!-- Modal -->
-                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-                     aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            </div>
-                            <div class="modal-body">
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger waves-effect text-left"
-                                        data-dismiss="modal">Close
-                                </button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-
                 <!-- serching -->
                 <form class="navbar-form navbar-left">
                     <div class="input-group">
@@ -51,7 +28,6 @@
                         </span>
                     </div>
                 </form>
-
                 {% if is_paginated %}
                     <form class="navbar-form navbar-right">
 
@@ -94,35 +70,33 @@
                 <!-- table -->
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                             <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>name</th>
-                                <th>telefon_</th>
-                                <th>Email</th>
-                                <th>Date</th>
-                                <th></th>
+                            <tr class="bg-secondary">
+                                <th class="text-center font-weight-bold b-3 border-white">id</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Imie Nazwisko</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Telefon</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Email</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Data</th>
+                                <th class="text-center font-weight-bold b-3 border-white"></th>
                             </tr>
                             </thead>
 
                             {% for klient_data in klients %}
 
                                 <tbody>
-                                <tr>
-                                    <td><a href="{% url 'kartka_klienta' pk=klient_data.id %}" >{{ klient_data.id }}</a></td>
-                                    <td><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.name_klient }}</a></td>
-                                    <td><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.telefon_klient }}</a></td>
-                                    <td><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.email_klient }}</a></td>
-                                    <td><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.created_at_format }}</a>
+                                <tr class="text-center font-size-14">
+                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}" >{{ klient_data.id }}</a></td>
+                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.name_klient }}</a></td>
+                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.telefon_klient }}</a></td>
+                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.email_klient }}</a></td>
+                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.created_at_format }}</a>
                                     </td>
-                                    <td>
+                                    <td class="b-3 border-white">
                                         <div class="clearfix">
-                                            <button class="btn btn-primary btn-xs" data-toggle="modal"
-                                                    data-target=".bs-example-modal-lg">Edit
+                                            <button class="btn btn-primary btn-xs">Edit
                                             </button>
-                                            <button class="btn btn-danger btn-xs" data-toggle="modal"
-                                                    data-target=".bs-example-modal-lg">Delete
+                                            <button class="btn btn-danger btn-xs">Delete
                                             </button>
                                         </div>
                                     </td>
