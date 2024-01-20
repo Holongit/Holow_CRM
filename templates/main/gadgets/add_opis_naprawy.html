@@ -149,18 +149,20 @@
                         </div>
                     </div>
 
-                    <a href="{% url 'add_note' pk=gadget.id %}">
-                        <button type="submit" class="btn btn-dark float-left ml-20"><i
-                                class="fa fa-comments"></i>
-                            Notatka
-                        </button>
-                    </a>
                     <a href="#">
                         <button type="submit" class="btn btn-info float-left ml-20"><i
                                 class="fa fa-sticky-note"></i>
                             Dodaj opis naprawy
                         </button>
                     </a>
+
+                    <a href="{% url 'add_note' pk=gadget.id %}">
+                        <button type="submit" class="btn btn-dark float-left ml-20"><i
+                                class="fa fa-comments"></i>
+                            Notatka
+                        </button>
+                    </a>
+
 
                     <a href="{% url 'gadgets' %}">
                         <button type="submit" class="btn btn-danger float-right ml-20"><i
