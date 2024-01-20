@@ -27,7 +27,7 @@ class Gadget(models.Model):
     paid = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     in_serwis = models.BooleanField(default=True, db_index=True)
     time_in_serwis = models.DurationField(null=True, blank=True)
-    opis_naprawy = models.TextField(null=True, blank=True)
+    opis_naprawy = models.CharField(max_length=512, null=True, blank=True)
     type_service = models.CharField(max_length=32, default='PŁATNE')
 
     def created_at_format(self):

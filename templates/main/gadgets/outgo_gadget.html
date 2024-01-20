@@ -159,18 +159,20 @@
                             <a href="{% url 'edit_gadget' pk=gadget.pk %}">
                                 <button class="btn btn-info float-left ml-20"><i class="fa fa-edit"></i> Edituj</button>
                             </a>
+                        {% else %}
+
+                            <a href="{% url 'add_opis_naprawy' pk=gadget.id %}">
+                                <button type="submit" class="btn btn-info float-left ml-20"><i
+                                        class="fa fa-sticky-note"></i>
+                                    Dodaj opis naprawy
+                                </button>
+                            </a>
+
                         {% endif %}
                         <a href="{% url 'add_note' pk=gadget.id %}">
                             <button type="submit" class="btn btn-dark float-left ml-20"><i
                                     class="fa fa-comments"></i>
                                 Notatka
-                            </button>
-                        </a>
-
-                        <a href="#">
-                            <button type="submit" class="btn btn-info float-left ml-20"><i
-                                    class="fa fa-sticky-note"></i>
-                                Dodaj opis naprawy
                             </button>
                         </a>
 

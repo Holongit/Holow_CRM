@@ -60,6 +60,18 @@ class GadgetForm(forms.Form):
         return new_gadget
 
 
+class OpisNaprawyForm(forms.Form):
 
+    opis_naprawy = forms.CharField(max_length=512)
+
+
+    opis_naprawy.widget.attrs.update({'class': 'form-control'})
+
+
+    def save(self):
+        new_opis_naprawy = Gadget.objects.create(
+            opis_naprawy=self.cleaned_data['opis_naprawy'],
+        )
+        return new_opis_naprawy
 
 

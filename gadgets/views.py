@@ -7,11 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 
-from gadgets.forms import GadgetForm
+from gadgets.forms import GadgetForm, OpisNaprawyForm
 from gadgets.models import Gadget, SetingsCRM
 from workers.models import Workers
 from workers.views import add_gadget_to_worker
-
 
 @login_required(login_url='login')
 def index_gad(request):
@@ -23,8 +22,10 @@ def index_gad(request):
 
     if SetingsCRM.objects.get(pk=1).filter_gadget == 'WSZYSCY':
         gadget_in_serwis = Gadget.objects.all()
+
     if SetingsCRM.objects.get(pk=1).filter_gadget == 'W SERWISIE':
         gadget_in_serwis = Gadget.objects.filter(in_serwis=True)
+
 
     if search_query:
         serching_gad = gadget_in_serwis.filter(Q(brand_gadget__icontains=search_query) |
@@ -88,21 +89,20 @@ class AddGadgets(View):
 @method_decorator(login_required(login_url='login'), name="dispatch")
 class EditGadget(View):
     def get(self, request, **kwargs):
+        gadget_id = Gadget.objects.get(id=kwargs['pk'])
 
         bound_form_gad = GadgetForm(initial={
 
-            'master_gadget': Gadget.objects.get(id=kwargs['pk']).master_gadget,
-            'telefon_master_gadget': Gadget.objects.get(id=kwargs['pk']).telefon_master_gadget,
-            'serial_gadget': Gadget.objects.get(id=kwargs['pk']).serial_gadget,
-            'model_gadget': Gadget.objects.get(id=kwargs['pk']).model_gadget,
-            'brand_gadget': Gadget.objects.get(id=kwargs['pk']).brand_gadget,
-            'password_gadget': Gadget.objects.get(id=kwargs['pk']).password_gadget,
-            'opis_problem': Gadget.objects.get(id=kwargs['pk']).opis_problem,
-            'zestaw': Gadget.objects.get(id=kwargs['pk']).zestaw,
-            'type_gadget': Gadget.objects.get(id=kwargs['pk']).type_gadget
+            'master_gadget': gadget_id.master_gadget,
+            'telefon_master_gadget': gadget_id.telefon_master_gadget,
+            'serial_gadget': gadget_id.serial_gadget,
+            'model_gadget': gadget_id.model_gadget,
+            'brand_gadget': gadget_id.brand_gadget,
+            'password_gadget': gadget_id.password_gadget,
+            'opis_problem': gadget_id.opis_problem,
+            'zestaw': gadget_id.zestaw,
+            'type_gadget': gadget_id.type_gadget
             })
-
-        gadget_id = Gadget.objects.get(id=kwargs['pk'])
 
         return render(request, 'gadgets/edit_gadget.html', context={'gadget': gadget_id, 'form_class': bound_form_gad})
 
@@ -179,12 +179,15 @@ def filters_gadget_change(request, status):
 def print_gadget(request, pk):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     return render(request, 'gadgets/print_gadget.html', context={'gadget': gadget})
+
+
 @login_required(login_url='login')
 def pilne_status_change(request, pk, status):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     gadget.pilne = status
     gadget.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
 
 @login_required(login_url='login')
 def technik_change(request, gadget_id, user_id):
@@ -197,6 +200,19 @@ def technik_change(request, gadget_id, user_id):
         add_gadget_to_worker(request, gadget_id)
         return redirect(request.META.get('HTTP_REFERER'))
 
+
 def add_opis_naprawy(request, pk):
-    gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
-    pass
+    if request.method == "GET":
+        gadget = Gadget.objects.get(pk=pk)
+        form = OpisNaprawyForm(initial={'opis_naprawy': gadget.opis_naprawy})
+        notes = gadget.note_set.all()
+        return render(request, 'gadgets/add_opis_naprawy.html', context={'form': form, 'gadget': gadget, 'notes': notes})
+
+    if request.method == "POST":
+        bound_form = OpisNaprawyForm(request.POST)
+        if bound_form.is_valid():
+            gadget = Gadget.objects.get(pk=pk)
+            gadget.opis_naprawy = request.POST['opis_naprawy']
+            gadget.save()
+            return redirect('outgo_gadget', pk=pk)
+        return redirect(request.META.get('HTTP_REFERER'))
