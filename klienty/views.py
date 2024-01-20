@@ -151,3 +151,4 @@ def add_gadget_serwis(request, pk):
 
             return redirect('outgo_gadget', pk=gadget.id)
         return redirect(request.META.get('HTTP_REFERER'), pk=pk)
+
