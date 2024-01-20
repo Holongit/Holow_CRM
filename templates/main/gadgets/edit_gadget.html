@@ -63,30 +63,6 @@
                                 <div class="row">
 
                                     <div class="col-lg-6 col-12">
-
-                                        <div class="form-group">
-                                            <h5>Imie Nazwisko<span class="text-danger">*</span></h5>
-                                            {{ form_class.master_gadget }}
-
-                                        </div>
-                                        <div class="form-group">
-                                            <h5>Telefon<span class="text-danger">*</span></h5>
-                                            {{ form_class.telefon_master_gadget }}
-                                        </div>
-
-                                        <div class="form-group">
-                                            <h5>Hasło/Login</h5>
-                                            {{ form_class.password_gadget }}
-                                        </div>
-                                        <div class="form-group">
-                                            <h5>Opis Usterki</h5>
-                                            {{ form_class.opis_problem }}
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6 col-12">
                                         <div class="form-group">
                                             <h5>Rodzaj Naprawy<span class="text-danger">*</span></h5>
                                             {{ form_class.type_service }}
@@ -108,11 +84,30 @@
                                             <h5>SERIAL/SSID/SERWIS TAG</h5>
                                             {{ form_class.serial_gadget }}
                                         </div>
+                                        
+                                        <div class="form-group">
+                                            <h5>Opis Technika</h5>
+                                            {{ form_class.opis_naprawy }}
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-lg-6 col-12">
+
                                         <div class="form-group">
                                             <h5>Zestaw</h5>
                                             {{ form_class.zestaw }}
                                         </div>
+                                        <div class="form-group">
+                                            <h5>Hasło/Login</h5>
+                                            {{ form_class.password_gadget }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Opis Usterki</h5>
+                                            {{ form_class.opis_problem }}
 
+                                        </div>
                                     </div>
 
 

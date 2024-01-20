@@ -6,8 +6,7 @@ from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-
-
+from gadgets.forms import GadgetForm
 from gadgets.models import SetingsCRM, Gadget
 from klienty.forms import KlientForm
 from klienty.models import Klient
@@ -133,3 +132,22 @@ def add_serwis(request, pk):
         }
 
         return render(request, 'klienty/add_serwise.html', context=context)
+
+def add_gadget_serwis(request, pk):
+    if request.method == 'GET':
+        klient = Klient.objects.get(pk=pk)
+        notes = klient.note_set.all()
+        form_gad = GadgetForm()
+        return render(request, 'gadgets/add_gadget_serwis.html', {'klient': klient, 'notes': notes, 'form_gad': form_gad})
+
+    if request.method == 'POST':
+        bound_form_gad = GadgetForm(request.POST)
+
+        if bound_form_gad.is_valid():
+            bound_form_gad.save()
+            gadget = Gadget.objects.first()
+            gadget.klient = Klient.objects.get(pk=pk)
+            gadget.save()
+
+            return redirect('gadgets')
+        return redirect(request.META.get('HTTP_REFERER'), pk=pk)

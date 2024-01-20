@@ -8,8 +8,8 @@ from klienty.models import Klient
 class KlientForm(forms.Form):
 
     CHOICES = (
-        ('FIRMA', 'FIRMA'),
         ('OSOBA PRYWATNA', 'OSOBA PRYWATNA'),
+        ('FIRMA', 'FIRMA'),
         ('PRACOWNIK SERWISU', 'PRACOWNIK SERWISU')
     )
 

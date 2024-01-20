@@ -74,7 +74,6 @@ def index_gad(request):
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class AddGadgets(View):
     def get(self, request):
-        form_gad = GadgetForm()
         search_query = request.GET.get('q', '')
 
         if search_query:
@@ -105,19 +104,21 @@ class AddGadgets(View):
             'is_paginated': is_paginated,
             'next_url': next_url,
             'prev_url': prev_url,
-            'form_gad': form_gad,
         }
 
         return render(request, 'gadgets/add_gadget.html', context=context)
 
-    def post(self, request):
-        bound_form_gad = GadgetForm(request.POST)
+    # def post(self, request):
+    #     bound_form_gad = GadgetForm(request.POST)
+    #
+    #     if bound_form_gad.is_valid():
+    #         bound_form_gad.save()
+    #
+    #         return redirect('gadgets')
+    #     return redirect('add_gadget')
 
-        if bound_form_gad.is_valid():
-            bound_form_gad.save()
 
-            return redirect('gadgets')
-        return redirect('add_gadget')
+
 
 
 @method_decorator(login_required(login_url='login'), name="dispatch")
@@ -126,9 +127,7 @@ class EditGadget(View):
         gadget_id = Gadget.objects.get(id=kwargs['pk'])
 
         bound_form_gad = GadgetForm(initial={
-
-            'master_gadget': gadget_id.master_gadget,
-            'telefon_master_gadget': gadget_id.telefon_master_gadget,
+            'opis_naprawy': gadget_id.opis_naprawy,
             'serial_gadget': gadget_id.serial_gadget,
             'model_gadget': gadget_id.model_gadget,
             'brand_gadget': gadget_id.brand_gadget,
@@ -144,8 +143,6 @@ class EditGadget(View):
         bound_form_gad = GadgetForm(request.POST)
         gadget_edit = Gadget.objects.get(id=kwargs['pk'])
         if bound_form_gad.is_valid():
-            gadget_edit.master_gadget = request.POST['master_gadget']
-            gadget_edit.telefon_master_gadget = request.POST['telefon_master_gadget']
             gadget_edit.serial_gadget = request.POST['serial_gadget']
             gadget_edit.model_gadget = request.POST['model_gadget']
             gadget_edit.brand_gadget = request.POST['brand_gadget']
@@ -154,6 +151,7 @@ class EditGadget(View):
             gadget_edit.zestaw = request.POST['zestaw']
             gadget_edit.type_gadget = request.POST['type_gadget']
             gadget_edit.type_service = request.POST['type_service']
+            gadget_edit.opis_naprawy = request.POST['opis_naprawy']
             gadget_edit.save()
 
             return redirect('outgo_gadget', pk=kwargs['pk'])

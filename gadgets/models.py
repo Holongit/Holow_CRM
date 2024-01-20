@@ -7,8 +7,6 @@ from klienty.models import Klient
 
 
 class Gadget(models.Model):
-    master_gadget = models.CharField(max_length=64, default='TPL', db_index=True)
-    telefon_master_gadget = models.CharField(max_length=32, db_index=True)
     serial_gadget = models.CharField(max_length=32, null=True, blank=True, db_index=True)
     model_gadget = models.CharField(max_length=32, db_index=True)
     brand_gadget = models.CharField(max_length=32, db_index=True)

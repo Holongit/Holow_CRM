@@ -130,10 +130,10 @@
                                             href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.brand_gadget }} {{ gadgets_data }}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.master_gadget }}</a>
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.klient.name_klient }}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.telefon_master_gadget }}</a>
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.klient.telefon_klient }}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
                                             href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.created_at_format }}</a>

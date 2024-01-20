@@ -92,25 +92,29 @@
         </div>
 
         <div class="box">
-            
+
             <div class="box-header with-border">
                 <h3 class="box-title float-left mt-10">2. Urządzenie</h3>
                 <form class="float-left ml-20 mt-10">
-                <div class="btn-group">
-                    <button type="button" class="btn
+                    <div class="btn-group">
+                        <button type="button" class="btn
                                                         {% if filters.filter_gadget == 'WSZYSCY' %} btn-primary
                                                         {% elif filters.filter_gadget == 'W SERWISIE' %} btn-secondary                                                        
                                                         {% endif %} dropdown-toggle btn-sm"
-                            data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_gadget }}
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item"
-                           href="{% url 'filters_gadget_change' status='WSZYSCY' %}">WSZYSCY</a>
-                        <a class="dropdown-item"
-                           href="{% url 'filters_gadget_change' status='W SERWISIE' %}">W SERWISIE</a>
+                                data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_gadget }}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               href="{% url 'filters_gadget_change' status='WSZYSCY' %}">WSZYSCY</a>
+                            <a class="dropdown-item"
+                               href="{% url 'filters_gadget_change' status='W SERWISIE' %}">W SERWISIE</a>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+                <a href="{% url 'add_gadget_serwis' pk=klient.id %}">
+                    <button class="btn btn-primary btn-sm mt-10">Dodaj Urządzenie</button>
+                </a>
+
                 <h3 class="float-left ml-20">
                 </h3>
                 <ul class="box-controls pull-right">

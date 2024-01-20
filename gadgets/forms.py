@@ -22,8 +22,6 @@ class GadgetForm(forms.Form):
         ('REKLAMACJA', 'REKLAMACJA')
     )
 
-    master_gadget = forms.CharField(max_length=64)
-    telefon_master_gadget = forms.RegexField(max_length=32, min_length=9, regex=r'^[0-9]*$')
     serial_gadget = forms.CharField(max_length=32, required=False)
     model_gadget = forms.CharField(max_length=32)
     brand_gadget = forms.CharField(max_length=32)
@@ -33,9 +31,8 @@ class GadgetForm(forms.Form):
     type_gadget = forms.ChoiceField(choices=CHOICES)
     type_service = forms.ChoiceField(choices=CHOICES2)
     klient = forms.CharField(max_length=64, required=False)
+    opis_naprawy = forms.CharField(max_length=512, required=False)
 
-    master_gadget.widget.attrs.update({'class': 'form-control'})
-    telefon_master_gadget.widget.attrs.update({'class': 'form-control'})
     serial_gadget.widget.attrs.update({'class': 'form-control'})
     model_gadget.widget.attrs.update({'class': 'form-control'})
     brand_gadget.widget.attrs.update({'class': 'form-control'})
@@ -43,11 +40,10 @@ class GadgetForm(forms.Form):
     zestaw.widget.attrs.update({'class': 'form-control'})
     type_gadget.widget.attrs.update({'class': 'form-control'})
     type_service.widget.attrs.update({'class': 'form-control'})
+    opis_naprawy.widget.attrs.update({'class': 'form-control'})
 
     def save(self):
         new_gadget = Gadget.objects.create(
-            master_gadget=self.cleaned_data['master_gadget'],
-            telefon_master_gadget=self.cleaned_data['telefon_master_gadget'],
             serial_gadget=self.cleaned_data['serial_gadget'],
             model_gadget=self.cleaned_data['model_gadget'],
             brand_gadget=self.cleaned_data['brand_gadget'],
@@ -56,6 +52,7 @@ class GadgetForm(forms.Form):
             zestaw=self.cleaned_data['zestaw'],
             type_gadget=self.cleaned_data['type_gadget'],
             type_service=self.cleaned_data['type_service'],
+            opis_naprawy=self.cleaned_data['opis_naprawy']
         )
         return new_gadget
 
@@ -63,10 +60,7 @@ class GadgetForm(forms.Form):
 class OpisNaprawyForm(forms.Form):
 
     opis_naprawy = forms.CharField(max_length=512)
-
-
     opis_naprawy.widget.attrs.update({'class': 'form-control'})
-
 
     def save(self):
         new_opis_naprawy = Gadget.objects.create(
