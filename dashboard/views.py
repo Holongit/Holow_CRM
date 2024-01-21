@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from django.utils.timezone import now
 
-from gadgets.models import *
 from notes.form import *
 
 
 @login_required(login_url='login')
 def index_dash(request):
-    notatki = Note.objects.all()
+    notatki = Note.objects.order_by('-created_at')[0:20]
     gadgets_all = Gadget.objects.all()
     qnt_gadgetsq = gadgets_all.__len__()
     gadgets_ok = gadgets_all.filter(status__icontains='GOTOWY').__len__()

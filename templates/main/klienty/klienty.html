@@ -125,6 +125,7 @@
                                             {% endfor %}
                                         
                                     </td>
+                                {% if request.user.is_authenticated and request.user.is_staff %}
                                     <td class="b-3 border-white">
                                         <div class="clearfix">
                                             <a href="{% url 'edit_klient' pk=klient_data.id %}">
@@ -137,6 +138,7 @@
                                             </a>
                                         </div>
                                     </td>
+                                {% endif %}
                                 </tr>
                                 </tbody>
 

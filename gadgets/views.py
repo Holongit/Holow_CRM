@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+from django.utils import timezone
 
 from gadgets.forms import GadgetForm, OpisNaprawyForm
 from gadgets.models import Gadget, SetingsCRM
@@ -157,9 +157,11 @@ class OutgoGadget(View):
         gadget = Gadget.objects.get(id=pk)
         if gadget.in_serwis:
             gadget.in_serwis = False
+            gadget.updated_at = timezone.now()
             gadget.save()
         elif not gadget.in_serwis:
             gadget.in_serwis = True
+            gadget.updated_at = timezone.now()
             gadget.save()
         return redirect(request.META.get('HTTP_REFERER'))
 

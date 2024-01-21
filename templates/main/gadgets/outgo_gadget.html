@@ -41,9 +41,18 @@
                         <span class="badge badge-danger font-size-16">REKLAMACJA</span>
                     {% endif %}
 
-                    {% if gadget.pilne == 'NO' %}
+                    {% if gadget.pilne == 'PILNE' %}
                         <span class="badge badge-danger font-size-16">PILNE</span>
+                    {% elif gadget.pilne == 'ŚREDNIO' %}
+                        <span class="badge badge-warning font-size-16">ŚREDNIO</span>
                     {% endif %}
+                    <span class="badge font-size-16                                                        
+                    {% if gadget.time_in_serwis_get <= 3 %} bg-info
+                    {% elif gadget.time_in_serwis_get > 3 and gadget.time_in_serwis_get <= 14 %} bg-dark
+                    {% elif gadget.time_in_serwis_get > 14 %} bg-danger                                              
+                    {% endif %}                                                        
+                    ">{{ gadget.time_in_serwis_get }} dni
+                    </span>
                 </h3>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-close" href="#"></a></li>
@@ -88,6 +97,12 @@
                                 </div>
                                 <div class="form-group">
                                     <h5>Zestaw: <span class="font-weight-bold font-size-20">{{ gadget.zestaw }}</span>
+                                    </h5>
+                                </div>
+
+                                <div class="form-group">
+                                    <h5>Technik: <span
+                                            class="font-weight-bold font-size-20">{{ gadget.workers.worker }}</span>
                                     </h5>
                                 </div>
 
