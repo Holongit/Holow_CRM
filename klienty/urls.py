@@ -27,5 +27,7 @@ urlpatterns = [
     path('kartka_klienta/<int:pk>', kartka_klienta, name='kartka_klienta'),
     path('add_serwis/<int:pk>', add_serwis, name='add_serwis'),
     path('add_gadget_serwis/<int:pk>', add_gadget_serwis, name='add_gadget_serwis'),
+    path('edit_klient/<int:pk>', edit_klient, name='edit_klient'),
+    path('delete_klient/<int:pk>', delete_klient, name='delete_klient'),
 ]
 

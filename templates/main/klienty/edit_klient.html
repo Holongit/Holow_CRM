@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            Edycja danych Klienta #{{ klient.id }}
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
+            <li class="breadcrumb-item active">Edituj Naprawe</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ klient.name_klient }}
+                </h3>
+                <span class="badge bg-pale-dark font-size-12 pull-right mr-90">{{ klient.time_with_serwis_get }} dni</span>
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-close" href="#"></a></li>
+                    <li><a class="box-btn-slide" href="#"></a></li>
+                    <li><a class="box-btn-fullscreen" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <!-- CONTENT_MAIN -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col">
+                            <form action="{% url 'edit_klient' pk=klient.id %}" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <h5>Typ klienta<span class="text-danger">*</span></h5>
+                                            {{ form_class.types_klient }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Imie Nazwisko<span class="text-danger">*</span></h5>
+                                            {{ form_class.name_klient }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Telefon<span class="text-danger">*</span></h5>
+                                            {{ form_class.telefon_klient }}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Email<span class="text-danger"></span></h5>
+                                            {{ form_class.email_klient }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        
+                                       
+                                        <div class="form-group">
+                                            <h5>Opis Klienta</h5>
+                                            {{ form_class.opis_klient }}
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-info float-left"><i class="fa fa-save"></i> Zahowuj</button>
+                    </form>
+                    <input type="button" class="btn btn-danger float-right" onclick="history.back();" value="Zamknąć"/>
+                </div>
+            </div>
+    </section>
+
+{% endblock %}
+
+
+
+

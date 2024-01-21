@@ -11,4 +11,5 @@ urlpatterns = [
     path('add_gadget_to_worker/<int:pk>', add_gadget_to_worker, name='add_gadget_to_worker'),
     path('delete_gadget_to_worker/<int:pk>', delete_gadget_to_worker, name='delete_gadget_to_worker'),
 
+
 ]

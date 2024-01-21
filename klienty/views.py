@@ -1,10 +1,12 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.views.generic import View
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+
 
 from gadgets.forms import GadgetForm
 from gadgets.models import SetingsCRM, Gadget
@@ -12,8 +14,7 @@ from klienty.forms import KlientForm
 from klienty.models import Klient
 
 
-
-
+@login_required(login_url='login')
 def index_kli(request):
     search_query = request.GET.get('q', '')
 
@@ -38,6 +39,8 @@ def index_kli(request):
 
     else:
         next_url = ''
+
+
     context = {
         'klients': page,
         'is_paginated': is_paginated,
@@ -48,6 +51,7 @@ def index_kli(request):
     return render(request, 'klienty/klienty.html', context=context)
 
 
+@method_decorator(login_required(login_url='login'), name='dispatch')
 class AddKlient(View):
     def get(self, request):
         form_kli = KlientForm()
@@ -65,6 +69,7 @@ class AddKlient(View):
         return redirect('add_klient')
 
 
+@login_required(login_url='login')
 def kartka_klienta(request, pk):
 
     if request.method == 'GET':
@@ -73,6 +78,8 @@ def kartka_klienta(request, pk):
 
         return render(request, 'klienty/kartka_klienta.html', context={'klient': klient, 'notes': notes})
 
+
+@login_required(login_url='login')
 def add_serwis(request, pk):
 
     if request.method == 'GET':
@@ -81,6 +88,7 @@ def add_serwis(request, pk):
         gadgets_list = klient.gadget_set.all()
         gadgets_list_in_serwis = klient.gadget_set.filter(in_serwis=True)
         search_query = request.GET.get('q', '')
+        gadget_in_serwis = None
 
         if search_query.isnumeric():
             search_query_int = int(search_query)
@@ -133,12 +141,18 @@ def add_serwis(request, pk):
 
         return render(request, 'klienty/add_serwise.html', context=context)
 
+
+@login_required(login_url='login')
 def add_gadget_serwis(request, pk):
     if request.method == 'GET':
         klient = Klient.objects.get(pk=pk)
         notes = klient.note_set.all()
         form_gad = GadgetForm()
-        return render(request, 'gadgets/add_gadget_serwis.html', {'klient': klient, 'notes': notes, 'form_gad': form_gad})
+        context = {'klient': klient,
+                   'notes': notes,
+                   'form_gad': form_gad
+                   }
+        return render(request, 'gadgets/add_gadget_serwis.html', context=context)
 
     if request.method == 'POST':
         bound_form_gad = GadgetForm(request.POST)
@@ -152,3 +166,40 @@ def add_gadget_serwis(request, pk):
             return redirect('outgo_gadget', pk=gadget.id)
         return redirect(request.META.get('HTTP_REFERER'), pk=pk)
 
+
+@login_required(login_url='login')
+def edit_klient(request, pk):
+    if request.method == 'GET':
+        klient = Klient.objects.get(pk=pk)
+        form_kli = KlientForm(initial={
+            'name_klient': klient.name_klient,
+            'telefon_klient': klient.telefon_klient,
+            'email_klient': klient.email_klient,
+            'opis_klient': klient.opis_klient,
+            'type_klient': klient.types_klient,
+        })
+        return render(request, 'klienty/edit_klient.html', context={'klient': klient, 'form_class': form_kli})
+
+    if request.method == 'POST':
+        boun_form_kli = KlientForm(request.POST)
+        klient_edit = Klient.objects.get(pk=pk)
+        if boun_form_kli.is_valid():
+            klient_edit.name_klient = request.POST['name_klient']
+            klient_edit.telefon_klient = request.POST['telefon_klient']
+            klient_edit.email_klient = request.POST['email_klient']
+            klient_edit.opis_klient = request.POST['opis_klient']
+            klient_edit.types_klient = request.POST['types_klient']
+            klient_edit.save()
+
+            return redirect('kartka_klienta', pk=pk)
+        return redirect(request.META.get('HTTP_REFERER'), pk=pk)
+
+
+@login_required(login_url='login')
+def delete_klient(request, pk):
+    klient = Klient.objects.get(pk=pk)
+    try:
+        klient.delete()
+    except:
+        messages.success(request, 'Klient ma urządzenia. Najpierw usuń wszystkie urządzenia klienta!')
+    return redirect(request.META.get('HTTP_REFERER'))

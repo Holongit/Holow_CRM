@@ -33,7 +33,7 @@ class Gadget(models.Model):
 
 
     def time_in_serwis_get(self):
-        time = timezone.now() - self.created_at
+        time = timezone.now() - self.updated_at
         return time.days
 
 

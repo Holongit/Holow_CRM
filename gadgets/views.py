@@ -108,18 +108,6 @@ class AddGadgets(View):
 
         return render(request, 'gadgets/add_gadget.html', context=context)
 
-    # def post(self, request):
-    #     bound_form_gad = GadgetForm(request.POST)
-    #
-    #     if bound_form_gad.is_valid():
-    #         bound_form_gad.save()
-    #
-    #         return redirect('gadgets')
-    #     return redirect('add_gadget')
-
-
-
-
 
 @method_decorator(login_required(login_url='login'), name="dispatch")
 class EditGadget(View):

@@ -35,9 +35,9 @@ def workers_gad_list(request, pk):
         serching_gad = gadget_in_serwis.filter(Q(gadget__brand_gadget__icontains=search_query) |
                                                Q(gadget__model_gadget__icontains=search_query) |
                                                Q(gadget__serial_gadget__icontains=search_query) |
-                                               Q(gadget__master_gadget__icontains=search_query) |
+                                               Q(gadget__klient__name_klient__icontains=search_query) |
                                                Q(gadget__id=search_query_int) |
-                                               Q(gadget__telefon_master_gadget__icontains=search_query))
+                                               Q(gadget__klient__telefon_klient__icontains=search_query))
     else:
         serching_gad = gadget_in_serwis
 

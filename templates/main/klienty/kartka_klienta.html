@@ -15,11 +15,10 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title float-left mt-10">Kartka Klienta
-                    №{{ klient.id }} {{ klient.created_at_format }} {{ klient.time_with_serwis_get }} dni</h3>
-                <h3 class="float-left ml-20">
-
+                <h3 class="box-title">{{ klient.name_klient }}
+                  
                 </h3>
+                <span class="badge bg-pale-dark font-size-12 pull-right mr-90">{{ klient.time_with_serwis_get }} dni</span>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-close" href="#"></a></li>
                     <li><a class="box-btn-slide rotate-180" href="#"></a></li>
@@ -67,7 +66,19 @@
                                             {% for gadget in klient.gadget_set.all %}
                                                 <br>
                                                 <span class="font-weight-bold font-size-20">
-                                        {{ gadget.id }} {{ gadget.type_gadget }} {{ gadget.brand_gadget }} {{ gadget.model_gadget }} {{ gadget.created_at_format }}
+                                        <a href="{% url 'outgo_gadget' pk=gadget.id %}">
+                                            {{ gadget.id }} 
+                                            {{ gadget.type_gadget }} 
+                                            {{ gadget.brand_gadget }} 
+                                            {{ gadget.model_gadget }} 
+                                            {{ gadget.created_at_format }}
+                                            {% if gadget.in_serwis == True %}<span class="badge-pill badge-sm bg-primary">W SERWISE</span>
+                                            {% else %}<span class="badge-pill badge-sm bg-secondary">WYDANE</span>
+                                            {% endif %}
+                                            <span class="badge-pill badge-sm bg-secondary">{{ gadget.time_in_serwis_get }} dni</span>
+                                            <span class="badge-pill badge-sm bg-secondary">{{ gadget.workers.worker }}</span>
+                                            <br>
+                                        </a>
                                         </span>
                                                 <br>
                                             {% endfor %}
@@ -107,52 +118,23 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        {#                        {% if request.user.is_authenticated and request.user.is_staff %}#}
-                        {#                            <form action="{% url 'outgo_gadget' pk=gadget.id %}" method="post" class="mt-20">#}
-                        {#                                {% csrf_token %}#}
-                        {#                                {% if gadget.in_serwis == True %}#}
-                        {#                                    <button type="submit" class="btn btn-primary float-left"><i class="fa fa-reply"></i>#}
-                        {#                                        Wydaj#}
-                        {#                                    </button>#}
-                        {#                                {% elif gadget.in_serwis == False %}#}
-                        {#                                    <button type="submit" class="btn btn-primary float-left"><i#}
-                        {#                                            class="fa fa-mail-forward"></i>#}
-                        {#                                        Przyjmij#}
-                        {#                                    </button>#}
-                        {#                                {% endif %}#}
-                        {#                            </form>#}
-                        {#                            <a href="{% url 'print_gadget' pk=gadget.pk %}">#}
-                        {#                                <button class="btn btn-warning float-left ml-20"><i#}
-                        {#                                        class="fa fa-print"></i> Drukuj#}
-                        {#                                </button>#}
-                        {#                            </a>#}
-                        {#                            <a href="{% url 'edit_gadget' pk=gadget.pk %}">#}
-                        {#                                <button class="btn btn-info float-left ml-20"><i class="fa fa-edit"></i> Edituj</button>#}
-                        {#                            </a>#}
-                        {#                        {% else %}#}
-                        {##}
-                        {#                            <a href="{% url 'add_opis_naprawy' pk=gadget.id %}">#}
-                        {#                                <button type="submit" class="btn btn-info float-left ml-20"><i#}
-                        {#                                        class="fa fa-sticky-note"></i>#}
-                        {#                                    Dodaj opis naprawy#}
-                        {#                                </button>#}
-                        {#                            </a>#}
-                        {##}
-                        {#                        {% endif %}#}
-                        {#                        <a href="{% url 'add_note' pk=klient.id %}">#}
-                        {#                            <button type="submit" class="btn btn-dark float-left ml-20"><i#}
-                        {#                                    class="fa fa-comments"></i>#}
-                        {#                                Notatka#}
-                        {#                            </button>#}
-                        {#                        </a>#}
-
+                        {% if request.user.is_authenticated and request.user.is_staff %}
+                            <a href="{% url 'edit_klient' pk=klient.id %}">
+                                <button class="btn btn-info float-left ml-20"><i class="fa fa-edit"></i> Edituj</button>
+                            </a>
+                        {% endif %}
+{#                        <a href="{% url 'add_note' pk=klient.id %}">#}
+{#                            <button type="submit" class="btn btn-dark float-left ml-20"><i#}
+{#                                    class="fa fa-comments"></i>#}
+{#                                Notatka#}
+{#                            </button>#}
+{#                        </a>#}
                         <a href="{% url 'klienty' %}">
                             <button type="submit" class="btn btn-danger float-right ml-20"><i
                                     class="fa fa-close"></i>
                                 Zamknąć
                             </button>
                         </a>
-
                     </div>
                 </div>
             </div>
