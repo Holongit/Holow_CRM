@@ -29,62 +29,72 @@
                     533-601-601, 533-602-602
                 </h3>
                 <img class="float-right mt-20" src="/static/images/TPL_LOGO.png" alt="TPL_LOGO">
-                <h3 class="text-center font-weight-bold">{{ gadget.created_at_format }}</h3> 
+                <h3 class="text-center font-weight-bold">{{ gadget.created_at_format }}</h3>
+                <h3 class="font-weight-bold text-center">Zgłoszenie do naprawy/przeglądu {{ gadget.id }}</h3>
             </div>
             <div class="print box-body">
-                <h3 class="print font-weight-bold text-center">Zgłoszenie do naprawy/przeglądu {{ gadget.id }}
-                    <br>
-                    <br>
-                    <br>
-                </h3>
                 <div class="row">
                     <div class="col">
                         <div class="row">
-                            <div class="col-lg-6 col-12">
+                            <div class="col-lg-4 col-12">
                                 <div class="form-group">
                                     <h5>Zglaszający<span
-                                            class="text-danger">: {{ gadget.klient.name_klient }}</span></h5>
+                                            class="font-weight-bold">: {{ gadget.klient.name_klient }}</span></h5>
                                 </div>
                                 <div class="form-group">
                                     <h5>Telefon<span
-                                            class="text-danger">: {{ gadget.klient.telefon_klient }}</span></h5>
+                                            class="font-weight-bold">: {{ gadget.klient.telefon_klient }}</span></h5>
                                 </div>
+                            </div>
+
+                            <div class="col-lg-4 col-12">
+
                                 <div class="form-group">
-                                    <h5>Zestaw<span class="text-danger">: {{ gadget.zestaw }}</span></h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Rodzaj Urządzenia<span
-                                            class="text-danger">: {{ gadget.type_gadget }}</span></h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Brand<span class="text-danger">: {{ gadget.brand_gadget }}</span></h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Model<span class="text-danger">: {{ gadget }}</span></h5>
-                                    {{ form_gad.model_gadget }}
+                                    <h5>Urządzenie<span
+                                            class="font-weight-bold">: {{ gadget.type_gadget }} {{ gadget.brand_gadget }} {{ gadget }}</span>
+                                    </h5>
                                 </div>
                                 <div class="form-group">
                                     <h5>SERIAL/SSID/SERWIS TAG<span
-                                            class="text-danger">: {{ gadget.serial_gadget }}</span></h5>
+                                            class="font-weight-bold">: {{ gadget.serial_gadget }}</span></h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-10">
+                                <div class="form-group">
+                                    <h5>Zestaw<span class="font-weight-bold">: {{ gadget.zestaw }}</span></h5>
                                 </div>
                                 <div class="form-group">
                                     <h5>Opis<span
-                                            class="text-danger">: {{ gadget.opis_problem }}</span></h5>
+                                            class="font-weight-bold">: {{ gadget.opis_problem }}</span></h5>
                                 </div>
                             </div>
+                            <div>
+                                <p class="font-size-12">
+                                    -Oryginał potwierdzenia jest jedyną podstawą do wydania sprzętu z serwisu, w przypadku zagubienia potwierdzenia sprzęt można odebrać jedynie na podstawię dokumentu potwierdzającego tożsamość <br>osoby zlecającej naprawę. Serwis nie odpowiada za ewentualne skutki zagubienia lub zniszczenia dokumentu potwierdzenia.<br>
+   -Klient przyjmuje do wiadomości, że w przypadku wad ukrytych np.: mikropęknięcie między warstwą płyty, uszkodzone połączenia między warstwowego, uszkodzeń spowodowanych zalaniem cieczą przez klienta, istnieje 5% ryzyko<br> pogorszenia stanu sprzętu. Dodatkowo kruche, pęknięte, klejone elementy obudowy podczas rozbierania sprzętu mogą zostać uszkodzone.<br>
+   -W przypadku usługi reinstalacja systemu operacyjnego wszystki dane i programy zostają usunięte, w przypadku kopii danych zostaja one zachowane w 1 katalogu w postaci plików, wszystkie programy, zwłaszcza licencyjne należy<br> przeinstalować.Serwis ani żaden z pracowników nie ponosi odpowiedzialności za dane oraz programy znajdujące się na dysku bądź  innym nośniku dostarczonym przez klienta.<br>
+   -Sprzęt diagnozowany jest jedynie pod kątem zgłaszanych usterek przez klienta, każda inna usterka wykryta podczas testów zostanie przekazana zleceniodawcy który podejmie decyzje o dalszym usuwaniu usterek.<br>
+   -Podstawa gwarancji jest paragon bądź faktura oraz nienaruszone plomby gwarancyjne. Ilość plomb zostaje zapisana na rachunku wystawionym po naprawie sprzętu.<br>
+   -Gwarancja nie obejmuje usterek mechanicznych oraz usterek wynikłych przez zalanie bądź przepięcie elektryczne.<br>
+   -W przypadku rezygncji z naprawy w trakcie trwania tej naprawy klient ponosi koszty rozkręcenia i skręcenia sprzętu w wysokości 150zł netto.<br>
+   -Zleceniodawca wyraża zgodę na przetwarzanie danych osobowych zgodnie z Ustawą z dnia 29.08.97 Dz.U.Nr.02.101.926 Danę będą przechowywane jedynie w bazie firmy TPL Serwis Al.KEN 83 lok U-5.<br>
+   -W przypadku nie odebrania sprzętu w przeciągu 6 miesięcy od daty przyjęcia do naprawy, zostaje naliczana opłata magazynowania w wysokości 10zł netto za 1 dobę bądź sprzęt zostaje na własność serwisu.<br>
+   - Oświadczam iż zapoznałem się ze skróconym opisem reinstalacji systemu<br>
+                                    
+</p></div>
                         </div>
                     </div>
                 </div>
-               <h6 class="ml-90 float-left text-center" >
-                   <br>
-                   <br>
-                   <p6 class="font-weight-bold">Podtverdzenie odbioru sprzętu z serwisu</p6>
-                   <br>
-                   <br>
-                   <br>
-                   <br>
-                   ....................................................................................................
-               </h6>
+                <h6 class="ml-90 float-left text-center">
+                    <br>
+                    <br>
+                    <p6 class="font-weight-bold">Podtverdzenie odbioru sprzętu z serwisu</p6>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    ....................................................................................................
+                </h6>
                 <h6 class="float-right text-center">
                     <br>
                     <br>
@@ -105,50 +115,59 @@
         </div>
         <div class="box">
             <div class="box-header with-border print text-center">
-                <h3 class="font-weight-bold">{{ gadget.created_at_format }}</h3>
+                <h3 class="font-weight-bold ">{{ gadget.created_at_format }}</h3>
+                <h3 class="font-weight-bold text-center">Zgłoszenie do naprawy/przeglądu {{ gadget.id }}</h3>
             </div>
             <div class="print box-body">
-                 
-                <h3 class="font-weight-bold text-center">Zgłoszenie do naprawy/przeglądu {{ gadget.id }}
-                    <br>
-                    <br>
-                    <br>
-                </h3>
                 <div class="row">
                     <div class="col">
                         <div class="row">
-                            <div class="col-lg-6 col-12">
+                            <div class="col-lg-4 col-12">
                                 <div class="form-group">
                                     <h5>Zglaszający<span
-                                            class="text-danger">: {{ gadget.klient.name_klient }}</span></h5>
+                                            class="font-weight-bold">: {{ gadget.klient.name_klient }}</span></h5>
                                 </div>
                                 <div class="form-group">
                                     <h5>Telefon<span
-                                            class="text-danger">: {{ gadget.klient.telefon_klient }}</span></h5>
+                                            class="font-weight-bold">: {{ gadget.klient.telefon_klient }}</span></h5>
                                 </div>
+                            </div>
+
+                            <div class="col-lg-4 col-12">
+
                                 <div class="form-group">
-                                    <h5>Zestaw<span class="text-danger">: {{ gadget.zestaw }}</span></h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Rodzaj Urządzenia<span
-                                            class="text-danger">: {{ gadget.type_gadget }}</span></h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Brand<span class="text-danger">: {{ gadget.brand_gadget }}</span></h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Model<span class="text-danger">: {{ gadget }}</span></h5>
-                                    {{ form_gad.model_gadget }}
+                                    <h5>Urządzenie<span
+                                            class="font-weight-bold">: {{ gadget.type_gadget }} {{ gadget.brand_gadget }} {{ gadget }}</span>
+                                    </h5>
                                 </div>
                                 <div class="form-group">
                                     <h5>SERIAL/SSID/SERWIS TAG<span
-                                            class="text-danger">: {{ gadget.serial_gadget }}</span></h5>
+                                            class="font-weight-bold">: {{ gadget.serial_gadget }}</span></h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-10">
+                                <div class="form-group">
+                                    <h5>Zestaw<span class="font-weight-bold">: {{ gadget.zestaw }}</span></h5>
                                 </div>
                                 <div class="form-group">
                                     <h5>Opis<span
-                                            class="text-danger">: {{ gadget.opis_problem }}</span></h5>
+                                            class="font-weight-bold">: {{ gadget.opis_problem }}</span></h5>
                                 </div>
                             </div>
+                            <div>
+                                <p class="font-size-12">
+                                    -Oryginał potwierdzenia jest jedyną podstawą do wydania sprzętu z serwisu, w przypadku zagubienia potwierdzenia sprzęt można odebrać jedynie na podstawię dokumentu potwierdzającego tożsamość <br>osoby zlecającej naprawę. Serwis nie odpowiada za ewentualne skutki zagubienia lub zniszczenia dokumentu potwierdzenia.<br>
+   -Klient przyjmuje do wiadomości, że w przypadku wad ukrytych np.: mikropęknięcie między warstwą płyty, uszkodzone połączenia między warstwowego, uszkodzeń spowodowanych zalaniem cieczą przez klienta, istnieje 5% ryzyko<br> pogorszenia stanu sprzętu. Dodatkowo kruche, pęknięte, klejone elementy obudowy podczas rozbierania sprzętu mogą zostać uszkodzone.<br>
+   -W przypadku usługi reinstalacja systemu operacyjnego wszystki dane i programy zostają usunięte, w przypadku kopii danych zostaja one zachowane w 1 katalogu w postaci plików, wszystkie programy, zwłaszcza licencyjne należy<br> przeinstalować.Serwis ani żaden z pracowników nie ponosi odpowiedzialności za dane oraz programy znajdujące się na dysku bądź  innym nośniku dostarczonym przez klienta.<br>
+   -Sprzęt diagnozowany jest jedynie pod kątem zgłaszanych usterek przez klienta, każda inna usterka wykryta podczas testów zostanie przekazana zleceniodawcy który podejmie decyzje o dalszym usuwaniu usterek.<br>
+   -Podstawa gwarancji jest paragon bądź faktura oraz nienaruszone plomby gwarancyjne. Ilość plomb zostaje zapisana na rachunku wystawionym po naprawie sprzętu.<br>
+   -Gwarancja nie obejmuje usterek mechanicznych oraz usterek wynikłych przez zalanie bądź przepięcie elektryczne.<br>
+   -W przypadku rezygncji z naprawy w trakcie trwania tej naprawy klient ponosi koszty rozkręcenia i skręcenia sprzętu w wysokości 150zł netto.<br>
+   -Zleceniodawca wyraża zgodę na przetwarzanie danych osobowych zgodnie z Ustawą z dnia 29.08.97 Dz.U.Nr.02.101.926 Danę będą przechowywane jedynie w bazie firmy TPL Serwis Al.KEN 83 lok U-5.<br>
+   -W przypadku nie odebrania sprzętu w przeciągu 6 miesięcy od daty przyjęcia do naprawy, zostaje naliczana opłata magazynowania w wysokości 10zł netto za 1 dobę bądź sprzęt zostaje na własność serwisu.<br>
+   - Oświadczam iż zapoznałem się ze skróconym opisem reinstalacji systemu<br>
+                                    
+</p></div>
                         </div>
                     </div>
                 </div>
@@ -157,8 +176,8 @@
                     <br>
                     <br>
                     <p6 class="font-weight-bold">Oświadczam że zapoznałem sie z regulaminem i zgadzam sie z nim <br>
-                    bezwarunkowo oraz upoważniam okaziciela oryginału zgłoszenia do odbioru <br>
-                    sprzentu w moim imieniu
+                        bezwarunkowo oraz upoważniam okaziciela oryginału zgłoszenia do odbioru <br>
+                        sprzentu w moim imieniu
                     </p6>
                     <br>
                     <br>
@@ -167,7 +186,7 @@
                     ....................................................................................................
                 </h6>
             </div>
-            
+
         </div>
 
     </section>
