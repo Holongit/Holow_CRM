@@ -63,8 +63,9 @@ class AddKlient(View):
 
         if bound_form_kli.is_valid():
             bound_form_kli.save()
+            pk = Klient.objects.first().id
 
-            return redirect('add_gadget')
+            return redirect('add_gadget_serwis', pk=pk)
 
         return redirect('add_klient')
 
