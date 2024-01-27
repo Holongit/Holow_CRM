@@ -1,0 +1,143 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <section class="content-header">
+        <h1>OPUSSerwis20</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i></a></li>
+            <li class="breadcrumb-item active">OPUSSerwis20</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">OPUSSerwis20</h3>
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-close" href="#"></a></li>
+                    <li><a class="box-btn-slide" href="#"></a></li>
+                    <li><a class="box-btn-fullscreen" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <!-- CONTENT_MAIN -->
+                <!-- serching -->
+                <form class="navbar-form navbar-left">
+                    <div class="input-group">
+                        <input class="form-control" type="search" name="q" placeholder="Szukaj">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">Szukaj</button>
+                        </span>
+                    </div>
+                </form>
+                {% if messages %}
+                    {% for message in messages %}
+                        <h3 class="text-danger">{{ message }}</h3>
+                    {% endfor %}
+                {% endif %}
+                {% if is_paginated %}
+                    <form class="navbar-form navbar-right">
+
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item {% if not prev_url %} disabled {% endif %}">
+                                    <a class="page-link" href="{{ prev_url }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                {% for n in klients.paginator.page_range %}
+
+                                    {% if klients.number == n %}
+
+                                        <li class="page-item active">
+                                            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                                        </li>
+
+                                    {% elif n > klients.number|add:-10 and n < klients.number|add:10 %}
+
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <li class="page-item {% if not next_url %} disabled {% endif %}">
+                                    <a class="page-link" href="{{ next_url }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </form>
+                {% endif %}
+
+                <!-- table -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table id="example1"
+                               class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                            <thead>
+                            <tr class="bg-secondary">
+                                <th class="text-center font-weight-bold b-3 border-white">id</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Kartka №</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Imie Nazwisko</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Telefon</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Serial</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Technik</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy</th>
+                            </tr>
+                            </thead>
+
+                            {% for naprawa in klients %}
+
+                                <tbody>
+                                <tr class="text-center font-size-14">
+                                    <td class="b-3 border-white"><a
+                                            href="{% url 'kartka_naprawy' pk=naprawa.id %}">{{ naprawa.id }}</a>
+                                    </td>
+                                    <td class="b-3 border-white"><a
+                                            href="{% url 'kartka_naprawy' pk=naprawa.id %}">{{ naprawa.KNP_NR_SER_KOL }}
+                                        /{{ naprawa.KNP_NR_ROK }}</a>
+                                    </td>
+                                    <td class="b-3 border-white"><a
+                                            href="{% url 'kartka_naprawy' pk=naprawa.id %}">{{ naprawa.KNP_NR_WLASCICIELA }}</a>
+                                    </td>
+                                    <td class="b-3 border-white"><a
+                                            href="{% url 'kartka_naprawy' pk=naprawa.id %}">{{ naprawa.KNP_NR_WLASCICIELA.telefon_klient }}</a>
+                                    </td>
+                                    <td class="b-3 border-white"><a
+                                            href="{% url 'kartka_naprawy' pk=naprawa.id %}">{{ naprawa.KNP_PRD_ID }}</a>
+                                    </td>
+                                    <td class="b-3 border-white text-left">
+                                        <a href="{% url 'kartka_naprawy' pk=naprawa.id %}">
+                                        {% if naprawa.KNP_NR_SERYJNY %}    
+                                            {{ naprawa.KNP_NR_SERYJNY }}
+                                        {% endif %}
+                                        </a>
+                                    </td>
+                                    <td class="b-3 border-white text-left">
+                                        <a href="{% url 'kartka_naprawy' pk=naprawa.id %}">{{ naprawa.KNP_ID_NAPRAW }}</a>
+                                    </td>
+                                    <td class="b-3 border-white text-left">
+                                        <a href="{% url 'kartka_naprawy' pk=naprawa.id %}">{{ naprawa.KNP_PR_DATA_KONCANAPR }}</a>
+                                    </td>
+                                    
+                                </tr>
+                                </tbody>
+
+                            {% endfor %}
+
+                            <tfoot>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="box-footer"></div>
+
+    </section>
+
+{% endblock %}

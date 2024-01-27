@@ -17,8 +17,11 @@ Including another URLconf
 
 from django.urls import path
 
+from OPUSSerwis20.views import *
 
-# urlpatterns = [
-#     path('', NoteAdd.as_view(), name='add_note'),
-# ]
+
+urlpatterns = [
+    path('', index_opusserwis20, name='index_opusserwis20'),
+    path('kartka_naprawy/<int:pk>', kartka_naprawy, name='kartka_naprawy'),
+]
 

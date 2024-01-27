@@ -9,8 +9,8 @@
     <link rel="icon" href="/static/images/favicon.ico">
 
     <title>Holow-CRM</title>
-   
-    
+
+
     <!-- jQuery 3 -->
     <script src="/static/assets/vendor_components/jquery/dist/jquery.js"></script>
 
@@ -22,7 +22,7 @@
         $.widget.bridge('uibutton', $.ui.button);
     </script>
 
-     <!-- popper -->
+    <!-- popper -->
     <script src="/static/assets/vendor_components/popper/dist/popper.min.js"></script>
 
     <!-- Bootstrap 4.0-->
@@ -149,7 +149,7 @@
                     </a>
                     <ul class="treeview-menu">
                         {% if request.user.is_authenticated and request.user.is_staff %}
-                        <li><a href="/admin"><i class="fa fa-cog mr-5"></i>Admin Panel</a></li>
+                            <li><a href="/admin"><i class="fa fa-cog mr-5"></i>Admin Panel</a></li>
                         {% endif %}
                         <li><a href="{% url 'logout' %}"><i class="fa fa-power-off mr-5"></i>Logout</a></li>
                     </ul>
@@ -163,16 +163,16 @@
             </span>
                     </a>
                 </li>
-            {% if request.user.is_authenticated and request.user.is_staff %}
-                <li>
-                    <a href="{% url 'add_gadget' %}">
-                        <i class="fa fa-edit"></i> <span class="font-size-18">Nowa Naprawa</span>
-                        <span class="pull-right-container">
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                    <li>
+                        <a href="{% url 'add_gadget' %}">
+                            <i class="fa fa-edit"></i> <span class="font-size-18">Nowa Naprawa</span>
+                            <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>
-                    </a>
-                </li>
-            {% endif %}
+                        </a>
+                    </li>
+                {% endif %}
                 <li>
                     <a href="{% url 'gadgets' %}">
                         <i class="fa fa-laptop"></i> <span class="font-size-18">Urządzenia</span>
@@ -192,6 +192,14 @@
                 <li>
                     <a href="{% url 'workers' %}">
                         <i class="fa  fa-users"></i> <span class="font-size-18">Pracowniki</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'index_opusserwis20' %}">
+                        <i class="fa  fa-search"></i> <span class="font-size-18">OPUSSerwis</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>

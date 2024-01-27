@@ -29,4 +29,5 @@ urlpatterns = [
     path('gadgets/', include('gadgets.urls')),
     path('note/', include('notes.urls')),
     path('klienty/', include('klienty.urls')),
+    path('OPUSSerwis20/', include('OPUSSerwis20.urls'))
 ]
