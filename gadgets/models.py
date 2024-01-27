@@ -8,9 +8,9 @@ from klienty.models import Klient
 
 class Gadget(models.Model):
     serial_gadget = models.CharField(max_length=32, null=True, blank=True, db_index=True)
-    model_gadget = models.CharField(max_length=32, db_index=True)
-    brand_gadget = models.CharField(max_length=32, db_index=True)
-    type_gadget = models.CharField(max_length=32, db_index=True)
+    model_gadget = models.CharField(max_length=32, db_index=True, blank=True, null=True)
+    brand_gadget = models.CharField(max_length=32, db_index=True, blank=True, null=True)
+    type_gadget = models.CharField(max_length=32, db_index=True, blank=True, null=True)
     password_gadget = models.CharField(max_length=64, null=True, blank=True)
     opis_problem = models.TextField(null=True, blank=True)
     zestaw = models.CharField(max_length=64, null=True, blank=True)
@@ -21,12 +21,12 @@ class Gadget(models.Model):
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     klient = models.ForeignKey(Klient, on_delete=models.PROTECT, null=True)
 
-    location = models.CharField(max_length=32, default='STOKŁOSY', db_index=True)
-    paid = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    in_serwis = models.BooleanField(default=True, db_index=True)
+    location = models.CharField(max_length=32, default='STOKŁOSY', db_index=True, blank=True, null=True)
+    paid = models.DecimalField(max_digits=8, decimal_places=2, default=0, null=True, blank=True)
+    in_serwis = models.BooleanField(default=True, db_index=True, blank=True, null=True)
     time_in_serwis = models.DurationField(null=True, blank=True)
     opis_naprawy = models.CharField(max_length=512, null=True, blank=True)
-    type_service = models.CharField(max_length=32, default='PŁATNE')
+    type_service = models.CharField(max_length=32, default='PŁATNE', blank=True, null=True)
 
     def created_at_format(self):
         return self.created_at.strftime("%d.%m.%y %H:%M")

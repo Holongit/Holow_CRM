@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'klienty',
     'notes',
     'users',
-    'workers'
+    'workers',
+    'OPUSSerwis20',
 ]
 
 MIDDLEWARE = [
