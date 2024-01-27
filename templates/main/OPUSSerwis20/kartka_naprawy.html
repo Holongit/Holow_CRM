@@ -92,8 +92,11 @@
                                 {% endif %}
                                 {% if naprawa_opus.KNP_ID_NAPRAW %}
                                     <div class="form-group">
-                                        <h5>Technik: <span
-                                                class="font-weight-bold font-size-20">{{ naprawa_opus.KNP_ID_NAPRAW }}</span>
+                                        <h5>Technik: <span class="font-weight-bold font-size-20">
+                                            {{ naprawa_opus.KNP_ID_NAPRAW.PRC_IMIE }} 
+                                            {{ naprawa_opus.KNP_ID_NAPRAW.PRC_NAZWISKO }} 
+                                            ({{ naprawa_opus.KNP_ID_NAPRAW.PRC_LOGIN }})
+                                        </span>
                                         </h5>
                                     </div>
                                 {% endif %}

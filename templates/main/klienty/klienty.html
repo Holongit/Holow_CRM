@@ -102,8 +102,11 @@
                                     <td class="b-3 border-white"><a
                                             href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.telefon_klient }}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a
-                                            href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.email_klient }}</a>
+                                
+                                    <td class="b-3 border-white">
+                                        {% if klient_data.email_klient %}
+                                        <a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.email_klient }}</a>
+                                        {% endif %}
                                     </td>
                                     <td class="b-3 border-white"><a
                                             href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.created_at_format }}</a>
