@@ -110,18 +110,17 @@
                                     </td>
                                     <td class="b-3 border-white text-left">
                                         {% for gadget in klient_data.gadget_set.all %}
+                                            {% if gadget.in_serwis %}
                                             <a href="{% url 'outgo_gadget' pk=gadget.id %}">
                                                 {{ gadget.id }}
                                                 {{ gadget.type_gadget }} 
                                                 {{ gadget.brand_gadget }} 
                                                 {{ gadget }}
                                             </a>
-                                            {% if gadget.in_serwis == True %}<span class="badge-pill badge-sm bg-primary">W SERWISE</span>
-                                            {% else %}<span class="badge-pill badge-sm bg-secondary">WYDANE</span>
-                                            {% endif %}
                                             <span class="badge-pill badge-sm bg-secondary">{{ gadget.time_in_serwis_get }} dni</span>
                                             <span class="badge-pill badge-sm bg-secondary">{{ gadget.workers.worker }}</span>
                                             <br>
+                                            {% endif %}
                                             {% endfor %}
                                         
                                     </td>

@@ -31,11 +31,12 @@ class Gadget(models.Model):
     def created_at_format(self):
         return self.created_at.strftime("%d.%m.%y %H:%M")
 
+    def updated_at_format(self):
+        return self.updated_at.strftime("%d.%m.%y %H:%M")
 
     def time_in_serwis_get(self):
         time = timezone.now() - self.updated_at
         return time.days
-
 
     def get_absolute_url(self):
         return reverse('edit_gadget', kwargs={'pk': self.pk})
@@ -43,15 +44,15 @@ class Gadget(models.Model):
     class Meta:
         ordering = ('-created_at',)
 
-
     def __str__(self):
         return self.model_gadget
+
 
 class SetingsCRM(models.Model):
     filter_gadget = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
     filter_klient = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
     filter_dashboar = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
     filter_work = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
+
     def __str__(self):
         return self.filter_gadget
-
