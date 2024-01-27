@@ -33,3 +33,4 @@ class KlientForm(forms.Form):
             types_klient=self.cleaned_data['types_klient'],
         )
         return new_klient
+
