@@ -34,6 +34,7 @@ def index_gad(request):
                                                Q(model_gadget__icontains=search_query) |
                                                Q(serial_gadget__icontains=search_query) |
                                                Q(klient__name_klient__icontains=search_query) |
+                                               Q(password_gadget__icontains=search_query) |
                                                Q(id=search_query_int) |
                                                Q(klient__telefon_klient__icontains=search_query))
     else:

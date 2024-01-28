@@ -127,13 +127,27 @@
                                             href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.type_gadget }} </a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.brand_gadget }} {{ gadgets_data }}</a>
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                        {% if gadgets_data.brand_gadget %}
+                                            {{ gadgets_data.brand_gadget }}
+                                        {% endif %}
+                                        {% if gadgets_data %}
+                                            {{ gadgets_data }}
+                                        {% endif %}
+                                    </a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.klient.name_klient }}</a>
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                        {% if gadgets_data.klient.name_klient %}
+                                            {{ gadgets_data.klient.name_klient }}
+                                        {% endif %}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.klient.telefon_klient }}</a>
+                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                        {% if gadgets_data.klient.telefon_klient %}
+                                        {{ gadgets_data.klient.telefon_klient }}
+                                        {% endif %}
+                                    </a>
                                     </td>
                                     <td class="b-3 border-white"><a
                                             href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.created_at_format }}</a>
@@ -143,7 +157,10 @@
                                             <div class="btn-group">
                                                 <button type="button"
                                                         class="btn btn-secondary dropdown-toggle btn-xs font-size-12 font-weight-medium"
-                                                        data-toggle="dropdown">{{ gadgets_data.workers.worker }}</button>
+                                                        data-toggle="dropdown">
+
+                                                    {{ gadgets_data.workers.worker }}
+                                                </button>
                                                 <div class="dropdown-menu">
                                                     {% for user in users %}
                                                         <a class="dropdown-item"

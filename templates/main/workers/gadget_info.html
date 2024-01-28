@@ -41,9 +41,16 @@
                         <span class="badge badge-danger font-size-16">REKLAMACJA</span>
                     {% endif %}
 
-                    {% if gadget.pilne == 'NO' %}
+                    {% if gadget.pilne == 'PILNE' %}
                         <span class="badge badge-danger font-size-16">PILNE</span>
                     {% endif %}
+                    <span class="badge font-size-16                                                        
+                    {% if gadget.time_in_serwis_get <= 3 %} bg-info
+                    {% elif gadget.time_in_serwis_get > 3 and gadget.time_in_serwis_get <= 14 %} bg-dark
+                    {% elif gadget.time_in_serwis_get > 14 %} bg-danger                                              
+                    {% endif %}                                                        
+                    ">{{ gadget.time_in_serwis_get }} dni
+                    </span>
                 </h3>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-close" href="#"></a></li>
@@ -65,45 +72,83 @@
 
                                 <div class="form-group">
                                     <h5>Urządzenie: <span class="font-weight-bold font-size-20">
+                                    {% if gadget.type_gadget %}
                                         {{ gadget.type_gadget }}
-                                        {{ gadget.brand_gadget }}
-                                        {{ gadget }}
+                                    {% endif %}
+                                        {% if gadget.brand_gadget %}
+                                            {{ gadget.brand_gadget }}
+                                        {% endif %}
+                                        {% if gadget %}
+                                            {{ gadget }}
+                                        {% endif %}
                                     </span>
                                     </h5>
                                 </div>
-                                <div class="form-group">
-                                    <h5>SERIAL/SSID/SERWIS TAG: <span
-                                            class="font-weight-bold font-size-20">{{ gadget.serial_gadget }}</span>
-                                    </h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Imie Nazwisko: <span
-                                            class="font-weight-bold font-size-20">{{ gadget.klient.name_klient }}</span>
-                                    </h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Telefon: <span
-                                            class="font-weight-bold font-size-20">{{ gadget.klient.telefon_klient }}</span>
-                                    </h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Zestaw: <span class="font-weight-bold font-size-20">{{ gadget.zestaw }}</span>
-                                    </h5>
-                                </div>
+                                {% if gadget.serial_gadget %}
+                                    <div class="form-group">
+                                        <h5>SERIAL/SSID/SERWIS TAG: <span
+                                                class="font-weight-bold font-size-20">{{ gadget.serial_gadget }}</span>
+                                        </h5>
+                                    </div>
+                                {% endif %}
+                                {% if gadget.klient.name_klient %}
+                                    <div class="form-group">
+                                        <h5>Imie Nazwisko: <span
+                                                class="font-weight-bold font-size-20">{{ gadget.klient.name_klient }}</span>
+                                        </h5>
+                                    </div>
+                                {% endif %}
+                                {% if gadget.klient.telefon_klient %}
+                                    <div class="form-group">
+                                        <h5>Telefon: <span
+                                                class="font-weight-bold font-size-20">{{ gadget.klient.telefon_klient }}</span>
+                                        </h5>
+                                    </div>
+                                {% endif %}
+                                {% if gadget.zestaw %}
+                                    <div class="form-group">
+                                        <h5>Zestaw: <span
+                                                class="font-weight-bold font-size-20">{{ gadget.zestaw }}</span>
+                                        </h5>
+                                    </div>
+                                {% endif %}
+                                {% if gadget.workers.worker %}
+                                    <div class="form-group">
+                                        <h5>Technik: <span
+                                                class="font-weight-bold font-size-20">{{ gadget.workers.worker }}</span>
+                                        </h5>
+                                    </div>
+                                {% elif gadget.technik_ost %}
+                                    <div class="form-group">
+                                        <h5>Technik: <span
+                                                class="font-weight-bold font-size-20">{{ gadget.technik_ost }}</span>
+                                        </h5>
+                                    </div>
+                                {% endif %}
+                                {% if gadget.opis_problem %}
 
-
-                                <div class="form-group">
-                                    <h5>Opis klienta: <span
-                                            class="font-weight-bold font-size-20">{{ gadget.opis_problem }}</span>
-                                    </h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Opis technika: <span
-                                            class="font-weight-bold font-size-20">{{ gadget.opis_naprawy }}</span>
-                                    </h5>
-                                    {{ form_gad.model_gadget }}
-                                </div>
-
+                                    <div class="form-group">
+                                        <h5>Opis Usterki: <span
+                                                class="font-weight-bold font-size-20">{{ gadget.opis_problem }}</span>
+                                        </h5>
+                                    </div>
+                                {% endif %}
+                                {% if gadget.opis_naprawy %}
+                                    <div class="form-group">
+                                        <h5>Opis technika: <span
+                                                class="font-weight-bold font-size-20">{{ gadget.opis_naprawy }}</span>
+                                        </h5>
+                                        {{ form_gad.model_gadget }}
+                                    </div>
+                                {% endif %}
+                            {% if gadget.password_gadget %}
+                                    <div class="form-group">
+                                        <h5>Hasło/Tag: <span
+                                                class="font-weight-bold font-size-20">{{ gadget.password_gadget }}</span>
+                                        </h5>
+                                        
+                                    </div>
+                                {% endif %}
 
                             </div>
                             <div class="col-lg-6 col-12">
