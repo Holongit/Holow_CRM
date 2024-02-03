@@ -140,15 +140,15 @@
                                         <h5>Opis technika: <span
                                                 class="font-weight-bold font-size-20">{{ gadget.opis_naprawy }}</span>
                                         </h5>
-                                        
+
                                     </div>
                                 {% endif %}
-                            {% if gadget.password_gadget %}
+                                {% if gadget.password_gadget %}
                                     <div class="form-group">
                                         <h5>Hasło/Tag: <span
                                                 class="font-weight-bold font-size-20">{{ gadget.password_gadget }}</span>
                                         </h5>
-                                        
+
                                     </div>
                                 {% endif %}
 
@@ -165,6 +165,17 @@
                                                         {% if note.title == 'none' %}
                                                         {% else %}
                                                             <badge class="badge-pill  bg-pale-info">{{ note.title }}</badge>
+                                                        {% endif %}
+                                                        {% if not request.user == note.author and not note.read %}
+                                                            <a href="{% url 'red_note' pk=note.id %}">
+                                                                <badge class="badge-pill bg-red">Zaakceptować</badge>
+                                                            </a>
+                                                        {% elif not request.user == note.author and note.read %}
+                                                            <badge class="badge-pill bg-green">OK</badge>
+                                                        {% elif request.user == note.author and not note.read %}
+                                                            <badge class="badge-pill bg-red">Nie zaakceptowane</badge>
+                                                        {% elif request.user == note.author and note.read %}
+                                                            <badge class="badge-pill bg-green">OK</badge>
                                                         {% endif %}
                                                     </h6>
                                                     <h6 class="float-right">{{ note.created_at_format }} <a

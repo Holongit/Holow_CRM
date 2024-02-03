@@ -13,6 +13,7 @@ class Note(models.Model):
     destination = models.CharField(max_length=32, default='MANAGER')
     gadget = models.ForeignKey(Gadget, on_delete=models.CASCADE, null=True)
     klient = models.ForeignKey(Klient, on_delete=models.CASCADE, null=True)
+    read = models.BooleanField(default=True, null=True, blank=True)
 
     def created_at_format(self):
         return self.created_at.strftime("%d.%m.%y %H:%M")

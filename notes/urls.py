@@ -17,12 +17,13 @@ Including another URLconf
 
 from django.urls import path
 
-from notes.views import NoteAdd, delete_note
+from notes.views import NoteAdd, delete_note,red_note
 
 
 
 urlpatterns = [
     path('add_note/<int:pk>/', NoteAdd.as_view(), name='add_note'),
     path('delete_note/<int:pk>/', delete_note, name='delete_note'),
+    path('read_note/<int:pk>/', red_note, name='red_note'),
 ]
 

@@ -26,6 +26,8 @@ class NoteAdd(View):
         if bound_form_note.is_valid() and request.user.has_perm('notes.add_note'):
             bound_form_note.save()
             note_last = Note.objects.first()
+            if note_last.title == 'UWAGA' or note_last.title == 'ZGODA' or note_last.title == 'ZADANIE':
+                note_last.read = False
             note_last.gadget_id = gadget_id
             note_last.author = user_id
             note_last.save()
@@ -37,4 +39,12 @@ class NoteAdd(View):
 def delete_note(request, pk):
     note = Note.objects.get(id=pk)
     note.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required(login_url='login')
+def red_note(request, pk):
+    note = Note.objects.get(id=pk)
+    note.read = True
+    note.save()
     return redirect(request.META.get('HTTP_REFERER'))

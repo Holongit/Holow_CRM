@@ -163,6 +163,14 @@
             </span>
                     </a>
                 </li>
+                <li>
+                    <a href="{% url 'gadgets' %}">
+                        <i class="fa fa-laptop"></i> <span class="font-size-18">Urządzenia</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+                    </a>
+                </li>
                 {% if request.user.is_authenticated and request.user.is_staff %}
                     <li>
                         <a href="{% url 'add_gadget' %}">
@@ -172,31 +180,24 @@
             </span>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="{% url 'klienty' %}">
+                            <i class="fa fa-address-book"></i> <span class="font-size-18">Klienty</span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'workers' %}">
+                            <i class="fa  fa-users"></i> <span class="font-size-18">Pracowniki</span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+                        </a>
+                    </li>
                 {% endif %}
-                <li>
-                    <a href="{% url 'gadgets' %}">
-                        <i class="fa fa-laptop"></i> <span class="font-size-18">Urządzenia</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
-            </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'klienty' %}">
-                        <i class="fa fa-address-book"></i> <span class="font-size-18">Klienty</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
-            </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'workers' %}">
-                        <i class="fa  fa-users"></i> <span class="font-size-18">Pracowniki</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
-            </span>
-                    </a>
-                </li>
                 <li>
                     <a href="{% url 'index_opusserwis20' %}">
                         <i class="fa  fa-search"></i> <span class="font-size-18">OPUSSerwis</span>
