@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.utils import timezone
 
 from gadgets.models import Gadget, SetingsCRM
-from workers.models import Workers
+from workers.models import Workers, KartkaPlatne, KartkaGwarancja, KartkaReklamacja, KartkaRezygnacja
 
 
 @login_required(login_url='login')
@@ -16,6 +16,7 @@ def workers(request):
     users = User.objects.all()
 
     return render(request, 'workers/workers.html', {'users': users})
+
 
 @login_required(login_url='login')
 def workers_gad_list(request, pk):
@@ -29,7 +30,7 @@ def workers_gad_list(request, pk):
         gadget_in_serwis = Workers.objects.filter(worker=pk)
 
     if SetingsCRM.objects.get(pk=1).filter_work == 'W SERWISIE':
-        gadget_in_serwis = Workers.objects.filter(worker=pk, gadget__in_serwis=True)
+        gadget_in_serwis = Workers.objects.filter(worker=pk, in_work=True)
 
     if search_query:
         serching_gad = gadget_in_serwis.filter(Q(gadget__brand_gadget__icontains=search_query) |
@@ -73,12 +74,14 @@ def workers_gad_list(request, pk):
 
     return render(request, 'workers/worker_gad_list.html', context)
 
+
 @login_required(login_url='login')
 def filters_work_change(request, status):
     setings_f = get_object_or_404(SetingsCRM.objects.all(), pk=1)
     setings_f.filter_work = status
     setings_f.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
 
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class GadgetInfo(View):
@@ -97,6 +100,7 @@ class GadgetInfo(View):
             gadget.save()
         return redirect(request.META.get('HTTP_REFERER'))
 
+
 @login_required(login_url='login')
 def add_gadget_to_worker(request, pk):
     user = request.user
@@ -106,15 +110,51 @@ def add_gadget_to_worker(request, pk):
             s = Workers.objects.get(gadget__id=pk)
             s.updated_at = timezone.now()
             s.worker = user
+            s.in_work = True
+            gadget.status = 'NAPRAWIENIE'
             s.save()
+            gadget.save()
         else:
             Workers.objects.create(worker=user, gadget=gadget)
+            gadget.status = 'NAPRAWIENIE'
+            gadget.save()
         return redirect(request.META.get('HTTP_REFERER'))
     return redirect(request.META.get('HTTP_REFERER'))
+
 
 @login_required(login_url='login')
 def delete_gadget_to_worker(request, pk):
     worker = Workers.objects.filter(gadget__id=pk)
     worker.delete()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+def odstawic_gadget(request, pk):
+    workers_obj = Workers.objects.get(id=pk)
+    gadget_id = workers_obj.gadget.id
+    gadget = Gadget.objects.get(id=gadget_id)
+    workers_name = workers_obj.worker
+    workers_gad = workers_obj.gadget
+    workers_obj.in_work = False
+    workers_obj.save()
+    if workers_obj.gadget.status == 'REZYGNACJA':
+        KartkaRezygnacja.objects.create(worker=workers_name, gadget=workers_gad)
+        return redirect(request.META.get('HTTP_REFERER'))
+    if workers_obj.gadget.type_service == 'PŁATNE':
+        KartkaPlatne.objects.create(worker=workers_name, gadget=workers_gad)
+        gadget.status = 'GOTOWY'
+        gadget.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    if workers_obj.gadget.type_service == 'GWARANCJA':
+        KartkaGwarancja.objects.create(worker=workers_name, gadget=workers_gad)
+        gadget.status = 'GOTOWY'
+        gadget.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    if workers_obj.gadget.type_service == 'REKLAMACJA':
+        KartkaReklamacja.objects.create(worker=workers_name, gadget=workers_gad)
+        gadget.status = 'GOTOWY'
+        gadget.save()
+
+        return redirect(request.META.get('HTTP_REFERER'))
+
 

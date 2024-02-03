@@ -200,7 +200,7 @@
                                         {% endif %}
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                            href="#">
                                         
                                         <span class="pull-right mr-10 badge ml-10                                                        
                                                         {% if gadgets_data.time_in_serwis_get <= 3 %} bg-info
@@ -214,6 +214,7 @@
 
 
                                     <td class="b-3 border-white">
+                                    {% if request.user.is_authenticated and request.user.is_staff %}
                                         <div class="btn-group">
                                             <button type="button" class="btn
 
@@ -227,19 +228,30 @@
                                                     data-toggle="dropdown">{{ gadgets_data.status }}
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item"
-                                                   href="{% url 'gadget_status_change' pk=gadgets_data.id status='NAPRAWIENIE' %}">NAPRAWIENIE</a>
-                                                <a class="dropdown-item"
-                                                   href="{% url 'gadget_status_change' pk=gadgets_data.id status='GOTOWY' %}">GOTOWY</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.id status='GOTOWY' %}">GOTOWY</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.id status='NOWY' %}">NOWY</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.id status='REZYGNACJA' %}">REZYGNACJA</a>
                                                 <a class="dropdown-item"
                                                    href="{% url 'gadget_status_change' pk=gadgets_data.id status='CZEKA NA CZĘŚCI' %}">CZEKA
                                                     NA CZĘŚCI</a>
                                                 <a class="dropdown-item"
-                                                   href="{% url 'gadget_status_change' pk=gadgets_data.id status='REZYGNACJA' %}">REZYGNACJA</a>
-                                                <a class="dropdown-item"
-                                                   href="{% url 'gadget_status_change' pk=gadgets_data.id status='NOWY' %}">NOWY</a>
+                                                   href="{% url 'gadget_status_change' pk=gadgets_data.id status='NAPRAWIENIE' %}">NAPRAWIENIE</a>
+
                                             </div>
                                         </div>
+                                    {% else %}
+                                        <button type="button" class="btn
+                                                        {% if gadgets_data.status == 'NAPRAWIENIE' %} btn-secondary
+                                                        {% elif gadgets_data.status == 'GOTOWY' %} btn-primary
+                                                        {% elif gadgets_data.status == 'CZEKA NA CZĘŚCI' %} btn-dark
+                                                        {% elif gadgets_data.status == 'REZYGNACJA' %} btn-purple
+                                                        {% elif gadgets_data.status == 'NOWY' %} btn-info
+                                                        {% endif %} btn-xs">{{ gadgets_data.status }}
+                                        </button>
+                                    {% endif %}
                                     </td>
                                     <td class="b-3 border-white">
                                         {% if request.user.is_authenticated and request.user.is_staff %}
@@ -336,11 +348,11 @@
                                                 </div>
                                             </div>
 
-                                        {% elif gadgets_data.in_serwis %}
+                                        {% elif gadgets_data.in_serwis and gadgets_data.status == 'NOWY' %}
                                             <a href="{% url 'add_gadget_to_worker' pk=gadgets_data.id %}">
                                             <span class="btn 
                                             
-                                            {% if gadgets_data.workers.worker == request.user %}
+                                            {% if gadgets_data.workers.worker == request.user and gadgets_data.workers.in_work %}
                                             bg-primary btn-xs">Mam
                                             {% else %}
                                                 bg-pale-primary btn-xs">Wziąć

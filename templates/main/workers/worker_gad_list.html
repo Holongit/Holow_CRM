@@ -155,8 +155,9 @@
                                             href="{% url 'gadget_info' pk=gadgets_data.gadget.id user_pk=user.id %}">{{ gadgets_data.gadget.created_at_format }}</a>
                                     </td>
                                     <td class="b-3 border-white">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn
+                                        {% if request.user.is_authenticated and request.user.is_staff %}
+                                            <div class="btn-group">
+                                                <button type="button" class="btn
 
                                                         {% if gadgets_data.gadget.status == 'NAPRAWIENIE' %} btn-secondary
                                                         {% elif gadgets_data.gadget.status == 'GOTOWY' %} btn-primary
@@ -165,56 +166,87 @@
                                                         {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
                                                         {% endif %} dropdown-toggle btn-xs"
 
-                                                    data-toggle="dropdown">{{ gadgets_data.gadget.status }}
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item"
-                                                   href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='NAPRAWIENIE' %}">NAPRAWIENIE</a>
-                                                <a class="dropdown-item"
-                                                   href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='GOTOWY' %}">GOTOWY</a>
-                                                <a class="dropdown-item"
-                                                   href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='CZEKA NA CZĘŚCI' %}">CZEKA
-                                                    NA CZĘŚCI</a>
-                                                <a class="dropdown-item"
-                                                   href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='REZYGNACJA' %}">REZYGNACJA</a>
-                                                <a class="dropdown-item"
-                                                   href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='NOWY' %}">NOWY</a>
+                                                        data-toggle="dropdown">{{ gadgets_data.gadget.status }}
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='NAPRAWIENIE' %}">NAPRAWIENIE</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='GOTOWY' %}">GOTOWY</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='CZEKA NA CZĘŚCI' %}">CZEKA
+                                                        NA CZĘŚCI</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='REZYGNACJA' %}">REZYGNACJA</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='NOWY' %}">NOWY</a>
+                                                </div>
                                             </div>
-                                        </div>
+                                        {% elif gadgets_data.gadget.status == 'NAPRAWIENIE' or gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %}
+                                            <div class="btn-group">
+                                                <button type="button" class="btn
+
+                                                        {% if gadgets_data.gadget.status == 'NAPRAWIENIE' %} btn-secondary
+                                                        {% elif gadgets_data.gadget.status == 'GOTOWY' %} btn-primary
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
+                                                        {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
+                                                        {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% endif %} dropdown-toggle btn-xs"
+
+                                                        data-toggle="dropdown">{{ gadgets_data.gadget.status }}
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='NAPRAWIENIE' %}">NAPRAWIENIE</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='CZEKA NA CZĘŚCI' %}">CZEKA
+                                                        NA CZĘŚCI</a>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <button type="button" class="btn
+                                                        {% if gadgets_data.gadget.status == 'NAPRAWIENIE' %} btn-secondary
+                                                        {% elif gadgets_data.gadget.status == 'GOTOWY' %} btn-primary
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
+                                                        {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
+                                                        {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% endif %}  btn-xs">{{ gadgets_data.gadget.status }}
+                                            </button>
+                                        {% endif %}
                                     </td>
                                     <td class="b-3 border-white">
-                                    {% if request.user.is_authenticated and request.user.is_staff %}
-                                        <div class="btn-group">
-                                            <button type="button" class="btn
+                                        {% if request.user.is_authenticated and request.user.is_staff %}
+                                            <div class="btn-group">
+                                                <button type="button" class="btn
                                                         {% if gadgets_data.gadget.type_service == 'PŁATNE' %} btn-info
                                                         {% elif gadgets_data.gadget.type_service == 'GWARANCJA' %} btn-warning
                                                         {% elif gadgets_data.gadget.type_service == 'REKLAMACJA' %} btn-danger
                                                   
                                                         {% endif %}
                                                         btn-xs dropdown-toggle"
-                                                    data-toggle="dropdown">{{ gadgets_data.gadget.type_service }}
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item"
-                                                   href="{% url 'service_status_change' pk=gadgets_data.gadget.id status='PŁATNE' %}">PŁATNE</a>
-                                                <a class="dropdown-item"
-                                                   href="{% url 'service_status_change' pk=gadgets_data.gadget.id status='GWARANCJA' %}">GWARANCJA</a>
-                                                <a class="dropdown-item"
-                                                   href="{% url 'service_status_change' pk=gadgets_data.gadget.id status='REKLAMACJA' %}">REKLAMACJA</a>
+                                                        data-toggle="dropdown">{{ gadgets_data.gadget.type_service }}
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'service_status_change' pk=gadgets_data.gadget.id status='PŁATNE' %}">PŁATNE</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'service_status_change' pk=gadgets_data.gadget.id status='GWARANCJA' %}">GWARANCJA</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'service_status_change' pk=gadgets_data.gadget.id status='REKLAMACJA' %}">REKLAMACJA</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    {% else %}
-                                        <button type="button" class="btn
+                                        {% else %}
+                                            <button type="button" class="btn
                                                         {% if gadgets_data.gadget.type_service == 'PŁATNE' %} btn-info
                                                         {% elif gadgets_data.gadget.type_service == 'GWARANCJA' %} btn-warning
                                                         {% elif gadgets_data.gadget.type_service == 'REKLAMACJA' %} btn-danger
                                                         {% endif %}
                                                         btn-xs">{{ gadgets_data.gadget.type_service }}
-                                        </button>
-                                    {% endif %}
+                                            </button>
+                                        {% endif %}
                                     </td>
                                     <td class="b-3 border-white">
-                                    {% if request.user.is_authenticated and request.user.is_staff %}
+                                        {% if request.user.is_authenticated and request.user.is_staff %}
                                             <div class="btn-group">
                                                 <button type="button" class="btn
                                                         {% if gadgets_data.gadget.pilne == 'PILNE' %} btn-danger
@@ -271,17 +303,24 @@
                                                            href=""><h2>Jesteś pewny?</h2>
                                                         </a>
                                                         <a class="text-center dropdown-item"
-                                                           href="{% url 'delete_gadget' pk=gadgets_data.gadget.id %}"><h2>
-                                                            DELETE</h2></a>
+                                                           href="{% url 'delete_gadget' pk=gadgets_data.gadget.id %}">
+                                                            <h2>
+                                                                DELETE</h2></a>
+                                                        <a href="{% url 'delete_gadget_to_worker' pk=gadgets_data.gadget.id %}">
+                                                            <span class="btn bg-danger btn-xs">Usuń</span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
 
                                         {% elif gadgets_data.gadget.in_serwis %}
-                                            <a href="{% url 'delete_gadget_to_worker' pk=gadgets_data.gadget.id %}">
-                                            <span class="btn bg-danger btn-xs">Usuń</span>
-                                            </a>
-
+                                            {% if gadgets_data.in_work %}
+                                                <a href="{% url 'odstawic_gadget' pk=gadgets_data.id %}">
+                                                    <span class="btn bg-primary btn-xs">Odstawic</span>
+                                                </a>
+                                            {% else %}
+                                                <span class="btn bg-pale-primary btn-xs">Odstawione</span>
+                                            {% endif %}
                                         {% endif %}
                                     </td>
                                 </tr>

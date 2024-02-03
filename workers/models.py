@@ -11,9 +11,7 @@ class Workers(models.Model):
     time_in = models.DurationField(null=True, blank=True)
     updated_at = models.DateTimeField(default=timezone.now)
     description = models.CharField(max_length=64, null=True, blank=True)
-    status = models.CharField(max_length=16, null=True, blank=True, default='W_PRACE')
-
-
+    in_work = models.BooleanField(default=True, null=True, blank=True)
 
     class Meta:
         ordering = ('-added_at',)
@@ -21,3 +19,54 @@ class Workers(models.Model):
     def __str__(self):
         return self.gadget
 
+
+class KartkaPlatne(models.Model):
+    worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    qnt = models.PositiveIntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now, db_index=True)
+    gadget = models.ForeignKey(Gadget, on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return self.gadget
+
+
+class KartkaGwarancja(models.Model):
+    worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    qnt = models.PositiveIntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now, db_index=True)
+    gadget = models.ForeignKey(Gadget, on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return self.gadget
+
+
+class KartkaRezygnacja(models.Model):
+    worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    qnt = models.PositiveIntegerField(default=1, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now, db_index=True)
+    gadget = models.ForeignKey(Gadget, on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return self.gadget
+
+
+class KartkaReklamacja(models.Model):
+    worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    qnt = models.PositiveIntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now, db_index=True)
+    gadget = models.ForeignKey(Gadget, on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return self.gadget

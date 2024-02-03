@@ -10,6 +10,7 @@ urlpatterns = [
     path('gadget_info/<int:pk><int:user_pk>/', GadgetInfo.as_view(), name='gadget_info'),
     path('add_gadget_to_worker/<int:pk>', add_gadget_to_worker, name='add_gadget_to_worker'),
     path('delete_gadget_to_worker/<int:pk>', delete_gadget_to_worker, name='delete_gadget_to_worker'),
+    path('odstawic_gadget/<int:pk>', odstawic_gadget, name='odstawic_gadget'),
 
 
 ]
