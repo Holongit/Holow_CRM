@@ -167,6 +167,17 @@
                                                     {% else %}
                                                         <badge class="badge-pill  bg-pale-info">{{ note.title }}</badge>
                                                     {% endif %}
+                                                    {% if not request.user == note.author and not note.read %}
+                                                        <a href="{% url 'red_note' pk=note.id %}">
+                                                            <badge class="badge-pill bg-red">Zaakceptować</badge>
+                                                        </a>
+                                                    {% elif not request.user == note.author and note.read %}
+                                                        <badge class="badge-pill bg-green">OK</badge>
+                                                    {% elif request.user == note.author and not note.read %}
+                                                        <badge class="badge-pill bg-red">Nie zaakceptowane</badge>
+                                                    {% elif request.user == note.author and note.read %}
+                                                        <badge class="badge-pill bg-green">OK</badge>
+                                                    {% endif %}
                                                 </h6>
                                                 <h6 class="float-right">{{ note.created_at_format }} <a
                                                         href="{% url 'delete_note' pk=note.pk %}">

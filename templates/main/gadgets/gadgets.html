@@ -120,40 +120,65 @@
 
                                 <tbody>
                                 <tr class="text-center font-size-14">
-                                    <td class="b-3 border-white "><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.id }}</a>
-                                    </td>
-                                    <td class="b-3 border-white"><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.type_gadget }} </a>
-                                    </td>
-                                    <td class="b-3 border-white"><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
-                                        {% if gadgets_data.brand_gadget %}
-                                            {{ gadgets_data.brand_gadget }}
+                                    <td class="b-3 border-white ">
+                                        {% if request.user.is_authenticated and request.user.is_staff %}
+                                            <a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.id }}</a>
+                                        {% elif request.user.is_authenticated and not request.user.is_staff %}
+                                            <a href="#">{{ gadgets_data.id }}</a>
                                         {% endif %}
-                                        {% if gadgets_data %}
-                                            {{ gadgets_data }}
-                                        {% endif %}
-                                    </a>
                                     </td>
-                                    <td class="b-3 border-white"><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                    <td class="b-3 border-white">
+                                        {% if request.user.is_authenticated and request.user.is_staff %}
+                                            <a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.type_gadget }}</a>
+                                        {% elif request.user.is_authenticated and not request.user.is_staff %}
+                                            <a href="#">{{ gadgets_data.type_gadget }}</a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="b-3 border-white">
+
+                                        <a href="
+{% if request.user.is_authenticated and request.user.is_staff %}
+{% url 'outgo_gadget' pk=gadgets_data.id %}
+{% elif request.user.is_authenticated and not request.user.is_staff %}#
+{% endif %}">
+                                            {% if gadgets_data.brand_gadget %}
+                                                {{ gadgets_data.brand_gadget }}
+                                            {% endif %}
+                                            {% if gadgets_data %}
+                                                {{ gadgets_data }}
+                                            {% endif %}</a>
+
+
+                                    </td>
+                                    <td class="b-3 border-white"><a href="
+                                            
+{% if request.user.is_authenticated and request.user.is_staff %}
+{% url 'outgo_gadget' pk=gadgets_data.id %}
+{% elif request.user.is_authenticated and not request.user.is_staff %}#
+{% endif %}">
                                         {% if gadgets_data.klient.name_klient %}
                                             {{ gadgets_data.klient.name_klient }}
                                         {% endif %}</a>
                                     </td>
-                                    <td class="b-3 border-white"><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                    <td class="b-3 border-white"><a href="
+{% if request.user.is_authenticated and request.user.is_staff %}
+{% url 'outgo_gadget' pk=gadgets_data.id %}
+{% elif request.user.is_authenticated and not request.user.is_staff %}#
+{% endif %}">
                                         {% if gadgets_data.klient.telefon_klient %}
-                                        {{ gadgets_data.klient.telefon_klient }}
+                                            {{ gadgets_data.klient.telefon_klient }}
                                         {% endif %}
                                     </a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.created_at_format }}</a>
+                                            href="
+{% if request.user.is_authenticated and request.user.is_staff %}
+{% url 'outgo_gadget' pk=gadgets_data.id %}
+{% elif request.user.is_authenticated and not request.user.is_staff %}#
+{% endif %}">{{ gadgets_data.created_at_format }}</a>
                                     </td>
                                     <td class="b-3 border-white">
-                                        {% if gadgets_data.in_serwis %}
+                                        {% if gadgets_data.in_serwis and request.user.is_authenticated and request.user.is_staff %}
                                             <div class="btn-group">
                                                 <button type="button"
                                                         class="btn btn-secondary dropdown-toggle btn-xs font-size-12 font-weight-medium"

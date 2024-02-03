@@ -171,6 +171,16 @@
             </span>
                     </a>
                 </li>
+                {% if request.user.is_authenticated and not request.user.is_staff %}
+                    <li>
+                        <a href="{% url 'workers_list' pk=request.user.id %}">
+                            <i class="fa fa-laptop"></i> <span class="font-size-18">Moje Urządzenia</span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+                        </a>
+                    </li>
+                {% endif %}
                 {% if request.user.is_authenticated and request.user.is_staff %}
                     <li>
                         <a href="{% url 'add_gadget' %}">
