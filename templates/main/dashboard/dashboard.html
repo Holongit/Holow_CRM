@@ -57,46 +57,51 @@
             {% for technik in techniki %}
                 {% if technik.workers_set.exists %}
                     <div class="col-md-6 col-lg-3">
-                    <div class="box">
-                    <div class="box-header"><h4 class="box-title">{{ technik.username }}</h4>
-                        <h4 class="float-right">0{{ now.month }}-{{ now.year }}</h4>
-                    </div>
-                    <div class="box-body px-0 py-0">
-                       
-                            <div class="media-list media-list-hover media-list-divided">
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Płatne</span>
-                                <span class="badge badge-lg badge-info">{{ technik.kartkaplatne_set.last.get_platne_month_count }}</span>
-                            </a>
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Gwarancja</span>
-                                <span class="badge badge-lg badge-warning">{{ technik.kartkagwarancja_set.last.get_gwarancja_month_count }}</span>
-                            </a>
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Reklamacja</span>
-                                <span class="badge badge-lg badge-danger">{{ technik.kartkareklamacja_set.last.get_reklamacja_month_count }}</span>
-                            </a>
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Rezygnacja</span>
-                                <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.last.get_rezygnacja_count }}</span>
-                            </a>
-                       
+                        <div class="box">
+                            <div class="box-header"><h4 class="box-title">{{ technik.username }}</h4>
+                                <h4 class="float-right">0{{ now.month }}-{{ now.year }}</h4>
+                            </div>
+                            <div class="box-body px-0 py-0">
 
-                        </div>
-                        </div>
+                                <div class="media-list media-list-hover media-list-divided">
+                                    <a class="media media-single"
+                                       href="{% url 'kartka_napraw' pk=technik.id kartka='płatne' %}">
+                                        <span class="title font-size-16 text-fade">Płatne</span>
+                                        <span class="badge badge-lg badge-info">{{ technik.kartkaplatne_set.last.get_platne_month_count }}</span>
+                                    </a>
+                                    <a class="media media-single"
+                                       href="{% url 'kartka_napraw' pk=technik.id kartka='gwarancja' %}">
+                                        <span class="title font-size-16 text-fade">Gwarancja</span>
+                                        <span class="badge badge-lg badge-warning">{{ technik.kartkagwarancja_set.last.get_gwarancja_month_count }}</span>
+                                    </a>
+                                    <a class="media media-single"
+                                       href="{% url 'kartka_napraw' pk=technik.id kartka='reklamacja' %}">
+                                        <span class="title font-size-16 text-fade">Reklamacja</span>
+                                        <span class="badge badge-lg badge-danger">{{ technik.kartkareklamacja_set.last.get_reklamacja_month_count }}</span>
+                                    </a>
+                                    <a class="media media-single"
+                                       href="{% url 'kartka_napraw' pk=technik.id kartka='rezygnacja' %}">
+                                        <span class="title font-size-16 text-fade">Rezygnacja</span>
+                                        <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.last.get_rezygnacja_count }}</span>
+                                    </a>
+
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 {% endif %}
             {% endfor %}
             <!-- /.col -->
-            </div>
+        </div>
 
-            <div class="col-md-6 col-lg-6">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h5 class="box-title">Notatki</h5>
-                    </div>
-                    {% for note in notatki %}
+        <div class="col-md-6 col-lg-6">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h5 class="box-title">Notatki</h5>
+                </div>
+                {% for note in notatki %}
+                    {% if note.gadget.workers.worker == request.user or request.user.is_staff %}
                         <div class="box-body p-0">
                             <div class="media-list media-list-hover">
                                 <div class="media">
@@ -118,8 +123,27 @@
                                     </a>
                                     <div class="media-body">
                                         <p>
-                                            <a class="hover-primary"
-                                               href="{% url 'outgo_gadget' pk=note.gadget.id %}"><strong>{{ note.author }} {{ note.title }} {{ note.gadget.id }} {{ note.gadget }}</strong></a>
+                                            <a class="hover-primary" href="{% url 'outgo_gadget' pk=note.gadget.id %}">
+                                                <strong>
+                                                    <badge class="badge-pill  bg-pale-info">Autor {{ note.author }}</badge>
+                                                    <badge class="badge-pill  bg-pale-info">{{ note.gadget.id }} {{ note.gadget }}</badge>
+                                                    <badge class="badge-pill  bg-pale-info">Technik {{ note.gadget.workers.worker }}</badge>
+                                                    {% if note.title == 'none' %}
+                                                    {% else %}
+                                                        <badge class="badge-pill  bg-pale-info">{{ note.title }}</badge>
+                                                    {% endif %}
+                                                    {% if not request.user == note.author and not note.read %}
+                                                        <a href="{% url 'red_note' pk=note.id %}">
+                                                            <badge class="badge-pill bg-red">Zaakceptować</badge>
+                                                        </a>
+                                                    {% elif not request.user == note.author and note.read %}
+                                                        <badge class="badge-pill bg-green">OK</badge>
+                                                    {% elif request.user == note.author and not note.read %}
+                                                        <badge class="badge-pill bg-red">Nie zaakceptowane</badge>
+                                                    {% elif request.user == note.author and note.read %}
+                                                        <badge class="badge-pill bg-green">OK</badge>
+                                                    {% endif %}
+                                                </strong></a>
                                             <time class="float-right">{{ note.created_at_format }}</time>
                                         </p>
                                         <p>{{ note.content }}</p>
@@ -127,10 +151,11 @@
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
+                    {% endif %}
+                {% endfor %}
             </div>
+        </div>
 
-            <!-- /.row -->
+        <!-- /.row -->
     </section>
 {% endblock content %}

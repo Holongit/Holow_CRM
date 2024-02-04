@@ -33,13 +33,23 @@ def index_dash(request):
 
     return render(request, 'dashboard/dashboard.html', context=context)
 
-@login_required(login_url='login')
-def kartka_napraw(request, pk):
 
+@login_required(login_url='login')
+def kartka_napraw(request, pk, kartka):
+    global gadgets_list
     global serching_gad
     if request.method == 'GET':
-        klient = Klient.objects.get(pk=pk)
-        gadgets_list = klient.gadget_set.all()
+        user = User.objects.get(pk=pk)
+
+        if kartka == 'płatne':
+            gadgets_list = user.kartkaplatne_set.all()
+        if kartka == 'gwarancja':
+            gadgets_list = user.kartkagwarancja_set.all()
+        if kartka == 'reklamacja':
+            gadgets_list = user.kartkareklamacja_set.all()
+        if kartka == 'rezygnacja':
+            gadgets_list = user.kartkarezygnacja_set.all()
+
         gadgets_list_in_serwis = klient.gadget_set.filter(in_serwis=True)
 
         if SetingsCRM.objects.get(pk=1).filter_gadget == 'WSZYSCY':

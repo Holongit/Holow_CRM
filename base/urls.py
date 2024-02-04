@@ -24,7 +24,7 @@ from dashboard.views import *
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', index_dash, name='dashboard'),
-    path('kartka_napraw/<int:pk>', kartka_napraw, name='kartka_napraw'),
+    path('kartka_napraw/<int:pk><str:kartka>', kartka_napraw, name='kartka_napraw'),
     path('users/', include('users.urls')),
     path('workers/', include('workers.urls')),
     path('gadgets/', include('gadgets.urls')),
