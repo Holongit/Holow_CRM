@@ -1,0 +1,202 @@
+{% extends 'index.html' %}
+{% block content %}
+    <section class="content-header">
+        <h1>
+            Strona główna
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i></a></li>
+            <li class="breadcrumb-item active">Strona główna</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="box box-body">
+                    <h6 class="text-uppercase">Urządzeń w Serwisie</h6>
+                    <div class="flexbox mt-2">
+                        <span class="fa fa-laptop text-info font-size-40"></span>
+                        <span class=" font-size-30">{{ qnt_gadgets }}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="box box-body">
+                    <h6 class="text-uppercase">Gotowe Urządzenia</h6>
+                    <div class="flexbox mt-2">
+                        <span class="fa fa-thumbs-o-up text-primary font-size-40"></span>
+                        <span class=" font-size-30">{{ gadgets_ok }}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col -->
+
+            <!-- fix for small devices only -->
+            <div class="clearfix visible-sm-block"></div>
+
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="box box-body">
+                    <h6 class="text-uppercase">Urządzeń u Techników</h6>
+                    <div class="flexbox mt-2">
+                        <span class="fa fa-user-plus font-size-40 text-purple"></span>
+                        <span class=" font-size-30">{{ gadgets_serwis }}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="box box-body">
+                    <h6 class="text-uppercase">Czeka na Części</h6>
+                    <div class="flexbox mt-2">
+                        <span class="fa  fa-hourglass-start font-size-40 text-dark"></span>
+                        <span class=" font-size-30">{{ gadgets_czeka }}</span>
+                    </div>
+                </div>
+            </div>
+            {% for technik in techniki %}
+                {% if technik.workers_set.exists %}
+                    <div class="col-md-6 col-lg-3">
+                    <div class="box">
+                    <div class="box-header"><h4 class="box-title">{{ technik.username }}</h4>
+                        {% if time == 'day' %}
+                            <a href="{% url 'dashboard' time='day' %}">
+                                <botton class="btn btn-primary btn-xs float-right">Dzień</botton>
+                            </a>
+                            <a href="{% url 'dashboard' time='month' %}">
+                                <botton class="btn btn-secondary btn-xs float-right mr-5">Miesiąc</botton>
+                            </a>
+                            <a href="{% url 'dashboard' time='year' %}">
+                                <botton class="btn btn-secondary btn-xs float-right mr-5">Rok</botton>
+                            </a>
+                        {% elif time == 'month' %}
+                            <a href="{% url 'dashboard' time='day' %}">
+                                <botton class="btn btn-secondary btn-xs float-right">Dzień</botton>
+                            </a>
+                            <a href="{% url 'dashboard' time='month' %}">
+                                <botton class="btn btn-primary btn-xs float-right mr-5">Miesiąc</botton>
+                            </a>
+                            <a href="{% url 'dashboard' time='year' %}">
+                                <botton class="btn btn-secondary btn-xs float-right mr-5">Rok</botton>
+                            </a>
+                        {% elif time == 'year' %}
+                            <a href="{% url 'dashboard' time='day' %}">
+                                <botton class="btn btn-secondary btn-xs float-right">Dzień</botton>
+                            </a>
+                            <a href="{% url 'dashboard' time='month' %}">
+                                <botton class="btn btn-secondary btn-xs float-right mr-5">Miesiąc</botton>
+                            </a>
+                            <a href="{% url 'dashboard' time='year' %}">
+                                <botton class="btn btn-primary btn-xs float-right mr-5">Rok</botton>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="box-body px-0 py-0">
+                        {% if time == 'day' %}
+                            <div class="media-list media-list-hover media-list-divided">
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Płatne</span>
+                                <span class="badge badge-lg badge-info">{{ technik.kartkaplatne_set.last.get_platne_day_count }}</span>
+                            </a>
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Gwarancja</span>
+                                <span class="badge badge-lg badge-warning">{{ technik.kartkagwarancja_set.last.get_gwarancja_day_count }}</span>
+                            </a>
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Reklamacja</span>
+                                <span class="badge badge-lg badge-danger">{{ technik.kartkareklamacja_set.last.get_reklamacja_day_count }}</span>
+                            </a>
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Rezygnacja</span>
+                                <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.last.get_rezygnacja_day_count }}</span>
+                            </a>
+                        {% elif time == 'month' %}
+                            <div class="media-list media-list-hover media-list-divided">
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Płatne</span>
+                                <span class="badge badge-lg badge-info">{{ technik.kartkaplatne_set.last.get_platne_month_count }}</span>
+                            </a>
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Gwarancja</span>
+                                <span class="badge badge-lg badge-warning">{{ technik.kartkagwarancja_set.last.get_gwarancja_month_count }}</span>
+                            </a>
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Reklamacja</span>
+                                <span class="badge badge-lg badge-danger">{{ technik.kartkareklamacja_set.last.get_reklamacja_month_count }}</span>
+                            </a>
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Rezygnacja</span>
+                                <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.last.get_rezygnacja_count }}</span>
+                            </a>
+                        {% elif time == 'year' %}
+                            <div class="media-list media-list-hover media-list-divided">
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Płatne</span>
+                                <span class="badge badge-lg badge-info">{{ technik.kartkaplatne_set.last.get_platne_year_count }}</span>
+                            </a>
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Gwarancja</span>
+                                <span class="badge badge-lg badge-warning">{{ technik.kartkagwarancja_set.last.get_gwarancja_year_count }}</span>
+                            </a>
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Reklamacja</span>
+                                <span class="badge badge-lg badge-danger">{{ technik.kartkareklamacja_set.last.get_reklamacja_year_count }}</span>
+                            </a>
+                            <a class="media media-single" href="#">
+                                <span class="title font-size-16 text-fade">Rezygnacja</span>
+                                <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.last.get_rezygnacja_year_count }}</span>
+                            </a>
+                        {% endif %}
+
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <!-- /.col -->
+            </div>
+
+            <div class="col-md-6 col-lg-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h5 class="box-title">Notatki</h5>
+                    </div>
+                    {% for note in notatki %}
+                        <div class="box-body p-0">
+                            <div class="media-list media-list-hover">
+                                <div class="media">
+                                    <a class="align-self-center" href="#">
+                                        {% if note.title == 'CZĘŚCI' %}
+                                            <i class="fa fa-shopping-cart font-size-30"></i>
+                                        {% elif note.title == 'DIAGNOSTYKA' %}
+                                            <i class="fa fa-cogs font-size-30"></i>
+                                        {% elif note.title == 'UWAGA' %}
+                                            <i class="glyphicon glyphicon-exclamation-sign font-size-30"></i>
+                                        {% elif note.title == 'ZGODA' %}
+                                            <i class="fa fa-check-circle font-size-30"></i>
+                                        {% elif note.title == 'ZADANIE' %}
+                                            <i class="fa fa-crosshairs font-size-30"></i>
+                                        {% elif note.title == 'none' %}
+                                            <i class="fa fa-commenting-o font-size-30"></i>
+                                        {% endif %}
+
+                                    </a>
+                                    <div class="media-body">
+                                        <p>
+                                            <a class="hover-primary"
+                                               href="#"><strong>{{ note.author }} {{ note.title }}</strong></a>
+                                            <time class="float-right">{{ note.created_at_format }}</time>
+                                        </p>
+                                        <p>{{ note.content }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- /.row -->
+    </section>
+{% endblock content %}

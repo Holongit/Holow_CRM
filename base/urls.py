@@ -23,7 +23,7 @@ from dashboard.views import index_dash
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
-    path('', index_dash, name='dashboard'),
+    path('/<str:time>', index_dash, name='dashboard'),
     path('users/', include('users.urls')),
     path('workers/', include('workers.urls')),
     path('gadgets/', include('gadgets.urls')),

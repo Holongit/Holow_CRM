@@ -2,8 +2,10 @@ from django.contrib.auth.models import User
 from django.db import models
 from gadgets.models import Gadget
 from django.utils import timezone
+from datetime import datetime, timedelta
 
 
+TODAY = timezone.now()
 class Workers(models.Model):
     worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     gadget = models.OneToOneField(Gadget, on_delete=models.CASCADE, null=True)
@@ -32,6 +34,19 @@ class KartkaPlatne(models.Model):
     def __str__(self):
         return self.gadget
 
+    def get_platne_day_count(self):
+        qnt_all = KartkaPlatne.objects.all()
+        return qnt_all.filter(created_at__day=TODAY.day).count()
+
+    def get_platne_month_count(self):
+        qnt_all = KartkaPlatne.objects.all()
+        return qnt_all.filter(created_at__month=TODAY.month).count()
+
+    def get_platne_year_count(self):
+        qnt_all = KartkaPlatne.objects.all()
+        return qnt_all.filter(created_at__year=TODAY.year).count()
+
+
 
 class KartkaGwarancja(models.Model):
     worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -46,6 +61,18 @@ class KartkaGwarancja(models.Model):
         return self.gadget
 
 
+    def get_gwarancja_day_count(self):
+        qnt_all = KartkaGwarancja.objects.all()
+        return qnt_all.filter(created_at__day=TODAY.day).count()
+
+    def get_gwarancja_month_count(self):
+        qnt_all = KartkaGwarancja.objects.all()
+        return qnt_all.filter(created_at__month=TODAY.month).count()
+
+    def get_gwarancja_year_count(self):
+        qnt_all = KartkaGwarancja.objects.all()
+        return qnt_all.filter(created_at__year=TODAY.year).count()
+
 class KartkaRezygnacja(models.Model):
     worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     qnt = models.PositiveIntegerField(default=1, null=True, blank=True)
@@ -58,6 +85,17 @@ class KartkaRezygnacja(models.Model):
     def __str__(self):
         return self.gadget
 
+    def get_rezygnacja_day_count(self):
+        qnt_all = KartkaRezygnacja.objects.all()
+        return qnt_all.filter(created_at__day=TODAY.day).count()
+
+    def get_rezygnacja_month_count(self):
+        qnt_all = KartkaRezygnacja.objects.all()
+        return qnt_all.filter(created_at__month=TODAY.month).count()
+
+    def get_rezygnacja_year_count(self):
+        qnt_all = KartkaRezygnacja.objects.all()
+        return qnt_all.filter(created_at__year=TODAY.year).count()
 
 class KartkaReklamacja(models.Model):
     worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -70,3 +108,15 @@ class KartkaReklamacja(models.Model):
 
     def __str__(self):
         return self.gadget
+
+    def get_reklamacja_day_count(self):
+        qnt_all = KartkaReklamacja.objects.all()
+        return qnt_all.filter(created_at__day=TODAY.day).count()
+
+    def get_reklamacja_month_count(self):
+        qnt_all = KartkaReklamacja.objects.all()
+        return qnt_all.filter(created_at__month=TODAY.month).count()
+
+    def get_reklamacja_year_count(self):
+        qnt_all = KartkaReklamacja.objects.all()
+        return qnt_all.filter(created_at__year=TODAY.year).count()
