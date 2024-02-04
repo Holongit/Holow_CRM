@@ -125,7 +125,8 @@
                                 <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Pilne</th>
                                 {% if request.user.is_authenticated and not request.user.is_staff %}
-                                    <th class="text-center font-weight-bold b-3 border-white">Do naprawy</th>
+                                    <th class="text-center font-weight-bold b-3 border-white"></th>
+                                    <th class="text-center font-weight-bold b-3 border-white">Uwagi</th>
                                 {% elif request.user.is_authenticated and request.user.is_staff %}
                                     <th></th>
                                 {% endif %}
@@ -321,6 +322,11 @@
                                             {% else %}
                                                 <span class="btn bg-pale-primary btn-xs">Odstawione</span>
                                             {% endif %}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if not gadgets_data.gadget.note_set.first.read %}
+                                            <span class="btn bg-danger btn-xs">NOTATKA</span>
                                         {% endif %}
                                     </td>
                                 </tr>

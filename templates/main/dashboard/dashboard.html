@@ -82,7 +82,7 @@
                                     <a class="media media-single"
                                        href="{% url 'kartka_napraw' pk=technik.id kartka='rezygnacja' %}">
                                         <span class="title font-size-16 text-fade">Rezygnacja</span>
-                                        <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.last.get_rezygnacja_count }}</span>
+                                        <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.last.get_rezygnacja_month_count }}</span>
                                     </a>
 
 

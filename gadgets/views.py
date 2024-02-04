@@ -9,6 +9,7 @@ from django.utils import timezone
 
 from gadgets.forms import GadgetForm, OpisNaprawyForm
 from gadgets.models import Gadget, SetingsCRM
+from notes.models import Note
 from workers.models import Workers
 from workers.views import add_gadget_to_worker
 from klienty.models import Klient
@@ -156,13 +157,26 @@ class OutgoGadget(View):
 
     def post(self, request, pk):
         gadget = Gadget.objects.get(id=pk)
+        user = request.user
         if gadget.in_serwis:
             gadget.in_serwis = False
             gadget.updated_at = timezone.now()
+            Note.objects.create(
+                author=User.objects.get(username='TPL'),
+                title='URZĄDZENIE WYDANE KLIENTOWI',
+                content=f'{user} menedżer',
+                gadget=gadget,
+            )
             gadget.save()
         elif not gadget.in_serwis:
             gadget.in_serwis = True
             gadget.updated_at = timezone.now()
+            Note.objects.create(
+                author=User.objects.get(username='TPL'),
+                title='URZĄDZENIE PRZYJĘTE OD KLIENTA',
+                content=f'{user} menedżer',
+                gadget=gadget,
+            )
             gadget.save()
         return redirect(request.META.get('HTTP_REFERER'))
 
@@ -215,8 +229,16 @@ def pilne_status_change(request, pk, status):
 @login_required(login_url='login')
 def technik_change(request, gadget_id, user_id):
     if Workers.objects.filter(gadget__id=gadget_id):
+        user = User.objects.get(pk=user_id)
+        gadget = Gadget.objects.get(pk=gadget_id)
         worker_change = Workers.objects.get(gadget__id=gadget_id)
-        worker_change.worker = User.objects.get(pk=user_id)
+        Note.objects.create(
+            author=User.objects.get(username='TPL'),
+            title='ZMIANA TECHNIKA',
+            content=f'{user} wziął do naprawy {gadget.id} {gadget} od {worker_change.worker}',
+            gadget=gadget,
+        )
+        worker_change.worker = user
         worker_change.save()
         return redirect(request.META.get('HTTP_REFERER'))
     else:

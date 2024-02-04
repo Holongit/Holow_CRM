@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', index_dash, name='dashboard'),
     path('kartka_napraw/<int:pk><str:kartka>', kartka_napraw, name='kartka_napraw'),
+    path('filter_dashboard/<str:status>', filters_dashboard_change, name='filters_dashboard_change'),
     path('users/', include('users.urls')),
     path('workers/', include('workers.urls')),
     path('gadgets/', include('gadgets.urls')),

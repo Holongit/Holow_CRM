@@ -15,6 +15,9 @@ class Workers(models.Model):
     description = models.CharField(max_length=64, null=True, blank=True)
     in_work = models.BooleanField(default=True, null=True, blank=True)
 
+    def added_at_format(self):
+        return self.added_at.strftime("%d.%m.%y %H:%M")
+
     class Meta:
         ordering = ('-added_at',)
 
@@ -27,6 +30,9 @@ class KartkaPlatne(models.Model):
     qnt = models.PositiveIntegerField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now, db_index=True)
     gadget = models.ForeignKey(Gadget, on_delete=models.CASCADE, null=True)
+
+    def created_at_format(self):
+        return self.created_at.strftime("%d.%m.%y %H:%M")
 
     class Meta:
         ordering = ('-created_at',)
@@ -54,6 +60,9 @@ class KartkaGwarancja(models.Model):
     created_at = models.DateTimeField(default=timezone.now, db_index=True)
     gadget = models.ForeignKey(Gadget, on_delete=models.CASCADE, null=True)
 
+    def created_at_format(self):
+        return self.created_at.strftime("%d.%m.%y %H:%M")
+
     class Meta:
         ordering = ('-created_at',)
 
@@ -79,6 +88,9 @@ class KartkaRezygnacja(models.Model):
     created_at = models.DateTimeField(default=timezone.now, db_index=True)
     gadget = models.ForeignKey(Gadget, on_delete=models.CASCADE, null=True)
 
+    def created_at_format(self):
+        return self.created_at.strftime("%d.%m.%y %H:%M")
+
     class Meta:
         ordering = ('-created_at',)
 
@@ -102,6 +114,9 @@ class KartkaReklamacja(models.Model):
     qnt = models.PositiveIntegerField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now, db_index=True)
     gadget = models.ForeignKey(Gadget, on_delete=models.CASCADE, null=True)
+
+    def created_at_format(self):
+        return self.created_at.strftime("%d.%m.%y %H:%M")
 
     class Meta:
         ordering = ('-created_at',)

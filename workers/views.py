@@ -9,6 +9,7 @@ from django.utils import timezone
 
 from gadgets.models import Gadget, SetingsCRM
 from workers.models import Workers, KartkaPlatne, KartkaGwarancja, KartkaReklamacja, KartkaRezygnacja
+from notes.models import Note
 
 
 @login_required(login_url='login')
@@ -108,16 +109,29 @@ def add_gadget_to_worker(request, pk):
     if gadget.in_serwis:
         if Workers.objects.filter(gadget__id=pk).exists():
             s = Workers.objects.get(gadget__id=pk)
+            Note.objects.create(
+                author=User.objects.get(username='TPL'),
+                title='ZMIANA TECHNIKA',
+                content=f'{user} wziął do naprawy {gadget} od {s.worker}',
+                gadget=gadget,
+            )
             s.updated_at = timezone.now()
             s.worker = user
             s.in_work = True
             gadget.status = 'NAPRAWIENIE'
             s.save()
             gadget.save()
+
         else:
             Workers.objects.create(worker=user, gadget=gadget)
             gadget.status = 'NAPRAWIENIE'
             gadget.save()
+            Note.objects.create(
+                author=User.objects.get(username='TPL'),
+                title='WZIĘTY DO NAPRAWY',
+                content=f'{user} wziął do naprawy {gadget}',
+                gadget=gadget,
+            )
         return redirect(request.META.get('HTTP_REFERER'))
     return redirect(request.META.get('HTTP_REFERER'))
 
@@ -130,6 +144,7 @@ def delete_gadget_to_worker(request, pk):
 
 
 def odstawic_gadget(request, pk):
+    user = request.user
     workers_obj = Workers.objects.get(id=pk)
     gadget_id = workers_obj.gadget.id
     gadget = Gadget.objects.get(id=gadget_id)
@@ -137,6 +152,14 @@ def odstawic_gadget(request, pk):
     workers_gad = workers_obj.gadget
     workers_obj.in_work = False
     workers_obj.save()
+
+    Note.objects.create(
+        author=User.objects.get(username='TPL'),
+        title='NAPRAWA ZAKOŃCZONA',
+        content=f'Technik {user} zakończył naprawę urządzenia',
+        gadget=gadget,
+    )
+
     if workers_obj.gadget.status == 'REZYGNACJA':
         KartkaRezygnacja.objects.create(worker=workers_name, gadget=workers_gad)
         return redirect(request.META.get('HTTP_REFERER'))

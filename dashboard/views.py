@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.utils.timezone import now
@@ -36,27 +36,27 @@ def index_dash(request):
 
 @login_required(login_url='login')
 def kartka_napraw(request, pk, kartka):
-    global gadgets_list
+    global gadgets_list_all
     global serching_gad
     if request.method == 'GET':
         user = User.objects.get(pk=pk)
 
         if kartka == 'płatne':
-            gadgets_list = user.kartkaplatne_set.all()
+            gadgets_list_all = user.kartkaplatne_set.all()
         if kartka == 'gwarancja':
-            gadgets_list = user.kartkagwarancja_set.all()
+            gadgets_list_all = user.kartkagwarancja_set.all()
         if kartka == 'reklamacja':
-            gadgets_list = user.kartkareklamacja_set.all()
+            gadgets_list_all = user.kartkareklamacja_set.all()
         if kartka == 'rezygnacja':
-            gadgets_list = user.kartkarezygnacja_set.all()
+            gadgets_list_all = user.kartkarezygnacja_set.all()
 
-        gadgets_list_in_serwis = klient.gadget_set.filter(in_serwis=True)
+        gadgets_list_month = gadgets_list_all.filter(created_at__month=TODAY.month)
 
-        if SetingsCRM.objects.get(pk=1).filter_gadget == 'WSZYSCY':
-            serching_gad = gadgets_list
+        if SetingsCRM.objects.get(pk=1).filter_dashboar == 'MIESIĄC':
+            serching_gad = gadgets_list_month
 
-        if SetingsCRM.objects.get(pk=1).filter_gadget == 'W SERWISIE':
-            serching_gad = gadgets_list_in_serwis
+        if SetingsCRM.objects.get(pk=1).filter_dashboar == 'WSZYSCY':
+            serching_gad = gadgets_list_all
 
         paginator = Paginator(serching_gad, 50)
         page_number = request.GET.get('page', 1)
@@ -77,13 +77,21 @@ def kartka_napraw(request, pk, kartka):
         setings_filter = SetingsCRM.objects.get(pk=1)
         users = User.objects.all()
         context = {
+            'now': TODAY,
             'filters': setings_filter,
             'users': users,
             'gadgets': page,
             'is_paginated': is_paginated,
             'next_url': next_url,
             'prev_url': prev_url,
-            'klient': klient,
+            'technik': user,
         }
 
-        return render(request, 'klienty/add_serwise.html', context=context)
+        return render(request, 'dashboard/kartka_napraw.html', context=context)
+
+@login_required(login_url='login')
+def filters_dashboard_change(request, status):
+    setings_f = get_object_or_404(SetingsCRM.objects.all(), pk=1)
+    setings_f.filter_dashboar = status
+    setings_f.save()
+    return redirect(request.META.get('HTTP_REFERER'))
