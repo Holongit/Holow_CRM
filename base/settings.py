@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['192.168.1.10', '192.168.31.33', 'localhost', '127.0.0.1', '0.0.0.0', '192.168.1.39', '192.168.1.41']
 
 
-LOGIN_REDIRECT_URL = 'gadgets'
+LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
 
 

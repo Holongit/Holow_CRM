@@ -59,58 +59,10 @@
                     <div class="col-md-6 col-lg-3">
                     <div class="box">
                     <div class="box-header"><h4 class="box-title">{{ technik.username }}</h4>
-                        {% if time == 'day' %}
-                            <a href="{% url 'dashboard' time='day' %}">
-                                <botton class="btn btn-primary btn-xs float-right">Dzień</botton>
-                            </a>
-                            <a href="{% url 'dashboard' time='month' %}">
-                                <botton class="btn btn-secondary btn-xs float-right mr-5">Miesiąc</botton>
-                            </a>
-                            <a href="{% url 'dashboard' time='year' %}">
-                                <botton class="btn btn-secondary btn-xs float-right mr-5">Rok</botton>
-                            </a>
-                        {% elif time == 'month' %}
-                            <a href="{% url 'dashboard' time='day' %}">
-                                <botton class="btn btn-secondary btn-xs float-right">Dzień</botton>
-                            </a>
-                            <a href="{% url 'dashboard' time='month' %}">
-                                <botton class="btn btn-primary btn-xs float-right mr-5">Miesiąc</botton>
-                            </a>
-                            <a href="{% url 'dashboard' time='year' %}">
-                                <botton class="btn btn-secondary btn-xs float-right mr-5">Rok</botton>
-                            </a>
-                        {% elif time == 'year' %}
-                            <a href="{% url 'dashboard' time='day' %}">
-                                <botton class="btn btn-secondary btn-xs float-right">Dzień</botton>
-                            </a>
-                            <a href="{% url 'dashboard' time='month' %}">
-                                <botton class="btn btn-secondary btn-xs float-right mr-5">Miesiąc</botton>
-                            </a>
-                            <a href="{% url 'dashboard' time='year' %}">
-                                <botton class="btn btn-primary btn-xs float-right mr-5">Rok</botton>
-                            </a>
-                        {% endif %}
+                        <h4 class="float-right">0{{ now.month }}-{{ now.year }}</h4>
                     </div>
                     <div class="box-body px-0 py-0">
-                        {% if time == 'day' %}
-                            <div class="media-list media-list-hover media-list-divided">
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Płatne</span>
-                                <span class="badge badge-lg badge-info">{{ technik.kartkaplatne_set.last.get_platne_day_count }}</span>
-                            </a>
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Gwarancja</span>
-                                <span class="badge badge-lg badge-warning">{{ technik.kartkagwarancja_set.last.get_gwarancja_day_count }}</span>
-                            </a>
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Reklamacja</span>
-                                <span class="badge badge-lg badge-danger">{{ technik.kartkareklamacja_set.last.get_reklamacja_day_count }}</span>
-                            </a>
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Rezygnacja</span>
-                                <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.last.get_rezygnacja_day_count }}</span>
-                            </a>
-                        {% elif time == 'month' %}
+                       
                             <div class="media-list media-list-hover media-list-divided">
                             <a class="media media-single" href="#">
                                 <span class="title font-size-16 text-fade">Płatne</span>
@@ -128,25 +80,7 @@
                                 <span class="title font-size-16 text-fade">Rezygnacja</span>
                                 <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.last.get_rezygnacja_count }}</span>
                             </a>
-                        {% elif time == 'year' %}
-                            <div class="media-list media-list-hover media-list-divided">
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Płatne</span>
-                                <span class="badge badge-lg badge-info">{{ technik.kartkaplatne_set.last.get_platne_year_count }}</span>
-                            </a>
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Gwarancja</span>
-                                <span class="badge badge-lg badge-warning">{{ technik.kartkagwarancja_set.last.get_gwarancja_year_count }}</span>
-                            </a>
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Reklamacja</span>
-                                <span class="badge badge-lg badge-danger">{{ technik.kartkareklamacja_set.last.get_reklamacja_year_count }}</span>
-                            </a>
-                            <a class="media media-single" href="#">
-                                <span class="title font-size-16 text-fade">Rezygnacja</span>
-                                <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.last.get_rezygnacja_year_count }}</span>
-                            </a>
-                        {% endif %}
+                       
 
                         </div>
                         </div>
@@ -166,7 +100,7 @@
                         <div class="box-body p-0">
                             <div class="media-list media-list-hover">
                                 <div class="media">
-                                    <a class="align-self-center" href="#">
+                                    <a class="align-self-center" href="">
                                         {% if note.title == 'CZĘŚCI' %}
                                             <i class="fa fa-shopping-cart font-size-30"></i>
                                         {% elif note.title == 'DIAGNOSTYKA' %}
@@ -185,7 +119,7 @@
                                     <div class="media-body">
                                         <p>
                                             <a class="hover-primary"
-                                               href="#"><strong>{{ note.author }} {{ note.title }}</strong></a>
+                                               href="{% url 'outgo_gadget' pk=note.gadget.id %}"><strong>{{ note.author }} {{ note.title }} {{ note.gadget.id }} {{ note.gadget }}</strong></a>
                                             <time class="float-right">{{ note.created_at_format }}</time>
                                         </p>
                                         <p>{{ note.content }}</p>

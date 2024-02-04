@@ -1,6 +1,309 @@
 {% extends 'index.html' %}
 {% block content %}
-    
-    
-    
+
+    <section class="content-header">
+        <h1>
+            Nowa Naprawa
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
+            <li class="breadcrumb-item active">Urządzenie</li>
+        </ol>
+    </section>
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title float-left mt-10">1. Klient</h3>
+                <h3 class="float-left ml-20">
+                </h3>
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-close" href="#"></a></li>
+                    <li><a class="box-btn-slide rotate-180" href="#"></a></li>
+                    <li><a class="box-btn-fullscreen" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <!-- CONTENT_MAIN -->
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-lg-6 col-12">
+                                <div class="form-group">
+                                    <h5>Imie Nazwisko: <span
+                                            class="font-weight-bold font-size-20">{{ klient.name_klient }}</span>
+                                    </h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Telefon: <span
+                                            class="font-weight-bold font-size-20">{{ klient.telefon_klient }}</span>
+                                    </h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Email: <span
+                                            class="font-weight-bold font-size-20">{{ klient.email_klient }}</span>
+                                    </h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Opis klienta: <span
+                                            class="font-weight-bold font-size-20">{{ klient.opis_klient }}</span>
+                                    </h5>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                {% for note in notes %}
+                                    <!-- CONTENT_NOTE -->
+                                    <div class="timeline timeline-single-column timeline-single-full-column">
+                                        <div class="timeline-item timeline-item-left">
+                                            <div class="timeline-point timeline-point-blank"></div>
+                                            <div class="timeline-event timeline-event-default">
+                                                <div class="timeline-heading">
+                                                    <h6 class="timeline-title float-left">{{ note.author }}
+                                                        {% if note.title == 'none' %}
+                                                        {% else %}
+                                                            <badge class="badge-pill  bg-pale-info">{{ note.title }}</badge>
+                                                        {% endif %}
+                                                    </h6>
+                                                    <h6 class="float-right">{{ note.created_at_format }} <a
+                                                            href="{% url 'delete_note' pk=note.pk %}">
+                                                        <badge class="badge-pill bg-pale-danger"><i
+                                                                class="fa fa-close"></i></badge>
+                                                    </a>
+                                                    </h6>
+                                                </div>
+                                                <div class="timeline-body mt-15">
+                                                    <p class="font-size-16">{{ note.content }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <input type="button" class="btn btn-info float-right" onclick="history.back();"
+                               value="Przywrócić"/>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+
+            <div class="box-header with-border">
+                <h3 class="box-title float-left mt-10">2. Urządzenie</h3>
+                <form class="float-left ml-20 mt-10">
+                    <div class="btn-group">
+                        <button type="button" class="btn
+                                                        {% if filters.filter_gadget == 'WSZYSCY' %} btn-primary
+                                                        {% elif filters.filter_gadget == 'W SERWISIE' %} btn-secondary
+                                                        {% endif %} dropdown-toggle btn-sm"
+                                data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_gadget }}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               href="{% url 'filters_gadget_change' status='WSZYSCY' %}">WSZYSCY</a>
+                            <a class="dropdown-item"
+                               href="{% url 'filters_gadget_change' status='W SERWISIE' %}">W SERWISIE</a>
+                        </div>
+                    </div>
+                </form>
+                <a href="{% url 'add_gadget_serwis' pk=klient.id %}">
+                    <button class="btn btn-primary btn-sm mt-10">Dodaj Urządzenie</button>
+                </a>
+
+                <h3 class="float-left ml-20">
+                </h3>
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-close" href="#"></a></li>
+                    <li><a class="box-btn-slide rotate-180" href="#"></a></li>
+                    <li><a class="box-btn-fullscreen" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table id="example"
+                           class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                        <thead>
+                        <tr class="bg-secondary ">
+                            <th class="text-center font-weight-bold b-3 border-white">№</th>
+                            <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
+                            <th class="text-center font-weight-bold b-3 border-white">Model</th>
+                            <th class="text-center font-weight-bold b-3 border-white">Data</th>
+                            <th class="text-center font-weight-bold b-3 border-white">Technik</th>
+                            <th class="text-center font-weight-bold b-3 border-white">Czas</th>
+                            <th class="text-center font-weight-bold b-3 border-white">Stan</th>
+                            <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy</th>
+                            <th class="text-center font-weight-bold b-3 border-white">Pilne</th>
+                        </tr>
+                        </thead>
+
+                        {% for gadgets_data in gadgets %}
+
+                            <tbody>
+                            <tr class="text-center font-size-14">
+                                <td class="b-3 border-white "><a
+                                        href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.id }}</a>
+                                </td>
+                                <td class="b-3 border-white"><a
+                                        href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.type_gadget }} </a>
+                                </td>
+                                <td class="b-3 border-white"><a
+                                        href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.brand_gadget }} {{ gadgets_data }}</a>
+                                </td>
+
+                                <td class="b-3 border-white"><a
+                                        href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.created_at_format }}</a>
+                                </td>
+                                <td class="b-3 border-white">
+                                    {% if gadgets_data.in_serwis %}
+                                        <div class="btn-group">
+                                            <button type="button"
+                                                    class="btn btn-secondary dropdown-toggle btn-xs font-size-12 font-weight-medium"
+                                                    data-toggle="dropdown">{{ gadgets_data.workers.worker }}</button>
+                                            <div class="dropdown-menu">
+                                                {% for user in users %}
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'technik_change' gadget_id=gadgets_data.pk user_id=user.pk %}">{{ user.username }}
+                                                    </a>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <button type="button"
+                                                class="btn btn-secondary btn-xs font-size-12 font-weight-medium">{{ gadgets_data.workers.worker }}</button>
+                                    {% endif %}
+                                </td>
+                                <td class="b-3 border-white"><a
+                                        href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+
+                                        <span class="pull-right mr-10 badge ml-10
+                                                        {% if gadgets_data.time_in_serwis_get <= 3 %} bg-info
+                                                        {% elif gadgets_data.time_in_serwis_get > 3 and gadgets_data.time_in_serwis_get <= 14 %} bg-dark
+                                                        {% elif gadgets_data.time_in_serwis_get > 14 %} bg-danger
+                                                        {% endif %}
+                                                        ">{{ gadgets_data.time_in_serwis_get }} dni
+
+                                        </span> </a>
+                                </td>
+
+
+                                <td class="b-3 border-white">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn
+
+                                                        {% if gadgets_data.status == 'NAPRAWIENIE' %} btn-secondary
+                                                        {% elif gadgets_data.status == 'GOTOWY' %} btn-primary
+                                                        {% elif gadgets_data.status == 'CZEKA NA CZĘŚCI' %} btn-dark
+                                                        {% elif gadgets_data.status == 'REZYGNACJA' %} btn-purple
+                                                        {% elif gadgets_data.status == 'NOWY' %} btn-info
+                                                        {% endif %} dropdown-toggle btn-xs"
+
+                                                data-toggle="dropdown">{{ gadgets_data.status }}
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='NAPRAWIENIE' %}">NAPRAWIENIE</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='GOTOWY' %}">GOTOWY</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='CZEKA NA CZĘŚCI' %}">CZEKA
+                                                NA CZĘŚCI</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='REZYGNACJA' %}">REZYGNACJA</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='NOWY' %}">NOWY</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="b-3 border-white">
+                                    {% if request.user.is_authenticated and request.user.is_staff %}
+                                        <div class="btn-group">
+                                            <button type="button" class="btn
+                                                        {% if gadgets_data.type_service == 'PŁATNE' %} btn-info
+                                                        {% elif gadgets_data.type_service == 'GWARANCJA' %} btn-warning
+                                                        {% elif gadgets_data.type_service == 'REKLAMACJA' %} btn-danger
+
+                                                        {% endif %}
+                                                        btn-xs dropdown-toggle"
+                                                    data-toggle="dropdown">{{ gadgets_data.type_service }}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item"
+                                                   href="{% url 'service_status_change' pk=gadgets_data.id status='PŁATNE' %}">PŁATNE</a>
+                                                <a class="dropdown-item"
+                                                   href="{% url 'service_status_change' pk=gadgets_data.id status='GWARANCJA' %}">GWARANCJA</a>
+                                                <a class="dropdown-item"
+                                                   href="{% url 'service_status_change' pk=gadgets_data.id status='REKLAMACJA' %}">REKLAMACJA</a>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <button type="button" class="btn
+                                                        {% if gadgets_data.type_service == 'PŁATNE' %} btn-info
+                                                        {% elif gadgets_data.type_service == 'GWARANCJA' %} btn-warning
+                                                        {% elif gadgets_data.type_service == 'REKLAMACJA' %} btn-danger
+                                                        {% endif %}
+                                                        btn-xs">{{ gadgets_data.type_service }}
+                                        </button>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if request.user.is_authenticated and request.user.is_staff %}
+                                        <div class="btn-group">
+                                            <button type="button" class="btn
+                                                        {% if gadgets_data.pilne == 'PILNE' %} btn-danger
+                                                        {% elif gadgets_data.pilne == 'ŚREDNIO' %} btn-warning
+                                                        {% elif gadgets_data.pilne == 'NIE' %} btn-secondary
+
+                                                        {% endif %}
+                                                        btn-xs dropdown-toggle"
+                                                    data-toggle="dropdown">{{ gadgets_data.pilne }}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item"
+                                                   href="{% url 'pilne_status_change' pk=gadgets_data.id status='PILNE' %}">PILNE</a>
+                                                <a class="dropdown-item"
+                                                   href="{% url 'pilne_status_change' pk=gadgets_data.id status='ŚREDNIO' %}">ŚREDNIO</a>
+                                                <a class="dropdown-item"
+                                                   href="{% url 'pilne_status_change' pk=gadgets_data.id status='NIE' %}">NIE</a>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <button type="button" class="btn
+                                                        {% if gadgets_data.pilne == 'NIE' %} btn-secondary
+                                                        {% elif gadgets_data.pilne == 'ŚREDNIO' %} btn-warning
+                                                        {% elif gadgets_data.pilne == 'PILNE' %} btn-danger
+                                                        {% endif %}
+                                                        btn-xs">{{ gadgets_data.pilne }}
+                                        </button>
+                                    {% endif %}
+                                </td>
+                                <td class="b-3 border-white">
+                                    <a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                        <button class="btn bg-info btn-xs">Wybrać</button>
+                                    </a>
+
+                                    <a href="#">
+                                        {% if gadgets_data.in_serwis == True %}
+                                            <button class="btn bg-pale-primary btn-xs">W serwise</button>
+                                        {% else %}
+                                            <button class="btn bg-primary btn-xs">Wydane</button>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        {% endfor %}
+                        <tfoot></tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="box-footer"></div>
+        </div>
+
+    </section>
+
 {% endblock %}
