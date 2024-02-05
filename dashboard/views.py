@@ -16,12 +16,14 @@ def index_dash(request):
     notatki = Note.objects.order_by('-created_at')[0:20]
     gadgets_all = Gadget.objects.all()
     techniki = User.objects.all()
+    tpl = User.objects.get(id=1)
     qnt_gadgetsq = gadgets_all.__len__()
     gadgets_ok = gadgets_all.filter(status__icontains='GOTOWY').__len__()
     gadgets_serwis = gadgets_all.filter(status__icontains='NAPRAWIENIE').__len__()
     gadgets_czeka = gadgets_all.filter(status__icontains='CZEKA NA CZĘŚCI').__len__()
 
     context = {
+        'tpl': tpl,
         'now': TODAY,
         'techniki': techniki,
         'gadgets_serwis': gadgets_serwis,
