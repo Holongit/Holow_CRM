@@ -142,7 +142,7 @@ def delete_gadget_to_worker(request, pk):
     worker.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required(login_url='login')
 def odstawic_gadget(request, pk):
     user = request.user
     workers_obj = Workers.objects.get(id=pk)

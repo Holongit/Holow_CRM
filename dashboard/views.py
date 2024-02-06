@@ -1,12 +1,8 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
-from django.utils.timezone import now
 
-from gadgets.forms import GadgetForm
 from gadgets.models import SetingsCRM
-from klienty.models import Klient
 from notes.form import *
 from workers.models import *
 
@@ -90,6 +86,7 @@ def kartka_napraw(request, pk, kartka):
         }
 
         return render(request, 'dashboard/kartka_napraw.html', context=context)
+
 
 @login_required(login_url='login')
 def filters_dashboard_change(request, status):

@@ -20,7 +20,6 @@ class Gadget(models.Model):
     updated_at = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     klient = models.ForeignKey(Klient, on_delete=models.PROTECT, null=True)
-
     location = models.CharField(max_length=32, default='STOKŁOSY', db_index=True, blank=True, null=True)
     paid = models.DecimalField(max_digits=8, decimal_places=2, default=0, null=True, blank=True)
     in_serwis = models.BooleanField(default=True, db_index=True, blank=True, null=True)
@@ -47,6 +46,10 @@ class Gadget(models.Model):
 
     def __str__(self):
         return self.model_gadget
+
+    def unread_note(self):
+        if self.note_set.filter(read=False).exists():
+            return True
 
 
 class SetingsCRM(models.Model):

@@ -17,6 +17,7 @@ from klienty.models import Klient
 
 @login_required(login_url='login')
 def index_gad(request):
+    global gadget_in_serwis
     search_query = request.GET.get('q', '')
     if search_query.isnumeric():
         search_query_int = int(search_query)

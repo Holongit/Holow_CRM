@@ -325,7 +325,7 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        {% if not gadgets_data.gadget.note_set.first.read %}
+                                        {% if gadgets_data.gadget.unread_note %}
                                             <span class="btn bg-danger btn-xs">NOTATKA</span>
                                         {% endif %}
                                     </td>
