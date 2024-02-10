@@ -121,16 +121,16 @@
                 <form class="float-left ml-20 mt-10">
                     <div class="btn-group">
                         <button type="button" class="btn
-                                                        {% if filters.filter_gadget == 'WSZYSCY' %} btn-primary
-                                                        {% elif filters.filter_gadget == 'W SERWISIE' %} btn-secondary                                                        
+                                                        {% if filters.filter_klient == 'WSZYSCY' %} btn-primary
+                                                        {% elif filters.filter_klient == 'W SERWISIE' %} btn-secondary                                                        
                                                         {% endif %} dropdown-toggle btn-sm"
-                                data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_gadget }}
+                                data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_klient }}
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item"
-                               href="{% url 'filters_gadget_change' status='WSZYSCY' %}">WSZYSCY</a>
+                               href="{% url 'filters_klient_change' status='WSZYSCY' %}">WSZYSCY</a>
                             <a class="dropdown-item"
-                               href="{% url 'filters_gadget_change' status='W SERWISIE' %}">W SERWISIE</a>
+                               href="{% url 'filters_klient_change' status='W SERWISIE' %}">W SERWISIE</a>
                         </div>
                     </div>
                 </form>

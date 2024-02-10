@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.views.generic import View
@@ -72,16 +72,20 @@ class AddKlient(View):
 
 @login_required(login_url='login')
 def kartka_klienta(request, pk):
+    user = request.user
 
     if request.method == 'GET':
         klient = Klient.objects.get(pk=pk)
         gadgets_list = klient.gadget_set.all()
         gadgets_list_in_serwis = klient.gadget_set.filter(in_serwis=True)
 
-        if SetingsCRM.objects.get(pk=1).filter_gadget == 'WSZYSCY':
+        if not SetingsCRM.objects.filter(user_id=user.id).exists():
+            SetingsCRM.objects.create(user_id=user.id)
+
+        if SetingsCRM.objects.get(user_id=user.id).filter_klient == 'WSZYSCY':
             serching_gad = gadgets_list
 
-        if SetingsCRM.objects.get(pk=1).filter_gadget == 'W SERWISIE':
+        if SetingsCRM.objects.get(user_id=user.id).filter_klient == 'W SERWISIE':
             serching_gad = gadgets_list_in_serwis
 
         paginator = Paginator(serching_gad, 14)
@@ -100,7 +104,7 @@ def kartka_klienta(request, pk):
 
         else:
             next_url = ''
-        setings_filter = SetingsCRM.objects.get(pk=1)
+        setings_filter = SetingsCRM.objects.get(user_id=user.id)
         users = User.objects.all()
         context = {
             'filters': setings_filter,
@@ -118,16 +122,20 @@ def kartka_klienta(request, pk):
 
 @login_required(login_url='login')
 def add_serwis(request, pk):
+    user = request.user
 
     if request.method == 'GET':
         klient = Klient.objects.get(pk=pk)
         gadgets_list = klient.gadget_set.all()
         gadgets_list_in_serwis = klient.gadget_set.filter(in_serwis=True)
 
-        if SetingsCRM.objects.get(pk=1).filter_gadget == 'WSZYSCY':
+        if not SetingsCRM.objects.filter(user_id=user.id).exists():
+            SetingsCRM.objects.create(user_id=user.id)
+
+        if SetingsCRM.objects.get(user_id=user.id).filter_klient == 'WSZYSCY':
             serching_gad = gadgets_list
 
-        if SetingsCRM.objects.get(pk=1).filter_gadget == 'W SERWISIE':
+        if SetingsCRM.objects.get(user_id=user.id).filter_klient == 'W SERWISIE':
               serching_gad = gadgets_list_in_serwis
 
         paginator = Paginator(serching_gad, 50)
@@ -146,7 +154,7 @@ def add_serwis(request, pk):
 
         else:
             next_url = ''
-        setings_filter = SetingsCRM.objects.get(pk=1)
+        setings_filter = SetingsCRM.objects.get(user_id=user.id)
         users = User.objects.all()
         context = {
             'filters': setings_filter,
@@ -221,4 +229,13 @@ def delete_klient(request, pk):
         klient.delete()
     except:
         messages.success(request, 'Klient ma urządzenia. Najpierw usuń wszystkie urządzenia klienta!')
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required(login_url='login')
+def filters_klient_change(request, status):
+    user = request.user
+    setings_f = get_object_or_404(SetingsCRM.objects.all(), user_id=user.id)
+    setings_f.filter_klient = status
+    setings_f.save()
     return redirect(request.META.get('HTTP_REFERER'))

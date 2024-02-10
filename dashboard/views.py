@@ -13,10 +13,10 @@ def index_dash(request):
     gadgets_all = Gadget.objects.all()
     techniki = User.objects.all()
     tpl = User.objects.get(id=1)
-    qnt_gadgetsq = gadgets_all.__len__()
-    gadgets_ok = gadgets_all.filter(status__icontains='GOTOWY').__len__()
-    gadgets_serwis = gadgets_all.filter(status__icontains='NAPRAWIENIE').__len__()
-    gadgets_czeka = gadgets_all.filter(status__icontains='CZEKA NA CZĘŚCI').__len__()
+    qnt_gadgetsq = gadgets_all.filter(in_serwis=True).count()
+    gadgets_ok = gadgets_all.filter(status__icontains='GOTOWY').count()
+    gadgets_serwis = gadgets_all.filter(status__icontains='NAPRAWIENIE').count()
+    gadgets_czeka = gadgets_all.filter(status__icontains='CZEKA NA CZĘŚCI').count()
 
     context = {
         'tpl': tpl,
@@ -33,56 +33,28 @@ def index_dash(request):
 
 
 @login_required(login_url='login')
-def kartka_napraw(request, pk, kartka):
-    global gadgets_list_all
-    global serching_gad
+def kartka_napraw(request, pk):
+
     if request.method == 'GET':
-        user = User.objects.get(pk=pk)
-
-        if kartka == 'płatne':
-            gadgets_list_all = user.kartkaplatne_set.all()
-        if kartka == 'gwarancja':
-            gadgets_list_all = user.kartkagwarancja_set.all()
-        if kartka == 'reklamacja':
-            gadgets_list_all = user.kartkareklamacja_set.all()
-        if kartka == 'rezygnacja':
-            gadgets_list_all = user.kartkarezygnacja_set.all()
-
-        gadgets_list_month = gadgets_list_all.filter(created_at__month=TODAY.month)
-
-        if SetingsCRM.objects.get(pk=1).filter_dashboar == 'MIESIĄC':
-            serching_gad = gadgets_list_month
-
-        if SetingsCRM.objects.get(pk=1).filter_dashboar == 'WSZYSCY':
-            serching_gad = gadgets_list_all
-
-        paginator = Paginator(serching_gad, 50)
-        page_number = request.GET.get('page', 1)
-        page = paginator.get_page(page_number)
-        is_paginated = page.has_other_pages()
-
-        if page.has_previous():
-            prev_url = '?page={}'.format(page.previous_page_number())
-
-        else:
-            prev_url = ''
-
-        if page.has_next():
-            next_url = '?page={}'.format(page.next_page_number())
-
-        else:
-            next_url = ''
-        setings_filter = SetingsCRM.objects.get(pk=1)
+        technik = User.objects.get(pk=pk)
+        curent_user = request.user
+        setings_filter = SetingsCRM.objects.get(user_id=curent_user.id)
         users = User.objects.all()
+
+        płatne = technik.kartkaplatne_set.all()
+        gwarancja = technik.kartkagwarancja_set.all()
+        reklamacja = technik.kartkareklamacja_set.all()
+        rezygnacja = technik.kartkarezygnacja_set.all()
+
         context = {
             'now': TODAY,
             'filters': setings_filter,
             'users': users,
-            'gadgets': page,
-            'is_paginated': is_paginated,
-            'next_url': next_url,
-            'prev_url': prev_url,
-            'technik': user,
+            'płatne': płatne,
+            'gwarancja': gwarancja,
+            'reklamacja': reklamacja,
+            'rezygnacja': rezygnacja,
+            'technik': technik,
         }
 
         return render(request, 'dashboard/kartka_napraw.html', context=context)
@@ -90,7 +62,8 @@ def kartka_napraw(request, pk, kartka):
 
 @login_required(login_url='login')
 def filters_dashboard_change(request, status):
-    setings_f = get_object_or_404(SetingsCRM.objects.all(), pk=1)
+    curent_user = request.user
+    setings_f = get_object_or_404(SetingsCRM.objects.all(), user_id=curent_user.id)
     setings_f.filter_dashboar = status
     setings_f.save()
     return redirect(request.META.get('HTTP_REFERER'))

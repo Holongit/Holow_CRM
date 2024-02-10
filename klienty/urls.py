@@ -29,5 +29,6 @@ urlpatterns = [
     path('add_gadget_serwis/<int:pk>', add_gadget_serwis, name='add_gadget_serwis'),
     path('edit_klient/<int:pk>', edit_klient, name='edit_klient'),
     path('delete_klient/<int:pk>', delete_klient, name='delete_klient'),
+    path('filters_klient_change/<str:status>', filters_klient_change, name='filters_klient_change'),
 ]
 

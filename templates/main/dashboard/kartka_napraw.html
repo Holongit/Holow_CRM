@@ -12,104 +12,340 @@
         </h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
-            <li class="breadcrumb-item active">Urządzenie</li>
+            <li class="breadcrumb-item active">Urządzenia</li>
         </ol>
     </section>
     <section class="content">
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title float-left mt-10">2. Urządzenie</h3>
-                <form class="float-left ml-20 mt-10">
-                    <div class="btn-group">
-                        <button type="button" class="btn
+        <div class="col-12 col-lg-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title float-left mt-10">Miesiąc</h3>
+                    <form class="float-left ml-20 mt-10">
+                        <div class="btn-group">
+                            <button type="button" class="btn
                                                         {% if filters.filter_dashboar == 'WSZYSCY' %} btn-primary
                                                         {% elif filters.filter_dashboar == 'MIESIĄC' %} btn-secondary
                                                         {% endif %} dropdown-toggle btn-sm"
-                                data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_dashboar }}
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item"
-                               href="{% url 'filters_dashboard_change' status='WSZYSCY' %}">WSZYSCY</a>
-                            <a class="dropdown-item"
-                               href="{% url 'filters_dashboard_change' status='MIESIĄC' %}">MIESIĄC</a>
+                                    data-toggle="dropdown">{{ filters.filter_dashboar }}
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item"
+                                   href="{% url 'filters_dashboard_change' status='WSZYSCY' %}">WSZYSCY</a>
+                                <a class="dropdown-item"
+                                   href="{% url 'filters_dashboard_change' status='MIESIĄC' %}">MIESIĄC</a>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
 
-                <ul class="box-controls pull-right">
-                    <li><a class="box-btn-close" href="#"></a></li>
-                    <li><a class="box-btn-slide rotate-180" href="#"></a></li>
-                    <li><a class="box-btn-fullscreen" href="#"></a></li>
-                </ul>
-            </div>
-            <div class="box-body">
-                <div class="table-responsive">
-                    <table id="example"
-                           class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                        <thead>
-                        <tr class="bg-secondary ">
-                            <th class="text-center font-weight-bold b-3 border-white">№</th>
-                            <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
-                            <th class="text-center font-weight-bold b-3 border-white">Data rozpoczęcia naprawy</th>
-                            <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy</th>
-                            <th class="text-center font-weight-bold b-3 border-white">Stan</th>
-                            <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy</th>
-                        </tr>
-                        </thead>
+                    <ul class="box-controls pull-right">
+                        <li><a class="box-btn-close" href="#"></a></li>
+                        <li><a class="box-btn-slide rotate-180" href="#"></a></li>
+                        <li><a class="box-btn-fullscreen" href="#"></a></li>
+                    </ul>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Płatne"
+                                                role="tab"><span
+                                class="hidden-sm-up"><i class="ion-home"></i></span> <span
+                                class="hidden-xs-down">Płatne</span></a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#gwarancja" role="tab"><span
+                                class="hidden-sm-up"><i class="ion-person"></i></span> <span
+                                class="hidden-xs-down">Gwarancja</span></a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reklamacja" role="tab"><span
+                                class="hidden-sm-up"><i class="ion-email"></i></span> <span
+                                class="hidden-xs-down">Reklamacja</span></a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#rezygnacja" role="tab"><span
+                                class="hidden-sm-up"><i class="ion-email"></i></span> <span
+                                class="hidden-xs-down">Rezygnacja</span></a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content tabcontent-border">
+                        <div class="tab-pane active" id="Płatne" role="tabpanel">
+                            <div class="table-responsive">
+                                <table id="example"
+                                       class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                    <thead>
+                                    <tr class="bg-secondary ">
+                                        <th class="text-center font-weight-bold b-3 border-white">№</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Data rozpoczęcia
+                                            naprawy
+                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy
+                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Stan</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy
+                                        </th>
+                                    </tr>
+                                    </thead>
 
-                        {% for gadgets_data in gadgets %}
+                                    {% for gadgets_data in płatne %}
 
-                            <tbody>
-                            <tr class="text-center font-size-14">
-                                <td class="b-3 border-white ">
-                                    <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
-                                    </a>
-                                </td>
-                                <td class="b-3 border-white">
-                                    <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
-                                        {{ gadgets_data.gadget.type_gadget }}
-                                        {{ gadgets_data.gadget.brand_gadget }}
-                                        {{ gadgets_data.gadget }}</a>
-                                </td>
-                                <td class="b-3 border-white">
-                                    <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
-                                        {{ gadgets_data.gadget.workers.added_at_format }}</a>
-                                </td>
-                                <td class="b-3 border-white">
-                                    <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
-                                    {{ gadgets_data.created_at_format }}</a>
-                                </td>
-                                <td class="b-3 border-white">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn
+                                        <tbody>
+                                        <tr class="text-center font-size-14">
+                                            <td class="b-3 border-white ">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
+                                                </a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.gadget.type_gadget }}
+                                                    {{ gadgets_data.gadget.brand_gadget }}
+                                                    {{ gadgets_data.gadget }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.gadget.workers.added_at_format }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.created_at_format }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn
                                                         {% if gadgets_data.gadget.status == 'NAPRAWIENIE' %} btn-secondary
                                                         {% elif gadgets_data.gadget.status == 'GOTOWY' %} btn-primary
                                                         {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
                                                         {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
                                                         {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
                                                         {% endif %} btn-xs">{{ gadgets_data.gadget.status }}
-                                        </button>
-                                    </div>
-                                </td>
-                                <td class="b-3 border-white">
-                                    <button type="button" class="btn
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <button type="button" class="btn
                                                         {% if gadgets_data.gadget.type_service == 'PŁATNE' %} btn-info
                                                         {% elif gadgets_data.gadget.type_service == 'GWARANCJA' %} btn-warning
                                                         {% elif gadgets_data.gadget.type_service == 'REKLAMACJA' %} btn-danger
                                                         {% endif %}btn-xs">{{ gadgets_data.gadget.type_service }}
-                                    </button>
-                                </td>
+                                                </button>
+                                            </td>
 
-                            </tr>
-                            </tbody>
-                        {% endfor %}
-                        <tfoot></tfoot>
-                    </table>
+                                        </tr>
+                                        </tbody>
+                                    {% endfor %}
+                                    <tfoot></tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane pad" id="gwarancja" role="tabpanel">
+                            <div class="table-responsive">
+                                <table id="example"
+                                       class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                    <thead>
+                                    <tr class="bg-secondary ">
+                                        <th class="text-center font-weight-bold b-3 border-white">№</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Data rozpoczęcia
+                                            naprawy
+                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy
+                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Stan</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy
+                                        </th>
+                                    </tr>
+                                    </thead>
+
+                                    {% for gadgets_data in gwarancja %}
+
+                                        <tbody>
+                                        <tr class="text-center font-size-14">
+                                            <td class="b-3 border-white ">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
+                                                </a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.gadget.type_gadget }}
+                                                    {{ gadgets_data.gadget.brand_gadget }}
+                                                    {{ gadgets_data.gadget }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.gadget.workers.added_at_format }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.created_at_format }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn
+                                                        {% if gadgets_data.gadget.status == 'NAPRAWIENIE' %} btn-secondary
+                                                        {% elif gadgets_data.gadget.status == 'GOTOWY' %} btn-primary
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
+                                                        {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
+                                                        {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% endif %} btn-xs">{{ gadgets_data.gadget.status }}
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <button type="button" class="btn
+                                                        {% if gadgets_data.gadget.type_service == 'PŁATNE' %} btn-info
+                                                        {% elif gadgets_data.gadget.type_service == 'GWARANCJA' %} btn-warning
+                                                        {% elif gadgets_data.gadget.type_service == 'REKLAMACJA' %} btn-danger
+                                                        {% endif %}btn-xs">{{ gadgets_data.gadget.type_service }}
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    {% endfor %}
+                                    <tfoot></tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane pad" id="reklamacja" role="tabpanel">
+                            <div class="table-responsive">
+                                <table id="example"
+                                       class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                    <thead>
+                                    <tr class="bg-secondary ">
+                                        <th class="text-center font-weight-bold b-3 border-white">№</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Data rozpoczęcia
+                                            naprawy
+                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy
+                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Stan</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy
+                                        </th>
+                                    </tr>
+                                    </thead>
+
+                                    {% for gadgets_data in reklamacja %}
+
+                                        <tbody>
+                                        <tr class="text-center font-size-14">
+                                            <td class="b-3 border-white ">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
+                                                </a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.gadget.type_gadget }}
+                                                    {{ gadgets_data.gadget.brand_gadget }}
+                                                    {{ gadgets_data.gadget }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.gadget.workers.added_at_format }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.created_at_format }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn
+                                                        {% if gadgets_data.gadget.status == 'NAPRAWIENIE' %} btn-secondary
+                                                        {% elif gadgets_data.gadget.status == 'GOTOWY' %} btn-primary
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
+                                                        {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
+                                                        {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% endif %} btn-xs">{{ gadgets_data.gadget.status }}
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <button type="button" class="btn
+                                                        {% if gadgets_data.gadget.type_service == 'PŁATNE' %} btn-info
+                                                        {% elif gadgets_data.gadget.type_service == 'GWARANCJA' %} btn-warning
+                                                        {% elif gadgets_data.gadget.type_service == 'REKLAMACJA' %} btn-danger
+                                                        {% endif %}btn-xs">{{ gadgets_data.gadget.type_service }}
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    {% endfor %}
+                                    <tfoot></tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane pad" id="rezygnacja" role="tabpanel">
+                            <div class="table-responsive">
+                                <table id="example"
+                                       class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                    <thead>
+                                    <tr class="bg-secondary ">
+                                        <th class="text-center font-weight-bold b-3 border-white">№</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Data rozpoczęcia
+                                            naprawy
+                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy
+                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Stan</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy
+                                        </th>
+                                    </tr>
+                                    </thead>
+
+                                    {% for gadgets_data in rezygnacja %}
+
+                                        <tbody>
+                                        <tr class="text-center font-size-14">
+                                            <td class="b-3 border-white ">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
+                                                </a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.gadget.type_gadget }}
+                                                    {{ gadgets_data.gadget.brand_gadget }}
+                                                    {{ gadgets_data.gadget }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.gadget.workers.added_at_format }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {{ gadgets_data.created_at_format }}</a>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn
+                                                        {% if gadgets_data.gadget.status == 'NAPRAWIENIE' %} btn-secondary
+                                                        {% elif gadgets_data.gadget.status == 'GOTOWY' %} btn-primary
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
+                                                        {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
+                                                        {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% endif %} btn-xs">{{ gadgets_data.gadget.status }}
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                <button type="button" class="btn
+                                                        {% if gadgets_data.gadget.type_service == 'PŁATNE' %} btn-info
+                                                        {% elif gadgets_data.gadget.type_service == 'GWARANCJA' %} btn-warning
+                                                        {% elif gadgets_data.gadget.type_service == 'REKLAMACJA' %} btn-danger
+                                                        {% endif %}btn-xs">{{ gadgets_data.gadget.type_service }}
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    {% endfor %}
+                                    <tfoot></tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- /.box-body -->
             </div>
-            <div class="box-footer"></div>
+            <!-- /.box -->
         </div>
-
     </section>
+
 
 {% endblock %}

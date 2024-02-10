@@ -17,6 +17,7 @@ from klienty.models import Klient
 
 @login_required(login_url='login')
 def index_gad(request):
+    user = request.user
     global gadget_in_serwis
     search_query = request.GET.get('q', '')
     if search_query.isnumeric():
@@ -24,12 +25,14 @@ def index_gad(request):
     else:
         search_query_int = 0
 
-    if SetingsCRM.objects.get(pk=1).filter_gadget == 'WSZYSCY':
+    if not SetingsCRM.objects.filter(user_id=user.id).exists():
+        SetingsCRM.objects.create(user_id=user.id)
+
+    if SetingsCRM.objects.get(user_id=user.id).filter_gadget == 'WSZYSCY':
         gadget_in_serwis = Gadget.objects.all()
 
-    if SetingsCRM.objects.get(pk=1).filter_gadget == 'W SERWISIE':
+    if SetingsCRM.objects.get(user_id=user.id).filter_gadget == 'W SERWISIE':
         gadget_in_serwis = Gadget.objects.filter(in_serwis=True)
-
 
     if search_query:
         serching_gad = gadget_in_serwis.filter(Q(brand_gadget__icontains=search_query) |
@@ -59,7 +62,7 @@ def index_gad(request):
     else:
         next_url = ''
 
-    setings_filter = SetingsCRM.objects.get(pk=1)
+    setings_filter = SetingsCRM.objects.get(user_id=user.id)
     users = User.objects.all()
 
     context = {
@@ -207,7 +210,8 @@ def service_status_change(request, pk, status):
 
 @login_required(login_url='login')
 def filters_gadget_change(request, status):
-    setings_f = get_object_or_404(SetingsCRM.objects.all(), pk=1)
+    user = request.user
+    setings_f = get_object_or_404(SetingsCRM.objects.all(), user_id=user.id)
     setings_f.filter_gadget = status
     setings_f.save()
     return redirect(request.META.get('HTTP_REFERER'))
