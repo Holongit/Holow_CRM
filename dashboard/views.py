@@ -36,17 +36,25 @@ def index_dash(request):
 def kartka_napraw(request, pk):
 
     if request.method == 'GET':
+        month_select = request.GET.get('month', TODAY.month)
         technik = User.objects.get(pk=pk)
         curent_user = request.user
         setings_filter = SetingsCRM.objects.get(user_id=curent_user.id)
         users = User.objects.all()
+        month = TODAY.month
 
-        płatne = technik.kartkaplatne_set.all()
-        gwarancja = technik.kartkagwarancja_set.all()
-        reklamacja = technik.kartkareklamacja_set.all()
-        rezygnacja = technik.kartkarezygnacja_set.all()
+        if TODAY.month - int(month_select) >= 0:
+            month = int(month_select)
+        else:
+            month = TODAY.month
+
+        płatne = technik.kartkaplatne_set.filter(created_at__month=month)
+        gwarancja = technik.kartkagwarancja_set.filter(created_at__month=month)
+        reklamacja = technik.kartkareklamacja_set.filter(created_at__month=month)
+        rezygnacja = technik.kartkarezygnacja_set.filter(created_at__month=month)
 
         context = {
+            'month': month,
             'now': TODAY,
             'filters': setings_filter,
             'users': users,

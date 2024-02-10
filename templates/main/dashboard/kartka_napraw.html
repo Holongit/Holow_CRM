@@ -3,12 +3,8 @@
 
     <section class="content-header">
         <h1>
-            {{ technik.first_name }} {{ technik.last_name }} Kartka Napraw za
-            {% if filters.filter_dashboar == 'MIESIĄC' %}
-                0{{ now.month }}-{{ now.year }}
-            {% elif filters.filter_dashboar == 'WSZYSCY' %}
-                cały czas
-            {% endif %}
+            {{ technik.first_name }} {{ technik.last_name }} Kartka Napraw za 0{{ month }}-{{ now.year }}
+            
         </h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
@@ -22,17 +18,34 @@
                     <h3 class="box-title float-left mt-10">Miesiąc</h3>
                     <form class="float-left ml-20 mt-10">
                         <div class="btn-group">
-                            <button type="button" class="btn
-                                                        {% if filters.filter_dashboar == 'WSZYSCY' %} btn-primary
-                                                        {% elif filters.filter_dashboar == 'MIESIĄC' %} btn-secondary
-                                                        {% endif %} dropdown-toggle btn-sm"
-                                    data-toggle="dropdown">{{ filters.filter_dashboar }}
+                            <button type="button" class="btn dropdown-toggle btn-sm"
+                                    data-toggle="dropdown">0{{ month }} - {{ now.year }}
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item"
-                                   href="{% url 'filters_dashboard_change' status='WSZYSCY' %}">WSZYSCY</a>
+                                   href="?month=1">01 - {{ now.year }} styczeń</a>
                                 <a class="dropdown-item"
-                                   href="{% url 'filters_dashboard_change' status='MIESIĄC' %}">MIESIĄC</a>
+                                   href="?month=2">02 - {{ now.year }} luty</a>
+                                <a class="dropdown-item"
+                                   href="?month=3">03 - {{ now.year }} marzec</a>
+                                <a class="dropdown-item"
+                                   href="?month=4">04 - {{ now.year }} kwiecień</a>
+                                <a class="dropdown-item"
+                                   href="?month=5">05 - {{ now.year }} maj</a>
+                                <a class="dropdown-item"
+                                   href="?month=6">06 - {{ now.year }} czerwiec</a>
+                                <a class="dropdown-item"
+                                   href="?month=7">07 - {{ now.year }} lipiec</a>
+                                <a class="dropdown-item"
+                                   href="?month=8">08 - {{ now.year }} sierpień</a>
+                                <a class="dropdown-item"
+                                   href="?month=9">09 - {{ now.year }} wrzesień</a>
+                                <a class="dropdown-item"
+                                   href="?month=10">10 - {{ now.year }} październik</a>
+                                <a class="dropdown-item"
+                                   href="?month=11">11 - {{ now.year }} listopad</a>
+                                <a class="dropdown-item"
+                                   href="?month=12">12 - {{ now.year }} grudzień</a>
                             </div>
                         </div>
                     </form>
