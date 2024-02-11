@@ -2,10 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 from gadgets.models import Gadget
 from django.utils import timezone
-from datetime import datetime, timedelta
 
 
 TODAY = timezone.now()
+
+
 class Workers(models.Model):
     worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     gadget = models.OneToOneField(Gadget, on_delete=models.CASCADE, null=True)
@@ -53,7 +54,6 @@ class KartkaPlatne(models.Model):
         return qnt_all.filter(created_at__year=TODAY.year).count()
 
 
-
 class KartkaGwarancja(models.Model):
     worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     qnt = models.PositiveIntegerField(null=True, blank=True)
@@ -68,7 +68,6 @@ class KartkaGwarancja(models.Model):
 
     def __str__(self):
         return self.gadget
-
 
     def get_gwarancja_day_count(self):
         qnt_all = KartkaGwarancja.objects.all()
@@ -108,6 +107,7 @@ class KartkaRezygnacja(models.Model):
     def get_rezygnacja_year_count(self):
         qnt_all = KartkaRezygnacja.objects.all()
         return qnt_all.filter(created_at__year=TODAY.year).count()
+
 
 class KartkaReklamacja(models.Model):
     worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)

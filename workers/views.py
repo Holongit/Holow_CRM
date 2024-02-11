@@ -21,6 +21,7 @@ def workers(request):
 
 @login_required(login_url='login')
 def workers_gad_list(request, pk):
+    global gadget_in_serwis
     user = request.user
     search_query = request.GET.get('q', '')
     if search_query.isnumeric():
@@ -92,9 +93,16 @@ def filters_work_change(request, status):
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class GadgetInfo(View):
     def get(self, request, pk, user_pk):
+        user = request.user
         gadget = Gadget.objects.get(id=pk)
         notes = gadget.note_set.all()
-        return render(request, 'workers/gadget_info.html', context={'gadget': gadget, 'notes': notes, 'user_pk': user_pk})
+        setings_filter = SetingsCRM.objects.get(user_id=user.id)
+        context = {'gadget': gadget,
+                   'notes': notes,
+                   'user_pk': user_pk,
+                   'filters': setings_filter,
+                   }
+        return render(request, 'workers/gadget_info.html', context=context)
 
     def post(self, request, pk, user_pk):
         gadget = Gadget.objects.get(id=pk)
@@ -147,6 +155,7 @@ def delete_gadget_to_worker(request, pk):
     worker.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
+
 @login_required(login_url='login')
 def odstawic_gadget(request, pk):
     user = request.user
@@ -186,3 +195,18 @@ def odstawic_gadget(request, pk):
         return redirect(request.META.get('HTTP_REFERER'))
 
 
+@login_required(login_url='login')
+def gadget_location_change(request, pk, location_id):
+    gadget = Gadget.objects.get(pk=pk)
+    user = request.user
+    location = gadget.location
+    if not location == location_id:
+        Note.objects.create(
+            author=User.objects.get(username='TPL'),
+            title='ZMIANA LOKALIZACJI URZĄDZENIA',
+            content=f'{user} przeniósł urządzenie z {location} do {location_id}',
+            gadget=gadget,
+        )
+    gadget.location = location_id
+    gadget.save()
+    return redirect(request.META.get('HTTP_REFERER'))

@@ -29,6 +29,7 @@ urlpatterns = [
     path('service_status_change/<int:pk><str:status>/', service_status_change, name='service_status_change'),
     path('outgo_gadget/<int:pk>/', OutgoGadget.as_view(), name='outgo_gadget'),
     path('filters/<str:status>/', filters_gadget_change, name='filters_gadget_change'),
+    path('filters_dash/<str:status>/', filters_dashboar_change, name='filters_dashboard_change'),
     path('print_gadget/<int:pk>/', print_gadget, name='print_gadget'),
     path('pilne_status_change/<int:pk><str:status>/', pilne_status_change, name='pilne_status_change'),
     path('worker_change/<int:gadget_id><int:user_id>/', technik_change, name='technik_change'),

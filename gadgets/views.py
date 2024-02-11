@@ -14,7 +14,6 @@ from workers.models import Workers
 from workers.views import add_gadget_to_worker
 from klienty.models import Klient
 
-
 @login_required(login_url='login')
 def index_gad(request):
     user = request.user
@@ -218,6 +217,15 @@ def filters_gadget_change(request, status):
 
 
 @login_required(login_url='login')
+def filters_dashboar_change(request, status):
+    user = request.user
+    setings_f = get_object_or_404(SetingsCRM.objects.all(), user_id=user.id)
+    setings_f.filter_dashboar = status
+    setings_f.save()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required(login_url='login')
 def print_gadget(request, pk):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     return render(request, 'gadgets/print_gadget.html', context={'gadget': gadget})
@@ -249,6 +257,7 @@ def technik_change(request, gadget_id, user_id):
     else:
         add_gadget_to_worker(request, gadget_id)
         return redirect(request.META.get('HTTP_REFERER'))
+
 
 @login_required(login_url='login')
 def add_opis_naprawy(request, pk):

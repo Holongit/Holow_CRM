@@ -44,9 +44,10 @@
                                                 <ul class="nav d-block nav-stacked font-size-16">
                                                     <li class="nav-item"><a
                                                             href="{% url 'gadget_info' pk=item_g.gadget.id user_pk=item_u.id %}"
-                                                            class="nav-link">{{ item_g.gadget.id }} {{ item_g.gadget.brand_gadget }} {{ item_g.gadget.model_gadget }}
-
-
+                                                            class="nav-link">
+                                                        {{ item_g.gadget.id }} 
+                                                        {{ item_g.gadget.brand_gadget }} 
+                                                        {{ item_g.gadget.model_gadget }}
                                                         <span class="pull-right mr-10 badge ml-10                                                        
                                                         {% if item_g.gadget.time_in_serwis_get <= 3 %} bg-info
                                                         {% elif item_g.gadget.time_in_serwis_get > 3 and item_g.gadget.time_in_serwis_get <= 14 %} bg-dark

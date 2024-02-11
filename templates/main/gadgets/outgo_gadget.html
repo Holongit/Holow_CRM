@@ -3,7 +3,7 @@
 
     <section class="content-header">
         <h1>
-            Urządzenie {{ gadget.id }}
+            Urządzenie {{ gadget.id }} <br>Lokalizacja: {{ gadget.location }}
         </h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
@@ -16,8 +16,10 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title float-left mt-10">Kartka Urządzenia
-                    №{{ gadget.id }} {{ gadget.location }} {{ gadget.created_at_format }}</h3>
+                    №{{ gadget.id }} {{ gadget.created_at_format }}
+                </h3>
                 <h3 class="float-left ml-20">
+
 
                     {% if gadget.in_serwis == True %}
                         <span class="badge badge-primary font-size-16">W serwise</span> {% elif gadget.in_serwis == False %}
@@ -53,6 +55,30 @@
                     {% endif %}                                                        
                     ">{{ gadget.time_in_serwis_get }} dni
                     </span>
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                        <div class="btn-group">
+                            <button type="button" class="btn
+                                                        {% if gadget.location == 'STOKŁOSY' %} btn-secondary
+                                                        {% elif gadget.location == 'BEMOWO' %} btn-primary
+                                                        {% endif %} dropdown-toggle btn-sm font-size-16"
+                                    data-toggle="dropdown">{{ gadget.location }}
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item font-size-16"
+                                   href="{% url 'gadget_location_change' pk=gadget.id location_id='STOKŁOSY' %}">STOKŁOSY</a>
+                                <a class="dropdown-item font-size-16"
+                                   href="{% url 'gadget_location_change' pk=gadget.id location_id='BEMOWO' %}">BEMOWO</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <button type="button" class="btn
+                                                        {% if gadget.location == 'STOKŁOSY' %} btn-secondary
+                                                        {% elif gadget.location == 'BEMOWO' %} btn-primary
+                                                        {% endif %} dropdown-toggle btn-sm font-size-16"
+                                data-toggle="dropdown">{{ gadget.location }}
+                        </button>
+                    {% endif %}
+
                 </h3>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-close" href="#"></a></li>

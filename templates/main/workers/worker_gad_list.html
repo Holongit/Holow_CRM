@@ -37,7 +37,7 @@
 
 
                     <div class="btn-group">
-                        <button type="button" class="btn
+                        <button type="button" class="btn font-size-16
 
                                                         {% if filters.filter_work == 'WSZYSCY' %} btn-primary
                                                         {% elif filters.filter_work == 'W SERWISIE' %} btn-secondary
@@ -48,9 +48,9 @@
                                 data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_work }}
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item"
+                            <a class="dropdown-item font-size-16"
                                href="{% url 'filters_work_change' status='WSZYSCY' %}">WSZYSCY</a>
-                            <a class="dropdown-item"
+                            <a class="dropdown-item font-size-16"
                                href="{% url 'filters_work_change' status='W SERWISIE' %}">W SERWISIE</a>
                         </div>
                     </div>

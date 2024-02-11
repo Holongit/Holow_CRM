@@ -55,7 +55,7 @@ class Gadget(models.Model):
 class SetingsCRM(models.Model):
     filter_gadget = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
     filter_klient = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
-    filter_dashboar = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
+    filter_dashboar = models.CharField(max_length=16, default='STOKŁOSY', null=True, blank=True)
     filter_work = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 

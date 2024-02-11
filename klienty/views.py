@@ -171,6 +171,8 @@ def add_serwis(request, pk):
 
 @login_required(login_url='login')
 def add_gadget_serwis(request, pk):
+    user = request.user
+    location = SetingsCRM.objects.get(user_id=user.id).filter_dashboar
     if request.method == 'GET':
         klient = Klient.objects.get(pk=pk)
         notes = klient.note_set.all()
@@ -188,6 +190,7 @@ def add_gadget_serwis(request, pk):
             bound_form_gad.save()
             gadget = Gadget.objects.first()
             gadget.klient = Klient.objects.get(pk=pk)
+            gadget.location = location
             gadget.save()
 
             return redirect('outgo_gadget', pk=gadget.id)

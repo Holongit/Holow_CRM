@@ -1,10 +1,10 @@
-from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from gadgets.models import SetingsCRM
 from notes.form import *
 from workers.models import *
+from dashboard.models import ServisLocationList
 
 
 @login_required(login_url='login')
@@ -41,7 +41,6 @@ def kartka_napraw(request, pk):
         curent_user = request.user
         setings_filter = SetingsCRM.objects.get(user_id=curent_user.id)
         users = User.objects.all()
-        month = TODAY.month
 
         if TODAY.month - int(month_select) >= 0:
             month = int(month_select)
@@ -67,11 +66,3 @@ def kartka_napraw(request, pk):
 
         return render(request, 'dashboard/kartka_napraw.html', context=context)
 
-
-@login_required(login_url='login')
-def filters_dashboard_change(request, status):
-    curent_user = request.user
-    setings_f = get_object_or_404(SetingsCRM.objects.all(), user_id=curent_user.id)
-    setings_f.filter_dashboar = status
-    setings_f.save()
-    return redirect(request.META.get('HTTP_REFERER'))
