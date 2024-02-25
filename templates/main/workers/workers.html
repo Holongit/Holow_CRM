@@ -11,44 +11,41 @@
         </ol>
     </section>
     <section class="content">
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">Pracowniki</h3>
-                <ul class="box-controls pull-right">
-                    <li><a class="box-btn-close" href="#"></a></li>
-                    <li><a class="box-btn-slide" href="#"></a></li>
-                    <li><a class="box-btn-fullscreen" href="#"></a></li>
-                </ul>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    {% for item_u in users %}
-                        {% if item_u.workers_set.exists %}
-                            <div class="col-xl-4 col-lg-6 col-12">
-                                <!-- Widget: user widget style 1 -->
-                                <div class="box box-widget widget-user-2">
-                                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                                    <div class="widget-user-header bg-dark">
-
-                                        <!-- /.widget-user-image -->
-                                        <a href="{% url 'workers_list' pk=item_u.id %}" class="btn btn-primary"><h6
-                                                class="widget-user-username float-left">{{ item_u.username }}</h6>
-                                        </a>
-                                        <h6 class="widget-user-desc float-right">
-                                            <span class="font-size-30  ">{{ item_u.workers_set.count }} </span> <span
-                                                class="fa fa-laptop font-size-30 "></span></h6>
+        <div class="box-body">
+            <div class="row">
+                {% for item_u in users %}
+                    {% if item_u.workers_set.exists %}
+                        <div class="col-xl-4 col-lg-6 col-12">
+                            <!-- Widget: user widget style 1 -->
+                            <div class="box box-widget widget-user-2">
+                                
+                                    <div class="box-body p-0">
+                                        <div class="media-list media-list-hover">
+                                            <a class="media media-single" href="{% url 'workers_list' pk=item_u.id %}">
+                                                <div class="media-body">
+                                                    <h1 class="text-fade">{{ item_u.username }}</h1>
+                                                    <span class="text-fade"><i
+                                                            class="fa fa-map-marker"></i> {{ item_u.workers_set.first.gadget.location }}</span>
+                                                </div>
+                                                <p class="media-right text-right text-fade">Ostatnie logowanie<br> {{ item_u.last_login }}
+                                                </p>
+                                            </a>
+                                        </div>
                                     </div>
-                                    {% for item_g in item_u.workers_set.all %}
-                                        {% if item_g.gadget.in_serwis %}
-                                            <div class="box-footer no-padding">
-                                                <ul class="nav d-block nav-stacked font-size-16">
-                                                    <li class="nav-item"><a
-                                                            href="{% url 'gadget_info' pk=item_g.gadget.id user_pk=item_u.id %}"
-                                                            class="nav-link">
-                                                        {{ item_g.gadget.id }} 
-                                                        {{ item_g.gadget.brand_gadget }} 
-                                                        {{ item_g.gadget.model_gadget }}
-                                                        <span class="pull-right mr-10 badge ml-10                                                        
+                                
+                                {% for item_g in item_u.workers_set.all %}
+                                    {% if item_g.gadget.in_serwis %}
+                                        <div class="box-footer no-padding">
+                                            <ul class="nav d-block nav-stacked font-size-16">
+                                                <li class="nav-item"><a
+                                                        href="{% url 'gadget_info' pk=item_g.gadget.id user_pk=item_u.id %}"
+                                                        class="nav-link">
+                                                    {{ item_g.gadget.id }}
+                                                    {% if item_g.gadget.brand_gadget %}
+                                                        {{ item_g.gadget.brand_gadget }}
+                                                    {% endif %}
+                                                    {{ item_g.gadget.model_gadget }}
+                                                    <span class="pull-right mr-10 badge ml-10                                                        
                                                         {% if item_g.gadget.time_in_serwis_get <= 3 %} bg-info
                                                         {% elif item_g.gadget.time_in_serwis_get > 3 and item_g.gadget.time_in_serwis_get <= 14 %} bg-dark
                                                         {% elif item_g.gadget.time_in_serwis_get > 14 %} bg-danger                                              
@@ -56,7 +53,7 @@
                                                         ">{{ item_g.gadget.time_in_serwis_get }} dni
                                                         </span>
 
-                                                        <span class="pull-right badge                                                         
+                                                    <span class="pull-right badge                                                         
                                                         {% if item_g.gadget.status == 'NAPRAWIENIE' %} bg-secondary
                                                         {% elif item_g.gadget.status == 'GOTOWY' %} bg-primary
                                                         {% elif item_g.gadget.status == 'CZEKA NA CZĘŚCI' %} bg-dark
@@ -65,8 +62,8 @@
                                                         {% endif %}                                                        
                                                         ">{{ item_g.gadget.status }}
                                                         </span>
-                                                    
-                                                        <span class="pull-right mr-10 badge                                                         
+
+                                                    <span class="pull-right mr-10 badge                                                         
                                                         {% if item_g.gadget.pilne == 'PILNE' %} bg-danger
                                                         {% elif item_g.gadget.pilne == 'ŚREDNIO' %} bg-warning
                                                         {% elif item_g.gadget.pilne == 'NIE' %}                                               
@@ -75,26 +72,26 @@
                                                         </span>
 
 
-                                                    </a>
+                                                </a>
 
-                                                    </li>
+                                                </li>
 
 
-                                                </ul>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
+                        </div>
 
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="box-footer">
-
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
+        <div class="box-footer">
+
+        </div>
+
     </section>
 
 {% endblock %}

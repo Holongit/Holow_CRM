@@ -52,7 +52,7 @@
                                             <a class="page-link" href="?page={{ n }}">{{ n }}</a>
                                         </li>
 
-                                    {% elif n > klients.number|add:-10 and n < klients.number|add:10 %}
+                                    {% elif n > klients.number|add:-5 and n < klients.number|add:5 %}
 
                                         <li class="page-item">
                                             <a class="page-link" href="?page={{ n }}">{{ n }}</a>
@@ -100,7 +100,11 @@
                                             href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.name_klient }}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.telefon_klient }}</a>
+                                            href="{% url 'kartka_klienta' pk=klient_data.id %}">
+                                        {% if klient_data.telefon_klient %}
+                                            {{ klient_data.telefon_klient }}
+                                        {% endif %}
+                                    </a>
                                     </td>
                                 
                                     <td class="b-3 border-white">

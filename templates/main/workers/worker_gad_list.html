@@ -38,20 +38,17 @@
 
                     <div class="btn-group">
                         <button type="button" class="btn font-size-16
-
-                                                        {% if filters.filter_work == 'WSZYSCY' %} btn-primary
-                                                        {% elif filters.filter_work == 'W SERWISIE' %} btn-secondary
-                                                        
-                                                  
-                                                        {% endif %} dropdown-toggle btn-sm"
-
-                                data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_work }}
+                        {% if filters.filter_work == 'WSZYSCY' %}
+                            btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">Wszystkie urządzenia
+                        {% elif filters.filter_work == 'W SERWISIE' %}
+                            btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown">Urządzenia które mam
+                        {% endif %}
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item font-size-16"
-                               href="{% url 'filters_work_change' status='WSZYSCY' %}">WSZYSCY</a>
+                               href="{% url 'filters_work_change' status='WSZYSCY' %}">Wszystkie urządzenia</a>
                             <a class="dropdown-item font-size-16"
-                               href="{% url 'filters_work_change' status='W SERWISIE' %}">W SERWISIE</a>
+                               href="{% url 'filters_work_change' status='W SERWISIE' %}">Urządzenia które mam</a>
                         </div>
                     </div>
 

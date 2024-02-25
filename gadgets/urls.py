@@ -21,8 +21,8 @@ from gadgets.views import *
 
 
 urlpatterns = [
-    path('add_gadget/', AddGadgets.as_view(), name='add_gadget'),
     path('', index_gad, name='gadgets'),
+    path('add_gadget/', AddGadgets.as_view(), name='add_gadget'),
     path('edit_gadget/<int:pk>/', EditGadget.as_view(), name='edit_gadget'),
     path('delete_gadget/<int:pk>/', delete_gadget, name='delete_gadget'),
     path('gadget_status_change/<int:pk><str:status>/', gadget_status_change, name='gadget_status_change'),
