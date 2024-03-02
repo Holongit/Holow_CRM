@@ -58,8 +58,8 @@
                                                         {% if filters.filter_dashboar == 'BEMOWO' %} btn-primary
                                                         {% elif filters.filter_dashboar == 'STOKŁOSY' %} btn-secondary                                                        
                                                         {% endif %} dropdown-toggle btn-sm"
-                                data-toggle="dropdown">Lokalizacja: {{ filters.filter_dashboar }}
-                        
+                                    data-toggle="dropdown">Lokalizacja: {{ filters.filter_dashboar }}
+
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item"
@@ -371,17 +371,26 @@
                                                 </div>
 
                                             {% elif gadgets_data.in_serwis and gadgets_data.status == 'NOWY' %}
-                                                <a href="{% url 'add_gadget_to_worker' pk=gadgets_data.id %}">
-                                            <span class="btn 
-                                            
-                                            {% if gadgets_data.workers.worker == request.user and gadgets_data.workers.in_work %}
-                                            bg-primary btn-xs">Mam
-                                            {% else %}
-                                                bg-pale-primary btn-xs">Wziąć
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn bg-pale-primary btn-xs dropdown-toggle"
+                                                            data-toggle="dropdown">
+                                                        Dodaj
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="text-center dropdown-item"
+                                                           href="#"><h2>Jesteś pewny?</h2>
+                                                        </a>
+                                                        <br>
+                                                        <a class="text-center dropdown-item"
+                                                           href="{% url 'add_gadget_to_worker' pk=gadgets_data.id %}">
+                                                            <h2>
+                                                                Dodaj Sobie</h2></a>
+                                                    </div>
+                                                </div>
                                             {% endif %}
-                                            </span>
-                                                </a>
-
+                                            {% if gadgets_data.workers.worker == request.user and gadgets_data.workers.in_work %}
+                                                <span class="btn bg-primary btn-xs">Już masz</span>
                                             {% endif %}
                                         </td>
                                     </tr>

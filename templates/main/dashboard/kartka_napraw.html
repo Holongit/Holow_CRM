@@ -63,16 +63,16 @@
                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Płatne"
                                                 role="tab"><span
                                 class="hidden-sm-up"><i class="ion-home"></i></span> <span
-                                class="hidden-xs-down">Płatne</span></a></li>
+                                class="hidden-xs-down">Płatne <h4 class="text-center">{{ technik.kartkaplatne_set.count }}</h4></span></a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#gwarancja" role="tab"><span
                                 class="hidden-sm-up"><i class="ion-person"></i></span> <span
-                                class="hidden-xs-down">Gwarancja</span></a></li>
+                                class="hidden-xs-down">Gwarancja <h4 class="text-center">{{ technik.kartkagwarancja_set.count }}</h4></span></a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reklamacja" role="tab"><span
                                 class="hidden-sm-up"><i class="ion-email"></i></span> <span
-                                class="hidden-xs-down">Reklamacja</span></a></li>
+                                class="hidden-xs-down">Reklamacja <h4 class="text-center">{{ technik.kartkareklamacja_set.count }}</h4></span></a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#rezygnacja" role="tab"><span
                                 class="hidden-sm-up"><i class="ion-email"></i></span> <span
-                                class="hidden-xs-down">Rezygnacja</span></a></li>
+                                class="hidden-xs-down">Rezygnacja <h4 class="text-center">{{ technik.kartkarezygnacja_set.count }}</h4></span></a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content tabcontent-border">
@@ -105,8 +105,12 @@
                                             </td>
                                             <td class="b-3 border-white">
                                                 <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
+                                                    {% endif %}
+                                                    {% if gadgets_data.gadget.brand_gadget %}
                                                     {{ gadgets_data.gadget.brand_gadget }}
+                                                    {% endif %}
                                                     {{ gadgets_data.gadget }}</a>
                                             </td>
                                             <td class="b-3 border-white">
