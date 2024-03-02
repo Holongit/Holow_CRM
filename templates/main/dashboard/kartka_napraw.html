@@ -178,8 +178,12 @@
                                             </td>
                                             <td class="b-3 border-white">
                                                 <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
+                                                    {% endif %}
+                                                    {% if gadgets_data.gadget.brand_gadget %}
                                                     {{ gadgets_data.gadget.brand_gadget }}
+                                                    {% endif %}
                                                     {{ gadgets_data.gadget }}</a>
                                             </td>
                                             <td class="b-3 border-white">
@@ -247,8 +251,12 @@
                                             </td>
                                             <td class="b-3 border-white">
                                                 <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
+                                                    {% endif %}
+                                                    {% if gadgets_data.gadget.brand_gadget %}
                                                     {{ gadgets_data.gadget.brand_gadget }}
+                                                    {% endif %}
                                                     {{ gadgets_data.gadget }}</a>
                                             </td>
                                             <td class="b-3 border-white">
@@ -316,8 +324,12 @@
                                             </td>
                                             <td class="b-3 border-white">
                                                 <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                    {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
+                                                    {% endif %}
+                                                    {% if gadgets_data.gadget.brand_gadget %}
                                                     {{ gadgets_data.gadget.brand_gadget }}
+                                                    {% endif %}
                                                     {{ gadgets_data.gadget }}</a>
                                             </td>
                                             <td class="b-3 border-white">
