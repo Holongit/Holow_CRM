@@ -153,7 +153,7 @@
                                     <td class="b-3 border-white"><a
                                             href="{% url 'gadget_info' pk=gadgets_data.gadget.id user_pk=user.id %}">
                                         {% if gadgets_data.gadget.klient.telefon_klient %}
-                                        {{ gadgets_data.gadget.klient.telefon_klient }}
+                                            {{ gadgets_data.gadget.klient.telefon_klient }}
                                         {% endif %}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
@@ -317,25 +317,48 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                        {% elif gadgets_data.gadget.in_serwis %}
-                                            {% if gadgets_data.in_work %}
-                                                <div class="btn-group">
+                                            {% if gadgets_data.gadget.in_serwis %}
+                                                {% if gadgets_data.in_work %}
+                                                    <div class="btn-group">
                                                         <button type="button"
                                                                 class="btn bg-primary btn-xs dropdown-toggle"
                                                                 data-toggle="dropdown">
                                                             Odstawic
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                             <a class="text-center dropdown-item"
+                                                            <a class="text-center dropdown-item"
                                                                href=""><h2>Jesteś pewny?</h2>
                                                             </a>
                                                             <br>
                                                             <a class="text-center dropdown-item"
-                                                               href="{% url 'odstawic_gadget' pk=gadgets_data.id %}"><h2>
-                                                                Odstawic</h2></a>
+                                                               href="{% url 'odstawic_gadget' pk=gadgets_data.id %}">
+                                                                <h2>
+                                                                    Odstawic</h2></a>
                                                         </div>
                                                     </div>
+                                                {% else %}
+                                                    <span class="btn bg-pale-primary btn-xs">Odstawione</span>
+                                                {% endif %}
+                                            {% endif %}
+
+                                        {% elif gadgets_data.gadget.in_serwis %}
+                                            {% if gadgets_data.in_work %}
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn bg-primary btn-xs dropdown-toggle"
+                                                            data-toggle="dropdown">
+                                                        Odstawic
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="text-center dropdown-item"
+                                                           href=""><h2>Jesteś pewny?</h2>
+                                                        </a>
+                                                        <br>
+                                                        <a class="text-center dropdown-item"
+                                                           href="{% url 'odstawic_gadget' pk=gadgets_data.id %}"><h2>
+                                                            Odstawic</h2></a>
+                                                    </div>
+                                                </div>
                                             {% else %}
                                                 <span class="btn bg-pale-primary btn-xs">Odstawione</span>
                                             {% endif %}
