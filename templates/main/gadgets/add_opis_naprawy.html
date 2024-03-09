@@ -141,7 +141,7 @@
 
                                     </div>
                                 {% endif %}
-                                <h5 class="float-left mt-20">Opis technika: </h5>
+                                <h5 class="float-left mt-20">Opis naprawy: </h5>
                                 <div class="form-group float-left ">
                                     <form action="{% url 'add_opis_naprawy' pk=gadget.id %}" method="post"
                                           class="navbar-form ">
@@ -210,9 +210,31 @@
                             Notatka
                         </button>
                     </a>
+                    {% if gadget.in_serwis %}
+                        {% if gadget.workers.in_work %}
+                            <div class="btn-group ml-20">
+                                <button type="button"
+                                        class="btn bg-primary dropdown-toggle"
+                                        data-toggle="dropdown">
+                                    Odstawic
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="text-center dropdown-item"
+                                       href=""><h2>Jesteś pewny?</h2>
+                                    </a>
+                                    <br>
+                                    <a class="text-center dropdown-item"
+                                       href="{% url 'odstawic_gadget' pk=gadget.workers.id %}">
+                                        <h2>
+                                            Odstawic</h2></a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <span class="btn bg-pale-primary ml-20">Odstawione</span>
+                        {% endif %}
+                    {% endif %}
 
-
-                    <a href="{% url 'gadgets' %}">
+                    <a href="{% url 'workers_list' pk=gadget.workers.worker.id %}">
                         <button type="submit" class="btn btn-danger float-right ml-20"><i
                                 class="fa fa-close"></i>
                             Zamknąć

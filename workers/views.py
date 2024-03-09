@@ -10,6 +10,7 @@ from django.utils import timezone
 from gadgets.models import Gadget, SetingsCRM
 from workers.models import Workers, KartkaPlatne, KartkaGwarancja, KartkaReklamacja, KartkaRezygnacja
 from notes.models import Note
+from notes.form import NoteForm
 
 
 @login_required(login_url='login')
@@ -48,7 +49,7 @@ def workers_gad_list(request, pk):
     else:
         serching_gad = gadget_in_serwis
 
-    paginator = Paginator(serching_gad, 14)
+    paginator = Paginator(serching_gad, 40)
 
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
@@ -92,27 +93,32 @@ def filters_work_change(request, status):
 
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class GadgetInfo(View):
-    def get(self, request, pk, user_pk):
-        user = request.user
+    def get(self, request, pk):
         gadget = Gadget.objects.get(id=pk)
         notes = gadget.note_set.all()
-        setings_filter = SetingsCRM.objects.get(user_id=user.id)
+        form = NoteForm(initial={'title': 'none'})
         context = {'gadget': gadget,
                    'notes': notes,
-                   'user_pk': user_pk,
-                   'filters': setings_filter,
+                   'form': form,
                    }
         return render(request, 'workers/gadget_info.html', context=context)
 
-    def post(self, request, pk, user_pk):
-        gadget = Gadget.objects.get(id=pk)
-        if gadget.in_serwis:
-            gadget.in_serwis = False
-            gadget.save()
-        elif not gadget.in_serwis:
-            gadget.in_serwis = True
-            gadget.save()
+    def post(self, request, pk):
+        bound_form_note = NoteForm(request.POST)
+        gadget_id = Gadget.objects.get(id=pk)
+        user_id = request.user
+
+        if bound_form_note.is_valid() and request.user.has_perm('notes.add_note'):
+            bound_form_note.save()
+            note_last = Note.objects.first()
+            if note_last.title == 'UWAGA' or note_last.title == 'ZGODA' or note_last.title == 'ZADANIE':
+                note_last.read = False
+            note_last.gadget_id = gadget_id
+            note_last.author = user_id
+            note_last.save()
+            return redirect(request.META.get('HTTP_REFERER'))
         return redirect(request.META.get('HTTP_REFERER'))
+
 
 
 @login_required(login_url='login')

@@ -38,7 +38,7 @@
                                         <div class="box-footer no-padding">
                                             <ul class="nav d-block nav-stacked font-size-16">
                                                 <li class="nav-item"><a
-                                                        href="{% url 'gadget_info' pk=item_g.gadget.id user_pk=item_u.id %}"
+                                                        href="{% url 'gadget_info' pk=item_g.gadget.id %}"
                                                         class="nav-link">
                                                     {{ item_g.gadget.id }}
                                                     {% if item_g.gadget.brand_gadget %}
@@ -93,5 +93,10 @@
         </div>
 
     </section>
-
+<script>
+     function update(){
+    location.reload(false);
+    }
+    setTimeout('update()',60000);
+</script>
 {% endblock %}

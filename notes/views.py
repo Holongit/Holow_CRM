@@ -31,7 +31,7 @@ class NoteAdd(View):
             note_last.gadget_id = gadget_id
             note_last.author = user_id
             note_last.save()
-            return redirect('outgo_gadget', pk=kwargs['pk'])
+            return redirect(request.META.get('HTTP_REFERER'))
         return redirect(request.META.get('HTTP_REFERER'))
 
 

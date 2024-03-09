@@ -135,29 +135,29 @@
                                 <tbody>
                                 <tr class="text-center font-size-14">
                                     <td class="b-3 border-white "><a
-                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id user_pk=user.id %}">{{ gadgets_data.gadget.id }}</a>
+                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id user_pk=user.id %}">{{ gadgets_data.gadget.type_gadget }}</a>
+                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.type_gadget }}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id user_pk=user.id %}">
+                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                         {% if gadgets_data.gadget.brand_gadget %}
                                             {{ gadgets_data.gadget.brand_gadget }}
                                         {% endif %}
                                         {{ gadgets_data.gadget }}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id user_pk=user.id %}">{{ gadgets_data.gadget.klient.name_klient }}</a>
+                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.klient.name_klient }}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id user_pk=user.id %}">
+                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                         {% if gadgets_data.gadget.klient.telefon_klient %}
                                             {{ gadgets_data.gadget.klient.telefon_klient }}
                                         {% endif %}</a>
                                     </td>
                                     <td class="b-3 border-white"><a
-                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id user_pk=user.id %}">{{ gadgets_data.gadget.created_at_format }}</a>
+                                            href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.created_at_format }}</a>
                                     </td>
                                     <td class="b-3 border-white">
                                         {% if request.user.is_authenticated and request.user.is_staff %}
@@ -384,6 +384,13 @@
 
                 <div class="box-footer"></div>
     </section>
+    <script>
+        function update() {
+            location.reload(false);
+        }
+
+        setTimeout('update()', 60000);
+    </script>
 {% endblock content %}
 
 

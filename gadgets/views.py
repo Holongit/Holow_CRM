@@ -10,6 +10,7 @@ from django.utils import timezone
 from gadgets.forms import GadgetForm, OpisNaprawyForm
 from gadgets.models import Gadget, SetingsCRM
 from notes.models import Note
+from notes.form import NoteForm
 from workers.models import Workers
 from workers.views import add_gadget_to_worker
 from klienty.models import Klient
@@ -44,7 +45,7 @@ def index_gad(request):
     else:
         serching_gad = gadget_in_serwis
 
-    paginator = Paginator(serching_gad, 14)
+    paginator = Paginator(serching_gad, 40)
 
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
@@ -87,7 +88,7 @@ class AddGadgets(View):
         else:
             serching_kli = Klient.objects.all()
 
-        paginator = Paginator(serching_kli, 14)
+        paginator = Paginator(serching_kli, 40)
 
         page_number = request.GET.get('page', 1)
         page = paginator.get_page(page_number)
@@ -156,7 +157,8 @@ class OutgoGadget(View):
     def get(self, request, pk):
         gadget = Gadget.objects.get(id=pk)
         notes = gadget.note_set.all()
-        return render(request, 'gadgets/outgo_gadget.html', context={'gadget': gadget, 'notes': notes})
+        form = NoteForm(initial={'title': 'none'})
+        return render(request, 'gadgets/outgo_gadget.html', context={'gadget': gadget, 'form': form, 'notes': notes})
 
     def post(self, request, pk):
         gadget = Gadget.objects.get(id=pk)
@@ -273,5 +275,5 @@ def add_opis_naprawy(request, pk):
             gadget = Gadget.objects.get(pk=pk)
             gadget.opis_naprawy = request.POST['opis_naprawy']
             gadget.save()
-            return redirect('outgo_gadget', pk=pk)
+            return redirect('gadget_info', pk=pk)
         return redirect(request.META.get('HTTP_REFERER'))
