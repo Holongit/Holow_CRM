@@ -177,18 +177,16 @@
 
                             </div>
                             <div class="col-lg-6 col-12">
-                                <form action="{% url 'add_note' pk=gadget.id %}" method="post" class="navbar-form">
-                                    {% csrf_token %}
-                                    <div class="input-group">
+                                <div class="mb-15 ml-70">
+                                    <form action="{% url 'add_note' pk=gadget.id %}" method="post">
+                                        {% csrf_token %}
 
-                                        {{ form.title }}
-                                        {{ form.content }}
-
-                                        <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-default">+</button>
-                                    </span>
-                                    </div>
-                                </form>
+                                        <div class="input-group">
+                                            <span class="input-group-btn">{{ form.title }}</span>
+                                            {{ form.content }}
+                                        </div>
+                                    </form>
+                                </div>
                                 {% for note in notes %}
                                     <!-- CONTENT_NOTE -->
                                     <div class="timeline timeline-single-column timeline-single-full-column">
@@ -257,13 +255,36 @@
                             </a>
 
                         {% else %}
-
-                            <a href="{% url 'add_opis_naprawy' pk=gadget.id %}">
-                                <button type="submit" class="btn btn-info float-left ml-20"><i
-                                        class="fa fa-sticky-note"></i>
-                                    Dodaj opis naprawy
-                                </button>
-                            </a>
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                                 aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="myLargeModalLabel">Opis Naprawy</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                ×
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{% url 'add_opis_naprawy' pk=gadget.id %}" method="post">
+                                                {% csrf_token %}
+                                                {{ form_opis.opis_naprawy }}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger float-right"
+                                                    data-dismiss="modal">Zamkni
+                                            </button>
+                                            <button type="submit" class="btn btn-info text-left">OK</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info float-left"
+                                    data-toggle="modal" data-target=".bs-example-modal-lg">
+                                <i class="fa fa-sticky-note"></i>
+                                Dodaj opis naprawy
+                            </button>
                         {% endif %}
                         {% if gadget.in_serwis %}
                             {% if gadget.workers.in_work %}
@@ -308,6 +329,8 @@
 
         setTimeout('update()', 300000);
     </script>
+
+
 
 
 {% endblock %}

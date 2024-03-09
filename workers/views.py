@@ -11,6 +11,7 @@ from gadgets.models import Gadget, SetingsCRM
 from workers.models import Workers, KartkaPlatne, KartkaGwarancja, KartkaReklamacja, KartkaRezygnacja
 from notes.models import Note
 from notes.form import NoteForm
+from gadgets.forms import OpisNaprawyForm
 
 
 @login_required(login_url='login')
@@ -96,10 +97,12 @@ class GadgetInfo(View):
     def get(self, request, pk):
         gadget = Gadget.objects.get(id=pk)
         notes = gadget.note_set.all()
-        form = NoteForm(initial={'title': 'none'})
+        form_note = NoteForm(initial={'title': 'none'})
+        form_opis = OpisNaprawyForm(initial={'opis_naprawy': gadget.opis_naprawy})
         context = {'gadget': gadget,
                    'notes': notes,
-                   'form': form,
+                   'form': form_note,
+                   'form_opis': form_opis,
                    }
         return render(request, 'workers/gadget_info.html', context=context)
 

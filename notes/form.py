@@ -12,6 +12,7 @@ class NoteForm(forms.Form):
         ('UWAGA', 'UWAGA'),
         ('ZGODA', 'ZGODA'),
         ('ZADANIE', 'ZADANIE'),
+        ('WYCENA', 'WYCENA'),
         ('none', '')
     )
     content = forms.CharField()
