@@ -140,13 +140,13 @@ def add_gadget_to_worker(request, pk):
             s.updated_at = timezone.now()
             s.worker = user
             s.in_work = True
-            gadget.status = 'NAPRAWIENIE'
+            gadget.status = 'DIAGNOSTYKA'
             s.save()
             gadget.save()
 
         else:
             Workers.objects.create(worker=user, gadget=gadget)
-            gadget.status = 'NAPRAWIENIE'
+            gadget.status = 'DIAGNOSTYKA'
             gadget.save()
             Note.objects.create(
                 author=User.objects.get(username='TPL'),

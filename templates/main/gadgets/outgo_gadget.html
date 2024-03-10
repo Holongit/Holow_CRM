@@ -30,6 +30,14 @@
                     {% elif gadget.status == 'GOTOWY' %} <span class="badge badge-primary font-size-16">GOTOWY</span>
                     {% elif gadget.status == 'CZEKA NA CZĘŚCI' %}
                         <span class="badge badge-dark font-size-16">CZEKA NA CZĘŚCI</span>
+
+                    {% elif gadget.status == 'CZEKA NA ZGODĘ' %}
+                        <span class="badge badge-brown font-size-16">CZEKA NA ZGODĘ</span>
+                    {% elif gadget.status == 'WYCENA' %}
+                        <span class="badge badge-success font-size-16">WYCENA</span>
+                    {% elif gadget.status == 'DIAGNOSTYKA' %}
+                        <span class="badge badge-pink font-size-16">DIAGNOSTYKA</span>
+
                     {% elif gadget.status == 'REZYGNACJA' %}
                         <span class="badge badge-purple font-size-16"> REZYGNACJA</span>
                     {% elif gadget.status == 'NOWY' %} <span class="badge badge-info font-size-16"> NOWY</span>
@@ -150,6 +158,14 @@
                                     <div class="form-group">
                                         <h5>Technik: <span
                                                 class="font-weight-bold font-size-20">{{ gadget.technik_ost }}</span>
+                                        </h5>
+                                    </div>
+                                {% endif %}
+                                {% if gadget.usterki_zewn %}
+
+                                    <div class="form-group">
+                                        <h5>Usterki Zewnętszny: <span
+                                                class="font-weight-bold font-size-20">{{ gadget.usterki_zewn }}</span>
                                         </h5>
                                     </div>
                                 {% endif %}

@@ -58,6 +58,9 @@
                                                         {% elif item_g.gadget.status == 'GOTOWY' %} bg-primary
                                                         {% elif item_g.gadget.status == 'CZEKA NA CZĘŚCI' %} bg-dark
                                                         {% elif item_g.gadget.status == 'REZYGNACJA' %} bg-purple
+                                                        {% elif item_g.gadget.status == 'WYCENA' %} btn-success
+                                                        {% elif item_g.gadget.status == 'DIAGNOSTYKA' %} btn-pink
+                                                        {% elif item_g.gadget.status == 'CZEKA NA ZGODĘ' %} btn-brown
                                                         {% elif item_g.gadget.status == 'NOWY' %} bg-info
                                                         {% endif %}                                                        
                                                         ">{{ item_g.gadget.status }}

@@ -169,6 +169,9 @@
                                                         {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
                                                         {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
                                                         {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA ZGODĘ' %} btn-brown
+                                                        {% elif gadgets_data.gadget.status == 'WYCENA' %} btn-success
+                                                        {% elif gadgets_data.gadget.status == 'DIAGNOSTYKA' %} btn-pink
                                                         {% endif %} dropdown-toggle btn-xs"
 
                                                         data-toggle="dropdown">{{ gadgets_data.gadget.status }}
@@ -185,6 +188,13 @@
                                                        href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='REZYGNACJA' %}">REZYGNACJA</a>
                                                     <a class="dropdown-item"
                                                        href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='NOWY' %}">NOWY</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='CZEKA NA ZGODĘ' %}">CZEKA
+                                                        NA ZGODE</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='WYCENA' %}">WYCENA</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='DIAGNOSTYKA' %}">DIAGNOSTYKA</a>
                                                 </div>
                                             </div>
                                         {% elif gadgets_data.gadget.status == 'NAPRAWIENIE' or gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %}
@@ -215,6 +225,9 @@
                                                         {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
                                                         {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
                                                         {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA ZGODĘ' %} btn-brown
+                                                        {% elif gadgets_data.gadget.status == 'WYCENA' %} btn-success
+                                                        {% elif gadgets_data.gadget.status == 'DIAGNOSTYKA' %} btn-pink
                                                         {% endif %}  btn-xs">{{ gadgets_data.gadget.status }}
                                             </button>
                                         {% endif %}
@@ -283,38 +296,20 @@
                                     </td>
                                     <td class="b-3 border-white">
                                         {% if request.user.is_authenticated and request.user.is_staff %}
-
-                                            <div class="clearfix">
-
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.pk %}">
-                                                    {% if gadgets_data.gadget.in_serwis == True %}
-                                                        <button class="btn bg-pale-primary btn-xs">Wydaj</button>
-                                                    {% else %}
-                                                        <button class="btn bg-primary btn-xs">Przyjmij</button>
-                                                    {% endif %}
-                                                </a>
-                                                <a href="{{ gadgets_data.gadget.get_absolute_url }}">
-                                                    <button class="btn bg-pale-info btn-xs">Edit</button>
-                                                </a>
-
-                                                <div class="btn-group">
-                                                    <button type="button"
-                                                            class="btn btn-xs bg-pale-danger dropdown-toggle"
-                                                            data-toggle="dropdown">
-                                                        Delete
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="text-center dropdown-item"
-                                                           href=""><h2>Jesteś pewny?</h2>
-                                                        </a>
-                                                        <a class="text-center dropdown-item"
-                                                           href="{% url 'delete_gadget' pk=gadgets_data.gadget.id %}">
-                                                            <h2>
-                                                                DELETE</h2></a>
-                                                        <a href="{% url 'delete_gadget_to_worker' pk=gadgets_data.gadget.id %}">
-                                                            <span class="btn bg-danger btn-xs">Usuń</span>
-                                                        </a>
-                                                    </div>
+                                            <div class="btn-group">
+                                                <button type="button"
+                                                        class="btn btn-xs bg-pale-danger dropdown-toggle"
+                                                        data-toggle="dropdown">
+                                                    Delete
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="text-center dropdown-item"
+                                                       href=""><h2>Jesteś pewny?</h2>
+                                                    </a>
+                                                    <a class="text-center dropdown-item"
+                                                       href="{% url 'delete_gadget' pk=gadgets_data.gadget.id %}">
+                                                        <h2>
+                                                            DELETE</h2></a>
                                                 </div>
                                             </div>
                                             {% if gadgets_data.gadget.in_serwis %}

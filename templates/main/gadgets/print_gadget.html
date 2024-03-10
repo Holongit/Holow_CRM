@@ -44,8 +44,6 @@
                                             {{ gadget.klient.name_klient }}
                                         {% endif %}
                                     </span></h5>
-                                </div>
-                                <div class="form-group">
                                     <h5>Telefon<span
                                             class="font-weight-bold">:
                                         {% if gadget.klient.telefon_klient %}
@@ -54,9 +52,7 @@
                                     </span></h5>
                                 </div>
                             </div>
-
                             <div class="col-lg-4 col-12">
-
                                 <div class="form-group">
                                     <h5>Urządzenie<span
                                             class="font-weight-bold">:
@@ -71,8 +67,6 @@
                                         {% endif %}
                                     </span>
                                     </h5>
-                                </div>
-                                <div class="form-group">
                                     <h5>SERIAL/SSID/SERWIS TAG<span
                                             class="font-weight-bold">:
                                         {% if gadget.serial_gadget %}
@@ -88,13 +82,17 @@
                                             {{ gadget.zestaw }}
                                         {% endif %}
                                     </span></h5>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Opis<span
-                                            class="font-weight-bold">:
-                                        {% if gadget.opis_problem %}
-                                            {{ gadget.opis_problem }}
-                                        {% endif %}
+                                    <h5>Opis
+                                        <span class="font-weight-bold">:
+                                            {% if gadget.opis_problem %}
+                                                {{ gadget.opis_problem }}
+                                            {% endif %}
+                                    </span></h5>
+                                    <h5>Usterki Zewnętszny
+                                        <span class="font-weight-bold">:
+                                            {% if gadget.usterki_zewn %}
+                                                {{ gadget.usterki_zewn }}
+                                            {% endif %}
                                     </span></h5>
                                 </div>
                             </div>
@@ -181,8 +179,6 @@
                                             {{ gadget.klient.name_klient }}
                                         {% endif %}
                                     </span></h5>
-                                </div>
-                                <div class="form-group">
                                     <h5>Telefon<span
                                             class="font-weight-bold">:
                                         {% if gadget.klient.telefon_klient %}
@@ -193,7 +189,6 @@
                             </div>
 
                             <div class="col-lg-4 col-12">
-
                                 <div class="form-group">
                                     <h5>Urządzenie<span
                                             class="font-weight-bold">:
@@ -208,8 +203,6 @@
                                         {% endif %}
                                     </span>
                                     </h5>
-                                </div>
-                                <div class="form-group">
                                     <h5>SERIAL/SSID/SERWIS TAG<span
                                             class="font-weight-bold">:
                                         {% if gadget.serial_gadget %}
@@ -225,13 +218,17 @@
                                             {{ gadget.zestaw }}
                                         {% endif %}
                                     </span></h5>
-                                </div>
-                                <div class="form-group">
                                     <h5>Opis<span
                                             class="font-weight-bold">:
                                         {% if gadget.opis_problem %}
                                             {{ gadget.opis_problem }}
                                         {% endif %}
+                                    </span></h5>
+                                    <h5>Usterki Zewnętszny
+                                        <span class="font-weight-bold">:
+                                            {% if gadget.usterki_zewn %}
+                                                {{ gadget.usterki_zewn }}
+                                            {% endif %}
                                     </span></h5>
                                 </div>
                             </div>
@@ -281,7 +278,6 @@
                         bezwarunkowo oraz upoważniam okaziciela oryginału zgłoszenia do odbioru <br>
                         sprzentu w moim imieniu
                     </p6>
-                    <br>
                     <br>
                     <br>
                     <br>

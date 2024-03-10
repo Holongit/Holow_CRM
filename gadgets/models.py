@@ -25,6 +25,7 @@ class Gadget(models.Model):
     in_serwis = models.BooleanField(default=True, db_index=True, blank=True, null=True)
     time_in_serwis = models.DurationField(null=True, blank=True)
     opis_naprawy = models.CharField(max_length=512, null=True, blank=True)
+    usterki_zewn = models.CharField(max_length=512, null=True, blank=True)
     type_service = models.CharField(max_length=32, default='PŁATNE', blank=True, null=True)
     technik_ost = models.CharField(max_length=32, null=True, blank=True)
 

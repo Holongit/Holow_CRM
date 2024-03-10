@@ -226,9 +226,9 @@
                                 <td class="b-3 border-white"><a
                                         href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
                                     {% if gadgets_data.brand_gadget %}
-                                        {{ gadgets_data.brand_gadget }} 
+                                        {{ gadgets_data.brand_gadget }}
                                     {% endif %}
-                                        {{ gadgets_data }}</a>
+                                    {{ gadgets_data }}</a>
                                 </td>
 
                                 <td class="b-3 border-white"><a
@@ -276,6 +276,9 @@
                                                         {% elif gadgets_data.status == 'CZEKA NA CZĘŚCI' %} btn-dark
                                                         {% elif gadgets_data.status == 'REZYGNACJA' %} btn-purple
                                                         {% elif gadgets_data.status == 'NOWY' %} btn-info
+                                                        {% elif gadgets_data.status == 'CZEKA NA ZGODĘ' %} btn-brown
+                                                        {% elif gadgets_data.status == 'WYCENA' %} btn-success
+                                                        {% elif gadgets_data.status == 'DIAGNOSTYKA' %} btn-pink
                                                         {% endif %} dropdown-toggle btn-xs"
 
                                                 data-toggle="dropdown">{{ gadgets_data.status }}
@@ -290,6 +293,13 @@
                                                 NA CZĘŚCI</a>
                                             <a class="dropdown-item"
                                                href="{% url 'gadget_status_change' pk=gadgets_data.id status='REZYGNACJA' %}">REZYGNACJA</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='CZEKA NA ZGODĘ' %}">CZEKA
+                                                NA ZGODE</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='WYCENA' %}">WYCENA</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='DIAGNOSTYKA' %}">DIAGNOSTYKA</a>
                                             <a class="dropdown-item"
                                                href="{% url 'gadget_status_change' pk=gadgets_data.id status='NOWY' %}">NOWY</a>
                                         </div>
@@ -376,11 +386,12 @@
             <div class="box-footer"></div>
         </div>
     </section>
-<script>
-     function update(){
-    location.reload(false);
-    }
-    setTimeout('update()',60000);
-</script>
+    <script>
+        function update() {
+            location.reload(false);
+        }
+
+        setTimeout('update()', 60000);
+    </script>
 {% endblock %}
 

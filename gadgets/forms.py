@@ -32,6 +32,7 @@ class GadgetForm(forms.Form):
     type_service = forms.ChoiceField(choices=CHOICES2)
     klient = forms.CharField(max_length=64, required=False)
     opis_naprawy = forms.CharField(max_length=512, required=False)
+    usterki_zewn = forms.CharField(max_length=512, required=False)
 
     serial_gadget.widget.attrs.update({'class': 'form-control'})
     model_gadget.widget.attrs.update({'class': 'form-control'})
@@ -41,6 +42,7 @@ class GadgetForm(forms.Form):
     type_gadget.widget.attrs.update({'class': 'form-control'})
     type_service.widget.attrs.update({'class': 'form-control'})
     opis_naprawy.widget.attrs.update({'class': 'form-control'})
+    usterki_zewn.widget.attrs.update({'class': 'form-control'})
 
     def save(self):
         new_gadget = Gadget.objects.create(
@@ -52,7 +54,8 @@ class GadgetForm(forms.Form):
             zestaw=self.cleaned_data['zestaw'],
             type_gadget=self.cleaned_data['type_gadget'],
             type_service=self.cleaned_data['type_service'],
-            opis_naprawy=self.cleaned_data['opis_naprawy']
+            opis_naprawy=self.cleaned_data['opis_naprawy'],
+            usterki_zewn=self.cleaned_data['usterki_zewn'],
         )
         return new_gadget
 

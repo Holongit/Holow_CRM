@@ -28,6 +28,18 @@ class NoteAdd(View):
             note_last = Note.objects.first()
             if note_last.title == 'UWAGA' or note_last.title == 'ZGODA' or note_last.title == 'ZADANIE':
                 note_last.read = False
+            if note_last.title == 'DIAGNOSTYKA':
+                gadget_id.status = 'WYCENA'
+                gadget_id.save()
+            if note_last.title == 'WYCENA':
+                gadget_id.status = 'CZEKA NA ZGODĘ'
+                gadget_id.save()
+            if note_last.title == 'ZGODA':
+                gadget_id.status = 'NAPRAWIENIE'
+                gadget_id.save()
+            if note_last.title == 'CZĘŚCI':
+                gadget_id.status = 'CZEKA NA CZĘŚCI'
+                gadget_id.save()
             note_last.gadget_id = gadget_id
             note_last.author = user_id
             note_last.save()

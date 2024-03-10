@@ -127,6 +127,7 @@ class EditGadget(View):
             'brand_gadget': gadget_id.brand_gadget,
             'password_gadget': gadget_id.password_gadget,
             'opis_problem': gadget_id.opis_problem,
+            'usterki_zewn': gadget_id.usterki_zewn,
             'zestaw': gadget_id.zestaw,
             'type_gadget': gadget_id.type_gadget
             })
@@ -146,6 +147,7 @@ class EditGadget(View):
             gadget_edit.type_gadget = request.POST['type_gadget']
             gadget_edit.type_service = request.POST['type_service']
             gadget_edit.opis_naprawy = request.POST['opis_naprawy']
+            gadget_edit.usterki_zewn = request.POST['usterki_zewn']
             gadget_edit.save()
 
             return redirect('outgo_gadget', pk=kwargs['pk'])

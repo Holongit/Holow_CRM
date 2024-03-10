@@ -81,7 +81,7 @@
                                 {% endfor %}
                             </div>
                         </div>
-                    
+
                         <input type="button" class="btn btn-info float-right" onclick="history.back();"
                                value="Przywrócić"/>
 
@@ -111,7 +111,7 @@
                                 <div class="row">
 
                                     <div class="col-lg-6 col-12">
-                                        
+
                                         <div class="form-group">
                                             <h5>Rodzaj Naprawy<span class="text-danger">*</span></h5>
                                             {{ form_gad.type_service }}
@@ -150,10 +150,14 @@
                                             {{ form_gad.password_gadget }}
                                         </div>
                                         <div class="form-group">
+                                            <h5>Usterki Zewnętszny</h5>
+                                            {{ form_gad.usterki_zewn }}
+                                        </div>
+                                        <div class="form-group">
                                             <h5>Opis Usterki</h5>
                                             {{ form_gad.opis_problem }}
                                         </div>
-
+                                        
 
                                     </div>
 
