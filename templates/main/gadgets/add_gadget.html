@@ -77,7 +77,7 @@
                         <table id="example1" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                             <thead>
                             <tr class="bg-secondary">
-                                <th class="text-center font-weight-bold b-3 border-white">id</th>
+                                <th class="text-center font-weight-bold b-3 border-white">№</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Imie Nazwisko</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Telefon</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Email</th>
@@ -90,16 +90,31 @@
 
                                <tbody>
                                 <tr class="text-center font-size-14">
-                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}" >{{ klient_data.id }}</a></td>
-                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.name_klient }}</a></td>
-                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.telefon_klient }}</a></td>
-                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.email_klient }}</a></td>
-                                    <td class="b-3 border-white"><a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.created_at_format }}</a>
+                                    <td class="b-3 border-white">
+                                        <a href="{% url 'kartka_klienta' pk=klient_data.id %}" >
+                                        {{ klient_data.id }}</a>
+                                    </td>
+                                    <td class="b-3 border-white">
+                                        <a href="{% url 'kartka_klienta' pk=klient_data.id %}">
+                                        {{ klient_data.name_klient }}</a>
+                                    </td>
+                                    <td class="b-3 border-white">
+                                        <a href="{% url 'kartka_klienta' pk=klient_data.id %}">
+                                        {% if klient_data.telefon_klient %}{{ klient_data.telefon_klient }}{% endif %}</a>
+                                    </td>
+                                    <td class="b-3 border-white">
+                                        <a href="{% url 'kartka_klienta' pk=klient_data.id %}">
+                                        {% if klient_data.email_klient %}{{ klient_data.email_klient }}{% endif %}</a>
+                                    </td>
+                                    <td class="b-3 border-white">
+                                        <a href="{% url 'kartka_klienta' pk=klient_data.id %}">
+                                        {{ klient_data.created_at_format }}</a>
                                     </td>
                                     <td class="b-3 border-white">
                                         <div class="clearfix">
-                                            <a href="{% url 'kartka_klienta' pk=klient_data.id %}"><button class="btn btn-primary btn-xs">Wybrać
-                                            </button></a>
+                                            <a href="{% url 'kartka_klienta' pk=klient_data.id %}">
+                                                <button class="btn btn-primary btn-xs">Wybrać</button>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>

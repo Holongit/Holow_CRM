@@ -22,7 +22,7 @@ class GadgetForm(forms.Form):
         ('REKLAMACJA', 'REKLAMACJA')
     )
 
-    serial_gadget = forms.CharField(max_length=32, required=False)
+    serial_gadget = forms.CharField(max_length=32)
     model_gadget = forms.CharField(max_length=32)
     brand_gadget = forms.CharField(max_length=32)
     password_gadget = forms.CharField(max_length=64, required=False)
