@@ -65,4 +65,3 @@ def kartka_napraw(request, pk):
         }
 
         return render(request, 'dashboard/kartka_napraw.html', context=context)
-
