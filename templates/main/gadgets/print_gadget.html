@@ -1,4 +1,4 @@
-﻿{% extends 'index.html' %}
+{% extends 'index.html' %}
 {% block content %}
     <style>
         @media print {
@@ -44,6 +44,8 @@
                                             {{ gadget.klient.name_klient }}
                                         {% endif %}
                                     </span></h5>
+                                </div>
+                                <div class="form-group">
                                     <h5>Telefon<span
                                             class="font-weight-bold">:
                                         {% if gadget.klient.telefon_klient %}
@@ -52,7 +54,9 @@
                                     </span></h5>
                                 </div>
                             </div>
+
                             <div class="col-lg-4 col-12">
+
                                 <div class="form-group">
                                     <h5>Urządzenie<span
                                             class="font-weight-bold">:
@@ -67,6 +71,8 @@
                                         {% endif %}
                                     </span>
                                     </h5>
+                                </div>
+                                <div class="form-group">
                                     <h5>SERIAL/SSID/SERWIS TAG<span
                                             class="font-weight-bold">:
                                         {% if gadget.serial_gadget %}
@@ -82,12 +88,16 @@
                                             {{ gadget.zestaw }}
                                         {% endif %}
                                     </span></h5>
-                                    <h5>Opis
-                                        <span class="font-weight-bold">:
-                                            {% if gadget.opis_problem %}
-                                                {{ gadget.opis_problem }}
-                                            {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <h5>Opis<span
+                                            class="font-weight-bold">:
+                                        {% if gadget.opis_problem %}
+                                            {{ gadget.opis_problem }}
+                                        {% endif %}
                                     </span></h5>
+                                </div>
+                                <div class="form-group">
                                     <h5>Usterki Zewnętrzne
                                         <span class="font-weight-bold">:
                                             {% if gadget.usterki_zewn %}
@@ -137,9 +147,7 @@
                 <h6 class="ml-90 float-left text-center">
                     <br>
                     <br>
-                    <p6 class="font-weight-bold">Potwierdzenie odbioru sprzętu z serwisu</p6>
-                    <br>
-                    <br>
+                    <p6 class="font-weight-bold">Podtverdzenie odbioru sprzętu z serwisu</p6>
                     <br>
                     <br>
                     ....................................................................................................
@@ -148,8 +156,6 @@
                     <br>
                     <br>
                     <p6 class="font-weight-bold">Zleceniobiorca TPL Serwis</p6>
-                    <br>
-                    <br>
                     <br>
                     <br>
                     ....................................................................................................
@@ -179,6 +185,8 @@
                                             {{ gadget.klient.name_klient }}
                                         {% endif %}
                                     </span></h5>
+                                </div>
+                                <div class="form-group">
                                     <h5>Telefon<span
                                             class="font-weight-bold">:
                                         {% if gadget.klient.telefon_klient %}
@@ -189,6 +197,7 @@
                             </div>
 
                             <div class="col-lg-4 col-12">
+
                                 <div class="form-group">
                                     <h5>Urządzenie<span
                                             class="font-weight-bold">:
@@ -203,6 +212,8 @@
                                         {% endif %}
                                     </span>
                                     </h5>
+                                </div>
+                                <div class="form-group">
                                     <h5>SERIAL/SSID/SERWIS TAG<span
                                             class="font-weight-bold">:
                                         {% if gadget.serial_gadget %}
@@ -218,12 +229,16 @@
                                             {{ gadget.zestaw }}
                                         {% endif %}
                                     </span></h5>
+                                </div>
+                                <div class="form-group">
                                     <h5>Opis<span
                                             class="font-weight-bold">:
                                         {% if gadget.opis_problem %}
                                             {{ gadget.opis_problem }}
                                         {% endif %}
                                     </span></h5>
+                                </div>
+                                <div class="form-group">
                                     <h5>Usterki Zewnętrzne
                                         <span class="font-weight-bold">:
                                             {% if gadget.usterki_zewn %}
@@ -278,7 +293,6 @@
                         bezwarunkowo oraz upoważniam okaziciela oryginału zgłoszenia do odbioru <br>
                         sprzentu w moim imieniu
                     </p6>
-                    <br>
                     <br>
                     <br>
                     ....................................................................................................
