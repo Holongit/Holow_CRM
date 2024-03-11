@@ -279,3 +279,4 @@ def add_opis_naprawy(request, pk):
             gadget.save()
             return redirect('gadget_info', pk=pk)
         return redirect(request.META.get('HTTP_REFERER'))
+
