@@ -304,12 +304,12 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="text-center dropdown-item"
-                                                       href=""><h2>Jesteś pewny?</h2>
+                                                       href=""><h4>Jesteś pewny?</h4>
                                                     </a>
                                                     <a class="text-center dropdown-item"
                                                        href="{% url 'delete_gadget' pk=gadgets_data.gadget.id %}">
-                                                        <h2>
-                                                            DELETE</h2></a>
+                                                        <h4>
+                                                            DELETE</h4></a>
                                                 </div>
                                             </div>
                                             {% if gadgets_data.gadget.in_serwis %}
@@ -322,13 +322,13 @@
                                                         </button>
                                                         <div class="dropdown-menu">
                                                             <a class="text-center dropdown-item"
-                                                               href=""><h2>Jesteś pewny?</h2>
+                                                               href=""><h4>Jesteś pewny?</h4>
                                                             </a>
                                                             <br>
                                                             <a class="text-center dropdown-item"
                                                                href="{% url 'odstawic_gadget' pk=gadgets_data.id %}">
-                                                                <h2>
-                                                                    Odstawic</h2></a>
+                                                                <h4>
+                                                                    Odstawic</h4></a>
                                                         </div>
                                                     </div>
                                                 {% else %}
