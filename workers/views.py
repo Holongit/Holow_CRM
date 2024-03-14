@@ -41,14 +41,15 @@ def workers_gad_list(request, pk):
         gadget_in_serwis = Workers.objects.filter(worker=pk, in_work=True)
 
     if len(str(search_query_int)) <= 5 and search_query_int > 0:
-        serching_gad = gadget_in_serwis.filter(id=search_query_int)
+        serching_gad = gadget_in_serwis.filter(gadget__id=search_query_int)
 
     elif search_query:
         serching_gad = gadget_in_serwis.filter(Q(gadget__brand_gadget__icontains=search_query) |
                                                Q(gadget__model_gadget__icontains=search_query) |
                                                Q(gadget__serial_gadget__icontains=search_query) |
                                                Q(gadget__klient__name_klient__icontains=search_query) |
-                                               Q(gadget__klient__telefon_klient__icontains=search_query))
+                                               Q(gadget__klient__telefon_klient__icontains=search_query) |
+                                               Q(gadget__password_gadget__icontains=search_query))
     else:
         serching_gad = gadget_in_serwis
 
