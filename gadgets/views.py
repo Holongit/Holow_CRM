@@ -14,6 +14,7 @@ from notes.form import NoteForm
 from workers.models import Workers
 from workers.views import add_gadget_to_worker
 from klienty.models import Klient
+import re
 
 @login_required(login_url='login')
 def index_gad(request):
@@ -25,6 +26,8 @@ def index_gad(request):
     else:
         search_query_int = 0
 
+    #cleaned_phone_number = re.sub(r'\D', '', search_query)
+
     if not SetingsCRM.objects.filter(user_id=user.id).exists():
         SetingsCRM.objects.create(user_id=user.id)
 
@@ -34,13 +37,15 @@ def index_gad(request):
     if SetingsCRM.objects.get(user_id=user.id).filter_gadget == 'W SERWISIE':
         gadget_in_serwis = Gadget.objects.filter(in_serwis=True)
 
-    if search_query:
+    if len(str(search_query_int)) <= 5 and search_query_int > 0:
+        serching_gad = gadget_in_serwis.filter(id=search_query_int)
+
+    elif search_query:
         serching_gad = gadget_in_serwis.filter(Q(brand_gadget__icontains=search_query) |
                                                Q(model_gadget__icontains=search_query) |
                                                Q(serial_gadget__icontains=search_query) |
                                                Q(klient__name_klient__icontains=search_query) |
                                                Q(password_gadget__icontains=search_query) |
-                                               Q(id=search_query_int) |
                                                Q(klient__telefon_klient__icontains=search_query))
     else:
         serching_gad = gadget_in_serwis

@@ -96,13 +96,14 @@ def kartka_klienta(request, pk):
         if SetingsCRM.objects.get(user_id=user.id).filter_klient == 'W SERWISIE':
             gadget_in_serwis = gadgets_list_in_serwis
 
-        if search_query:
+        if len(str(search_query_int)) <= 5 and search_query_int > 0:
+            serching_gad = gadget_in_serwis.filter(id=search_query_int)
+
+        elif search_query:
             serching_gad = gadget_in_serwis.filter(Q(brand_gadget__icontains=search_query) |
                                                    Q(model_gadget__icontains=search_query) |
                                                    Q(serial_gadget__icontains=search_query) |
-                                                   Q(password_gadget__icontains=search_query) |
-                                                   Q(id=search_query_int)
-                                                   )
+                                                   Q(password_gadget__icontains=search_query))
         else:
             serching_gad = gadget_in_serwis
 
