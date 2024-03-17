@@ -250,11 +250,14 @@
                                                         {% elif gadgets_data.status == 'WYCENA' %} btn-success
                                                         {% elif gadgets_data.status == 'DIAGNOSTYKA' %} btn-pink
                                                         {% elif gadgets_data.status == 'NOWY' %} btn-info
+                                                        {% elif gadgets_data.status == 'ZALICZKA' %} bg-green
                                                         {% endif %} dropdown-toggle btn-xs"
 
                                                             data-toggle="dropdown">{{ gadgets_data.status }}
                                                     </button>
                                                     <div class="dropdown-menu">
+                                                         <a class="dropdown-item"
+                                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='ZALICZKA' %}">ZALICZKA</a>
                                                         <a class="dropdown-item"
                                                            href="{% url 'gadget_status_change' pk=gadgets_data.id status='GOTOWY' %}">GOTOWY</a>
                                                         <a class="dropdown-item"
@@ -285,6 +288,7 @@
                                                         {% elif gadgets_data.status == 'CZEKA NA ZGODĘ' %} btn-brown
                                                         {% elif gadgets_data.status == 'WYCENA' %} btn-success
                                                         {% elif gadgets_data.status == 'DIAGNOSTYKA' %} btn-pink
+                                                        {% elif gadgets_data.status == 'ZALICZKA' %} btn-cyan
                                                         {% endif %} btn-xs">{{ gadgets_data.status }}
                                                 </button>
                                             {% endif %}

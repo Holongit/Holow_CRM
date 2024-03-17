@@ -61,6 +61,7 @@
                                                         {% elif item_g.gadget.status == 'WYCENA' %} btn-success
                                                         {% elif item_g.gadget.status == 'DIAGNOSTYKA' %} btn-pink
                                                         {% elif item_g.gadget.status == 'CZEKA NA ZGODĘ' %} btn-brown
+                                                        {% elif item_g.gadget.status == 'ZALICZKA' %} bg-green
                                                         {% elif item_g.gadget.status == 'NOWY' %} bg-info
                                                         {% endif %}                                                        
                                                         ">{{ item_g.gadget.status }}

@@ -171,6 +171,7 @@
                                                         {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
                                                         {% elif gadgets_data.gadget.status == 'CZEKA NA ZGODĘ' %} btn-brown
                                                         {% elif gadgets_data.gadget.status == 'WYCENA' %} btn-success
+                                                        {% elif gadgets_data.gadget.status == 'ZALICZKA' %} bg-green
                                                         {% elif gadgets_data.gadget.status == 'DIAGNOSTYKA' %} btn-pink
                                                         {% endif %} dropdown-toggle btn-xs"
 
@@ -179,6 +180,8 @@
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
                                                        href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='NAPRAWIENIE' %}">NAPRAWIENIE</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='ZALICZKA' %}">ZALICZKA</a>
                                                     <a class="dropdown-item"
                                                        href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='GOTOWY' %}">GOTOWY</a>
                                                     <a class="dropdown-item"
@@ -197,15 +200,19 @@
                                                        href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='DIAGNOSTYKA' %}">DIAGNOSTYKA</a>
                                                 </div>
                                             </div>
-                                        {% elif gadgets_data.gadget.status == 'NAPRAWIENIE' or gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %}
+                                        {% elif not gadgets_data.gadget.status == 'GOTOWY' and not gadgets_data.gadget.status == 'NOWY' and not gadgets_data.gadget.status == 'REZYGNACJA' %}
                                             <div class="btn-group">
                                                 <button type="button" class="btn
 
                                                         {% if gadgets_data.gadget.status == 'NAPRAWIENIE' %} btn-secondary
                                                         {% elif gadgets_data.gadget.status == 'GOTOWY' %} btn-primary
+                                                        {% elif gadgets_data.gadget.status == 'ZALICZKA' %} bg-green
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA ZGODĘ' %} btn-brown
+                                                        {% elif gadgets_data.gadget.status == 'WYCENA' %} btn-success
                                                         {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
                                                         {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
                                                         {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% elif gadgets_data.gadget.status == 'DIAGNOSTYKA' %} btn-pink
                                                         {% endif %} dropdown-toggle btn-xs"
 
                                                         data-toggle="dropdown">{{ gadgets_data.gadget.status }}
@@ -216,6 +223,17 @@
                                                     <a class="dropdown-item"
                                                        href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='CZEKA NA CZĘŚCI' %}">CZEKA
                                                         NA CZĘŚCI</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='ZALICZKA' %}">ZALICZKA</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='REZYGNACJA' %}">REZYGNACJA</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='CZEKA NA ZGODĘ' %}">CZEKA
+                                                        NA ZGODE</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='WYCENA' %}">WYCENA</a>
+                                                    <a class="dropdown-item"
+                                                       href="{% url 'gadget_status_change' pk=gadgets_data.gadget.id status='DIAGNOSTYKA' %}">DIAGNOSTYKA</a>
                                                 </div>
                                             </div>
                                         {% else %}
@@ -228,6 +246,7 @@
                                                         {% elif gadgets_data.gadget.status == 'CZEKA NA ZGODĘ' %} btn-brown
                                                         {% elif gadgets_data.gadget.status == 'WYCENA' %} btn-success
                                                         {% elif gadgets_data.gadget.status == 'DIAGNOSTYKA' %} btn-pink
+                                                        {% elif gadgets_data.gadget.status == 'ZALICZKA' %} bg-green
                                                         {% endif %}  btn-xs">{{ gadgets_data.gadget.status }}
                                             </button>
                                         {% endif %}

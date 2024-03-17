@@ -40,6 +40,9 @@ class NoteAdd(View):
             if note_last.title == 'CZĘŚCI':
                 gadget_id.status = 'CZEKA NA CZĘŚCI'
                 gadget_id.save()
+            if note_last.title == 'ZALICZKA':
+                gadget_id.status = 'ZALICZKA'
+                gadget_id.save()
             note_last.gadget_id = gadget_id
             note_last.author = user_id
             note_last.save()

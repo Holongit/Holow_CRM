@@ -100,11 +100,11 @@
                                         <tbody>
                                         <tr class="text-center font-size-14">
                                             <td class="b-3 border-white ">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
                                                 </a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
                                                     {% endif %}
@@ -114,11 +114,11 @@
                                                     {{ gadgets_data.gadget }}</a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {{ gadgets_data.gadget.workers.added_at_format }}</a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {{ gadgets_data.created_at_format }}</a>
                                             </td>
                                             <td class="b-3 border-white">
@@ -129,6 +129,10 @@
                                                         {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
                                                         {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
                                                         {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA ZGODĘ' %} btn-brown
+                                                        {% elif gadgets_data.gadget.status == 'WYCENA' %} btn-success
+                                                        {% elif gadgets_data.gadget.status == 'DIAGNOSTYKA' %} btn-pink
+                                                        {% elif gadgets_data.gadget.status == 'ZALICZKA' %} bg-green
                                                         {% endif %} btn-xs">{{ gadgets_data.gadget.status }}
                                                     </button>
                                                 </div>
@@ -173,11 +177,11 @@
                                         <tbody>
                                         <tr class="text-center font-size-14">
                                             <td class="b-3 border-white ">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
                                                 </a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
                                                     {% endif %}
@@ -187,11 +191,11 @@
                                                     {{ gadgets_data.gadget }}</a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {{ gadgets_data.gadget.workers.added_at_format }}</a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {{ gadgets_data.created_at_format }}</a>
                                             </td>
                                             <td class="b-3 border-white">
@@ -202,6 +206,10 @@
                                                         {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
                                                         {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
                                                         {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA ZGODĘ' %} btn-brown
+                                                        {% elif gadgets_data.gadget.status == 'WYCENA' %} btn-success
+                                                        {% elif gadgets_data.gadget.status == 'DIAGNOSTYKA' %} btn-pink
+                                                        {% elif gadgets_data.gadget.status == 'ZALICZKA' %} bg-green
                                                         {% endif %} btn-xs">{{ gadgets_data.gadget.status }}
                                                     </button>
                                                 </div>
@@ -246,11 +254,11 @@
                                         <tbody>
                                         <tr class="text-center font-size-14">
                                             <td class="b-3 border-white ">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
                                                 </a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
                                                     {% endif %}
@@ -260,11 +268,11 @@
                                                     {{ gadgets_data.gadget }}</a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {{ gadgets_data.gadget.workers.added_at_format }}</a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {{ gadgets_data.created_at_format }}</a>
                                             </td>
                                             <td class="b-3 border-white">
@@ -275,6 +283,10 @@
                                                         {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
                                                         {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
                                                         {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA ZGODĘ' %} btn-brown
+                                                        {% elif gadgets_data.gadget.status == 'WYCENA' %} btn-success
+                                                        {% elif gadgets_data.gadget.status == 'DIAGNOSTYKA' %} btn-pink
+                                                        {% elif gadgets_data.gadget.status == 'ZALICZKA' %} bg-green
                                                         {% endif %} btn-xs">{{ gadgets_data.gadget.status }}
                                                     </button>
                                                 </div>
@@ -323,7 +335,7 @@
                                                 </a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
                                                     {% endif %}
@@ -333,11 +345,11 @@
                                                     {{ gadgets_data.gadget }}</a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {{ gadgets_data.gadget.workers.added_at_format }}</a>
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">
+                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                                     {{ gadgets_data.created_at_format }}</a>
                                             </td>
                                             <td class="b-3 border-white">
@@ -348,6 +360,10 @@
                                                         {% elif gadgets_data.gadget.status == 'CZEKA NA CZĘŚCI' %} btn-dark
                                                         {% elif gadgets_data.gadget.status == 'REZYGNACJA' %} btn-purple
                                                         {% elif gadgets_data.gadget.status == 'NOWY' %} btn-info
+                                                        {% elif gadgets_data.gadget.status == 'CZEKA NA ZGODĘ' %} btn-brown
+                                                        {% elif gadgets_data.gadget.status == 'WYCENA' %} btn-success
+                                                        {% elif gadgets_data.gadget.status == 'DIAGNOSTYKA' %} btn-pink
+                                                        {% elif gadgets_data.gadget.status == 'ZALICZKA' %} bg-green
                                                         {% endif %} btn-xs">{{ gadgets_data.gadget.status }}
                                                     </button>
                                                 </div>
