@@ -175,7 +175,7 @@
                                         <td class="b-3 border-white"><a href="
                                             
 {% if request.user.is_authenticated and request.user.is_staff %}
-{% url 'outgo_gadget' pk=gadgets_data.id %}
+{% url 'kartka_klienta' pk=gadgets_data.klient.id %}
 {% elif request.user.is_authenticated and not request.user.is_staff %}#
 {% endif %}">
                                             {% if gadgets_data.klient.name_klient %}

@@ -304,23 +304,43 @@
                         {% endif %}
                         {% if gadget.in_serwis %}
                             {% if gadget.workers.in_work %}
-                                <div class="btn-group ml-20">
-                                    <button type="button"
-                                            class="btn bg-primary dropdown-toggle"
-                                            data-toggle="dropdown">
-                                        Odstawic
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="text-center dropdown-item"
-                                           href=""><h2>Jesteś pewny?</h2>
-                                        </a>
-                                        <br>
-                                        <a class="text-center dropdown-item"
-                                           href="{% url 'odstawic_gadget' pk=gadget.workers.id %}">
-                                            <h2>
-                                                Odstawic</h2></a>
+                                <div id="myModal" class="modal fade" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myModalLabel">Odstawic urządzenie na
+                                                    półkę?</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">×
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <span class="font-size-20 font-weight-bold ">№{{ gadget.id }} {{ gadget.type_gadget }}
+                                                    {% if gadget.brand_gadget %}
+                                                        {{ gadget.brand_gadget }}
+                                                    {% endif %}
+                                                    {{ gadget }}</span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger float-right"
+                                                        data-dismiss="modal">Nie
+                                                </button>
+                                                <a href="{% url 'odstawic_gadget' pk=gadget.workers.id %}">
+                                                    <button type="submit" class="btn btn-info float-left">Tak
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+
                                     </div>
+
                                 </div>
+                                <button type="submit" class="btn btn-primary ml-20"
+                                        data-toggle="modal" data-target="#myModal">
+                                    <i class="fa fa-check"></i>
+                                    Odstawic
+                                </button>
                             {% else %}
                                 <span class="btn bg-pale-primary ml-20">Odstawione</span>
                             {% endif %}
