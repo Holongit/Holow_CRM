@@ -139,6 +139,83 @@ def kartka_klienta(request, pk):
         return render(request, 'klienty/kartka_klienta.html', context=context)
 
 
+@login_required(login_url='login')
+def kartka_klienta_z_bazy(request, pk):
+    global serching_gad, gadget_in_serwis
+    user = request.user
+
+    if request.method == 'GET':
+
+        search_query = request.GET.get('q', '')
+        if search_query.isnumeric():
+            search_query_int = int(search_query)
+        else:
+            search_query_int = 0
+
+        klient = Klient.objects.get(pk=pk)
+        gadgets_list = Gadget.objects.all()
+        gadgets_list_in_serwis = gadgets_list.filter(in_serwis=True)
+
+        if not SetingsCRM.objects.filter(user_id=user.id).exists():
+            SetingsCRM.objects.create(user_id=user.id)
+
+        if SetingsCRM.objects.get(user_id=user.id).filter_klient == 'WSZYSCY':
+            gadget_in_serwis = gadgets_list
+
+        if SetingsCRM.objects.get(user_id=user.id).filter_klient == 'W SERWISIE':
+            gadget_in_serwis = gadgets_list_in_serwis
+
+        if len(str(search_query_int)) <= 5 and search_query_int > 0:
+            serching_gad = gadget_in_serwis.filter(id=search_query_int)
+
+        elif search_query:
+            serching_gad = gadget_in_serwis.filter(Q(brand_gadget__icontains=search_query) |
+                                                   Q(model_gadget__icontains=search_query) |
+                                                   Q(serial_gadget__icontains=search_query) |
+                                                   Q(password_gadget__icontains=search_query))
+        else:
+            serching_gad = gadget_in_serwis
+
+        paginator = Paginator(serching_gad, 50)
+        page_number = request.GET.get('page', 1)
+        page = paginator.get_page(page_number)
+        is_paginated = page.has_other_pages()
+
+        if page.has_previous():
+            prev_url = '?page={}'.format(page.previous_page_number())
+
+        else:
+            prev_url = ''
+
+        if page.has_next():
+            next_url = '?page={}'.format(page.next_page_number())
+
+        else:
+            next_url = ''
+        setings_filter = SetingsCRM.objects.get(user_id=user.id)
+        users = User.objects.all()
+        context = {
+            'filters': setings_filter,
+            'users': users,
+            'gadgets': page,
+            'is_paginated': is_paginated,
+            'next_url': next_url,
+            'prev_url': prev_url,
+            'klient': klient,
+        }
+
+        return render(request, 'klienty/kartka_klienta.html', context=context)
+
+
+@login_required(login_url='login')
+def klient_gadget_change(request, klient_name, gadget_id):
+    klient = Klient.objects.get(name_klient=klient_name)
+    pk = klient.id
+    gadget = Gadget.objects.get(pk=gadget_id)
+    gadget.klient = klient
+    gadget.save()
+    return redirect('kartka_klienta', pk=pk)
+
 
 @login_required(login_url='login')
 def add_gadget_serwis(request, pk):

@@ -135,7 +135,10 @@
                     </div>
                 </form>
                 <a href="{% url 'add_gadget_serwis' pk=klient.id %}">
-                    <button class="btn btn-primary btn-sm mt-10">Dodaj Urządzenie</button>
+                    <button class="btn btn-primary btn-sm mt-10">Dodaj Nowe Urządzenie</button>
+                </a>
+                <a href="{% url 'kartka_klienta_z_bazy' pk=klient.id %}">
+                    <button class="btn bg-pale-primary btn-sm mt-10 ml-15">Dodaj Urządzenie z Bazy</button>
                 </a>
 
                 <h3 class="float-left ml-20">
@@ -146,7 +149,7 @@
                     <li><a class="box-btn-fullscreen" href="#"></a></li>
                 </ul>
             </div>
-            <div>
+            <div class="float-left">
                 <form class="navbar-form navbar-left float-left">
                     <div class="input-group">
                         <input class="form-control" type="search" name="q" aria-label="#" placeholder="Szukaj">
@@ -155,9 +158,8 @@
                         </span>
                     </div>
                 </form>
-            </div>
             {% if is_paginated %}
-                <div class="pull-right">
+                <div class="float-right">
                     <form class="navbar-form navbar-right">
                         <nav aria-label="...">
                             <ul class="pagination">
@@ -195,6 +197,7 @@
                     </form>
                 </div>
             {% endif %}
+            </div>
             <div class="box-body">
                 <div class="table-responsive">
                     <table id="example"
@@ -285,7 +288,7 @@
                                                 data-toggle="dropdown">{{ gadgets_data.status }}
                                         </button>
                                         <div class="dropdown-menu">
-                                             <a class="dropdown-item"
+                                            <a class="dropdown-item"
                                                href="{% url 'gadget_status_change' pk=gadgets_data.id status='ZALICZKA' %}">ZALICZKA</a>
                                             <a class="dropdown-item"
                                                href="{% url 'gadget_status_change' pk=gadgets_data.id status='NAPRAWIENIE' %}">NAPRAWIENIE</a>
@@ -371,7 +374,7 @@
                                     {% endif %}
                                 </td>
                                 <td class="b-3 border-white">
-                                    <a href="#">
+                                    <a href="{% url 'klient_gadget_change' klient_name=klient gadget_id=gadgets_data.id %}">
                                         {% if gadgets_data.in_serwis == True %}
                                             <button class="btn bg-pale-primary btn-xs">W serwise</button>
                                         {% else %}
@@ -386,7 +389,48 @@
                     </table>
                 </div>
             </div>
-            <div class="box-footer"></div>
+            <div class="box-footer">
+                
+                {% if is_paginated %}
+                <div class="float-right">
+                    <form class="navbar-form navbar-right">
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item {% if not prev_url %} disabled {% endif %}">
+                                    <a class="page-link" href="{{ prev_url }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                {% for n in gadgets.paginator.page_range %}
+
+                                    {% if gadgets.number == n %}
+
+                                        <li class="page-item active">
+                                            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                                        </li>
+
+                                    {% elif n > gadgets.number|add:-5 and n < gadgets.number|add:5 %}
+
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <li class="page-item {% if not next_url %} disabled {% endif %}">
+                                    <a class="page-link" href="{{ next_url }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </form>
+                </div>
+            {% endif %}
+            </div>
         </div>
     </section>
     <script>

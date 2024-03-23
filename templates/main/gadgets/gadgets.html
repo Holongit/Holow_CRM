@@ -256,7 +256,7 @@
                                                             data-toggle="dropdown">{{ gadgets_data.status }}
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                         <a class="dropdown-item"
+                                                        <a class="dropdown-item"
                                                            href="{% url 'gadget_status_change' pk=gadgets_data.id status='ZALICZKA' %}">ZALICZKA</a>
                                                         <a class="dropdown-item"
                                                            href="{% url 'gadget_status_change' pk=gadgets_data.id status='GOTOWY' %}">GOTOWY</a>
@@ -265,7 +265,8 @@
                                                         <a class="dropdown-item"
                                                            href="{% url 'gadget_status_change' pk=gadgets_data.id status='REZYGNACJA' %}">REZYGNACJA</a>
                                                         <a class="dropdown-item"
-                                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='CZEKA NA ZGODĘ' %}">CZEKA NA ZGODE</a>
+                                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='CZEKA NA ZGODĘ' %}">CZEKA
+                                                            NA ZGODE</a>
                                                         <a class="dropdown-item"
                                                            href="{% url 'gadget_status_change' pk=gadgets_data.id status='WYCENA' %}">WYCENA</a>
                                                         <a class="dropdown-item"
@@ -367,10 +368,6 @@
                                                             <button class="btn bg-primary btn-xs">Przyjmij</button>
                                                         {% endif %}
                                                     </a>
-                                                    <a href="{{ gadgets_data.get_absolute_url }}">
-                                                        <button class="btn bg-pale-info btn-xs">Edit</button>
-                                                    </a>
-
                                                     <div class="btn-group">
                                                         <button type="button"
                                                                 class="btn btn-xs bg-pale-danger dropdown-toggle"
@@ -382,13 +379,12 @@
                                                                href=""><h4>Jesteś pewny?</h4>
                                                             </a>
                                                             <a class="text-center dropdown-item"
-                                                               href="{% url 'delete_gadget' pk=gadgets_data.pk %}"><h4>
+                                                               href="{% url 'delete_gadget' pk=gadgets_data.pk %}"><h4 class="fa fa-trash">
                                                                 DELETE</h4></a>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                            {% elif gadgets_data.in_serwis and gadgets_data.status == 'NOWY' %}
+                                            {% elif gadgets_data.in_serwis and gadgets_data.status == 'NOWY'%}
                                                 <div class="btn-group">
                                                     <button type="button"
                                                             class="btn bg-pale-primary btn-xs dropdown-toggle"
@@ -402,8 +398,7 @@
                                                         <br>
                                                         <a class="text-center dropdown-item"
                                                            href="{% url 'add_gadget_to_worker' pk=gadgets_data.id %}">
-                                                            <h4>
-                                                                Dodaj Sobie</h4></a>
+                                                            <h4 class="fa fa-mail-forward">DODAJ SOBIE</h4></a>
                                                     </div>
                                                 </div>
                                             {% endif %}
@@ -466,7 +461,7 @@
 
                 </div>
     </section>
-    
+
     <script>
         function update() {
             location.reload(false);
