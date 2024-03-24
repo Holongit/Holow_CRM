@@ -303,10 +303,12 @@
 
     </section>
     <script>
-        function update() {
-            location.reload(false);
+        window.print();
+        
+        function back_f() {
+            history.back();
         }
 
-        setTimeout('update()', 60000);
+        setTimeout('back_f()', 1000);
     </script>
 {% endblock %}
