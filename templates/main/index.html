@@ -163,6 +163,16 @@
             </span>
                     </a>
                 </li>
+            {% if request.user.username == 'TPL' %}
+                <li>
+                    <a href="{% url 'index_manager' %}">
+                        <i class="fa fa-server"></i> <span class="font-size-18">Manager</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+                    </a>
+                </li>
+            {% endif %}
                 <li>
                     <a href="{% url 'gadgets' %}">
                         <i class="fa fa-laptop"></i> <span class="font-size-18">Urządzenia</span>

@@ -119,10 +119,9 @@
                             <tr class="bg-secondary ">
                                 <th class="text-center font-weight-bold b-3 border-white">№</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Marka</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Właściciel</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Telefon</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Data</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Data Przyjęcia</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Technik</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Czas</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Stan</th>
@@ -155,9 +154,6 @@
                                             {% elif request.user.is_authenticated and not request.user.is_staff %}
                                                 <a href="#">{{ gadgets_data.type_gadget }}</a>
                                             {% endif %}
-                                        </td>
-                                        <td class="b-3 border-white">
-
                                             <a href="
 {% if request.user.is_authenticated and request.user.is_staff %}
 {% url 'outgo_gadget' pk=gadgets_data.id %}
@@ -224,16 +220,13 @@
                                                 </button>
                                             {% endif %}
                                         </td>
-                                        <td class="b-3 border-white"><a
-                                                href="#">
-                                        
-                                        <span class="pull-right mr-10 badge ml-10                                                        
+                                        <td class="b-3 border-white"><a href="#">
+                                        <span class="mr-10 badge ml-10                                                        
                                                         {% if gadgets_data.time_in_serwis_get <= 3 %} bg-info
                                                         {% elif gadgets_data.time_in_serwis_get > 3 and gadgets_data.time_in_serwis_get <= 14 %} bg-dark
                                                         {% elif gadgets_data.time_in_serwis_get > 14 %} bg-danger                                              
                                                         {% endif %}                                                        
                                                         ">{{ gadgets_data.time_in_serwis_get }} dni
-                                                        
                                         </span> </a>
                                         </td>
 

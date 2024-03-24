@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'users',
     'workers',
     'OPUSSerwis20',
+    'manager'
 ]
 
 MIDDLEWARE = [

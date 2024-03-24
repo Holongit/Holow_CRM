@@ -193,16 +193,18 @@
 
                             </div>
                             <div class="col-lg-6 col-12">
-                                <div class="mb-15 ml-70">
-                                    <form action="{% url 'add_note' pk=gadget.id %}" method="post">
-                                        {% csrf_token %}
+                                {% if gadget.in_serwis == True and gadget.workers.in_work == True %}
+                                    <div class="mb-15 ml-70">
+                                        <form action="{% url 'add_note' pk=gadget.id %}" method="post">
+                                            {% csrf_token %}
 
-                                        <div class="input-group">
-                                            <span class="input-group-btn">{{ form.title }}</span>
-                                            {{ form.content }}
-                                        </div>
-                                    </form>
-                                </div>
+                                            <div class="input-group">
+                                                <span class="input-group-btn">{{ form.title }}</span>
+                                                {{ form.content }}
+                                            </div>
+                                        </form>
+                                    </div>
+                                {% endif %}
                                 {% for note in notes %}
                                     <!-- CONTENT_NOTE -->
                                     <div class="timeline timeline-single-column timeline-single-full-column">
@@ -227,11 +229,14 @@
                                                             <badge class="badge-pill bg-green">OK</badge>
                                                         {% endif %}
                                                     </h6>
-                                                    <h6 class="float-right">{{ note.created_at_format }} <a
-                                                            href="{% url 'delete_note' pk=note.pk %}">
-                                                        <badge class="badge-pill bg-pale-danger"><i
-                                                                class="fa fa-close"></i></badge>
-                                                    </a>
+                                                    <h6 class="float-right">{{ note.created_at_format }}
+                                                        {% if gadget.in_serwis == True and gadget.workers.in_work == True %}
+                                                            <a href="{% url 'delete_note' pk=note.pk %}">
+                                                                <badge class="badge-pill bg-pale-danger">
+                                                                    <i class="fa fa-close"></i>
+                                                                </badge>
+                                                            </a>
+                                                        {% endif %}
                                                     </h6>
 
                                                 </div>
@@ -296,11 +301,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info float-left"
-                                    data-toggle="modal" data-target=".bs-example-modal-lg">
-                                <i class="fa fa-sticky-note"></i>
-                                Dodaj opis naprawy
-                            </button>
+                            {% if gadget.in_serwis == True %}
+                                <button type="submit" class="btn btn-info float-left"
+                                        data-toggle="modal" data-target=".bs-example-modal-lg">
+                                    <i class="fa fa-sticky-note"></i>
+                                    Dodaj opis naprawy
+                                </button>
+                            {% endif %}
                         {% endif %}
                         {% if gadget.in_serwis %}
                             {% if gadget.workers.in_work %}
@@ -344,6 +351,8 @@
                             {% else %}
                                 <span class="btn bg-pale-primary ml-20">Odstawione</span>
                             {% endif %}
+                        {% else %}
+                            <span class="btn bg-pale-primary ml-20">Wydane Klientowi</span>
                         {% endif %}
 
                         <a href="{% url 'workers_list' pk=gadget.workers.worker.id %}">

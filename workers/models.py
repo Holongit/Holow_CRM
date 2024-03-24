@@ -19,6 +19,14 @@ class Workers(models.Model):
     def added_at_format(self):
         return self.added_at.strftime("%d.%m.%y %H:%M")
 
+    def time_in_worker(self):
+        time = timezone.now() - self.updated_at
+        return time.days
+
+    def time_in_work(self):
+        time = timezone.now() - self.added_at
+        return time.days
+
     class Meta:
         ordering = ('-added_at',)
 

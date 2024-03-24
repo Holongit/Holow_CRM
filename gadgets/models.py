@@ -18,6 +18,8 @@ class Gadget(models.Model):
     status = models.CharField(max_length=32, default='NOWY', null=True, blank=True, db_index=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
+    managed_at = models.DateTimeField(default=timezone.now)
+    alarm_at = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     klient = models.ForeignKey(Klient, on_delete=models.PROTECT, null=True)
     location = models.CharField(max_length=32, default='STOKŁOSY', db_index=True, blank=True, null=True)

@@ -261,6 +261,7 @@ def technik_change(request, gadget_id, user_id):
             gadget=gadget,
         )
         worker_change.worker = user
+        worker_change.updated_at = timezone.now()
         worker_change.save()
         return redirect(request.META.get('HTTP_REFERER'))
     else:
