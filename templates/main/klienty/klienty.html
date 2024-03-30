@@ -80,10 +80,11 @@
                             <thead>
                             <tr class="bg-secondary">
                                 <th class="text-center font-weight-bold b-3 border-white">№</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Typ Klienta</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Imie Nazwisko</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Telefon</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Email</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Data</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Pierwsza wizyta</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Urządzenia</th>
                                 <th class="text-center font-weight-bold b-3 border-white"></th>
                             </tr>
@@ -92,28 +93,31 @@
                             {% for klient_data in klients %}
 
                                 <tbody>
-                                <tr class="text-center font-size-14">
-                                    <td class="b-3 border-white"><a
-                                            href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.id }}</a>
+                                <tr class="text-center font-size-14"
+                                    data-href="{% url 'kartka_klienta' pk=klient_data.id %}">
+                                    <td class="b-3 border-white">{{ klient_data.id }}
                                     </td>
-                                    <td class="b-3 border-white"><a
-                                            href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.name_klient }}</a>
+                                    <td class="b-3 border-white">
+                                        {{ klient_data.types_klient }}
                                     </td>
-                                    <td class="b-3 border-white"><a
-                                            href="{% url 'kartka_klienta' pk=klient_data.id %}">
+                                    <td class="b-3 border-white">
+                                        {{ klient_data.name_klient }}
+                                    </td>
+                                    <td class="b-3 border-white">
                                         {% if klient_data.telefon_klient %}
                                             {{ klient_data.telefon_klient }}
                                         {% endif %}
-                                    </a>
                                     </td>
-
                                     <td class="b-3 border-white">
                                         {% if klient_data.email_klient %}
-                                            <a href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.email_klient }}</a>
+                                            {{ klient_data.email_klient }}
                                         {% endif %}
                                     </td>
-                                    <td class="b-3 border-white"><a
-                                            href="{% url 'kartka_klienta' pk=klient_data.id %}">{{ klient_data.created_at_format }}</a>
+                                    <td class="b-3 border-white">
+                                        {{ klient_data.created_at_format }}
+                                        <span class="badge bg-pale-dark font-size-12 pull-right">
+                                            {{ klient_data.time_with_serwis_get }} dni temu
+                                        </span>
                                     </td>
                                     <td class="b-3 border-white text-left">
                                         {% for gadget in klient_data.gadget_set.all %}
@@ -135,34 +139,35 @@
                                         {% endfor %}
 
                                     </td>
-                                    {% if request.user.is_authenticated and request.user.is_staff %}
-                                        <td class="b-3 border-white">
-                                            <div class="clearfix">
-                                                <a href="{% url 'edit_klient' pk=klient_data.id %}">
-                                                    <button class="btn bg-pale-info btn-xs">Edit
-                                                    </button>
-                                                </a>
-                                                <a href="{% url 'delete_klient' pk=klient_data.id %}">
-                                                    <button class="btn bg-pale-danger btn-xs">Delete
-                                                    </button>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    {% endif %}
+                                    <td class="b-3 border-white">
+                                        <div class="clearfix">
+                                            <a href="{% url 'edit_klient' pk=klient_data.id %}">
+                                                <button class="btn bg-pale-info btn-xs">Edit
+                                                </button>
+                                            </a>
+                                            <a href="{% url 'delete_klient' pk=klient_data.id %}">
+                                                <button class="btn bg-pale-danger btn-xs">Delete
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </td>
                                 </tr>
                                 </tbody>
-
                             {% endfor %}
-
                             <tfoot>
-
                             </tfoot>
                         </table>
                     </div>
                 </div>
                 <div class="box-footer"></div>
-
     </section>
+    <script>
+        $(document).ready(function ($) {
+            $('*[data-href]').on('click', function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
     <script>
         function update() {
             location.reload(false);

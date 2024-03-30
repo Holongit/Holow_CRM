@@ -30,7 +30,9 @@
                         </span>
                     </div>
                 </form>
-                <a href="{% url 'add_klient' %}"><button class="btn btn-primary btn-sm mt-20">Dodaj Klienta</button></a>
+                <a href="{% url 'add_klient' %}">
+                    <button class="btn btn-primary btn-sm mt-20">Dodaj Klienta</button>
+                </a>
 
                 {% if is_paginated %}
                     <form class="navbar-form navbar-right">
@@ -73,42 +75,50 @@
 
                 <!-- table -->
                 <div class="box-body">
-                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                    <div class="table-responsive">
+                        <table id="example1"
+                               class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                             <thead>
                             <tr class="bg-secondary">
                                 <th class="text-center font-weight-bold b-3 border-white">№</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Typ Klienta</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Imie Nazwisko</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Telefon</th>
                                 <th class="text-center font-weight-bold b-3 border-white">Email</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Data</th>
+                                <th class="text-center font-weight-bold b-3 border-white">Pierwsza wizyta</th>
                                 <th class="text-center font-weight-bold b-3 border-white"></th>
                             </tr>
                             </thead>
 
                             {% for klient_data in klients %}
 
-                               <tbody>
-                                <tr class="text-center font-size-14">
+                                <tbody>
+                                <tr class="text-center font-size-14"
+                                    data-href="{% url 'kartka_klienta' pk=klient_data.id %}">
                                     <td class="b-3 border-white">
-                                        <a href="{% url 'kartka_klienta' pk=klient_data.id %}" >
-                                        {{ klient_data.id }}</a>
+                                        {{ klient_data.id }}
                                     </td>
                                     <td class="b-3 border-white">
-                                        <a href="{% url 'kartka_klienta' pk=klient_data.id %}">
-                                        {{ klient_data.name_klient }}</a>
+                                        {{ klient_data.types_klient }}
                                     </td>
                                     <td class="b-3 border-white">
-                                        <a href="{% url 'kartka_klienta' pk=klient_data.id %}">
-                                        {% if klient_data.telefon_klient %}{{ klient_data.telefon_klient }}{% endif %}</a>
+                                        {{ klient_data.name_klient }}
                                     </td>
                                     <td class="b-3 border-white">
-                                        <a href="{% url 'kartka_klienta' pk=klient_data.id %}">
-                                        {% if klient_data.email_klient %}{{ klient_data.email_klient }}{% endif %}</a>
+                                        {% if klient_data.telefon_klient %}
+                                            {{ klient_data.telefon_klient }}
+                                        {% endif %}
                                     </td>
                                     <td class="b-3 border-white">
-                                        <a href="{% url 'kartka_klienta' pk=klient_data.id %}">
-                                        {{ klient_data.created_at_format }}</a>
+                                        {% if klient_data.email_klient %}
+                                            {{ klient_data.email_klient }}
+                                        {% endif %}
+                                    </td>
+                                    <td class="b-3 border-white">
+                                        {{ klient_data.created_at_format }}
+                                        <span class="badge bg-pale-dark font-size-12 pull-right">
+                                            {{ klient_data.time_with_serwis_get }} dni temu
+                                        </span>
                                     </td>
                                     <td class="b-3 border-white">
                                         <div class="clearfix">
@@ -131,11 +141,16 @@
                 <div class="box-footer"></div>
             </div>
         </div>
-        
 
 
     </section>
-
+    <script>
+        $(document).ready(function ($) {
+            $('*[data-href]').on('click', function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
 
 {% endblock %}
 

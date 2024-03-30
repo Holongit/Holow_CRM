@@ -4,7 +4,7 @@
     <section class="content-header">
         <h1>
             {{ technik.first_name }} {{ technik.last_name }} Kartka Napraw za 0{{ month }}-{{ now.year }}
-            
+
         </h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
@@ -63,16 +63,20 @@
                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Płatne"
                                                 role="tab"><span
                                 class="hidden-sm-up"><i class="ion-home"></i></span> <span
-                                class="hidden-xs-down">Płatne <h4 class="text-center">{{ technik.kartkaplatne_set.count }}</h4></span></a></li>
+                                class="hidden-xs-down">Płatne <h4
+                                class="text-center">{{ technik.kartkaplatne_set.count }}</h4></span></a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#gwarancja" role="tab"><span
                                 class="hidden-sm-up"><i class="ion-person"></i></span> <span
-                                class="hidden-xs-down">Gwarancja <h4 class="text-center">{{ technik.kartkagwarancja_set.count }}</h4></span></a></li>
+                                class="hidden-xs-down">Gwarancja <h4
+                                class="text-center">{{ technik.kartkagwarancja_set.count }}</h4></span></a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reklamacja" role="tab"><span
                                 class="hidden-sm-up"><i class="ion-email"></i></span> <span
-                                class="hidden-xs-down">Reklamacja <h4 class="text-center">{{ technik.kartkareklamacja_set.count }}</h4></span></a></li>
+                                class="hidden-xs-down">Reklamacja <h4
+                                class="text-center">{{ technik.kartkareklamacja_set.count }}</h4></span></a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#rezygnacja" role="tab"><span
                                 class="hidden-sm-up"><i class="ion-email"></i></span> <span
-                                class="hidden-xs-down">Rezygnacja <h4 class="text-center">{{ technik.kartkarezygnacja_set.count }}</h4></span></a></li>
+                                class="hidden-xs-down">Rezygnacja <h4
+                                class="text-center">{{ technik.kartkarezygnacja_set.count }}</h4></span></a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content tabcontent-border">
@@ -89,6 +93,7 @@
                                         </th>
                                         <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy
                                         </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Opis Technika</th>
                                         <th class="text-center font-weight-bold b-3 border-white">Stan</th>
                                         <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy
                                         </th>
@@ -98,28 +103,30 @@
                                     {% for gadgets_data in płatne %}
 
                                         <tbody>
-                                        <tr class="text-center font-size-14">
+                                        <tr class="text-center font-size-14"
+                                            data-href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                             <td class="b-3 border-white ">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
-                                                </a>
+                                                {{ gadgets_data.gadget.id }}
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {% if gadgets_data.gadget.type_gadget %}
+                                                {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
-                                                    {% endif %}
-                                                    {% if gadgets_data.gadget.brand_gadget %}
+                                                {% endif %}
+                                                {% if gadgets_data.gadget.brand_gadget %}
                                                     {{ gadgets_data.gadget.brand_gadget }}
-                                                    {% endif %}
-                                                    {{ gadgets_data.gadget }}</a>
+                                                {% endif %}
+                                                {{ gadgets_data.gadget }}
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {{ gadgets_data.gadget.workers.added_at_format }}</a>
+                                                {{ gadgets_data.gadget.workers.added_at_format }}
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {{ gadgets_data.created_at_format }}</a>
+                                                {{ gadgets_data.created_at_format }}
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                {% if gadgets_data.gadget.opis_naprawy %}
+                                                    {{ gadgets_data.gadget.opis_naprawy }}
+                                                {% endif %}
                                             </td>
                                             <td class="b-3 border-white">
                                                 <div class="btn-group">
@@ -145,7 +152,17 @@
                                                         {% endif %}btn-xs">{{ gadgets_data.gadget.type_service }}
                                                 </button>
                                             </td>
-
+                                            <td class="b-3 border-white">
+                                                {% if gadgets_data.gadget.in_serwis %}
+                                                    <button type="button" class="btn btn-primary btn-xs">
+                                                        CZEKA NA ODBIOR
+                                                    </button>
+                                                {% else %}
+                                                    <button type="button" class="btn bg-pale-primary btn-xs">
+                                                        KLIENT ODEBRAŁ
+                                                    </button>
+                                                {% endif %}
+                                            </td>
                                         </tr>
                                         </tbody>
                                     {% endfor %}
@@ -161,42 +178,44 @@
                                     <tr class="bg-secondary ">
                                         <th class="text-center font-weight-bold b-3 border-white">№</th>
                                         <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
-                                        <th class="text-center font-weight-bold b-3 border-white">Data rozpoczęcia
-                                            naprawy
+                                        <th class="text-center font-weight-bold b-3 border-white">
+                                            Data rozpoczęcia naprawy
                                         </th>
-                                        <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy
-                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Opis Technika</th>
                                         <th class="text-center font-weight-bold b-3 border-white">Stan</th>
-                                        <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy
-                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy</th>
                                     </tr>
                                     </thead>
 
                                     {% for gadgets_data in gwarancja %}
 
                                         <tbody>
-                                        <tr class="text-center font-size-14">
+                                        <tr class="text-center font-size-14"
+                                            data-href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                             <td class="b-3 border-white ">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
-                                                </a>
+                                                {{ gadgets_data.gadget.id }}
+
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {% if gadgets_data.gadget.type_gadget %}
+                                                {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
-                                                    {% endif %}
-                                                    {% if gadgets_data.gadget.brand_gadget %}
+                                                {% endif %}
+                                                {% if gadgets_data.gadget.brand_gadget %}
                                                     {{ gadgets_data.gadget.brand_gadget }}
-                                                    {% endif %}
-                                                    {{ gadgets_data.gadget }}</a>
+                                                {% endif %}
+                                                {{ gadgets_data.gadget }}
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {{ gadgets_data.gadget.workers.added_at_format }}</a>
+                                                {{ gadgets_data.gadget.workers.added_at_format }}
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {{ gadgets_data.created_at_format }}</a>
+                                                {{ gadgets_data.created_at_format }}
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                {% if gadgets_data.gadget.opis_naprawy %}
+                                                    {{ gadgets_data.gadget.opis_naprawy }}
+                                                {% endif %}
                                             </td>
                                             <td class="b-3 border-white">
                                                 <div class="btn-group">
@@ -222,7 +241,17 @@
                                                         {% endif %}btn-xs">{{ gadgets_data.gadget.type_service }}
                                                 </button>
                                             </td>
-
+                                            <td class="b-3 border-white">
+                                                {% if gadgets_data.gadget.in_serwis %}
+                                                    <button type="button" class="btn btn-primary btn-xs">
+                                                        CZEKA NA ODBIOR
+                                                    </button>
+                                                {% else %}
+                                                    <button type="button" class="btn bg-pale-primary btn-xs">
+                                                        KLIENT ODEBRAŁ
+                                                    </button>
+                                                {% endif %}
+                                            </td>
                                         </tr>
                                         </tbody>
                                     {% endfor %}
@@ -238,42 +267,43 @@
                                     <tr class="bg-secondary ">
                                         <th class="text-center font-weight-bold b-3 border-white">№</th>
                                         <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
-                                        <th class="text-center font-weight-bold b-3 border-white">Data rozpoczęcia
-                                            naprawy
+                                        <th class="text-center font-weight-bold b-3 border-white">
+                                            Data rozpoczęcia naprawy
                                         </th>
-                                        <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy
-                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Opis Technika</th>
                                         <th class="text-center font-weight-bold b-3 border-white">Stan</th>
-                                        <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy
-                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy</th>
                                     </tr>
                                     </thead>
 
                                     {% for gadgets_data in reklamacja %}
 
                                         <tbody>
-                                        <tr class="text-center font-size-14">
+                                        <tr class="text-center font-size-14"
+                                            data-href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                             <td class="b-3 border-white ">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
-                                                </a>
+                                                {{ gadgets_data.gadget.id }}
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {% if gadgets_data.gadget.type_gadget %}
+                                                {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
-                                                    {% endif %}
-                                                    {% if gadgets_data.gadget.brand_gadget %}
+                                                {% endif %}
+                                                {% if gadgets_data.gadget.brand_gadget %}
                                                     {{ gadgets_data.gadget.brand_gadget }}
-                                                    {% endif %}
-                                                    {{ gadgets_data.gadget }}</a>
+                                                {% endif %}
+                                                {{ gadgets_data.gadget }}
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {{ gadgets_data.gadget.workers.added_at_format }}</a>
+                                                {{ gadgets_data.gadget.workers.added_at_format }}
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {{ gadgets_data.created_at_format }}</a>
+                                                {{ gadgets_data.created_at_format }}
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                {% if gadgets_data.gadget.opis_naprawy %}
+                                                    {{ gadgets_data.gadget.opis_naprawy }}
+                                                {% endif %}
                                             </td>
                                             <td class="b-3 border-white">
                                                 <div class="btn-group">
@@ -299,7 +329,17 @@
                                                         {% endif %}btn-xs">{{ gadgets_data.gadget.type_service }}
                                                 </button>
                                             </td>
-
+                                            <td class="b-3 border-white">
+                                                {% if gadgets_data.gadget.in_serwis %}
+                                                    <button type="button" class="btn btn-primary btn-xs">
+                                                        CZEKA NA ODBIOR
+                                                    </button>
+                                                {% else %}
+                                                    <button type="button" class="btn bg-pale-primary btn-xs">
+                                                        KLIENT ODEBRAŁ
+                                                    </button>
+                                                {% endif %}
+                                            </td>
                                         </tr>
                                         </tbody>
                                     {% endfor %}
@@ -312,45 +352,46 @@
                                 <table id="example"
                                        class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                                     <thead>
-                                    <tr class="bg-secondary ">
+                                    <tr class="bg-secondary">
                                         <th class="text-center font-weight-bold b-3 border-white">№</th>
                                         <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
-                                        <th class="text-center font-weight-bold b-3 border-white">Data rozpoczęcia
-                                            naprawy
+                                        <th class="text-center font-weight-bold b-3 border-white">
+                                            Data rozpoczęcia naprawy
                                         </th>
-                                        <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy
-                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Koniec Naprawy</th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Opis Technika</th>
                                         <th class="text-center font-weight-bold b-3 border-white">Stan</th>
-                                        <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy
-                                        </th>
+                                        <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy</th>
                                     </tr>
                                     </thead>
 
                                     {% for gadgets_data in rezygnacja %}
 
                                         <tbody>
-                                        <tr class="text-center font-size-14">
+                                        <tr class="text-center font-size-14"
+                                            data-href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                             <td class="b-3 border-white ">
-                                                <a href="{% url 'outgo_gadget' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}
-                                                </a>
+                                                {{ gadgets_data.gadget.id }}
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {% if gadgets_data.gadget.type_gadget %}
+                                                {% if gadgets_data.gadget.type_gadget %}
                                                     {{ gadgets_data.gadget.type_gadget }}
-                                                    {% endif %}
-                                                    {% if gadgets_data.gadget.brand_gadget %}
+                                                {% endif %}
+                                                {% if gadgets_data.gadget.brand_gadget %}
                                                     {{ gadgets_data.gadget.brand_gadget }}
-                                                    {% endif %}
-                                                    {{ gadgets_data.gadget }}</a>
+                                                {% endif %}
+                                                {{ gadgets_data.gadget }}
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {{ gadgets_data.gadget.workers.added_at_format }}</a>
+                                                {{ gadgets_data.gadget.workers.added_at_format }}
                                             </td>
                                             <td class="b-3 border-white">
-                                                <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                                    {{ gadgets_data.created_at_format }}</a>
+                                                {{ gadgets_data.created_at_format }}
+                                            </td>
+                                            <td class="b-3 border-white">
+                                                {% if gadgets_data.gadget.opis_naprawy %}
+                                                    {{ gadgets_data.gadget.opis_naprawy }}
+                                                {% endif %}
                                             </td>
                                             <td class="b-3 border-white">
                                                 <div class="btn-group">
@@ -376,7 +417,17 @@
                                                         {% endif %}btn-xs">{{ gadgets_data.gadget.type_service }}
                                                 </button>
                                             </td>
-
+                                            <td class="b-3 border-white">
+                                                {% if gadgets_data.gadget.in_serwis %}
+                                                    <button type="button" class="btn btn-primary btn-xs">
+                                                        CZEKA NA ODBIOR
+                                                    </button>
+                                                {% else %}
+                                                    <button type="button" class="btn bg-pale-primary btn-xs">
+                                                        KLIENT ODEBRAŁ
+                                                    </button>
+                                                {% endif %}
+                                            </td>
                                         </tr>
                                         </tbody>
                                     {% endfor %}
@@ -391,11 +442,18 @@
             <!-- /.box -->
         </div>
     </section>
+    <script>
+        $(document).ready(function ($) {
+            $('*[data-href]').on('click', function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
+    <script>
+        function update() {
+            location.reload(false);
+        }
 
-<script>
-     function update(){
-    location.reload(false);
-    }
-    setTimeout('update()',60000);
-</script>
+        setTimeout('update()', 60000);
+    </script>
 {% endblock %}

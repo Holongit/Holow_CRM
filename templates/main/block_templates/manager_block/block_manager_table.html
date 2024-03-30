@@ -7,14 +7,13 @@
                 <th class="text-center font-weight-bold b-3 border-white">№</th>
                 <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
                 <th class="text-center font-weight-bold b-3 border-white">Właściciel</th>
-                <th class="text-center font-weight-bold b-3 border-white">Data Przyjęcia</th>
                 <th class="text-center font-weight-bold b-3 border-white">Technik</th>
                 <th class="text-center font-weight-bold b-3 border-white">Czas</th>
                 <th class="text-center font-weight-bold b-3 border-white">Stan</th>
                 <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy</th>
                 <th class="text-center font-weight-bold b-3 border-white">Pilne</th>
                 <th class="text-center font-weight-bold b-3 border-white">Przypomnij za ... dni</th>
-                
+
 
             </tr>
             </thead>
@@ -24,47 +23,37 @@
 
                     <tbody>
                     <tr class="text-center font-size-14">
-                        <td class="b-3 border-white ">
-                            {% if request.user.is_authenticated and request.user.is_staff %}
-                                <a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.id }}</a>
-                            {% elif request.user.is_authenticated and not request.user.is_staff %}
-                                <a href="#">{{ gadgets_data.id }}</a>
-                            {% endif %}
-                        </td>
-                        <td class="b-3 border-white">
-                            {% if request.user.is_authenticated and request.user.is_staff %}
-                                <a href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.type_gadget }}</a>
-                            {% elif request.user.is_authenticated and not request.user.is_staff %}
-                                <a href="#">{{ gadgets_data.type_gadget }}</a>
-                            {% endif %}
-                            <a href="
-{% if request.user.is_authenticated and request.user.is_staff %}
-{% url 'outgo_gadget' pk=gadgets_data.id %}
-{% elif request.user.is_authenticated and not request.user.is_staff %}#
-{% endif %}">
-                                {% if gadgets_data.brand_gadget %}
-                                    {{ gadgets_data.brand_gadget }}
+                        <td class="b-3 border-white"
+                                {% if request.user.is_authenticated and request.user.is_staff %}
+                            data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                    {{ gadgets_data.id }}
+                                {% elif request.user.is_authenticated and not request.user.is_staff %}
+                                    >{{ gadgets_data.id }}
                                 {% endif %}
-                                {% if gadgets_data %}
-                                    {{ gadgets_data }}
-                                {% endif %}</a>
                         </td>
-                        <td class="b-3 border-white"><a href="
-                                            
-{% if request.user.is_authenticated and request.user.is_staff %}
-{% url 'kartka_klienta' pk=gadgets_data.klient.id %}
-{% elif request.user.is_authenticated and not request.user.is_staff %}#
-{% endif %}">
+                        <td class="b-3 border-white"
+                                {% if request.user.is_authenticated and request.user.is_staff %}
+                            data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}"
+                                {% elif request.user.is_authenticated and not request.user.is_staff %}
+                                {% endif %}>
+                            {% if gadgets_data.type_gadget %}
+                                {{ gadgets_data.type_gadget }}
+                            {% endif %}
+                            {% if gadgets_data.brand_gadget %}
+                                {{ gadgets_data.brand_gadget }}
+                            {% endif %}
+                            {% if gadgets_data %}
+                                {{ gadgets_data }}
+                            {% endif %}
+                        </td>
+                        <td class="b-3 border-white"
+                                {% if request.user.is_authenticated and request.user.is_staff %}
+                            data-href="{% url 'kartka_klienta' pk=gadgets_data.klient.id %}"
+                                {% elif request.user.is_authenticated and not request.user.is_staff %}
+                                {% endif %}>
                             {% if gadgets_data.klient.name_klient %}
                                 {{ gadgets_data.klient.name_klient }}
-                            {% endif %}</a>
-                        </td>
-                        <td class="b-3 border-white"><a
-                                href="
-{% if request.user.is_authenticated and request.user.is_staff %}
-{% url 'outgo_gadget' pk=gadgets_data.id %}
-{% elif request.user.is_authenticated and not request.user.is_staff %}#
-{% endif %}">{{ gadgets_data.created_at_format }}</a>
+                            {% endif %}
                         </td>
                         <td class="b-3 border-white">
                             {% if gadgets_data.in_serwis and request.user.is_authenticated and request.user.is_staff %}
@@ -91,17 +80,18 @@
                                 </button>
                             {% endif %}
                         </td>
-                        <td class="b-3 border-white"><a
-                                href="#">
-                                        
-                                        <span class="pull-right mr-10 badge ml-10                                                        
+                        <td class="b-3 border-white"
+                                {% if request.user.is_authenticated and request.user.is_staff %}
+                            data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}"
+                                {% elif request.user.is_authenticated and not request.user.is_staff %}
+                                {% endif %}>
+                                        <span class="mr-10 badge ml-10                                                        
                                                         {% if gadgets_data.time_in_serwis_get <= 3 %} bg-info
                                                         {% elif gadgets_data.time_in_serwis_get > 3 and gadgets_data.time_in_serwis_get <= 14 %} bg-dark
                                                         {% elif gadgets_data.time_in_serwis_get > 14 %} bg-danger                                              
                                                         {% endif %}                                                        
                                                         ">{{ gadgets_data.time_in_serwis_get }} dni
-                                                        
-                                        </span> </a>
+                                        </span>
                         </td>
 
 

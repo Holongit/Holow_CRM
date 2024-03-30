@@ -133,44 +133,51 @@
 
                                 <tbody>
                                 <tr class="text-center font-size-14">
-                                <td class="b-3 border-white "><a
-                                        href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.id }}</a>
+                                <td class="b-3 border-white"
+                                    data-href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
+                                    {{ gadgets_data.gadget.id }}
                                 </td>
-                                <td class="b-3 border-white"><a
-                                        href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.type_gadget }}</a>
-                                    <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                        {% if gadgets_data.gadget.brand_gadget %}
-                                            {{ gadgets_data.gadget.brand_gadget }}
-                                        {% endif %}
-                                        {{ gadgets_data.gadget }}</a>
+                                <td class="b-3 border-white"
+                                    data-href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
+                                    {% if gadgets_data.gadget.type_gadget %}
+                                        {{ gadgets_data.gadget.type_gadget }}
+                                    {% endif %}
+                                    {% if gadgets_data.gadget.brand_gadget %}
+                                        {{ gadgets_data.gadget.brand_gadget }}
+                                    {% endif %}
+                                    {% if gadgets_data.gadget %}
+                                        {{ gadgets_data.gadget }}
+                                    {% endif %}
                                 </td>
-                                <td class="b-3 border-white"><a
-                                        href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">{{ gadgets_data.gadget.klient.name_klient }}</a>
+                                <td class="b-3 border-white"
+                                    data-href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
+                                    {% if gadgets_data.gadget.klient.name_klient %}
+                                        {{ gadgets_data.gadget.klient.name_klient }}
+                                    {% endif %}
                                 </td>
-                                <td class="b-3 border-white">
-                                    <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
-                                        {% if gadgets_data.in_work %}
-                                            <span class="mr-10 badge ml-10                                                        
+                                <td class="b-3 border-white"
+                                    data-href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
+                                    {% if gadgets_data.in_work %}
+                                        <span class="mr-10 badge ml-10                                                        
                                                         {% if gadgets_data.time_in_worker <= 3 %} bg-info
                                                         {% elif gadgets_data.time_in_worker > 3 and gadgets_data.time_in_worker <= 14 %} bg-dark
                                                         {% elif gadgets_data.time_in_worker > 14 %} bg-danger                                              
                                                         {% endif %}                                                        
                                                         ">{{ gadgets_data.time_in_worker }} dni
                                             </span>
-                                        {% endif %}
-                                    </a>
+                                    {% endif %}
                                 </td>
-                                <td class="b-3 border-white"><a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
+                                <td class="b-3 border-white"
+                                    data-href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
                                     {% if gadgets_data.in_work %}
-                                            <span class="mr-10 badge ml-10                                                        
+                                        <span class="mr-10 badge ml-10                                                        
                                                         {% if gadgets_data.time_in_work <= 3 %} bg-info
                                                         {% elif gadgets_data.time_in_work > 3 and gadgets_data.time_in_work <= 14 %} bg-dark
                                                         {% elif gadgets_data.time_in_work > 14 %} bg-danger                                              
                                                         {% endif %}                                                        
                                                         ">{{ gadgets_data.time_in_work }} dni
                                             </span>
-                                        {% endif %}
-                                </a>
+                                    {% endif %}
                                 </td>
                                 <td class="b-3 border-white">
                                     {% if request.user.is_authenticated and request.user.is_staff %}
@@ -411,6 +418,13 @@
 
                 <div class="box-footer"></div>
     </section>
+    <script>
+        $(document).ready(function ($) {
+            $('*[data-href]').on('click', function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
     <script>
         function update() {
             location.reload(false);

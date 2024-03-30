@@ -12,6 +12,7 @@ from gadgets.forms import GadgetForm
 from gadgets.models import SetingsCRM, Gadget
 from klienty.forms import KlientForm
 from klienty.models import Klient
+from notes.models import Note
 
 
 @login_required(login_url='login')
@@ -239,6 +240,12 @@ def add_gadget_serwis(request, pk):
             gadget = Gadget.objects.first()
             gadget.klient = Klient.objects.get(pk=pk)
             gadget.location = location
+            Note.objects.create(
+                author=User.objects.get(username='TPL'),
+                title='URZĄDZENIE PRZYJĘTE OD KLIENTA',
+                content=f'{user} menedżer',
+                gadget=gadget,
+            )
             gadget.save()
 
             return redirect('outgo_gadget', pk=gadget.id)
