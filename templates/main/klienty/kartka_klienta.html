@@ -3,11 +3,13 @@
 
     <section class="content-header">
         <h1>
-            Klient {{ klient.name_klient }}
+            <div class="media-body">
+                <h1 class="text-fade mb-5">Klient {{ klient.name_klient }}</h1>
+            </div>  
         </h1>
+            
+        
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
-            <li class="breadcrumb-item active">Urządzenie</li>
         </ol>
     </section>
     <section class="content">
@@ -15,7 +17,7 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">{{ klient.name_klient }}</h3>
+                <h3 class="box-title text-fade">Dane Klienta</h3>
 
                 <span class="badge bg-pale-dark font-size-12 pull-right mr-90"><p1>{{ klient.types_klient }}</p1> {{ klient.time_with_serwis_get }} dni</span>
                 <ul class="box-controls pull-right">
@@ -103,13 +105,7 @@
                                 <button class="btn btn-info float-left ml-20"><i class="fa fa-edit"></i> Edituj</button>
                             </a>
                         {% endif %}
-
-                        <a href="{% url 'klienty' %}">
-                            <button type="submit" class="btn btn-danger float-right ml-20"><i
-                                    class="fa fa-close"></i>
-                                Zamknąć
-                            </button>
-                        </a>
+                        <input type="button" class="btn btn-info float-right" onclick="history.back();" value="Przywrócić"/>
                     </div>
                 </div>
             </div>
@@ -117,7 +113,7 @@
         <div class="box">
 
             <div class="box-header with-border">
-                <h3 class="box-title float-left mt-10">Urządzenia Klienta</h3>
+                <h3 class="box-title float-left mt-10 text-fade">Urządzenia Klienta</h3>
                 <form class="float-left ml-20 mt-10">
                     <div class="btn-group">
                         <button type="button" class="btn

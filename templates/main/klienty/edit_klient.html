@@ -4,18 +4,19 @@
 
     <section class="content-header">
         <h1>
-            Edycja danych Klienta #{{ klient.id }}
+            <div class="media-body">
+                <h1 class="text-fade mb-5">Edycja danych Klienta {{ klient.name_klient }}</h1>
+            </div>
         </h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
-            <li class="breadcrumb-item active">Edituj Naprawe</li>
+
         </ol>
     </section>
 
     <section class="content">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">{{ klient.name_klient }}
+                <h3 class="box-title text-fade">Dane Klienta
                 </h3>
                 <span class="badge bg-pale-dark font-size-12 pull-right mr-90">{{ klient.time_with_serwis_get }} dni</span>
                 <ul class="box-controls pull-right">
@@ -51,8 +52,8 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-12">
-                                        
-                                       
+
+
                                         <div class="form-group">
                                             <h5>Dodatkowe informacje o kliencie</h5>
                                             {{ form_class.opis_klient }}

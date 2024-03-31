@@ -2,12 +2,15 @@
 {% block content %}
 
     <section class="content-header">
-        <h1>
-            Urządzenie {{ gadget.id }} <br>Lokalizacja: {{ gadget.location }}
+       <h1>
+            <div class="media-body">
+                <h1 class="text-fade">Urządzenie {{ gadget.id }}</h1>
+                <span class="text-fade"><i
+                        class="fa fa-map-marker"></i> {{ gadget.location }}</span>
+            </div> 
         </h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
-            <li class="breadcrumb-item active">Urządzenie</li>
+            
         </ol>
     </section>
     <section class="content">
@@ -15,7 +18,7 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title float-left mt-10">Kartka Urządzenia
+                <h3 class="box-title float-left mt-10 text-fade">Kartka Urządzenia
                     №{{ gadget.id }} {{ gadget.created_at_format }}</h3>
                 <h3 class="float-left ml-20">
 
@@ -76,12 +79,7 @@
                             </div>
                         </div>
                     {% else %}
-                        <button type="button" class="btn
-                                                        {% if gadget.location == 'STOKŁOSY' %} btn-secondary
-                                                        {% elif gadget.location == 'BEMOWO' %} btn-primary
-                                                        {% endif %} dropdown-toggle btn-sm font-size-16"
-                                data-toggle="dropdown">{{ gadget.location }}
-                        </button>
+                        
                     {% endif %}
 
                 </h3>

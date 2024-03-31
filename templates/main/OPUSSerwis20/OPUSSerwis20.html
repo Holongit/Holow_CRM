@@ -2,16 +2,18 @@
 {% block content %}
 
     <section class="content-header">
-        <h1>OPUSSerwis20</h1>
+        <h1>
+            <div class="media-body">
+                <h1 class="text-fade">OPUSSerwis20</h1>
+            </div>
+        </h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i></a></li>
-            <li class="breadcrumb-item active">OPUSSerwis20</li>
         </ol>
     </section>
     <section class="content">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">OPUSSerwis20</h3>
+                <h3 class="box-title"></h3>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-close" href="#"></a></li>
                     <li><a class="box-btn-slide" href="#"></a></li>
@@ -113,9 +115,9 @@
                                     </td>
                                     <td class="b-3 border-white text-left">
                                         <a href="{% url 'kartka_naprawy' pk=naprawa.id %}">
-                                        {% if naprawa.KNP_NR_SERYJNY %}    
-                                            {{ naprawa.KNP_NR_SERYJNY }}
-                                        {% endif %}
+                                            {% if naprawa.KNP_NR_SERYJNY %}
+                                                {{ naprawa.KNP_NR_SERYJNY }}
+                                            {% endif %}
                                         </a>
                                     </td>
                                     <td class="b-3 border-white text-left">
@@ -124,7 +126,7 @@
                                     <td class="b-3 border-white text-left">
                                         <a href="{% url 'kartka_naprawy' pk=naprawa.id %}">{{ naprawa.KNP_PR_DATA_KONCANAPR }}</a>
                                     </td>
-                                    
+
                                 </tr>
                                 </tbody>
 

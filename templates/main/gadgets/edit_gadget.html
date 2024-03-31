@@ -3,12 +3,16 @@
 {% block content %}
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>
-            Edycja Naprawy {{ gadget.id }}
+    <h1>
+            <div class="media-body">
+                <h1 class="text-fade">Edycja Naprawy {{ gadget.id }}</h1>
+                <span class="text-fade"><i
+                        class="fa fa-map-marker"></i> {{ gadget.location }}</span>
+            </div> 
         </h1>
+        
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
-            <li class="breadcrumb-item active">Edituj Naprawe</li>
+            
         </ol>
     </section>
 
@@ -19,7 +23,7 @@
         <div class="box">
             <div class="box-header with-border">
 
-                <h3 class="box-title">Kartka Urządzenia {{ gadget.id }} {% if gadget.in_serwis == True %}
+                <h3 class="box-title text-fade">Dane Urządzenia {{ gadget.id }} {% if gadget.in_serwis == True %}
                     <span class="badge badge-primary font-size-16">W serwise</span> {% elif gadget.in_serwis == False %}
                     <span class="badge badge-secondary font-size-16">Wydane</span> {% endif %}
 

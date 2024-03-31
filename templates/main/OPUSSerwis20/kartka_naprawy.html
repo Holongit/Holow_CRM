@@ -3,7 +3,12 @@
 
     <section class="content-header">
         <h1>
-            #{{ naprawa_opus.id }}
+            <div class="media-body">
+                <h1 class="text-fade">#{{ naprawa_opus.id }}</h1>
+            </div>
+        </h1>
+        <h1>
+            
         </h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
@@ -17,7 +22,7 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    Kartka {{ naprawa_opus.KNP_NR_SER_KOL }} /{{ naprawa_opus.KNP_NR_ROK }} 
+                    Kartka {{ naprawa_opus.KNP_NR_SER_KOL }} /{{ naprawa_opus.KNP_NR_ROK }}
                 </h3>
                 <span class="badge bg-pale-dark font-size-14 pull-right mr-90">{{ naprawa_opus.KNP_POCZATEK_NAPRAWY }} - {{ naprawa_opus.KNP_PR_DATA_KONCANAPR }}</span>
                 <ul class="box-controls pull-right">
@@ -70,7 +75,7 @@
                                 {% endif %}
                                 {% if naprawa_opus.KNP_NR_WLASCICIELA.email_klient %}
                                     <div class="form-group">
-                                    
+
                                         <h5>Wykonane Naprawy: <span
                                                 class="font-weight-bold font-size-20">{{ naprawa_opus.KNP_WYKONANE_NAPRAWY }}</span>
                                         </h5>

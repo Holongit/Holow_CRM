@@ -3,19 +3,24 @@
 
     <section class="content-header">
         <h1>
-            {{ technik.first_name }} {{ technik.last_name }} Kartka Napraw za 0{{ month }}-{{ now.year }}
+            <div class="media-body">
+                <h1 class="text-fade">{{ technik.first_name }} {{ technik.last_name }}</h1>
+                <span class="text-fade">Kartka Napraw za 0{{ month }}-{{ now.year }}</span>
+            </div>
+        </h1>
+        <h1>
+             
 
         </h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="fa fa-edit"></i> </a></li>
-            <li class="breadcrumb-item active">Urządzenia</li>
+
         </ol>
     </section>
     <section class="content">
         <div class="col-12 col-lg-12">
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title float-left mt-10">Miesiąc</h3>
+                    <h3 class="box-title float-left mt-10 text-fade">Miesiąc</h3>
                     <form class="float-left ml-20 mt-10">
                         <div class="btn-group">
                             <button type="button" class="btn dropdown-toggle btn-sm"
