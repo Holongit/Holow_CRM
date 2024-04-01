@@ -215,9 +215,9 @@
                             {% endif %}
                         </td>
                         <td>
-                            {% if gadgets_data.alarm_on %}
-                            <badge class="btn bg-pale-primary btn-xs font-size-14">{{ gadgets_data.time_alarm_get }}</badge>
-                            {% endif %}
+{#                            {% if gadgets_data.alarm_on %}#}
+{#                            <badge class="btn bg-pale-primary btn-xs font-size-14">{{ gadgets_data.time_alarm_get }}</badge>#}
+{#                            {% endif %}#}
                         </td>
                         <td class="b-3 border-white">
                             <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm=1 %}">
