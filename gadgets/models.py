@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.utils.duration import duration_string
 
 from klienty.models import Klient
 
@@ -46,11 +47,10 @@ class Gadget(models.Model):
         time = timezone.now() - self.managed_at
         return time.days
 
-    # def time_alarm_get(self):
-    #     if self.alarm_on:
-    #         time = self.alarm_at - timezone.now()
-    #         time_str = f"{str(time).split(".")[0]}"
-    #         return time_str
+    def time_alarm_get(self):
+        if self.alarm_on:
+            time = self.alarm_at - timezone.now()
+            return duration_string(time)[:-7]
 
     def alarm_gadget(self):
         if timezone.now() > self.alarm_at and self.alarm_on:
