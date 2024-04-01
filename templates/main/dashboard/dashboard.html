@@ -4,10 +4,10 @@
         <h1>
             <div class="media-body">
                 <h1 class="text-fade mb-1">Strona główna</h1>
-            </div>  
+            </div>
         </h1>
         <ol class="breadcrumb">
-            
+
         </ol>
     </section>
     <section class="content">
@@ -155,6 +155,8 @@
                                                     <i class="fa fa-cogs font-size-30"></i>
                                                 {% elif note.title == 'UWAGA' %}
                                                     <i class="glyphicon glyphicon-exclamation-sign font-size-30"></i>
+                                                {% elif note.title == 'ZALICZKA' %}
+                                                    <i class="fa fa-money  font-size-30"></i>
                                                 {% elif note.title == 'ZGODA' %}
                                                     <i class="fa fa-check-circle font-size-30"></i>
                                                 {% elif note.title == 'ZADANIE' %}
