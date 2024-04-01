@@ -58,7 +58,7 @@ def index_manager(request):
     else:
         serching_gad = gadget_in_serwis
 
-    paginator = Paginator(serching_gad, 40)
+    paginator = Paginator(serching_gad, 300)
 
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)

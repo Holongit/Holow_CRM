@@ -49,7 +49,8 @@ class Gadget(models.Model):
     def time_alarm_get(self):
         if self.alarm_on:
             time = self.alarm_at - timezone.now()
-            return f"{str(time).split(".")[0]}"
+            time_str = f"{str(time).split(".")[0]}"
+            return time_str
 
     def alarm_gadget(self):
         if timezone.now() > self.alarm_at and self.alarm_on:
