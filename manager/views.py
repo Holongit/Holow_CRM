@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
@@ -30,16 +31,19 @@ def index_manager(request):
 
     # cleaned_phone_number = re.sub(r'\D', '', search_query)
 
-    warning_list_gadget = Gadget.objects.filter(status='NOWY')
+    warning_list_gadget = Gadget.objects.filter(in_serwis=True)
 
     if not SetingsCRM.objects.filter(user_id=user.id).exists():
         SetingsCRM.objects.create(user_id=user.id)
 
-    if SetingsCRM.objects.get(user_id=user.id).filter_gadget == 'WSZYSCY':
+    if SetingsCRM.objects.get(user_id=user.id).filter_manager == 'WSZYSCY':
         gadget_in_serwis = warning_list_gadget
 
-    if SetingsCRM.objects.get(user_id=user.id).filter_gadget == 'W SERWISIE':
-        gadget_in_serwis = Gadget.objects.filter(in_serwis=True)
+    if SetingsCRM.objects.get(user_id=user.id).filter_manager == 'PONIŻEJ 60 DNI':
+        gadget_in_serwis = warning_list_gadget.filter(updated_at__gt=timezone.now() - timedelta(days=60))
+
+    if SetingsCRM.objects.get(user_id=user.id).filter_manager == 'PONAD 60 DNI':
+        gadget_in_serwis = warning_list_gadget.filter(updated_at__lt=timezone.now() - timedelta(days=60))
 
     if len(str(search_query_int)) <= 5 and search_query_int > 0:
         serching_gad = gadget_in_serwis.filter(id=search_query_int)
@@ -84,3 +88,23 @@ def index_manager(request):
     }
 
     return render(request, 'manager/index_manager.html', context)
+
+
+@login_required(login_url='login')
+def alarm_at_change(request, pk, alarm):
+    gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
+    gadget.alarm_on = True
+    if alarm == 'A':
+        clear_alarm = 14
+    elif alarm == 'B':
+        clear_alarm = 30
+    elif alarm == 'C':
+        clear_alarm = 0
+        gadget.alarm_on = False
+    else:
+        clear_alarm = int(alarm)
+
+    alarm_at = timezone.now() + timedelta(days=clear_alarm)
+    gadget.alarm_at = alarm_at
+    gadget.save()
+    return redirect(request.META.get('HTTP_REFERER'))

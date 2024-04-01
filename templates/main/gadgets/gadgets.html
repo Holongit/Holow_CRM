@@ -143,7 +143,7 @@
                                 {% if gadgets_data.location == filters.filter_dashboar %}
 
                                     <tbody>
-                                    <tr class="text-center font-size-14">
+                                    <tr class="text-center font-size-16">
                                         <td class="b-3 border-white"
                                                 {% if request.user.is_authenticated and request.user.is_staff %}
                                             data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
@@ -287,6 +287,7 @@
                                                         {% endif %} btn-xs">{{ gadgets_data.status }}
                                                 </button>
                                             {% endif %}
+                                        <badge class="btn btn-secondary btn-xs btn-rounded">{{ gadgets_data.time_in_status_get }} dni</badge>
                                         </td>
                                         <td class="b-3 border-white">
                                             {% if request.user.is_authenticated and request.user.is_staff %}

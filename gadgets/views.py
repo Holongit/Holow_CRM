@@ -204,6 +204,7 @@ def delete_gadget(request, pk):
 def gadget_status_change(request, pk, status):
     gadget = get_object_or_404(Gadget.objects.all(), pk=pk)
     gadget.status = status
+    gadget.managed_at = timezone.now()
     gadget.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
@@ -221,6 +222,15 @@ def filters_gadget_change(request, status):
     user = request.user
     setings_f = get_object_or_404(SetingsCRM.objects.all(), user_id=user.id)
     setings_f.filter_gadget = status
+    setings_f.save()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required(login_url='login')
+def filters_manager_change(request, status):
+    user = request.user
+    setings_f = get_object_or_404(SetingsCRM.objects.all(), user_id=user.id)
+    setings_f.filter_manager = status
     setings_f.save()
     return redirect(request.META.get('HTTP_REFERER'))
 

@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>
         <div class="media-body">
-            <h1 class="text-fade">Urządzenia</h1>
+            <h1 class="text-fade">Manager</h1>
             <span class="text-fade"><i
                     class="fa fa-map-marker"></i> {{ filters.filter_dashboar }}</span>
         </div>
@@ -38,16 +38,19 @@
             <form class="float-left ml-20 mt-20 ">
                 <div class="btn-group">
                     <button type="button" class="btn font-size-16
-                                                        {% if filters.filter_gadget == 'WSZYSCY' %} btn-primary
-                                                        {% elif filters.filter_gadget == 'W SERWISIE' %} btn-secondary                                                        
+                                                        {% if filters.filter_manager == 'WSZYSCY' %} btn-primary
+                                                        {% elif filters.filter_manager == 'PONIŻEJ 60 DNI' %} bg-pale-primary
+                                                        {% elif filters.filter_manager == 'PONAD 60 DNI' %} btn-secondary                                                        
                                                         {% endif %} dropdown-toggle btn-sm"
-                            data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_gadget }}
+                            data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_manager }}
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item"
-                           href="{% url 'filters_gadget_change' status='WSZYSCY' %}">WSZYSCY</a>
+                           href="{% url 'filters_manager_change' status='WSZYSCY' %}">WSZYSCY</a>
                         <a class="dropdown-item"
-                           href="{% url 'filters_gadget_change' status='W SERWISIE' %}">W SERWISIE</a>
+                           href="{% url 'filters_manager_change' status='PONIŻEJ 60 DNI' %}">PONIŻEJ 60 DNI</a>
+                        <a class="dropdown-item"
+                           href="{% url 'filters_manager_change' status='PONAD 60 DNI' %}">PONAD 60 DNI</a>
                     </div>
                 </div>
             </form>

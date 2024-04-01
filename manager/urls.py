@@ -21,6 +21,7 @@ from manager.views import *
 
 
 urlpatterns = [
-    path('', index_manager, name='index_manager')
+    path('', index_manager, name='index_manager'),
+    path('alarm/<int:pk><str:alarm>', alarm_at_change, name='alarm_at_change'),
 ]
 

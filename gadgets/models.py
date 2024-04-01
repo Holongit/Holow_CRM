@@ -20,6 +20,7 @@ class Gadget(models.Model):
     updated_at = models.DateTimeField(default=timezone.now)
     managed_at = models.DateTimeField(default=timezone.now)
     alarm_at = models.DateTimeField(default=timezone.now)
+    alarm_on = models.BooleanField(default=False, blank=True, null=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     klient = models.ForeignKey(Klient, on_delete=models.PROTECT, null=True)
     location = models.CharField(max_length=32, default='STOKŁOSY', db_index=True, blank=True, null=True)
@@ -41,6 +42,21 @@ class Gadget(models.Model):
         time = timezone.now() - self.updated_at
         return time.days
 
+    def time_in_status_get(self):
+        time = timezone.now() - self.managed_at
+        return time.days
+
+    def time_alarm_get(self):
+        if self.alarm_on:
+            time = self.alarm_at - timezone.now()
+            return f"{str(time).split(".")[0]}"
+
+    def alarm_gadget(self):
+        if timezone.now() > self.alarm_at and self.alarm_on:
+            return True
+        else:
+            return False
+
     def get_absolute_url(self):
         return reverse('edit_gadget', kwargs={'pk': self.pk})
 
@@ -57,6 +73,7 @@ class Gadget(models.Model):
 
 class SetingsCRM(models.Model):
     filter_gadget = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
+    filter_manager = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
     filter_klient = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
     filter_dashboar = models.CharField(max_length=16, default='STOKŁOSY', null=True, blank=True)
     filter_work = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
