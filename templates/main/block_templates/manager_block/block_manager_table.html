@@ -220,6 +220,9 @@
                             {% endif %}
                         </td>
                         <td class="b-3 border-white">
+                            <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm='C' %}">
+                                <button class="btn btn-primary btn-rounded btn-outline">0</button>
+                            </a>
                             <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm=1 %}">
                                 <button class="btn btn-primary btn-rounded btn-outline">1</button>
                             </a>
@@ -237,9 +240,6 @@
                             </a>
                             <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm='B' %}">
                                 <button class="btn btn-primary btn-rounded btn-outline">30</button>
-                            </a>
-                            <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm='C' %}">
-                                <button class="btn btn-primary btn-rounded btn-outline">0</button>
                             </a>
                         </td>
                     </tr>
