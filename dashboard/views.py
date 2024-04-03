@@ -27,6 +27,7 @@ def index_dash(request):
         'qnt_gadgets': qnt_gadgetsq,
         'gadgets_czeka': gadgets_czeka,
         'notatki': notatki,
+
     }
 
     return render(request, 'dashboard/dashboard.html', context=context)
