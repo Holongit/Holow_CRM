@@ -57,7 +57,7 @@
             </div>
             {% if request.user.is_staff %}
                 {% for technik in techniki %}
-                    {% if technik.workers_set.exists %}
+                    {% if technik.workers_set.exists and technik.kartkaplatne_set.first.get_platne_year_worker_count %}
                         <div class="col-md-6 col-lg-3">
                             <div class="box">
                                 <div class="box-header"><h4 class="box-title">{{ technik.username }}</h4>
@@ -69,22 +69,22 @@
                                         <a class="media media-single"
                                            href="{% url 'kartka_napraw' pk=technik.id %}">
                                             <span class="title font-size-16 text-fade">Płatne</span>
-                                            <span class="badge badge-lg badge-info">{{ technik.kartkaplatne_set.count }}</span>
+                                            <span class="badge badge-lg badge-info">{{ technik.kartkaplatne_set.first.get_platne_month_worker_count|default:'0'  }}</span>
                                         </a>
                                         <a class="media media-single"
                                            href="{% url 'kartka_napraw' pk=technik.id %}">
                                             <span class="title font-size-16 text-fade">Gwarancja</span>
-                                            <span class="badge badge-lg badge-warning">{{ technik.kartkagwarancja_set.count }}</span>
+                                            <span class="badge badge-lg badge-warning">{{ technik.kartkagwarancja_set.first.get_gwarancja_month_worker_count|default:'0' }}</span>
                                         </a>
                                         <a class="media media-single"
                                            href="{% url 'kartka_napraw' pk=technik.id %}">
                                             <span class="title font-size-16 text-fade">Reklamacja</span>
-                                            <span class="badge badge-lg badge-danger">{{ technik.kartkareklamacja_set.count }}</span>
+                                            <span class="badge badge-lg badge-danger">{{ technik.kartkareklamacja_set.first.get_reklamacja_month_worker_count|default:'0' }}</span>
                                         </a>
                                         <a class="media media-single"
                                            href="{% url 'kartka_napraw' pk=technik.id %}">
                                             <span class="title font-size-16 text-fade">Rezygnacja</span>
-                                            <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.count }}</span>
+                                            <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.first.get_rezygnacja_month_worker_count|default:'0' }}</span>
                                         </a>
 
 
@@ -108,22 +108,22 @@
                                         <a class="media media-single"
                                            href="{% url 'kartka_napraw' pk=technik.id %}">
                                             <span class="title font-size-16 text-fade">Płatne</span>
-                                            <span class="badge badge-lg badge-info">{{ technik.kartkaplatne_set.count }}</span>
+                                            <span class="badge badge-lg badge-info">{{ technik.kartkaplatne_set.first.get_platne_month_worker_count|default:'0' }}</span>
                                         </a>
                                         <a class="media media-single"
                                            href="{% url 'kartka_napraw' pk=technik.id %}">
                                             <span class="title font-size-16 text-fade">Gwarancja</span>
-                                            <span class="badge badge-lg badge-warning">{{ technik.kartkagwarancja_set.count }}</span>
+                                            <span class="badge badge-lg badge-warning">{{ technik.kartkagwarancja_set.first.get_gwarancja_month_worker_count|default:'0' }}</span>
                                         </a>
                                         <a class="media media-single"
                                            href="{% url 'kartka_napraw' pk=technik.id %}">
                                             <span class="title font-size-16 text-fade">Reklamacja</span>
-                                            <span class="badge badge-lg badge-danger">{{ technik.kartkareklamacja_set.count }}</span>
+                                            <span class="badge badge-lg badge-danger">{{ technik.kartkareklamacja_set.first.get_reklamacja_month_worker_count|default:'0' }}</span>
                                         </a>
                                         <a class="media media-single"
                                            href="{% url 'kartka_napraw' pk=technik.id %}">
                                             <span class="title font-size-16 text-fade">Rezygnacja</span>
-                                            <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.count }}</span>
+                                            <span class="badge badge-lg badge-purple">{{ technik.kartkarezygnacja_set.first.get_rezygnacja_month_worker_count|default:'0' }}</span>
                                         </a>
 
 

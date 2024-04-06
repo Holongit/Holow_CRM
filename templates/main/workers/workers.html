@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
                                 
-                                {% for item_g in item_u.workers_set.all %}
+                                {% for item_g in item_u.workers_set.all|slice:":20" %}
                                     {% if item_g.in_work %}
                                         <div class="box-footer no-padding">
                                             <ul class="nav d-block nav-stacked font-size-16">

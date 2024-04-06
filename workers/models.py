@@ -49,16 +49,16 @@ class KartkaPlatne(models.Model):
     def __str__(self):
         return self.gadget
 
-    def get_platne_day_count(self):
-        qnt_all = KartkaPlatne.objects.all()
+    def get_platne_day_worker_count(self):
+        qnt_all = KartkaPlatne.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__day=TODAY.day).count()
 
-    def get_platne_month_count(self):
-        qnt_all = KartkaPlatne.objects.all()
+    def get_platne_month_worker_count(self):
+        qnt_all = KartkaPlatne.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__month=TODAY.month).count()
 
-    def get_platne_year_count(self):
-        qnt_all = KartkaPlatne.objects.all()
+    def get_platne_year_worker_count(self):
+        qnt_all = KartkaPlatne.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__year=TODAY.year).count()
 
 
@@ -77,16 +77,16 @@ class KartkaGwarancja(models.Model):
     def __str__(self):
         return self.gadget
 
-    def get_gwarancja_day_count(self):
-        qnt_all = KartkaGwarancja.objects.all()
+    def get_gwarancja_day_worker_count(self):
+        qnt_all = KartkaGwarancja.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__day=TODAY.day).count()
 
-    def get_gwarancja_month_count(self):
-        qnt_all = KartkaGwarancja.objects.all()
+    def get_gwarancja_month_worker_count(self):
+        qnt_all = KartkaGwarancja.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__month=TODAY.month).count()
 
-    def get_gwarancja_year_count(self):
-        qnt_all = KartkaGwarancja.objects.all()
+    def get_gwarancja_year_worker_count(self):
+        qnt_all = KartkaGwarancja.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__year=TODAY.year).count()
 
 class KartkaRezygnacja(models.Model):
@@ -104,16 +104,16 @@ class KartkaRezygnacja(models.Model):
     def __str__(self):
         return self.gadget
 
-    def get_rezygnacja_day_count(self):
-        qnt_all = KartkaRezygnacja.objects.all()
+    def get_rezygnacja_day_worker_count(self):
+        qnt_all = KartkaRezygnacja.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__day=TODAY.day).count()
 
-    def get_rezygnacja_month_count(self):
-        qnt_all = KartkaRezygnacja.objects.all()
+    def get_rezygnacja_month_worker_count(self):
+        qnt_all = KartkaRezygnacja.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__month=TODAY.month).count()
 
-    def get_rezygnacja_year_count(self):
-        qnt_all = KartkaRezygnacja.objects.all()
+    def get_rezygnacja_year_worker_count(self):
+        qnt_all = KartkaRezygnacja.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__year=TODAY.year).count()
 
 
@@ -132,14 +132,14 @@ class KartkaReklamacja(models.Model):
     def __str__(self):
         return self.gadget
 
-    def get_reklamacja_day_count(self):
-        qnt_all = KartkaReklamacja.objects.all()
+    def get_reklamacja_day_worker_count(self):
+        qnt_all = KartkaReklamacja.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__day=TODAY.day).count()
 
-    def get_reklamacja_month_count(self):
-        qnt_all = KartkaReklamacja.objects.all()
+    def get_reklamacja_month_worker_count(self):
+        qnt_all = KartkaReklamacja.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__month=TODAY.month).count()
 
-    def get_reklamacja_year_count(self):
-        qnt_all = KartkaReklamacja.objects.all()
+    def get_reklamacja_year_worker_count(self):
+        qnt_all = KartkaReklamacja.objects.filter(worker=self.worker)
         return qnt_all.filter(created_at__year=TODAY.year).count()
