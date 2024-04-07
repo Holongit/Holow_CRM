@@ -17,7 +17,6 @@ def index_dash(request):
 
     gadgets_in_serwis = gadgets_all.filter(in_serwis=True)
     gadgets_in_serwis_count = gadgets_in_serwis.count()
-    # qnt_gadgets_month = gadgets_all.filter(created_at__month=TODAY.month).count()
     gadgets_ok = gadgets_in_serwis.filter(workers__in_work=False).count()
     gadgets_serwis = Workers.objects.filter(in_work=True, gadget__in_serwis=True).count()
     gadgets_new_count = gadgets_in_serwis.filter(status__icontains='NOWY').count()
