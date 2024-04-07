@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from gadgets.models import SetingsCRM
 from notes.form import *
 from workers.models import *
-from dashboard.models import ServisLocationList
+
 
 
 @login_required(login_url='login')
@@ -13,19 +14,23 @@ def index_dash(request):
     gadgets_all = Gadget.objects.all()
     techniki = User.objects.all()
     tpl = User.objects.get(id=1)
-    qnt_gadgetsq = gadgets_all.filter(in_serwis=True).count()
-    gadgets_ok = gadgets_all.filter(status__icontains='GOTOWY').count()
-    gadgets_serwis = gadgets_all.filter(status__icontains='NAPRAWIENIE').count()
-    gadgets_czeka = gadgets_all.filter(status__icontains='CZEKA NA CZĘŚCI').count()
+
+    gadgets_in_serwis = gadgets_all.filter(in_serwis=True)
+    gadgets_in_serwis_count = gadgets_in_serwis.count()
+    # qnt_gadgets_month = gadgets_all.filter(created_at__month=TODAY.month).count()
+    gadgets_ok = gadgets_in_serwis.filter(workers__in_work=False).count()
+    gadgets_serwis = Workers.objects.filter(in_work=True, gadget__in_serwis=True).count()
+    gadgets_new_count = gadgets_in_serwis.filter(status__icontains='NOWY').count()
 
     context = {
+        'gadgets_all': gadgets_all,
         'tpl': tpl,
         'now': TODAY,
         'techniki': techniki,
         'gadgets_serwis': gadgets_serwis,
         'gadgets_ok': gadgets_ok,
-        'qnt_gadgets': qnt_gadgetsq,
-        'gadgets_czeka': gadgets_czeka,
+        'qnt_gadgets': gadgets_in_serwis_count,
+        'gadgets_new_count': gadgets_new_count,
         'notatki': notatki,
 
     }
