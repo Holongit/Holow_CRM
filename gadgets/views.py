@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
@@ -14,28 +16,43 @@ from notes.form import NoteForm
 from workers.models import Workers
 from workers.views import add_gadget_to_worker
 from klienty.models import Klient
-import re
+
 
 @login_required(login_url='login')
 def index_gad(request):
     user = request.user
     global gadget_in_serwis
     search_query = request.GET.get('q', '')
+    date_range = request.GET.get('date_range', '')
     if search_query.isnumeric():
         search_query_int = int(search_query)
     else:
         search_query_int = 0
 
-    #cleaned_phone_number = re.sub(r'\D', '', search_query)
+    date_one = date_range[:10]
+    date_two = date_range[14:]
 
     if not SetingsCRM.objects.filter(user_id=user.id).exists():
         SetingsCRM.objects.create(user_id=user.id)
 
-    if SetingsCRM.objects.get(user_id=user.id).filter_gadget == 'WSZYSCY':
-        gadget_in_serwis = Gadget.objects.all()
+    if date_range:
+        date_one_date_time_obj = datetime.strptime(date_one, '%Y-%m-%d')
+        date_two_date_time_obj = datetime.strptime(date_two, '%Y-%m-%d')
+        gadget_date_range = Gadget.objects.filter(created_at__gt=date_one_date_time_obj,
+                                                  created_at__lt=date_two_date_time_obj,
+                                                  )
 
-    if SetingsCRM.objects.get(user_id=user.id).filter_gadget == 'W SERWISIE':
-        gadget_in_serwis = Gadget.objects.filter(in_serwis=True)
+        if SetingsCRM.objects.get(user_id=user.id).filter_gadget == 'WSZYSCY':
+            gadget_in_serwis = gadget_date_range
+
+        if SetingsCRM.objects.get(user_id=user.id).filter_gadget == 'W SERWISIE':
+            gadget_in_serwis = gadget_date_range.filter(in_serwis=True)
+    else:
+        if SetingsCRM.objects.get(user_id=user.id).filter_gadget == 'WSZYSCY':
+            gadget_in_serwis = Gadget.objects.all()
+
+        if SetingsCRM.objects.get(user_id=user.id).filter_gadget == 'W SERWISIE':
+            gadget_in_serwis = Gadget.objects.filter(in_serwis=True)
 
     if len(str(search_query_int)) <= 5 and search_query_int > 0:
         serching_gad = gadget_in_serwis.filter(id=search_query_int)
@@ -50,7 +67,7 @@ def index_gad(request):
     else:
         serching_gad = gadget_in_serwis
 
-    paginator = Paginator(serching_gad, 40)
+    paginator = Paginator(serching_gad, 80)
 
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
@@ -295,4 +312,3 @@ def add_opis_naprawy(request, pk):
             gadget.save()
             return redirect('gadget_info', pk=pk)
         return redirect(request.META.get('HTTP_REFERER'))
-

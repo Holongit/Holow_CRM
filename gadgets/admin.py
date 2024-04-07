@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from gadgets.models import Gadget,SetingsCRM
+from gadgets.models import Gadget, SetingsCRM
 
 
 admin.site.register(Gadget)

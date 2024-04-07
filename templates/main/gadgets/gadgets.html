@@ -1,5 +1,6 @@
 {% extends 'index.html' %}
 {% block content %}
+
     <section class="content-header">
         <h1>
             <div class="media-body">
@@ -33,8 +34,21 @@
                     <div class="input-group">
                         <input class="form-control" type="search" name="q" aria-label="#" placeholder="Szukaj">
                         <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default">Szukaj</button>
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                         </span>
+                    </div>
+                </form>
+
+                <!-- Calendar -->
+
+                <form class="navbar-form navbar-left float-left">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="date form-control" name="date_range" placeholder="Wybierz daty">
+                            <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-calendar-plus-o"></i></button>
+                                </span>
+                        </div>
                     </div>
                 </form>
                 <!-- CONTENT_MAIN -->
@@ -44,7 +58,7 @@
                                                         {% if filters.filter_gadget == 'WSZYSCY' %} btn-primary
                                                         {% elif filters.filter_gadget == 'W SERWISIE' %} btn-secondary                                                        
                                                         {% endif %} dropdown-toggle btn-sm"
-                                data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_gadget }}
+                                data-toggle="dropdown">Urządzenia: {{ filters.filter_gadget }}
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item"
@@ -73,6 +87,9 @@
                         </div>
                     </form>
                 {% endif %}
+
+
+
                 {% if is_paginated %}
                     <form class="navbar-form navbar-right">
                         <nav aria-label="...">
@@ -362,7 +379,8 @@
 
                                                     <a href="{% url 'outgo_gadget' pk=gadgets_data.pk %}">
                                                         {% if gadgets_data.in_serwis == True %}
-                                                            <button class="btn bg-pale-primary btn-xs">Wydaj</button>
+                                                            <button class="btn bg-pale-primary btn-xs">Wydaj
+                                                            </button>
                                                         {% else %}
                                                             <button class="btn bg-primary btn-xs">Przyjmij</button>
                                                         {% endif %}
@@ -378,9 +396,10 @@
                                                                href=""><h4>Jesteś pewny?</h4>
                                                             </a>
                                                             <a class="text-center dropdown-item"
-                                                               href="{% url 'delete_gadget' pk=gadgets_data.pk %}"><h4
-                                                                    class="fa fa-trash">
-                                                                DELETE</h4></a>
+                                                               href="{% url 'delete_gadget' pk=gadgets_data.pk %}">
+                                                                <h4
+                                                                        class="fa fa-trash">
+                                                                    DELETE</h4></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -461,6 +480,13 @@
 
                 </div>
     </section>
+    
+    <script>
+        flatpickr(".date", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+        });
+    </script>
     <script>
         $(document).ready(function ($) {
             $('*[data-href]').on('click', function () {

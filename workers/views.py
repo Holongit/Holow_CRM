@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
@@ -26,19 +28,40 @@ def workers_gad_list(request, pk):
     global gadget_in_serwis
     user = request.user
     search_query = request.GET.get('q', '')
+    date_range = request.GET.get('date_range', '')
     if search_query.isnumeric():
         search_query_int = int(search_query)
     else:
         search_query_int = 0
 
+    date_one = date_range[:10]
+    date_two = date_range[14:]
+
     if not SetingsCRM.objects.filter(user_id=user.id).exists():
         SetingsCRM.objects.create(user_id=user.id)
 
-    if SetingsCRM.objects.get(user_id=user.id).filter_work == 'WSZYSCY':
-        gadget_in_serwis = Workers.objects.filter(worker=pk)
+    if date_range:
+        date_one_date_time_obj = datetime.strptime(date_one, '%Y-%m-%d')
+        date_two_date_time_obj = datetime.strptime(date_two, '%Y-%m-%d')
+        gadget_date_range = Workers.objects.filter(added_at__gt=date_one_date_time_obj,
+                                                   added_at__lt=date_two_date_time_obj,
+                                                   worker=pk,
+                                                   )
+        if SetingsCRM.objects.get(user_id=user.id).filter_work == 'WSZYSCY':
+            gadget_in_serwis = gadget_date_range
 
-    if SetingsCRM.objects.get(user_id=user.id).filter_work == 'W SERWISIE':
-        gadget_in_serwis = Workers.objects.filter(worker=pk, in_work=True)
+        if SetingsCRM.objects.get(user_id=user.id).filter_work == 'W SERWISIE':
+            gadget_in_serwis = gadget_date_range.filter(worker=pk,
+                                                        in_work=True,
+                                                        )
+    else:
+        if SetingsCRM.objects.get(user_id=user.id).filter_work == 'WSZYSCY':
+            gadget_in_serwis = Workers.objects.filter(worker=pk)
+
+        if SetingsCRM.objects.get(user_id=user.id).filter_work == 'W SERWISIE':
+            gadget_in_serwis = Workers.objects.filter(worker=pk,
+                                                      in_work=True,
+                                                      )
 
     if len(str(search_query_int)) <= 5 and search_query_int > 0:
         serching_gad = gadget_in_serwis.filter(gadget__id=search_query_int)

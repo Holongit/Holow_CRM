@@ -5,9 +5,9 @@
             <div class="media-body">
                 <h1 class="text-fade">{{ user.username }}</h1>
                 <span class="text-fade"><i
-                        class="fa fa-map-marker"></i> {{ user.workers_set.first.gadget.location  }}</span>
+                        class="fa fa-map-marker"></i> {{ user.workers_set.first.gadget.location }}</span>
             </div>
-            
+
         </h1>
         <ol class="breadcrumb">
 
@@ -34,6 +34,16 @@
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default">Szukaj</button>
                         </span>
+                    </div>
+                </form>
+                <form class="navbar-form navbar-left float-left">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="date form-control" name="date_range" placeholder="Wybierz daty">
+                            <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-calendar-plus-o"></i></button>
+                                </span>
+                        </div>
                     </div>
                 </form>
                 <!-- CONTENT_MAIN -->
@@ -422,6 +432,12 @@
 
                 <div class="box-footer"></div>
     </section>
+    <script>
+        flatpickr(".date", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+        });
+    </script>
     <script>
         $(document).ready(function ($) {
             $('*[data-href]').on('click', function () {
