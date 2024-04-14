@@ -38,7 +38,7 @@
             <form class="float-left ml-20 mt-20 ">
                 <div class="btn-group">
                     <button type="button" class="btn font-size-16
-                                                        {% if filters.filter_manager == 'WSZYSCY' %} btn-primary
+                                                        {% if filters.filter_manager == 'CAŁY CZAS' %} btn-primary
                                                         {% elif filters.filter_manager == '7 DNI' %} bg-pale-primary
                                                         {% elif filters.filter_manager == '14 DNI' %} bg-pale-primary
                                                         {% elif filters.filter_manager == '30 DNI' %} bg-pale-primary
@@ -46,16 +46,11 @@
                                                         {% elif filters.filter_manager == 'BUDZIK' %} bg-pale-primary
                                                         {% elif filters.filter_manager == 'PONAD 60 DNI' %} btn-secondary                                                        
                                                         {% endif %} dropdown-toggle btn-sm"
-                            data-toggle="dropdown">
-                        {% if filters.filter_manager == 'WSZYSCY' %}
-                            CAŁY CZAS
-                        {% else %}
-                            {{ filters.filter_manager }}
-                        {% endif %}
+                            data-toggle="dropdown">{{ filters.filter_manager }}
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item"
-                           href="{% url 'filters_manager_change' status='WSZYSCY' %}">CAŁY CZAS</a>
+                           href="{% url 'filters_manager_change' status='CAŁY CZAS' %}">CAŁY CZAS</a>
                         <a class="dropdown-item"
                            href="{% url 'filters_manager_change' status='7 DNI' %}">7 DNI</a>
                         <a class="dropdown-item"
