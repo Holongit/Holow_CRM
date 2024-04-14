@@ -43,7 +43,7 @@ def index_manager(request):
             alarm_off_gadget.alarm_on = False
             alarm_off_gadget.save()
 
-    if SetingsCRM.objects.get(user_id=user.id).filter_manager == 'CAŁY CZAS':
+    if SetingsCRM.objects.get(user_id=user.id).filter_manager == 'WSZYSCY':
         gadget_in_serwis = warning_list_gadget
 
     if SetingsCRM.objects.get(user_id=user.id).filter_manager == '7 DNI':

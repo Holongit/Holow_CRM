@@ -74,7 +74,7 @@ class Gadget(models.Model):
 
 class SetingsCRM(models.Model):
     filter_gadget = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
-    filter_manager = models.CharField(max_length=16, default='CAŁY CZAS', null=True, blank=True)
+    filter_manager = models.CharField(max_length=16, default='WSZYSCY', null=True, blank=True)
     filter_manager_gotowy = models.BooleanField(default=True, blank=True, null=True)
     filter_manager_zaliczka = models.BooleanField(default=True, blank=True, null=True)
     filter_manager_nowy = models.BooleanField(default=True, blank=True, null=True)
