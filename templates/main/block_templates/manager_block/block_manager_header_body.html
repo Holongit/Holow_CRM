@@ -7,7 +7,7 @@
         </div>
     </h1>
     <ol class="breadcrumb">
-        
+
     </ol>
 
 </section>
@@ -38,19 +38,31 @@
             <form class="float-left ml-20 mt-20 ">
                 <div class="btn-group">
                     <button type="button" class="btn font-size-16
-                                                        {% if filters.filter_manager == 'WSZYSCY' %} btn-primary
-                                                        {% elif filters.filter_manager == 'PONIŻEJ 60 DNI' %} bg-pale-primary
+                                                        {% if filters.filter_manager == 'CAŁY CZAS' %} btn-primary
+                                                        {% elif filters.filter_manager == '7 DNI' %} bg-pale-primary
+                                                        {% elif filters.filter_manager == '14 DNI' %} bg-pale-primary
+                                                        {% elif filters.filter_manager == '30 DNI' %} bg-pale-primary
+                                                        {% elif filters.filter_manager == '60 DNI' %} bg-pale-primary
+                                                        {% elif filters.filter_manager == 'BUDZIK' %} bg-pale-primary
                                                         {% elif filters.filter_manager == 'PONAD 60 DNI' %} btn-secondary                                                        
                                                         {% endif %} dropdown-toggle btn-sm"
-                            data-toggle="dropdown">Pokaż urządzenia: {{ filters.filter_manager }}
+                            data-toggle="dropdown">{{ filters.filter_manager }}
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item"
-                           href="{% url 'filters_manager_change' status='WSZYSCY' %}">WSZYSCY</a>
+                           href="{% url 'filters_manager_change' status='CAŁY CZAS' %}">CAŁY CZAS</a>
                         <a class="dropdown-item"
-                           href="{% url 'filters_manager_change' status='PONIŻEJ 60 DNI' %}">PONIŻEJ 60 DNI</a>
+                           href="{% url 'filters_manager_change' status='7 DNI' %}">7 DNI</a>
+                        <a class="dropdown-item"
+                           href="{% url 'filters_manager_change' status='14 DNI' %}">14 DNI</a>
+                        <a class="dropdown-item"
+                           href="{% url 'filters_manager_change' status='30 DNI' %}">30 DNI</a>
+                        <a class="dropdown-item"
+                           href="{% url 'filters_manager_change' status='60 DNI' %}">60 DNI</a>
                         <a class="dropdown-item"
                            href="{% url 'filters_manager_change' status='PONAD 60 DNI' %}">PONAD 60 DNI</a>
+                        <a class="dropdown-item"
+                           href="{% url 'filters_manager_change' status='BUDZIK' %}">BUDZIK</a>
                     </div>
                 </div>
             </form>
@@ -61,7 +73,7 @@
                                                         {% if filters.filter_dashboar == 'BEMOWO' %} btn-primary
                                                         {% elif filters.filter_dashboar == 'STOKŁOSY' %} btn-secondary                                                        
                                                         {% endif %} dropdown-toggle btn-sm"
-                                data-toggle="dropdown">Lokalizacja: {{ filters.filter_dashboar }}
+                                data-toggle="dropdown">{{ filters.filter_dashboar }}
 
                         </button>
                         <div class="dropdown-menu">
@@ -73,6 +85,133 @@
                     </div>
                 </form>
             {% endif %}
+            <div class="float-left ml-20 mt-25 clearfix">
+                {% if filters.filter_manager_gotowy == True %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='G' %}">
+                        <button class="btn bg-primary btn-xs float-left">
+                            Gotowe
+                        </button>
+                    </a>
+                {% elif filters.filter_manager_gotowy == False %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=True status_filter_id='G' %}">
+                        <button class="btn bg-pale-primary btn-xs float-left">
+                            Gotowe
+                        </button>
+                    </a>
+                {% endif %}
+
+                {% if filters.filter_manager_nowy == True %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='N' %}">
+                        <button class="btn bg-info btn-xs float-left ml-5">
+                            Nowe
+                        </button>
+                    </a>
+                {% elif filters.filter_manager_nowy == False %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=True status_filter_id='N' %}">
+                        <button class="btn bg-pale-info btn-xs float-left ml-5">
+                            Nowe
+                        </button>
+                    </a>
+                {% endif %}
+
+                {% if filters.filter_manager_zaliczka == True %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='Z' %}">
+                        <button class="btn bg-green btn-xs float-left ml-5">
+                            Zaliczka
+                        </button>
+                    </a>
+                {% elif filters.filter_manager_zaliczka == False %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=True status_filter_id='Z' %}">
+                        <button class="btn bg-pale-green btn-xs float-left ml-5">
+                            Zaliczka
+                        </button>
+                    </a>
+                {% endif %}
+
+                {% if filters.filter_manager_rezygnacja == True %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='R' %}">
+                        <button class="btn bg-purple btn-xs float-left ml-5">
+                            Rezygnacja
+                        </button>
+                    </a>
+                {% elif filters.filter_manager_rezygnacja == False %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=True status_filter_id='R' %}">
+                        <button class="btn bg-pale-purple btn-xs float-left ml-5">
+                            Rezygnacja
+                        </button>
+                    </a>
+                {% endif %}
+            
+                {% if filters.filter_manager_czeka_na_zgode == True %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='O' %}">
+                        <button class="btn bg-brown btn-xs float-left ml-5">
+                            Zgoda
+                        </button>
+                    </a>
+                {% elif filters.filter_manager_czeka_na_zgode == False %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=True status_filter_id='O' %}">
+                        <button class="btn bg-pale-brown btn-xs float-left ml-5">
+                            Zgoda
+                        </button>
+                    </a>
+                {% endif %}
+            
+                {% if filters.filter_manager_wycena == True %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='W' %}">
+                        <button class="btn bg-success btn-xs float-left ml-5">
+                            Wycena
+                        </button>
+                    </a>
+                {% elif filters.filter_manager_wycena == False %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=True status_filter_id='W' %}">
+                        <button class="btn bg-pale-success btn-xs float-left ml-5">
+                            Wycena
+                        </button>
+                    </a>
+                {% endif %}
+            
+                {% if filters.filter_manager_diagnostyka == True %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='D' %}">
+                        <button class="btn bg-pink btn-xs float-left ml-5">
+                            Diagnostyka
+                        </button>
+                    </a>
+                {% elif filters.filter_manager_diagnostyka == False %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=True status_filter_id='D' %}">
+                        <button class="btn bg-pale-pink btn-xs float-left ml-5">
+                            Diagnostyka
+                        </button>
+                    </a>
+                {% endif %}
+            
+                {% if filters.filter_manager_czeka_na_części == True %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='C' %}">
+                        <button class="btn bg-dark btn-xs float-left ml-5">
+                            Części
+                        </button>
+                    </a>
+                {% elif filters.filter_manager_czeka_na_części == False %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=True status_filter_id='C' %}">
+                        <button class="btn bg-lighter btn-xs float-left ml-5">
+                            Części
+                        </button>
+                    </a>
+                {% endif %}
+            
+                {% if filters.filter_manager_naprawienie == True %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='A' %}">
+                        <button class="btn bg-pale-dark btn-xs float-left ml-5">
+                            Naprawienie
+                        </button>
+                    </a>
+                {% elif filters.filter_manager_naprawienie == False %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=True status_filter_id='A' %}">
+                        <button class="btn bg-lighter btn-xs float-left ml-5">
+                            Naprawienie
+                        </button>
+                    </a>
+                {% endif %}
+            </div>
             {% if is_paginated %}
                 <form class="navbar-form navbar-right">
                     <nav aria-label="...">

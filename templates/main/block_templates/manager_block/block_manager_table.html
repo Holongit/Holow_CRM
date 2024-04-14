@@ -22,70 +22,70 @@
             {% for gadgets_data in gadgets %}
                 {% if gadgets_data.location == filters.filter_dashboar %}
                     <tbody>
-                    {% if filters.filter_manager == 'WSZYSCY' or gadgets_data.time_in_status_get >= 3 and gadgets_data.status == 'NOWY' or gadgets_data.status == 'WYCENA' or gadgets_data.status == 'GOTOWY' and not gadgets_data.alarm_on or gadgets_data.alarm_gadget %}
-                    <tr class="text-center font-size-16">
-                        <td class="b-3 border-white"
-                                {% if request.user.is_authenticated and request.user.is_staff %}
-                            data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
-                                    {{ gadgets_data.id }}
-                                {% elif request.user.is_authenticated and not request.user.is_staff %}
-                                    >{{ gadgets_data.id }}
+                    {% if filters.filter_manager_gotowy == True and gadgets_data.status == 'GOTOWY' or filters.filter_manager_zaliczka == True and gadgets_data.status == 'ZALICZKA' or filters.filter_manager_nowy == True and gadgets_data.status == 'NOWY' or filters.filter_manager_rezygnacja == True and gadgets_data.status == 'REZYGNACJA' or filters.filter_manager_czeka_na_zgode == True and gadgets_data.status == 'CZEKA NA ZGODĘ' or filters.filter_manager_wycena == True and gadgets_data.status == 'WYCENA' or filters.filter_manager_diagnostyka == True and gadgets_data.status == 'DIAGNOSTYKA' or filters.filter_manager_czeka_na_części == True and gadgets_data.status == 'CZEKA NA CZĘŚCI' or filters.filter_manager_naprawienie == True and gadgets_data.status == 'NAPRAWIENIE' %}
+                        <tr class="text-center font-size-16">
+                            <td class="b-3 border-white"
+                                    {% if request.user.is_authenticated and request.user.is_staff %}
+                                data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                        {{ gadgets_data.id }}
+                                    {% elif request.user.is_authenticated and not request.user.is_staff %}
+                                        >{{ gadgets_data.id }}
+                                    {% endif %}
+                            </td>
+                            <td class="b-3 border-white"
+                                    {% if request.user.is_authenticated and request.user.is_staff %}
+                                data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}"
+                                    {% elif request.user.is_authenticated and not request.user.is_staff %}
+                                    {% endif %}>
+                                {% if gadgets_data.type_gadget %}
+                                    {{ gadgets_data.type_gadget }}
                                 {% endif %}
-                        </td>
-                        <td class="b-3 border-white"
-                                {% if request.user.is_authenticated and request.user.is_staff %}
-                            data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}"
-                                {% elif request.user.is_authenticated and not request.user.is_staff %}
-                                {% endif %}>
-                            {% if gadgets_data.type_gadget %}
-                                {{ gadgets_data.type_gadget }}
-                            {% endif %}
-                            {% if gadgets_data.brand_gadget %}
-                                {{ gadgets_data.brand_gadget }}
-                            {% endif %}
-                            {% if gadgets_data %}
-                                {{ gadgets_data }}
-                            {% endif %}
-                        </td>
-                        <td class="b-3 border-white"
-                                {% if request.user.is_authenticated and request.user.is_staff %}
-                            data-href="{% url 'kartka_klienta' pk=gadgets_data.klient.id %}"
-                                {% elif request.user.is_authenticated and not request.user.is_staff %}
-                                {% endif %}>
-                            {% if gadgets_data.klient.name_klient %}
-                                {{ gadgets_data.klient.name_klient }}
-                            {% endif %}
-                        </td>
-                        <td class="b-3 border-white">
-                            {% if gadgets_data.in_serwis and request.user.is_authenticated and request.user.is_staff %}
-                                <div class="btn-group">
-                                    <button type="button"
-                                            class="btn btn-secondary dropdown-toggle btn-xs font-size-12 font-weight-medium"
-                                            data-toggle="dropdown">
+                                {% if gadgets_data.brand_gadget %}
+                                    {{ gadgets_data.brand_gadget }}
+                                {% endif %}
+                                {% if gadgets_data %}
+                                    {{ gadgets_data }}
+                                {% endif %}
+                            </td>
+                            <td class="b-3 border-white"
+                                    {% if request.user.is_authenticated and request.user.is_staff %}
+                                data-href="{% url 'kartka_klienta' pk=gadgets_data.klient.id %}"
+                                    {% elif request.user.is_authenticated and not request.user.is_staff %}
+                                    {% endif %}>
+                                {% if gadgets_data.klient.name_klient %}
+                                    {{ gadgets_data.klient.name_klient }}
+                                {% endif %}
+                            </td>
+                            <td class="b-3 border-white">
+                                {% if gadgets_data.in_serwis and request.user.is_authenticated and request.user.is_staff %}
+                                    <div class="btn-group">
+                                        <button type="button"
+                                                class="btn btn-secondary dropdown-toggle btn-xs font-size-12 font-weight-medium"
+                                                data-toggle="dropdown">
 
+                                            {{ gadgets_data.workers.worker }}
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            {% for user in users %}
+                                                <a class="dropdown-item"
+                                                   href="{% url 'technik_change' gadget_id=gadgets_data.pk user_id=user.pk %}">
+                                                    {{ user.username }}
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <button type="button"
+                                            class="btn btn-secondary btn-xs font-size-12 font-weight-medium">
                                         {{ gadgets_data.workers.worker }}
                                     </button>
-                                    <div class="dropdown-menu">
-                                        {% for user in users %}
-                                            <a class="dropdown-item"
-                                               href="{% url 'technik_change' gadget_id=gadgets_data.pk user_id=user.pk %}">
-                                                {{ user.username }}
-                                            </a>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            {% else %}
-                                <button type="button"
-                                        class="btn btn-secondary btn-xs font-size-12 font-weight-medium">
-                                    {{ gadgets_data.workers.worker }}
-                                </button>
-                            {% endif %}
-                        </td>
-                        <td class="b-3 border-white"
-                                {% if request.user.is_authenticated and request.user.is_staff %}
-                            data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}"
-                                {% elif request.user.is_authenticated and not request.user.is_staff %}
-                                {% endif %}>
+                                {% endif %}
+                            </td>
+                            <td class="b-3 border-white"
+                                    {% if request.user.is_authenticated and request.user.is_staff %}
+                                data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}"
+                                    {% elif request.user.is_authenticated and not request.user.is_staff %}
+                                    {% endif %}>
                                         <span class="mr-10 badge ml-10                                                        
                                                         {% if gadgets_data.time_in_serwis_get <= 3 %} bg-info
                                                         {% elif gadgets_data.time_in_serwis_get > 3 and gadgets_data.time_in_serwis_get <= 14 %} bg-dark
@@ -93,13 +93,13 @@
                                                         {% endif %}                                                        
                                                         ">{{ gadgets_data.time_in_serwis_get }} dni
                                         </span>
-                        </td>
+                            </td>
 
 
-                        <td class="b-3 border-white">
-                            {% if request.user.is_authenticated and request.user.is_staff %}
-                                <div class="btn-group">
-                                    <button type="button" class="btn
+                            <td class="b-3 border-white">
+                                {% if request.user.is_authenticated and request.user.is_staff %}
+                                    <div class="btn-group">
+                                        <button type="button" class="btn
                                                         {% if gadgets_data.status == 'NAPRAWIENIE' %} btn-secondary
                                                         {% elif gadgets_data.status == 'GOTOWY' %} btn-primary
                                                         {% elif gadgets_data.status == 'CZEKA NA CZĘŚCI' %} btn-dark
@@ -111,34 +111,36 @@
                                                         {% elif gadgets_data.status == 'ZALICZKA' %} bg-green
                                                         {% endif %} dropdown-toggle btn-xs"
 
-                                            data-toggle="dropdown">{{ gadgets_data.status }}
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item"
-                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='ZALICZKA' %}">ZALICZKA</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='GOTOWY' %}">GOTOWY</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='NOWY' %}">NOWY</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='REZYGNACJA' %}">REZYGNACJA</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='CZEKA NA ZGODĘ' %}">CZEKA
-                                            NA ZGODE</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='WYCENA' %}">WYCENA</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='DIAGNOSTYKA' %}">DIAGNOSTYKA</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='CZEKA NA CZĘŚCI' %}">CZEKA
-                                            NA CZĘŚCI</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'gadget_status_change' pk=gadgets_data.id status='NAPRAWIENIE' %}">NAPRAWIENIE</a>
+                                                data-toggle="dropdown">{{ gadgets_data.status }}
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='ZALICZKA' %}">ZALICZKA</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='GOTOWY' %}">GOTOWY</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='NOWY' %}">NOWY</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='REZYGNACJA' %}">REZYGNACJA</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='CZEKA NA ZGODĘ' %}">CZEKA
+                                                NA ZGODE</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='WYCENA' %}">WYCENA</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='DIAGNOSTYKA' %}">DIAGNOSTYKA</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='CZEKA NA CZĘŚCI' %}">CZEKA
+                                                NA CZĘŚCI</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'gadget_status_change' pk=gadgets_data.id status='NAPRAWIENIE' %}">NAPRAWIENIE</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <badge class="btn btn-secondary btn-xs btn-rounded">{{ gadgets_data.time_in_status_get }} dni</badge>
-                            {% else %}
-                                <button type="button" class="btn
+                                    <badge class="btn btn-secondary btn-xs btn-rounded">{{ gadgets_data.time_in_status_get }}
+                                        dni
+                                    </badge>
+                                {% else %}
+                                    <button type="button" class="btn
                                                         {% if gadgets_data.status == 'NAPRAWIENIE' %} btn-secondary
                                                         {% elif gadgets_data.status == 'GOTOWY' %} btn-primary
                                                         {% elif gadgets_data.status == 'CZEKA NA CZĘŚCI' %} btn-dark
@@ -149,101 +151,101 @@
                                                         {% elif gadgets_data.status == 'DIAGNOSTYKA' %} btn-pink
                                                         {% elif gadgets_data.status == 'ZALICZKA' %} btn-cyan
                                                         {% endif %} btn-xs">{{ gadgets_data.status }}
-                                </button>
-                            {% endif %}
-                        </td>
-                        <td class="b-3 border-white">
-                            {% if request.user.is_authenticated and request.user.is_staff %}
-                                <div class="btn-group">
-                                    <button type="button" class="btn
+                                    </button>
+                                {% endif %}
+                            </td>
+                            <td class="b-3 border-white">
+                                {% if request.user.is_authenticated and request.user.is_staff %}
+                                    <div class="btn-group">
+                                        <button type="button" class="btn
                                                         {% if gadgets_data.type_service == 'PŁATNE' %} btn-info
                                                         {% elif gadgets_data.type_service == 'GWARANCJA' %} btn-warning
                                                         {% elif gadgets_data.type_service == 'REKLAMACJA' %} btn-danger
                                                   
                                                         {% endif %}
                                                         btn-xs dropdown-toggle"
-                                            data-toggle="dropdown">{{ gadgets_data.type_service }}
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item"
-                                           href="{% url 'service_status_change' pk=gadgets_data.id status='PŁATNE' %}">PŁATNE</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'service_status_change' pk=gadgets_data.id status='GWARANCJA' %}">GWARANCJA</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'service_status_change' pk=gadgets_data.id status='REKLAMACJA' %}">REKLAMACJA</a>
+                                                data-toggle="dropdown">{{ gadgets_data.type_service }}
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                               href="{% url 'service_status_change' pk=gadgets_data.id status='PŁATNE' %}">PŁATNE</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'service_status_change' pk=gadgets_data.id status='GWARANCJA' %}">GWARANCJA</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'service_status_change' pk=gadgets_data.id status='REKLAMACJA' %}">REKLAMACJA</a>
+                                        </div>
                                     </div>
-                                </div>
-                            {% else %}
-                                <button type="button" class="btn
+                                {% else %}
+                                    <button type="button" class="btn
                                                         {% if gadgets_data.type_service == 'PŁATNE' %} btn-info
                                                         {% elif gadgets_data.type_service == 'GWARANCJA' %} btn-warning
                                                         {% elif gadgets_data.type_service == 'REKLAMACJA' %} btn-danger
                                                         {% endif %}
                                                         btn-xs">{{ gadgets_data.type_service }}
-                                </button>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if request.user.is_authenticated and request.user.is_staff %}
-                                <div class="btn-group">
-                                    <button type="button" class="btn
+                                    </button>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if request.user.is_authenticated and request.user.is_staff %}
+                                    <div class="btn-group">
+                                        <button type="button" class="btn
                                                         {% if gadgets_data.pilne == 'PILNE' %} btn-danger
                                                         {% elif gadgets_data.pilne == 'ŚREDNIO' %} btn-warning
                                                         {% elif gadgets_data.pilne == 'NIE' %} btn-secondary
                                                   
                                                         {% endif %}
                                                         btn-xs dropdown-toggle"
-                                            data-toggle="dropdown">{{ gadgets_data.pilne }}
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item"
-                                           href="{% url 'pilne_status_change' pk=gadgets_data.id status='PILNE' %}">PILNE</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'pilne_status_change' pk=gadgets_data.id status='ŚREDNIO' %}">ŚREDNIO</a>
-                                        <a class="dropdown-item"
-                                           href="{% url 'pilne_status_change' pk=gadgets_data.id status='NIE' %}">NIE</a>
+                                                data-toggle="dropdown">{{ gadgets_data.pilne }}
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                               href="{% url 'pilne_status_change' pk=gadgets_data.id status='PILNE' %}">PILNE</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'pilne_status_change' pk=gadgets_data.id status='ŚREDNIO' %}">ŚREDNIO</a>
+                                            <a class="dropdown-item"
+                                               href="{% url 'pilne_status_change' pk=gadgets_data.id status='NIE' %}">NIE</a>
+                                        </div>
                                     </div>
-                                </div>
-                            {% else %}
-                                <button type="button" class="btn
+                                {% else %}
+                                    <button type="button" class="btn
                                                         {% if gadgets_data.pilne == 'NIE' %} btn-secondary
                                                         {% elif gadgets_data.pilne == 'ŚREDNIO' %} btn-warning
                                                         {% elif gadgets_data.pilne == 'PILNE' %} btn-danger
                                                         {% endif %}
                                                         btn-xs">{{ gadgets_data.pilne }}
-                                </button>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if gadgets_data.alarm_on %}
-                            <badge class="btn bg-pale-primary btn-xs font-size-14">{{ gadgets_data.time_alarm_get }}</badge>
-                            {% endif %}
-                        </td>
-                        <td class="b-3 border-white">
-                            <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm='C' %}">
-                                <button class="btn btn-primary btn-rounded btn-outline">0</button>
-                            </a>
-                            <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm=1 %}">
-                                <button class="btn btn-primary btn-rounded btn-outline">1</button>
-                            </a>
-                            <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm=2 %}">
-                                <button class="btn btn-primary btn-rounded btn-outline">2</button>
-                            </a>
-                            <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm=3 %}">
-                                <button class="btn btn-primary btn-rounded btn-outline">3</button>
-                            </a>
-                            <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm=7 %}">
-                                <button class="btn btn-primary btn-rounded btn-outline">7</button>
-                            </a>
-                            <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm='A' %}">
-                                <button class="btn btn-primary btn-rounded btn-outline">14</button>
-                            </a>
-                            <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm='B' %}">
-                                <button class="btn btn-primary btn-rounded btn-outline">30</button>
-                            </a>
-                        </td>
-                    </tr>
-                        {% endif %}
+                                    </button>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if gadgets_data.alarm_on %}
+                                    <badge class="btn bg-pale-primary btn-xs font-size-14">{{ gadgets_data.time_alarm_get }}</badge>
+                                {% endif %}
+                            </td>
+                            <td class="b-3 border-white">
+                                <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm='C' %}">
+                                    <button class="btn btn-primary btn-rounded btn-outline">0</button>
+                                </a>
+                                <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm=1 %}">
+                                    <button class="btn btn-primary btn-rounded btn-outline">1</button>
+                                </a>
+                                <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm=2 %}">
+                                    <button class="btn btn-primary btn-rounded btn-outline">2</button>
+                                </a>
+                                <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm=3 %}">
+                                    <button class="btn btn-primary btn-rounded btn-outline">3</button>
+                                </a>
+                                <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm=7 %}">
+                                    <button class="btn btn-primary btn-rounded btn-outline">7</button>
+                                </a>
+                                <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm='A' %}">
+                                    <button class="btn btn-primary btn-rounded btn-outline">14</button>
+                                </a>
+                                <a href="{% url 'alarm_at_change' pk=gadgets_data.id alarm='B' %}">
+                                    <button class="btn btn-primary btn-rounded btn-outline">30</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
                     </tbody>
                 {% endif %}
             {% endfor %}

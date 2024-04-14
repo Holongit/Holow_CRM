@@ -14,6 +14,8 @@ class GadgetForm(forms.Form):
         ('Tablet', 'Tablet'),
         ('Komputer Stacjonarny', 'Komputer Stacjonarny'),
         ('Monitop', 'Monitor'),
+        ('All in One', 'All in One'),
+        ('Płyta', 'Płyta'),
         ('inne urządzenie', 'Inne Urządzenie'),
     )
     CHOICES2 = (

@@ -31,19 +31,38 @@ def index_manager(request):
 
     # cleaned_phone_number = re.sub(r'\D', '', search_query)
 
-    warning_list_gadget = Gadget.objects.filter(in_serwis=True)
+    warning_list_gadget = Gadget.objects.filter(in_serwis=True, alarm_on=False)
+    alarm_list_gadget = Gadget.objects.filter(in_serwis=True, alarm_on=True)
 
     if not SetingsCRM.objects.filter(user_id=user.id).exists():
         SetingsCRM.objects.create(user_id=user.id)
 
-    if SetingsCRM.objects.get(user_id=user.id).filter_manager == 'WSZYSCY':
+    alarm_off_gadgets = warning_list_gadget.filter(alarm_on=True)
+    for alarm_off_gadget in alarm_off_gadgets:
+        if alarm_off_gadget.alarm_at < timezone.now():
+            alarm_off_gadget.alarm_on = False
+            alarm_off_gadget.save()
+
+    if SetingsCRM.objects.get(user_id=user.id).filter_manager == 'CAŁY CZAS':
         gadget_in_serwis = warning_list_gadget
 
-    if SetingsCRM.objects.get(user_id=user.id).filter_manager == 'PONIŻEJ 60 DNI':
+    if SetingsCRM.objects.get(user_id=user.id).filter_manager == '7 DNI':
+        gadget_in_serwis = warning_list_gadget.filter(updated_at__gt=timezone.now() - timedelta(days=7))
+
+    if SetingsCRM.objects.get(user_id=user.id).filter_manager == '14 DNI':
+        gadget_in_serwis = warning_list_gadget.filter(updated_at__gt=timezone.now() - timedelta(days=14))
+
+    if SetingsCRM.objects.get(user_id=user.id).filter_manager == '30 DNI':
+        gadget_in_serwis = warning_list_gadget.filter(updated_at__gt=timezone.now() - timedelta(days=30))
+
+    if SetingsCRM.objects.get(user_id=user.id).filter_manager == '60 DNI':
         gadget_in_serwis = warning_list_gadget.filter(updated_at__gt=timezone.now() - timedelta(days=60))
 
     if SetingsCRM.objects.get(user_id=user.id).filter_manager == 'PONAD 60 DNI':
         gadget_in_serwis = warning_list_gadget.filter(updated_at__lt=timezone.now() - timedelta(days=60))
+
+    if SetingsCRM.objects.get(user_id=user.id).filter_manager == 'BUDZIK':
+        gadget_in_serwis = alarm_list_gadget
 
     if len(str(search_query_int)) <= 5 and search_query_int > 0:
         serching_gad = gadget_in_serwis.filter(id=search_query_int)
@@ -108,3 +127,45 @@ def alarm_at_change(request, pk, alarm):
     gadget.alarm_at = alarm_at
     gadget.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required(login_url='login')
+def settings_manager_status_filter_change(request, status_filter, status_filter_id):
+    user = request.user
+    setings_f = get_object_or_404(SetingsCRM.objects.all(), user_id=user.id)
+    if status_filter_id == 'G':
+        setings_f.filter_manager_gotowy = status_filter
+        setings_f.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    if status_filter_id == 'N':
+        setings_f.filter_manager_nowy = status_filter
+        setings_f.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    if status_filter_id == 'Z':
+        setings_f.filter_manager_zaliczka = status_filter
+        setings_f.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    if status_filter_id == 'R':
+        setings_f.filter_manager_rezygnacja = status_filter
+        setings_f.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    if status_filter_id == 'O':
+        setings_f.filter_manager_czeka_na_zgode = status_filter
+        setings_f.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    if status_filter_id == 'W':
+        setings_f.filter_manager_wycena = status_filter
+        setings_f.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    if status_filter_id == 'D':
+        setings_f.filter_manager_diagnostyka = status_filter
+        setings_f.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    if status_filter_id == 'C':
+        setings_f.filter_manager_czeka_na_części = status_filter
+        setings_f.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    if status_filter_id == 'A':
+        setings_f.filter_manager_naprawienie = status_filter
+        setings_f.save()
+        return redirect(request.META.get('HTTP_REFERER'))

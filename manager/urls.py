@@ -23,5 +23,6 @@ from manager.views import *
 urlpatterns = [
     path('', index_manager, name='index_manager'),
     path('alarm/<int:pk><str:alarm>', alarm_at_change, name='alarm_at_change'),
+    path('status_filter/<str:status_filter><str:status_filter_id>', settings_manager_status_filter_change, name='settings_manager_status_filter_change'),
 ]
 
