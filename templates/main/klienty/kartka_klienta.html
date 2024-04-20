@@ -5,10 +5,10 @@
         <h1>
             <div class="media-body">
                 <h1 class="text-fade mb-5">Klient {{ klient.name_klient }}</h1>
-            </div>  
+            </div>
         </h1>
-            
-        
+
+
         <ol class="breadcrumb">
         </ol>
     </section>
@@ -105,7 +105,8 @@
                                 <button class="btn btn-info float-left ml-20"><i class="fa fa-edit"></i> Edituj</button>
                             </a>
                         {% endif %}
-                        <input type="button" class="btn btn-info float-right" onclick="history.back();" value="Przywrócić"/>
+                        <input type="button" class="btn btn-info float-right" onclick="history.back();"
+                               value="Przywrócić"/>
                     </div>
                 </div>
             </div>
@@ -154,45 +155,45 @@
                         </span>
                     </div>
                 </form>
-            {% if is_paginated %}
-                <div class="float-right">
-                    <form class="navbar-form navbar-right">
-                        <nav aria-label="...">
-                            <ul class="pagination">
-                                <li class="page-item {% if not prev_url %} disabled {% endif %}">
-                                    <a class="page-link" href="{{ prev_url }}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                {% for n in gadgets.paginator.page_range %}
+                {% if is_paginated %}
+                    <div class="float-right">
+                        <form class="navbar-form navbar-right">
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    <li class="page-item {% if not prev_url %} disabled {% endif %}">
+                                        <a class="page-link" href="{{ prev_url }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                    {% for n in gadgets.paginator.page_range %}
 
-                                    {% if gadgets.number == n %}
+                                        {% if gadgets.number == n %}
 
-                                        <li class="page-item active">
-                                            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
-                                        </li>
+                                            <li class="page-item active">
+                                                <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                                            </li>
 
-                                    {% elif n > gadgets.number|add:-5 and n < gadgets.number|add:5 %}
+                                        {% elif n > gadgets.number|add:-5 and n < gadgets.number|add:5 %}
 
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
 
-                                <li class="page-item {% if not next_url %} disabled {% endif %}">
-                                    <a class="page-link" href="{{ next_url }}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                                    <li class="page-item {% if not next_url %} disabled {% endif %}">
+                                        <a class="page-link" href="{{ next_url }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
 
-                    </form>
-                </div>
-            {% endif %}
+                        </form>
+                    </div>
+                {% endif %}
             </div>
             <div class="box-body">
                 <div class="table-responsive">
@@ -203,8 +204,10 @@
                             <th class="text-center font-weight-bold b-3 border-white">№</th>
                             <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
                             <th class="text-center font-weight-bold b-3 border-white">Data Przyjęcia</th>
+                            <th class="text-center font-weight-bold b-3 border-white">Data Następnego
+                                Przyjęcia/Wydania
+                            </th>
                             <th class="text-center font-weight-bold b-3 border-white">Technik</th>
-                            <th class="text-center font-weight-bold b-3 border-white">Czas</th>
                             <th class="text-center font-weight-bold b-3 border-white">Stan</th>
                             <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy</th>
                             <th class="text-center font-weight-bold b-3 border-white">Pilne</th>
@@ -215,21 +218,26 @@
 
                             <tbody>
                             <tr class="text-center font-size-14">
-                                <td class="b-3 border-white "><a
-                                        href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.id }}</a>
+                                <td class="b-3 border-white" data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                    {% firstof gadgets_data.id %}
                                 </td>
-                                <td class="b-3 border-white"><a
-                                        href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.type_gadget }} </a>
-                                <a
-                                        href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
-                                    {% if gadgets_data.brand_gadget %}
-                                        {{ gadgets_data.brand_gadget }}
-                                    {% endif %}
-                                    {{ gadgets_data }}</a>
+                                <td class="b-3 border-white" data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                    {% firstof gadgets_data.type_gadget %}
+                                    {% firstof gadgets_data.brand_gadget %}
+                                    {% firstof gadgets_data %}
                                 </td>
-
-                                <td class="b-3 border-white"><a
-                                        href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.created_at_format }}</a>
+                                <td class="b-3 border-white" data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                    {% firstof gadgets_data.created_at_format %}
+                                </td>
+                                <td class="b-3 border-white" data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
+                                    {{ gadgets_data.updated_at_format }}
+                                    <span class="pull-right mr-10 badge ml-10 font-size-14                                                       
+                                                        {% if gadgets_data.time_in_serwis_get <= 3 %} bg-info
+                                                        {% elif gadgets_data.time_in_serwis_get > 3 and gadgets_data.time_in_serwis_get <= 14 %} bg-dark
+                                                        {% elif gadgets_data.time_in_serwis_get > 14 %} bg-danger                                              
+                                                        {% endif %}                                                        
+                                                        "> {{ gadgets_data.time_in_serwis_get }} dni
+                                    </span>
                                 </td>
                                 <td class="b-3 border-white">
                                     {% if gadgets_data.in_serwis %}
@@ -240,7 +248,8 @@
                                             <div class="dropdown-menu">
                                                 {% for user in users %}
                                                     <a class="dropdown-item"
-                                                       href="{% url 'technik_change' gadget_id=gadgets_data.pk user_id=user.pk %}">{{ user.username }}
+                                                       href="{% url 'technik_change' gadget_id=gadgets_data.pk user_id=user.pk %}">
+                                                        {{ user.username }}
                                                     </a>
                                                 {% endfor %}
                                             </div>
@@ -250,20 +259,6 @@
                                                 class="btn btn-secondary btn-xs font-size-12 font-weight-medium">{{ gadgets_data.workers.worker }}</button>
                                     {% endif %}
                                 </td>
-                                <td class="b-3 border-white"><a
-                                        href="{% url 'outgo_gadget' pk=gadgets_data.id %}">{{ gadgets_data.updated_at_format }}
-
-                                    <span class="pull-right mr-10 badge ml-10 font-size-14                                                       
-                                                        {% if gadgets_data.time_in_serwis_get <= 3 %} bg-info
-                                                        {% elif gadgets_data.time_in_serwis_get > 3 and gadgets_data.time_in_serwis_get <= 14 %} bg-dark
-                                                        {% elif gadgets_data.time_in_serwis_get > 14 %} bg-danger                                              
-                                                        {% endif %}                                                        
-                                                        "> {{ gadgets_data.time_in_serwis_get }} dni
-                                                        
-                                        </span> </a>
-                                </td>
-
-
                                 <td class="b-3 border-white">
                                     <div class="btn-group">
                                         <button type="button" class="btn
@@ -384,49 +379,56 @@
                 </div>
             </div>
             <div class="box-footer">
-                
+
                 {% if is_paginated %}
-                <div class="float-right">
-                    <form class="navbar-form navbar-right">
-                        <nav aria-label="...">
-                            <ul class="pagination">
-                                <li class="page-item {% if not prev_url %} disabled {% endif %}">
-                                    <a class="page-link" href="{{ prev_url }}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                {% for n in gadgets.paginator.page_range %}
+                    <div class="float-right">
+                        <form class="navbar-form navbar-right">
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    <li class="page-item {% if not prev_url %} disabled {% endif %}">
+                                        <a class="page-link" href="{{ prev_url }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                    {% for n in gadgets.paginator.page_range %}
 
-                                    {% if gadgets.number == n %}
+                                        {% if gadgets.number == n %}
 
-                                        <li class="page-item active">
-                                            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
-                                        </li>
+                                            <li class="page-item active">
+                                                <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                                            </li>
 
-                                    {% elif n > gadgets.number|add:-5 and n < gadgets.number|add:5 %}
+                                        {% elif n > gadgets.number|add:-5 and n < gadgets.number|add:5 %}
 
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
 
-                                <li class="page-item {% if not next_url %} disabled {% endif %}">
-                                    <a class="page-link" href="{{ next_url }}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                                    <li class="page-item {% if not next_url %} disabled {% endif %}">
+                                        <a class="page-link" href="{{ next_url }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
 
-                    </form>
-                </div>
-            {% endif %}
+                        </form>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </section>
+    <script>
+        $(document).ready(function ($) {
+            $('*[data-href]').on('click', function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
     <script>
         function update() {
             location.reload(false);

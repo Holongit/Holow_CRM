@@ -14,7 +14,7 @@ from gadgets.models import Gadget, SetingsCRM
 from notes.models import Note
 from notes.form import NoteForm
 from workers.models import Workers
-from workers.views import add_gadget_to_worker
+from workers.views import add_gadget_to_worker, odstawic_gadget
 from klienty.models import Klient
 
 
@@ -152,7 +152,7 @@ class EditGadget(View):
             'usterki_zewn': gadget_id.usterki_zewn,
             'zestaw': gadget_id.zestaw,
             'type_gadget': gadget_id.type_gadget
-            })
+        })
 
         return render(request, 'gadgets/edit_gadget.html', context={'gadget': gadget_id, 'form_class': bound_form_gad})
 
@@ -190,16 +190,28 @@ class OutgoGadget(View):
         if gadget.in_serwis:
             gadget.in_serwis = False
             gadget.updated_at = timezone.now()
-            Note.objects.create(
-                author=User.objects.get(username='TPL'),
-                title='URZĄDZENIE WYDANE KLIENTOWI',
-                content=f'{user} menedżer',
-                gadget=gadget,
-            )
+            if Workers.objects.filter(gadget=gadget).exists():
+                if gadget.workers.in_work:
+                    worker_pk = gadget.workers.id
+                    odstawic_gadget(request, worker_pk)
+                    Note.objects.create(
+                        author=User.objects.get(username='TPL'),
+                        title='URZĄDZENIE WYDANE KLIENTOWI',
+                        content=f'{user} menedżer, urządzenie zostało wydane, ale technik nie odłożył go na półkę!',
+                        gadget=gadget,
+                    )
+            else:
+                Note.objects.create(
+                    author=User.objects.get(username='TPL'),
+                    title='URZĄDZENIE WYDANE KLIENTOWI',
+                    content=f'{user} menedżer',
+                    gadget=gadget,
+                )
             gadget.save()
         elif not gadget.in_serwis:
             gadget.in_serwis = True
             gadget.updated_at = timezone.now()
+            gadget.status = 'NOWY'
             Note.objects.create(
                 author=User.objects.get(username='TPL'),
                 title='URZĄDZENIE PRZYJĘTE OD KLIENTA',
@@ -302,7 +314,8 @@ def add_opis_naprawy(request, pk):
         gadget = Gadget.objects.get(pk=pk)
         form = OpisNaprawyForm(initial={'opis_naprawy': gadget.opis_naprawy})
         notes = gadget.note_set.all()
-        return render(request, 'gadgets/add_opis_naprawy.html', context={'form': form, 'gadget': gadget, 'notes': notes})
+        return render(request, 'gadgets/add_opis_naprawy.html',
+                      context={'form': form, 'gadget': gadget, 'notes': notes})
 
     if request.method == "POST":
         bound_form = OpisNaprawyForm(request.POST)

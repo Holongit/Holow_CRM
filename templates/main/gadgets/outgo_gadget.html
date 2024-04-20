@@ -7,10 +7,10 @@
                 <h1 class="text-fade">Urządzenie {{ gadget.id }}</h1>
                 <span class="text-fade"><i
                         class="fa fa-map-marker"></i> {{ gadget.location }}</span>
-            </div> 
+            </div>
         </h1>
         <ol class="breadcrumb">
-            
+
         </ol>
     </section>
     <section class="content">
@@ -253,19 +253,64 @@
                             </div>
                         </div>
                         {% if request.user.is_authenticated and request.user.is_staff %}
-                            <form action="{% url 'outgo_gadget' pk=gadget.id %}" method="post" class="mt-20">
-                                {% csrf_token %}
-                                {% if gadget.in_serwis == True %}
-                                    <button type="submit" class="btn btn-primary float-left"><i class="fa fa-reply"></i>
-                                        Wydaj
-                                    </button>
-                                {% elif gadget.in_serwis == False %}
-                                    <button type="submit" class="btn btn-primary float-left"><i
-                                            class="fa fa-mail-forward"></i>
-                                        Przyjmij
-                                    </button>
-                                {% endif %}
-                            </form>
+                            {% if gadget.in_serwis == True %}
+                                <button type="submit" class="btn btn-primary float-left" data-toggle="modal"
+                                        data-target="#wydaj">
+                                    <i class="fa fa-reply"></i> Wydaj
+                                </button>
+                            {% elif gadget.in_serwis == False %}
+                                <button type="submit" class="btn btn-secondary float-left" data-toggle="modal"
+                                        data-target="#wydaj">
+                                    <i class="fa fa-mail-forward"></i> Przyjmij
+                                </button>
+                            {% endif %}
+
+                            <div id="wydaj" class="modal fade" tabindex="-1" role="dialog"
+                                 aria-labelledby="1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="1">
+                                                {% if gadget.in_serwis %}
+                                                    Wydać urządzenie?
+                                                {% else %}
+                                                    Wziąć ponownie urządzenie do naprawy?
+                                                {% endif %}
+                                            </h4>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">×
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                                <span class="font-size-20 font-weight-bold ">
+                                                    №{{ gadget.id }} {{ gadget.type_gadget }}
+                                                    {% firstof gadget.brand_gadget %}
+                                                    {% firstof gadget %}
+                                                </span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger float-right mt-20"
+                                                    data-dismiss="modal">Nie
+                                            </button>
+                                            <form action="{% url 'outgo_gadget' pk=gadget.id %}" method="post"
+                                                  class="mt-20">
+                                                {% csrf_token %}
+                                                {% if gadget.in_serwis == True %}
+                                                    <button type="submit" class="btn btn-primary float-left"><i
+                                                            class="fa fa-reply"></i> Wydaj
+                                                    </button>
+                                                {% elif gadget.in_serwis == False %}
+                                                    <button type="submit" class="btn btn-secondary float-left"><i
+                                                            class="fa fa-mail-forward"></i> Przyjmij
+                                                    </button>
+                                                {% endif %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <a href="{% url 'print_gadget' pk=gadget.pk %}">
                                 <button class="btn btn-warning float-left ml-20"><i
                                         class="fa fa-print"></i> Drukuj
@@ -283,63 +328,66 @@
                             </a>
                         {% endif %}
                         {% if gadget.in_serwis %}
-                            {% if gadget.workers.in_work %}
-                                <div id="myModal" class="modal fade" tabindex="-1" role="dialog"
-                                     aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModalLabel">Odstawic urządzenie na
-                                                    półkę?</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">×
-                                                </button>
-                                            </div>
-                                            <div class="modal-body text-center">
-                                                <span class="font-size-20 font-weight-bold ">№{{ gadget.id }} {{ gadget.type_gadget }}
-                                                    {% if gadget.brand_gadget %}
-                                                        {{ gadget.brand_gadget }}
-                                                    {% endif %}
-                                                    {{ gadget }}</span>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger float-right"
-                                                        data-dismiss="modal">Nie
-                                                </button>
+                            {% if gadget.workers.in_work == True %}
+                                <button type="submit" class="btn btn-primary float-left ml-20" data-toggle="modal"
+                                        data-target="#odstawic">
+                                    <i class="fa fa-reply"></i> Odstawic
+                                </button>
+                            {% elif gadget.status == 'NOWY' %}
+                                <button type="submit" class="btn btn-secondary float-left ml-20" data-toggle="modal"
+                                        data-target="#odstawic">
+                                    <i class="fa fa-mail-forward"></i> Dodaj na sobie
+                                </button>
+                            {% elif gadget.workers.in_work == False and not gadget.status == 'NOWY' %}
+                                <span class="btn bg-pale-primary ml-20">Odstawione</span>
+                            {% endif %}
+
+                            <div id="odstawic" class="modal fade" tabindex="-1" role="dialog"
+                                 aria-labelledby="1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="1">
+                                                {% if gadget.workers.in_work %}
+                                                    Odstawic urządzenie?
+                                                {% else %}
+                                                    Wziąć urządzenie do naprawy?
+                                                {% endif %}
+                                            </h4>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">×
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                                <span class="font-size-20 font-weight-bold ">
+                                                    №{{ gadget.id }} {{ gadget.type_gadget }}
+                                                    {% firstof gadget.brand_gadget %}
+                                                    {% firstof gadget %}
+                                                </span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger float-right mt-20"
+                                                    data-dismiss="modal">Nie
+                                            </button>
+                                            {% if gadget.workers.in_work == True %}
                                                 <a href="{% url 'odstawic_gadget' pk=gadget.workers.id %}">
-                                                    <button type="submit" class="btn btn-info float-left">Tak
+                                                    <button type="submit" class="btn btn-primary float-left mt-20">
+                                                        <i class="fa fa-reply"></i> Odstawic
                                                     </button>
                                                 </a>
-                                            </div>
+                                            {% else %}
+                                                <a href="{% url 'add_gadget_to_worker' pk=gadget.id %}">
+                                                    <button type="submit" class="btn btn-secondary float-left mt-20">
+                                                        <i class="fa fa-mail-forward"></i> Dodaj
+                                                    </button>
+                                                </a>
+                                            {% endif %}
                                         </div>
-
-                                    </div>
-
-                                </div>
-                                <button type="submit" class="btn btn-primary ml-20"
-                                        data-toggle="modal" data-target="#myModal">
-                                    <i class="fa fa-check"></i>
-                                    Odstawic
-                                </button>
-                            {% elif not gadget.workers.in_work and gadget.status == 'NOWY' %}
-                                <div class="btn-group ml-20">
-                                    <button type="button"
-                                            class="btn bg-pale-primary dropdown-toggle"
-                                            data-toggle="dropdown">
-                                        Dodaj
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="text-center dropdown-item"
-                                           href="#"><h4>Jesteś pewny?</h4>
-                                        </a>
-                                        <br>
-                                        <a class="text-center dropdown-item"
-                                           href="{% url 'add_gadget_to_worker' pk=gadget.id %}">
-                                            <h4>
-                                                Dodaj Sobie</h4></a>
                                     </div>
                                 </div>
-                            {% endif %}
+                            </div>
+                        {% elif not gadget.in_serwis %}
+                            <span class="btn bg-pale-primary ml-20">Wydane Klientowi</span>
                         {% endif %}
 
                         <a href="{% url 'gadgets' %}">
