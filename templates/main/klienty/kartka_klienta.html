@@ -365,9 +365,9 @@
                                 <td class="b-3 border-white">
                                     <a href="{% url 'klient_gadget_change' klient_name=klient gadget_id=gadgets_data.id %}">
                                         {% if gadgets_data.in_serwis == True %}
-                                            <button class="btn bg-pale-primary btn-xs">Dodać</button>
-                                        {% else %}
                                             <button class="btn bg-primary btn-xs">Dodać</button>
+                                        {% else %}
+                                            <button class="btn bg-pale-primary btn-xs">Dodać</button>
                                         {% endif %}
                                     </a>
                                 </td>
