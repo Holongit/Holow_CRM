@@ -190,16 +190,15 @@ class OutgoGadget(View):
         if gadget.in_serwis:
             gadget.in_serwis = False
             gadget.updated_at = timezone.now()
-            if Workers.objects.filter(gadget=gadget).exists():
-                if gadget.workers.in_work:
-                    worker_pk = gadget.workers.id
-                    odstawic_gadget(request, worker_pk)
-                    Note.objects.create(
-                        author=User.objects.get(username='TPL'),
-                        title='URZĄDZENIE WYDANE KLIENTOWI',
-                        content=f'{user} menedżer, urządzenie zostało wydane, ale technik nie odłożył go na półkę!',
-                        gadget=gadget,
-                    )
+            if Workers.objects.filter(gadget=gadget) and gadget.workers.in_work:
+                worker_pk = gadget.workers.id
+                odstawic_gadget(request, worker_pk)
+                Note.objects.create(
+                    author=User.objects.get(username='TPL'),
+                    title='URZĄDZENIE WYDANE KLIENTOWI',
+                    content=f'{user} menedżer, urządzenie zostało wydane, ale technik nie odłożył go na półkę!',
+                    gadget=gadget,
+                )
             else:
                 Note.objects.create(
                     author=User.objects.get(username='TPL'),

@@ -96,7 +96,7 @@
                             {% for naprawa in klients %}
 
                                 <tbody>
-                                <tr class="text-center font-size-14">
+                                <tr class="text-center font-size-14 " data-href="{% url 'kartka_naprawy' pk=naprawa.id %}">
                                     <td class="b-3 border-white"><a
                                             href="{% url 'kartka_naprawy' pk=naprawa.id %}">{{ naprawa.id }}</a>
                                     </td>
@@ -141,5 +141,11 @@
                 <div class="box-footer"></div>
 
     </section>
-
+<script>
+        $(document).ready(function ($) {
+            $('*[data-href]').on('click', function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
 {% endblock %}
