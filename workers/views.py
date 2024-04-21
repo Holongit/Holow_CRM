@@ -202,6 +202,7 @@ def odstawic_gadget(request, pk):
     workers_obj.in_work = False
     gadget.alarm_on = True
     gadget.alarm_at = timezone.now()
+    gadget.managed_at = timezone.now()
     gadget.save()
     workers_obj.save()
 

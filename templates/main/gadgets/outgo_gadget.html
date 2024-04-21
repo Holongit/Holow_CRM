@@ -383,7 +383,7 @@
                                     <div class="modal-header">
                                         <h4 class="modal-title" id="1">
                                             {% if gadget.alarm_on == True %}
-                                                Zwrócić kartę z przodu??
+                                                Zwrócić kartę z przodu?
                                             {% else %}
                                                 Wysłać kartę do przodu?
                                             {% endif %}
@@ -422,7 +422,8 @@
                             </div>
                         </div>
                     {% endif %}
-                    <input type="button" class="btn btn-danger float-right" onclick="history.back();" value="Zamknąć"/>
+                    <input type="button" class="btn btn-danger float-right" onclick="history.go(-1);" value="Zamknąć"/>
+                    
 {#                        <a href="{% url 'gadgets' %}">#}
 {#                            <button type="submit" class="btn btn-danger float-right ml-20"><i#}
 {#                                    class="fa fa-close"></i>#}

@@ -191,6 +191,7 @@ class OutgoGadget(View):
             gadget.in_serwis = False
             gadget.alarm_on = False
             gadget.updated_at = timezone.now()
+            gadget.managed_at = timezone.now()
             if Workers.objects.filter(gadget=gadget) and gadget.workers.in_work:
                 worker_pk = gadget.workers.id
                 odstawic_gadget(request, worker_pk)
@@ -212,6 +213,7 @@ class OutgoGadget(View):
             gadget.in_serwis = True
             gadget.updated_at = timezone.now()
             gadget.status = 'NOWY'
+            gadget.managed_at = timezone.now()
             Note.objects.create(
                 author=User.objects.get(username='TPL'),
                 title='URZĄDZENIE PRZYJĘTE OD KLIENTA',
