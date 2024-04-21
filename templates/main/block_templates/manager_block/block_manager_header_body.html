@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>
         <div class="media-body">
-            <h1 class="text-fade">Manager</h1>
+            <h1 class="text-fade">Biurko</h1>
             <span class="text-fade"><i
                     class="fa fa-map-marker"></i> {{ filters.filter_dashboar }}</span>
         </div>
@@ -39,18 +39,22 @@
                 <div class="btn-group">
                     <button type="button" class="btn font-size-16
                                                         {% if filters.filter_manager == 'CAŁY CZAS' %} btn-primary
+                                                        {% elif filters.filter_manager == '1 DZIEŃ' %} bg-pale-primary
+                                                        {% elif filters.filter_manager == '2 DNI' %} bg-pale-primary
                                                         {% elif filters.filter_manager == '7 DNI' %} bg-pale-primary
                                                         {% elif filters.filter_manager == '14 DNI' %} bg-pale-primary
                                                         {% elif filters.filter_manager == '30 DNI' %} bg-pale-primary
                                                         {% elif filters.filter_manager == '60 DNI' %} bg-pale-primary
-                                                        {% elif filters.filter_manager == 'BUDZIK' %} bg-pale-primary
+                                                        {% elif filters.filter_manager == 'WSZYSTKIE' %} bg-primary
                                                         {% elif filters.filter_manager == 'PONAD 60 DNI' %} btn-secondary                                                        
                                                         {% endif %} dropdown-toggle btn-sm"
                             data-toggle="dropdown">{{ filters.filter_manager }}
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item"
-                           href="{% url 'filters_manager_change' status='CAŁY CZAS' %}">CAŁY CZAS</a>
+                           href="{% url 'filters_manager_change' status='1 DZIEŃ' %}">1 DZIEŃ</a>
+                        <a class="dropdown-item"
+                           href="{% url 'filters_manager_change' status='2 DNI' %}">2 DNI</a>
                         <a class="dropdown-item"
                            href="{% url 'filters_manager_change' status='7 DNI' %}">7 DNI</a>
                         <a class="dropdown-item"
@@ -62,7 +66,9 @@
                         <a class="dropdown-item"
                            href="{% url 'filters_manager_change' status='PONAD 60 DNI' %}">PONAD 60 DNI</a>
                         <a class="dropdown-item"
-                           href="{% url 'filters_manager_change' status='BUDZIK' %}">BUDZIK</a>
+                           href="{% url 'filters_manager_change' status='CAŁY CZAS' %}">CAŁY CZAS</a>
+                        <a class="dropdown-item"
+                           href="{% url 'filters_manager_change' status='WSZYSTKIE' %}">WSZYSTKIE</a>
                     </div>
                 </div>
             </form>
@@ -141,7 +147,7 @@
                         </button>
                     </a>
                 {% endif %}
-            
+
                 {% if filters.filter_manager_czeka_na_zgode == True %}
                     <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='O' %}">
                         <button class="btn bg-brown btn-xs float-left ml-5">
@@ -155,7 +161,7 @@
                         </button>
                     </a>
                 {% endif %}
-            
+
                 {% if filters.filter_manager_wycena == True %}
                     <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='W' %}">
                         <button class="btn bg-success btn-xs float-left ml-5">
@@ -169,7 +175,7 @@
                         </button>
                     </a>
                 {% endif %}
-            
+
                 {% if filters.filter_manager_diagnostyka == True %}
                     <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='D' %}">
                         <button class="btn bg-pink btn-xs float-left ml-5">
@@ -183,7 +189,7 @@
                         </button>
                     </a>
                 {% endif %}
-            
+
                 {% if filters.filter_manager_czeka_na_części == True %}
                     <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='C' %}">
                         <button class="btn bg-dark btn-xs float-left ml-5">
@@ -197,7 +203,7 @@
                         </button>
                     </a>
                 {% endif %}
-            
+
                 {% if filters.filter_manager_naprawienie == True %}
                     <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='A' %}">
                         <button class="btn bg-pale-dark btn-xs float-left ml-5">
@@ -208,6 +214,20 @@
                     <a href="{% url 'settings_manager_status_filter_change' status_filter=True status_filter_id='A' %}">
                         <button class="btn bg-lighter btn-xs float-left ml-5">
                             Naprawienie
+                        </button>
+                    </a>
+                {% endif %}
+            
+                {% if filters.filter_manager_all == True %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=False status_filter_id='L' %}">
+                        <button class="btn bg-danger btn-xs float-left ml-15">
+                            WSZYSTKIE
+                        </button>
+                    </a>
+                {% elif filters.filter_manager_all == False %}
+                    <a href="{% url 'settings_manager_status_filter_change' status_filter=True status_filter_id='L' %}">
+                        <button class="btn bg-pale-danger btn-xs float-left ml-15">
+                            WSZYSTKIE
                         </button>
                     </a>
                 {% endif %}

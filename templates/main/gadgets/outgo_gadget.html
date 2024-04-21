@@ -1,6 +1,5 @@
 {% extends 'index.html' %}
 {% block content %}
-
     <section class="content-header">
         <h1>
             <div class="media-body">
@@ -10,11 +9,9 @@
             </div>
         </h1>
         <ol class="breadcrumb">
-
         </ol>
     </section>
     <section class="content">
-
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
@@ -22,18 +19,14 @@
                     №{{ gadget.id }} {{ gadget.created_at_format }}
                 </h3>
                 <h3 class="float-left ml-20">
-
-
                     {% if gadget.in_serwis == True %}
                         <span class="badge badge-primary font-size-16">W serwise</span> {% elif gadget.in_serwis == False %}
                         <span class="badge badge-secondary font-size-16">Wydane</span> {% endif %}
-
                     {% if gadget.status == 'NAPRAWIENIE' %}
                         <span class="badge badge-default font-size-16">NAPRAWIENIE</span>
                     {% elif gadget.status == 'GOTOWY' %} <span class="badge badge-primary font-size-16">GOTOWY</span>
                     {% elif gadget.status == 'CZEKA NA CZĘŚCI' %}
                         <span class="badge badge-dark font-size-16">CZEKA NA CZĘŚCI</span>
-
                     {% elif gadget.status == 'CZEKA NA ZGODĘ' %}
                         <span class="badge badge-brown font-size-16">CZEKA NA ZGODĘ</span>
                     {% elif gadget.status == 'WYCENA' %}
@@ -42,12 +35,10 @@
                         <span class="badge badge-pink font-size-16">DIAGNOSTYKA</span>
                     {% elif gadget.status == 'ZALICZKA' %}
                         <span class="badge bg-green font-size-16">ZALICZKA</span>
-
                     {% elif gadget.status == 'REZYGNACJA' %}
                         <span class="badge badge-purple font-size-16"> REZYGNACJA</span>
                     {% elif gadget.status == 'NOWY' %} <span class="badge badge-info font-size-16"> NOWY</span>
                     {% endif %}
-
                     {% if gadget.type_service == 'PŁATNE' %}
                         <span class="badge badge-info font-size-16">PŁATNE</span>
                     {% elif gadget.type_service == 'GWARANCJA' %}
@@ -55,7 +46,6 @@
                     {% elif gadget.type_service == 'REKLAMACJA' %}
                         <span class="badge badge-danger font-size-16">REKLAMACJA</span>
                     {% endif %}
-
                     {% if gadget.pilne == 'PILNE' %}
                         <span class="badge badge-danger font-size-16">PILNE</span>
                     {% elif gadget.pilne == 'ŚREDNIO' %}
@@ -91,7 +81,6 @@
                                 data-toggle="dropdown">{{ gadget.location }}
                         </button>
                     {% endif %}
-
                 </h3>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-close" href="#"></a></li>
@@ -101,16 +90,10 @@
             </div>
             <div class="box-body">
                 <!-- CONTENT_MAIN -->
-
                 <div class="row">
                     <div class="col">
-
-
                         <div class="row">
-
                             <div class="col-lg-6 col-12">
-
-
                                 <div class="form-group">
                                     <h5>Urządzenie: <span class="font-weight-bold font-size-20">
                                     {% if gadget.type_gadget %}
@@ -187,7 +170,6 @@
                                         <h5>Opis naprawy: <span
                                                 class="font-weight-bold font-size-20">{{ gadget.opis_naprawy }}</span>
                                         </h5>
-
                                     </div>
                                 {% endif %}
                                 {% if gadget.password_gadget %}
@@ -195,16 +177,13 @@
                                         <h5>Hasło/Tag: <span
                                                 class="font-weight-bold font-size-20">{{ gadget.password_gadget }}</span>
                                         </h5>
-
                                     </div>
                                 {% endif %}
-
                             </div>
                             <div class="col-lg-6 col-12">
                                 <div class="mb-15 ml-70">
                                     <form action="{% url 'add_note' pk=gadget.id %}" method="post">
                                         {% csrf_token %}
-
                                         <div class="input-group">
                                             <span class="input-group-btn">{{ form.title }}</span>
                                             {{ form.content }}
@@ -264,7 +243,6 @@
                                     <i class="fa fa-mail-forward"></i> Przyjmij
                                 </button>
                             {% endif %}
-
                             <div id="wydaj" class="modal fade" tabindex="-1" role="dialog"
                                  aria-labelledby="1" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -309,8 +287,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <a href="{% url 'print_gadget' pk=gadget.pk %}">
                                 <button class="btn btn-warning float-left ml-20"><i
                                         class="fa fa-print"></i> Drukuj
@@ -341,7 +317,6 @@
                             {% elif gadget.workers.in_work == False and not gadget.status == 'NOWY' %}
                                 <span class="btn bg-pale-primary ml-20">Odstawione</span>
                             {% endif %}
-
                             <div id="odstawic" class="modal fade" tabindex="-1" role="dialog"
                                  aria-labelledby="1" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -389,18 +364,74 @@
                         {% elif not gadget.in_serwis %}
                             <span class="btn bg-pale-primary ml-20">Wydane Klientowi</span>
                         {% endif %}
-
-                        <a href="{% url 'gadgets' %}">
-                            <button type="submit" class="btn btn-danger float-right ml-20"><i
-                                    class="fa fa-close"></i>
-                                Zamknąć
+                    {% if gadget.in_serwis == True and gadget.workers.in_work == True %}
+                        {% if gadget.alarm_on == False %}
+                            <button type="submit" class="btn bg-brown float-left ml-20" data-toggle="modal"
+                                    data-target="#biurko">
+                                <i class="fa fa-reply"></i> Na Biurko
                             </button>
-                        </a>
-
+                        {% elif gadget.alarm_on == True %}
+                            <button type="submit" class="btn btn-secondary float-left ml-20" data-toggle="modal"
+                                    data-target="#biurko">
+                                <i class="fa fa-mail-forward"></i> Kartka z Przodu
+                            </button>
+                        {% endif %}
+                        <div id="biurko" class="modal fade" tabindex="-1" role="dialog"
+                             aria-labelledby="1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="1">
+                                            {% if gadget.alarm_on == True %}
+                                                Zwrócić kartę z przodu??
+                                            {% else %}
+                                                Wysłać kartę do przodu?
+                                            {% endif %}
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">×
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                                <span class="font-size-20 font-weight-bold ">
+                                                    №{{ gadget.id }} {{ gadget.type_gadget }}
+                                                    {% firstof gadget.brand_gadget %}
+                                                    {% firstof gadget %}
+                                                </span>
+                                        <h4><br> z komentarzem: <br><br> {% firstof gadget.note_set.first %}</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger float-right mt-20"
+                                                data-dismiss="modal">Nie
+                                        </button>
+                                        <form action="{% url 'alarm_at_change' pk=gadget.id %}" method="post"
+                                              class="mt-20">
+                                            {% csrf_token %}
+                                            {% if gadget.alarm_on == False %}
+                                                <button type="submit" class="btn bg-brown float-left"><i
+                                                        class="fa fa-reply"></i> Wyślij
+                                                </button>
+                                            {% elif gadget.alarm_on == True %}
+                                                <button type="submit" class="btn btn-secondary float-left"><i
+                                                        class="fa fa-mail-forward"></i> Zwrócić
+                                                </button>
+                                            {% endif %}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <input type="button" class="btn btn-danger float-right" onclick="history.back();" value="Zamknąć"/>
+{#                        <a href="{% url 'gadgets' %}">#}
+{#                            <button type="submit" class="btn btn-danger float-right ml-20"><i#}
+{#                                    class="fa fa-close"></i>#}
+{#                                Zamknąć#}
+{#                            </button>#}
+{#                        </a>#}
                     </div>
                 </div>
             </div>
-
     </section>
     <script>
         function update() {

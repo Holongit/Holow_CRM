@@ -200,6 +200,9 @@ def odstawic_gadget(request, pk):
     workers_name = workers_obj.worker
     workers_gad = workers_obj.gadget
     workers_obj.in_work = False
+    gadget.alarm_on = True
+    gadget.alarm_at = timezone.now()
+    gadget.save()
     workers_obj.save()
 
     Note.objects.create(
@@ -215,16 +218,19 @@ def odstawic_gadget(request, pk):
     if workers_obj.gadget.type_service == 'PŁATNE':
         KartkaPlatne.objects.create(worker=workers_name, gadget=workers_gad)
         gadget.status = 'GOTOWY'
+        gadget.managed_at = timezone.now()
         gadget.save()
         return redirect(request.META.get('HTTP_REFERER'))
     if workers_obj.gadget.type_service == 'GWARANCJA':
         KartkaGwarancja.objects.create(worker=workers_name, gadget=workers_gad)
         gadget.status = 'GOTOWY'
+        gadget.managed_at = timezone.now()
         gadget.save()
         return redirect(request.META.get('HTTP_REFERER'))
     if workers_obj.gadget.type_service == 'REKLAMACJA':
         KartkaReklamacja.objects.create(worker=workers_name, gadget=workers_gad)
         gadget.status = 'GOTOWY'
+        gadget.managed_at = timezone.now()
         gadget.save()
 
         return redirect(request.META.get('HTTP_REFERER'))

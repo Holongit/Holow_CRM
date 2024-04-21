@@ -421,6 +421,16 @@
                                         <span class="btn bg-danger btn-xs">NOTATKA</span>
                                     </a>
                                 {% endif %}
+                                {% if gadgets_data.gadget.alarm_on == True and gadgets_data.gadget.in_serwis == True %}
+                                    <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
+                                        <span class="btn bg-secondary btn-xs text-uppercase">Kartka z Przodu</span>
+                                    </a>
+                                {% elif gadgets_data.gadget.alarm_on == False and gadgets_data.gadget.in_serwis == True %}
+                                    <a href="{% url 'gadget_info' pk=gadgets_data.gadget.id %}">
+                                        <span class="btn bg-brown btn-xs text-uppercase">kartka masz</span>
+                                    </a>
+                                {% elif gadgets_data.gadget.alarm_on == False and gadgets_data.gadget.in_serwis == False %}
+                                {% endif %}
                             {% endfor %}
 
                             <tfoot>

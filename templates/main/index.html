@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/static/images/favicon.ico">
     <title>Holow-CRM</title>
-       <!-- Bootstrap 4.0-->
+    <!-- Bootstrap 4.0-->
     <link rel="stylesheet" href="/static/assets/vendor_components/bootstrap/dist/css/bootstrap.css">
     <!-- Bootstrap extend-->
     <link rel="stylesheet" href="/static/css/bootstrap-extend.css">
@@ -67,7 +67,7 @@
     <script src="/static/assets/vendor_components/formatter/jquery.formatter.js"></script>
     <script src="/static/js/pages/formatter.js"></script>
     <script src="/static/js/pages/flatpickr.js"></script>
- 
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
 <div class="wrapper">
@@ -128,10 +128,10 @@
             </span>
                     </a>
                 </li>
-                {% if request.user.username == 'TPL' %}
+                {% if request.user.is_authenticated and request.user.is_staff %}
                     <li>
                         <a href="{% url 'index_manager' %}">
-                            <i class="fa fa-server"></i> <span class="font-size-18">Manager</span>
+                            <i class="fa fa-th"></i> <span class="font-size-18">Biurko</span>
                             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>

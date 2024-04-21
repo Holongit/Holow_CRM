@@ -189,6 +189,7 @@ class OutgoGadget(View):
         user = request.user
         if gadget.in_serwis:
             gadget.in_serwis = False
+            gadget.alarm_on = False
             gadget.updated_at = timezone.now()
             if Workers.objects.filter(gadget=gadget) and gadget.workers.in_work:
                 worker_pk = gadget.workers.id

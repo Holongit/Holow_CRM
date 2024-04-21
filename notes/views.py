@@ -1,8 +1,8 @@
+from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-
 
 from gadgets.models import Gadget
 from notes.form import NoteForm
@@ -30,18 +30,23 @@ class NoteAdd(View):
                 note_last.read = False
             if note_last.title == 'DIAGNOSTYKA':
                 gadget_id.status = 'WYCENA'
+                gadget_id.managed_at = timezone.now()
                 gadget_id.save()
             if note_last.title == 'WYCENA':
                 gadget_id.status = 'CZEKA NA ZGODĘ'
+                gadget_id.managed_at = timezone.now()
                 gadget_id.save()
             if note_last.title == 'ZGODA':
                 gadget_id.status = 'NAPRAWIENIE'
+                gadget_id.managed_at = timezone.now()
                 gadget_id.save()
             if note_last.title == 'CZĘŚCI':
                 gadget_id.status = 'CZEKA NA CZĘŚCI'
+                gadget_id.managed_at = timezone.now()
                 gadget_id.save()
             if note_last.title == 'ZALICZKA':
                 gadget_id.status = 'ZALICZKA'
+                gadget_id.managed_at = timezone.now()
                 gadget_id.save()
             note_last.gadget_id = gadget_id
             note_last.author = user_id

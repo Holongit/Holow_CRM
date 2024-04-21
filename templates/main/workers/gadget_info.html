@@ -412,6 +412,64 @@
                         {% elif not gadget.in_serwis %}
                             <span class="btn bg-pale-primary ml-20">Wydane Klientowi</span>
                         {% endif %}
+                        {% if gadget.in_serwis == True and gadget.workers.in_work == True and gadget.workers.worker == request.user %}
+                            {% if gadget.alarm_on == False %}
+                                <button type="submit" class="btn bg-brown float-left ml-20" data-toggle="modal"
+                                        data-target="#biurko">
+                                    <i class="fa fa-reply"></i> Na Biurko
+                                </button>
+                            {% elif gadget.alarm_on == True %}
+                                <button type="submit" class="btn btn-secondary float-left ml-20" data-toggle="modal"
+                                        data-target="#biurko">
+                                    <i class="fa fa-mail-forward"></i> Kartka z Przodu
+                                </button>
+                            {% endif %}
+                            <div id="biurko" class="modal fade" tabindex="-1" role="dialog"
+                                 aria-labelledby="1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="1">
+                                                {% if gadget.alarm_on == True %}
+                                                    Zwrócić kartę z przodu??
+                                                {% else %}
+                                                    Wysłać kartę do przodu?
+                                                {% endif %}
+                                            </h4>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">×
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                                <span class="font-size-20 font-weight-bold ">
+                                                    №{{ gadget.id }} {{ gadget.type_gadget }}
+                                                    {% firstof gadget.brand_gadget %}
+                                                    {% firstof gadget %}
+                                                </span>
+                                            <h4><br> z komentarzem: <br><br> {% firstof gadget.note_set.first %}</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger float-right mt-20"
+                                                    data-dismiss="modal">Nie
+                                            </button>
+                                            <form action="{% url 'alarm_at_change' pk=gadget.id %}" method="post"
+                                                  class="mt-20">
+                                                {% csrf_token %}
+                                                {% if gadget.alarm_on == False %}
+                                                    <button type="submit" class="btn bg-brown float-left"><i
+                                                            class="fa fa-reply"></i> Wyślij
+                                                    </button>
+                                                {% elif gadget.alarm_on == True %}
+                                                    <button type="submit" class="btn btn-secondary float-left"><i
+                                                            class="fa fa-mail-forward"></i> Zwrócić
+                                                    </button>
+                                                {% endif %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
 
                         <a href="{% url 'workers_list' pk=gadget.workers.worker.id %}">
                             <button type="submit" class="btn btn-danger float-right ml-20"><i
