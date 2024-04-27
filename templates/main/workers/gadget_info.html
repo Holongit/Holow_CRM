@@ -352,7 +352,7 @@
                             {% if gadget.workers.in_work == True and request.user == gadget.workers.worker %}
                                 <button type="submit" class="btn btn-primary float-left ml-20" data-toggle="modal"
                                         data-target="#odstawic">
-                                    <i class="fa fa-reply"></i> Odstawic
+                                    <i class="fa fa-reply"></i> Odstawić
                                 </button>
                             {% elif gadget.workers.in_work == True and not request.user == gadget.workers.worker %}
                                 <span class="btn bg-pale-primary ml-20">W naprawie</span>
@@ -372,7 +372,7 @@
                                         <div class="modal-header">
                                             <h4 class="modal-title" id="1">
                                                 {% if gadget.workers.in_work %}
-                                                    Odstawic urządzenie?
+                                                    Odstawić urządzenie?
                                                 {% else %}
                                                     Wziąć urządzenie do naprawy?
                                                 {% endif %}
@@ -395,7 +395,12 @@
                                             {% if gadget.workers.in_work == True %}
                                                 <a href="{% url 'odstawic_gadget' pk=gadget.workers.id %}">
                                                     <button type="submit" class="btn btn-primary float-left mt-20">
-                                                        <i class="fa fa-reply"></i> Odstawic
+                                                        <i class="fa fa-reply"></i> Odstawić
+                                                    </button>
+                                                </a>
+                                                <a href="{% url 'oodstawoc_rezygnacja_gadget' pk=gadget.workers.id %}">
+                                                    <button type="submit" class="btn btn-purple float-left mt-20 ml-20">
+                                                        <i class="fa fa-reply"></i> Rezygnacja
                                                     </button>
                                                 </a>
                                             {% elif gadget.workers.in_work == False %}

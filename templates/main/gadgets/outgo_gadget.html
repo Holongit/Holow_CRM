@@ -307,7 +307,7 @@
                             {% if gadget.workers.in_work == True %}
                                 <button type="submit" class="btn btn-primary float-left ml-20" data-toggle="modal"
                                         data-target="#odstawic">
-                                    <i class="fa fa-reply"></i> Odstawic
+                                    <i class="fa fa-reply"></i> Odstawić
                                 </button>
                             {% elif gadget.status == 'NOWY' %}
                                 <button type="submit" class="btn btn-secondary float-left ml-20" data-toggle="modal"
@@ -324,7 +324,7 @@
                                         <div class="modal-header">
                                             <h4 class="modal-title" id="1">
                                                 {% if gadget.workers.in_work %}
-                                                    Odstawic urządzenie?
+                                                    Odstawić urządzenie?
                                                 {% else %}
                                                     Wziąć urządzenie do naprawy?
                                                 {% endif %}
@@ -347,7 +347,12 @@
                                             {% if gadget.workers.in_work == True %}
                                                 <a href="{% url 'odstawic_gadget' pk=gadget.workers.id %}">
                                                     <button type="submit" class="btn btn-primary float-left mt-20">
-                                                        <i class="fa fa-reply"></i> Odstawic
+                                                        <i class="fa fa-reply"></i> Odstawić
+                                                    </button>
+                                                </a>
+                                                <a href="{% url 'oodstawoc_rezygnacja_gadget' pk=gadget.workers.id %}">
+                                                    <button type="submit" class="btn btn-purple float-left mt-20 ml-20">
+                                                        <i class="fa fa-reply"></i> Rezygnacja
                                                     </button>
                                                 </a>
                                             {% else %}
@@ -364,72 +369,73 @@
                         {% elif not gadget.in_serwis %}
                             <span class="btn bg-pale-primary ml-20">Wydane Klientowi</span>
                         {% endif %}
-                    {% if gadget.in_serwis == True and gadget.workers.in_work == True %}
-                        {% if gadget.alarm_on == False %}
-                            <button type="submit" class="btn bg-brown float-left ml-20" data-toggle="modal"
-                                    data-target="#biurko">
-                                <i class="fa fa-reply"></i> Na Biurko
-                            </button>
-                        {% elif gadget.alarm_on == True %}
-                            <button type="submit" class="btn btn-secondary float-left ml-20" data-toggle="modal"
-                                    data-target="#biurko">
-                                <i class="fa fa-mail-forward"></i> Kartka z Przodu
-                            </button>
-                        {% endif %}
-                        <div id="biurko" class="modal fade" tabindex="-1" role="dialog"
-                             aria-labelledby="1" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="1">
-                                            {% if gadget.alarm_on == True %}
-                                                Wysłać kartę do technika?
-                                            {% else %}
-                                                Wysłać kartę do przodu?
-                                            {% endif %}
-                                        </h4>
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-hidden="true">×
-                                        </button>
-                                    </div>
-                                    <div class="modal-body text-center">
+                        {% if gadget.in_serwis == True and gadget.workers.in_work == True %}
+                            {% if gadget.alarm_on == False %}
+                                <button type="submit" class="btn bg-brown float-left ml-20" data-toggle="modal"
+                                        data-target="#biurko">
+                                    <i class="fa fa-reply"></i> Na Biurko
+                                </button>
+                            {% elif gadget.alarm_on == True %}
+                                <button type="submit" class="btn btn-secondary float-left ml-20" data-toggle="modal"
+                                        data-target="#biurko">
+                                    <i class="fa fa-mail-forward"></i> Kartka z Przodu
+                                </button>
+                            {% endif %}
+                            <div id="biurko" class="modal fade" tabindex="-1" role="dialog"
+                                 aria-labelledby="1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="1">
+                                                {% if gadget.alarm_on == True %}
+                                                    Wysłać kartę do technika?
+                                                {% else %}
+                                                    Wysłać kartę do przodu?
+                                                {% endif %}
+                                            </h4>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">×
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
                                                 <span class="font-size-20 font-weight-bold ">
                                                     №{{ gadget.id }} {{ gadget.type_gadget }}
                                                     {% firstof gadget.brand_gadget %}
                                                     {% firstof gadget %}
                                                 </span>
-                                        <h4><br> z komentarzem: <br><br> {% firstof gadget.note_set.first %}</h4>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger float-right mt-20"
-                                                data-dismiss="modal">Nie
-                                        </button>
-                                        <form action="{% url 'alarm_at_change' pk=gadget.id %}" method="post"
-                                              class="mt-20">
-                                            {% csrf_token %}
-                                            {% if gadget.alarm_on == False %}
-                                                <button type="submit" class="btn bg-brown float-left"><i
-                                                        class="fa fa-reply"></i> Wyślij
-                                                </button>
-                                            {% elif gadget.alarm_on == True %}
-                                                <button type="submit" class="btn btn-secondary float-left"><i
-                                                        class="fa fa-mail-forward"></i> Wyślij
-                                                </button>
-                                            {% endif %}
-                                        </form>
+                                            <h4><br> z komentarzem: <br><br> {% firstof gadget.note_set.first %}</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger float-right mt-20"
+                                                    data-dismiss="modal">Nie
+                                            </button>
+                                            <form action="{% url 'alarm_at_change' pk=gadget.id %}" method="post"
+                                                  class="mt-20">
+                                                {% csrf_token %}
+                                                {% if gadget.alarm_on == False %}
+                                                    <button type="submit" class="btn bg-brown float-left"><i
+                                                            class="fa fa-reply"></i> Wyślij
+                                                    </button>
+                                                {% elif gadget.alarm_on == True %}
+                                                    <button type="submit" class="btn btn-secondary float-left"><i
+                                                            class="fa fa-mail-forward"></i> Wyślij
+                                                    </button>
+                                                {% endif %}
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endif %}
-                    <input type="button" class="btn btn-danger float-right" onclick="history.go(-1);" value="Zamknąć"/>
-                    
-{#                        <a href="{% url 'gadgets' %}">#}
-{#                            <button type="submit" class="btn btn-danger float-right ml-20"><i#}
-{#                                    class="fa fa-close"></i>#}
-{#                                Zamknąć#}
-{#                            </button>#}
-{#                        </a>#}
+                        {% endif %}
+                        <input type="button" class="btn btn-danger float-right" onclick="history.go(-1);"
+                               value="Zamknąć"/>
+
+                        {#                        <a href="{% url 'gadgets' %}">#}
+                        {#                            <button type="submit" class="btn btn-danger float-right ml-20"><i#}
+                        {#                                    class="fa fa-close"></i>#}
+                        {#                                Zamknąć#}
+                        {#                            </button>#}
+                        {#                        </a>#}
                     </div>
                 </div>
             </div>

@@ -238,6 +238,17 @@ def odstawic_gadget(request, pk):
 
 
 @login_required(login_url='login')
+def odstawic_rezygnacja_gadget (request, pk):
+    workers_obj = Workers.objects.get(id=pk)
+    gadget_id = workers_obj.gadget.id
+    gadget = Gadget.objects.get(id=gadget_id)
+    gadget.status = 'REZYGNACJA'
+    gadget.save()
+    odstawic_gadget(request, pk)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required(login_url='login')
 def gadget_location_change(request, pk, location_id):
     gadget = Gadget.objects.get(pk=pk)
     user = request.user
