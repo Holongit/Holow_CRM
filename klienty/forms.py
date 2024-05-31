@@ -14,7 +14,7 @@ class KlientForm(forms.Form):
     )
 
     name_klient = forms.CharField(max_length=64)
-    telefon_klient = forms.RegexField(max_length=32, min_length=9, regex=r'^[0-9-]*$')
+    telefon_klient = forms.RegexField(max_length=32, min_length=9, regex=r'^[0-9-+]*$')
     opis_klient = forms.CharField(widget=forms.Textarea(attrs={'class': "form-control"}), required=False)
     email_klient = forms.EmailField(widget=forms.EmailInput(attrs={'class': "form-control"}), required=False)
     types_klient = forms.ChoiceField(choices=CHOICES)
