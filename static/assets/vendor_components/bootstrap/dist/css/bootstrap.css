@@ -1669,13 +1669,13 @@ pre code {
 .table {
   width: 100%;
   max-width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   background-color: transparent;
 }
 
 .table th,
 .table td {
-  padding: 0.75rem;
+  padding: 0;
   vertical-align: top;
   border-top: 1px solid #dee2e6;
 }
@@ -8972,4 +8972,6 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #ddd !important;
   }
 }
+
+
 /*# sourceMappingURL=bootstrap.css.map */

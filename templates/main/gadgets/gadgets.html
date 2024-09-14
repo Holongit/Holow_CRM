@@ -1,35 +1,15 @@
 {% extends 'index.html' %}
 {% block content %}
-
-    <section class="content-header">
-        <h1>
-            <div class="media-body">
-                <h1 class="text-fade">Urządzenia</h1>
-                <span class="text-fade"><i
-                        class="fa fa-map-marker"></i> {{ filters.filter_dashboar }}</span>
-            </div>
-        </h1>
-
-        <ol class="breadcrumb">
-
-        </ol>
-
-    </section>
+{#    <section class="content-header">#}
+{#        <h1>#}
+{#            <div class="media-body">#}
+{#                <h5 class="text-fade font-weight-bold">Urządzenia</h5>#}
+{#            </div>#}
+{#        </h1>#}
+{#    </section>#}
     <section class="content">
         <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title"></h3>
-
-                <ul class="box-controls pull-right">
-                    <li><a class="box-btn-close" href="#"></a></li>
-                    <li><a class="box-btn-slide" href="#"></a></li>
-                    <li><a class="box-btn-fullscreen" href="#"></a></li>
-                </ul>
-
-            </div>
-
             <div class="box-body">
-
                 <form class="navbar-form navbar-left float-left">
                     <div class="input-group">
                         <input class="form-control" type="search" name="q" aria-label="#" placeholder="Szukaj">
@@ -38,9 +18,7 @@
                         </span>
                     </div>
                 </form>
-
                 <!-- Calendar -->
-
                 <form class="navbar-form navbar-left float-left">
                     <div class="form-group">
                         <div class="input-group">
@@ -76,7 +54,6 @@
                                                         {% elif filters.filter_dashboar == 'STOKŁOSY' %} btn-secondary                                                        
                                                         {% endif %} dropdown-toggle btn-sm"
                                     data-toggle="dropdown">Lokalizacja: {{ filters.filter_dashboar }}
-
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item"
@@ -87,9 +64,6 @@
                         </div>
                     </form>
                 {% endif %}
-
-
-
                 {% if is_paginated %}
                     <form class="navbar-form navbar-right">
                         <nav aria-label="...">
@@ -101,21 +75,16 @@
                                     </a>
                                 </li>
                                 {% for n in gadgets.paginator.page_range %}
-
                                     {% if gadgets.number == n %}
-
                                         <li class="page-item active">
                                             <a class="page-link" href="?page={{ n }}">{{ n }}</a>
                                         </li>
-
                                     {% elif n > gadgets.number|add:-5 and n < gadgets.number|add:5 %}
-
                                         <li class="page-item">
                                             <a class="page-link" href="?page={{ n }}">{{ n }}</a>
                                         </li>
                                     {% endif %}
                                 {% endfor %}
-
                                 <li class="page-item {% if not next_url %} disabled {% endif %}">
                                     <a class="page-link" href="{{ next_url }}" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
@@ -124,12 +93,8 @@
                                 </li>
                             </ul>
                         </nav>
-
                     </form>
                 {% endif %}
-
-
-
                 <!-- table -->
                 <div class="box-body">
                     <div class="table-responsive">
@@ -137,31 +102,28 @@
                                class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                             <thead>
                             <tr class="bg-secondary ">
-                                <th class="text-center font-weight-bold b-3 border-white">№</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Urządzenie</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Właściciel</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Telefon</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Data Przyjęcia</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Technik</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Czas</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Stan</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Rodzaj Naprawy</th>
-                                <th class="text-center font-weight-bold b-3 border-white">Pilne</th>
+                                <th class="text-center font-weight-bold b-1 border-white">№</th>
+                                <th class="text-center font-weight-bold b-1 border-white">Urządzenie</th>
+                                <th class="text-center font-weight-bold b-1 border-white">Właściciel</th>
+                                <th class="text-center font-weight-bold b-1 border-white">Telefon</th>
+                                <th class="text-center font-weight-bold b-1 border-white">Data Przyjęcia</th>
+                                <th class="text-center font-weight-bold b-1 border-white">Technik</th>
+                                <th class="text-center font-weight-bold b-1 border-white">Czas</th>
+                                <th class="text-center font-weight-bold b-1 border-white">Stan</th>
+                                <th class="text-center font-weight-bold b-1 border-white">Rodzaj Naprawy</th>
+                                <th class="text-center font-weight-bold b-1 border-white">Pilne</th>
                                 {% if request.user.is_authenticated and not request.user.is_staff %}
-                                    <th class="text-center font-weight-bold b-3 border-white">Do naprawy</th>
+                                    <th class="text-center font-weight-bold b-1 border-white">Do naprawy</th>
                                 {% elif request.user.is_authenticated and request.user.is_staff %}
                                     <th></th>
                                 {% endif %}
-
                             </tr>
                             </thead>
-
                             {% for gadgets_data in gadgets %}
                                 {% if gadgets_data.location == filters.filter_dashboar %}
-
                                     <tbody>
-                                    <tr class="text-center font-size-16">
-                                        <td class="b-3 border-white"
+                                    <tr class="text-center font-size-14">
+                                        <td class="b-1 border-white"
                                                 {% if request.user.is_authenticated and request.user.is_staff %}
                                             data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}"
                                                 {% elif request.user.is_authenticated and not request.user.is_staff and gadgets_data.workers.worker %}
@@ -169,7 +131,7 @@
                                                 {% endif %}>
                                             {% firstof gadgets_data.id %}
                                         </td>
-                                        <td class="b-3 border-white"
+                                        <td class="b-1 border-white"
                                                 {% if request.user.is_authenticated and request.user.is_staff %}
                                             data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}"
                                                 {% elif request.user.is_authenticated and not request.user.is_staff and gadgets_data.workers.worker %}
@@ -178,9 +140,8 @@
                                             {% firstof gadgets_data.type_gadget %}
                                             {% firstof gadgets_data.brand_gadget %}
                                             {% firstof gadgets_data %}
-
                                         </td>
-                                        <td class="b-3 border-white"
+                                        <td class="b-1 border-white"
                                                 {% if request.user.is_authenticated and request.user.is_staff %}
                                             data-href="{% url 'kartka_klienta' pk=gadgets_data.klient.id %}">
                                                     {% firstof gadgets_data.klient.name_klient %}
@@ -190,9 +151,8 @@
                                                 {% else %}
                                                     >
                                                 {% endif %}
-
                                         </td>
-                                        <td class="b-3 border-white"
+                                        <td class="b-1 border-white"
                                                 {% if request.user.is_authenticated and request.user.is_staff %}
                                             data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}">
                                                     {% firstof gadgets_data.klient.telefon_klient %}
@@ -202,9 +162,8 @@
                                                 {% else %}
                                                     >
                                                 {% endif %}
-
                                         </td>
-                                        <td class="b-3 border-white"
+                                        <td class="b-1 border-white"
                                                 {% if request.user.is_authenticated and request.user.is_staff %}
                                             data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}"
                                                 {% elif request.user.is_authenticated and not request.user.is_staff and gadgets_data.workers.worker %}
@@ -212,7 +171,7 @@
                                                 {% endif %}>
                                             {% firstof gadgets_data.created_at_format %}
                                         </td>
-                                        <td class="b-3 border-white">
+                                        <td class="b-1 border-white">
                                             {% if gadgets_data.in_serwis and request.user.is_authenticated and request.user.is_staff %}
                                                 <div class="btn-group">
                                                     <button type="button"
@@ -236,22 +195,20 @@
                                                 </button>
                                             {% endif %}
                                         </td>
-                                        <td class="b-3 border-white"
+                                        <td class="b-1 border-white"
                                                 {% if request.user.is_authenticated and request.user.is_staff %}
                                             data-href="{% url 'outgo_gadget' pk=gadgets_data.id %}"
                                                 {% elif request.user.is_authenticated and not request.user.is_staff %}
                                                 {% endif %}>
-                                        <span class="mr-10 badge ml-10                                                        
-                                                        {% if gadgets_data.time_in_serwis_get <= 3 %} bg-info
-                                                        {% elif gadgets_data.time_in_serwis_get > 3 and gadgets_data.time_in_serwis_get <= 14 %} bg-dark
-                                                        {% elif gadgets_data.time_in_serwis_get > 14 %} bg-danger                                              
+                                        <span class="mr-1 badge ml-1                                                        
+                                                        {% if gadgets_data.time_in_serwis_get <= 6 %} bg-info
+                                                        {% elif gadgets_data.time_in_serwis_get > 6 and gadgets_data.time_in_serwis_get <= 180 %} bg-danger
+                                                        {% elif gadgets_data.time_in_serwis_get > 180 %} bg-black                                              
                                                         {% endif %}                                                        
                                                         ">{{ gadgets_data.time_in_serwis_get }} dni
                                         </span>
                                         </td>
-
-
-                                        <td class="b-3 border-white">
+                                        <td class="b-1 border-white">
                                             {% if request.user.is_authenticated and request.user.is_staff %}
                                                 <div class="btn-group">
                                                     <button type="button" class="btn
@@ -265,7 +222,6 @@
                                                         {% elif gadgets_data.status == 'NOWY' %} btn-info
                                                         {% elif gadgets_data.status == 'ZALICZKA' %} bg-green
                                                         {% endif %} dropdown-toggle btn-xs"
-
                                                             data-toggle="dropdown">{{ gadgets_data.status }}
                                                     </button>
                                                     <div class="dropdown-menu">
@@ -289,7 +245,6 @@
                                                             NA CZĘŚCI</a>
                                                         <a class="dropdown-item"
                                                            href="{% url 'gadget_status_change' pk=gadgets_data.id status='NAPRAWIENIE' %}">NAPRAWIENIE</a>
-
                                                     </div>
                                                 </div>
                                             {% else %}
@@ -310,14 +265,13 @@
                                                 dni
                                             </badge>
                                         </td>
-                                        <td class="b-3 border-white">
+                                        <td class="b-1 border-white">
                                             {% if request.user.is_authenticated and request.user.is_staff %}
                                                 <div class="btn-group">
                                                     <button type="button" class="btn
                                                         {% if gadgets_data.type_service == 'PŁATNE' %} btn-info
                                                         {% elif gadgets_data.type_service == 'GWARANCJA' %} btn-warning
                                                         {% elif gadgets_data.type_service == 'REKLAMACJA' %} btn-danger
-                                                  
                                                         {% endif %}
                                                         btn-xs dropdown-toggle"
                                                             data-toggle="dropdown">{{ gadgets_data.type_service }}
@@ -348,7 +302,6 @@
                                                         {% if gadgets_data.pilne == 'PILNE' %} btn-danger
                                                         {% elif gadgets_data.pilne == 'ŚREDNIO' %} btn-warning
                                                         {% elif gadgets_data.pilne == 'NIE' %} btn-secondary
-                                                  
                                                         {% endif %}
                                                         btn-xs dropdown-toggle"
                                                             data-toggle="dropdown">{{ gadgets_data.pilne }}
@@ -372,11 +325,9 @@
                                                 </button>
                                             {% endif %}
                                         </td>
-                                        <td class="b-3 border-white">
+                                        <td class="b-1 border-white">
                                             {% if request.user.is_authenticated and request.user.is_staff %}
-
                                                 <div class="clearfix">
-
                                                     <a href="{% url 'outgo_gadget' pk=gadgets_data.pk %}">
                                                         {% if gadgets_data.in_serwis == True %}
                                                             <button class="btn bg-primary btn-xs">W Serwise
@@ -427,19 +378,14 @@
                                         </td>
                                     </tr>
                                     </tbody>
-
                                 {% endif %}
                             {% endfor %}
-
                             <tfoot>
-
                             </tfoot>
                         </table>
                     </div>
                 </div>
-
                 <div class="box-footer">
-
                     {% if is_paginated %}
                         <form class="navbar-form navbar-right">
                             <nav aria-label="...">
@@ -451,13 +397,10 @@
                                         </a>
                                     </li>
                                     {% for n in gadgets.paginator.page_range %}
-
                                         {% if gadgets.number == n %}
-
                                             <li class="page-item active">
                                                 <a class="page-link" href="?page={{ n }}">{{ n }}</a>
                                             </li>
-
                                         {% elif n > gadgets.number|add:-5 and n < gadgets.number|add:5 %}
 
                                             <li class="page-item">
@@ -465,7 +408,6 @@
                                             </li>
                                         {% endif %}
                                     {% endfor %}
-
                                     <li class="page-item {% if not next_url %} disabled {% endif %}">
                                         <a class="page-link" href="{{ next_url }}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
@@ -474,13 +416,10 @@
                                     </li>
                                 </ul>
                             </nav>
-
                         </form>
                     {% endif %}
-
                 </div>
     </section>
-    
     <script>
         flatpickr(".date", {
             mode: "range",
@@ -502,5 +441,3 @@
         setTimeout('update()', 60000);
     </script>
 {% endblock content %}
-
-
