@@ -55,7 +55,9 @@ def index_gad(request):
             gadget_in_serwis = Gadget.objects.filter(in_serwis=True)
 
     if len(str(search_query_int)) <= 5 and search_query_int > 0:
-        serching_gad = gadget_in_serwis.filter(id=search_query_int)
+        serching_gad = gadget_in_serwis.filter(Q(id=search_query_int) |
+                                               Q(model_gadget__icontains=search_query_int)
+                                               )
 
     elif search_query:
         serching_gad = gadget_in_serwis.filter(Q(brand_gadget__icontains=search_query) |
@@ -63,7 +65,8 @@ def index_gad(request):
                                                Q(serial_gadget__icontains=search_query) |
                                                Q(klient__name_klient__icontains=search_query) |
                                                Q(password_gadget__icontains=search_query) |
-                                               Q(klient__telefon_klient__icontains=search_query))
+                                               Q(klient__telefon_klient__icontains=search_query)
+                                               )
     else:
         serching_gad = gadget_in_serwis
 
