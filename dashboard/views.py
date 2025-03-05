@@ -15,11 +15,23 @@ def index_dash(request):
     techniki = User.objects.all()
     tpl = User.objects.get(id=1)
 
-    gadgets_in_serwis = gadgets_all.filter(in_serwis=True)
+    gadgets_in_serwis = gadgets_all.filter(
+        created_at__month=TODAY.month,
+        created_at__year=TODAY.year
+    )
     gadgets_in_serwis_count = gadgets_in_serwis.count()
-    gadgets_ok = gadgets_in_serwis.filter(workers__in_work=False).count()
-    gadgets_serwis = Workers.objects.filter(in_work=True, gadget__in_serwis=True).count()
-    gadgets_new_count = gadgets_in_serwis.filter(status__icontains='NOWY').count()
+    gadgets_ok = gadgets_in_serwis.filter(
+        workers__in_work=False
+    ).count()
+    gadgets_serwis = Workers.objects.filter(
+        in_work=True,
+        gadget__in_serwis=True,
+        added_at__month=TODAY.month,
+        added_at__year=TODAY.year
+    ).count()
+    gadgets_new_count = gadgets_in_serwis.filter(
+        status__icontains='NOWY'
+    ).count()
 
     context = {
         'gadgets_all': gadgets_all,
@@ -52,10 +64,10 @@ def kartka_napraw(request, pk):
         else:
             month = TODAY.month
 
-        płatne = technik.kartkaplatne_set.filter(created_at__month=month)
-        gwarancja = technik.kartkagwarancja_set.filter(created_at__month=month)
-        reklamacja = technik.kartkareklamacja_set.filter(created_at__month=month)
-        rezygnacja = technik.kartkarezygnacja_set.filter(created_at__month=month)
+        płatne = technik.kartkaplatne_set.filter(created_at__month=month, created_at__year=TODAY.year)
+        gwarancja = technik.kartkagwarancja_set.filter(created_at__month=month, created_at__year=TODAY.year)
+        reklamacja = technik.kartkareklamacja_set.filter(created_at__month=month, created_at__year=TODAY.year)
+        rezygnacja = technik.kartkarezygnacja_set.filter(created_at__month=month, created_at__year=TODAY.year)
 
         context = {
             'month': month,
