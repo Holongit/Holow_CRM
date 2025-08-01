@@ -10,7 +10,7 @@ from klienty.models import *
 class GadgetForm(forms.Form):
     CHOICES = (
         ('Laptop', 'Laptop'),
-        ('Telefone', 'Telefone'),
+        ('Telefon', 'Telefon'),
         ('Tablet', 'Tablet'),
         ('Komputer Stacjonarny', 'Komputer Stacjonarny'),
         ('Monitop', 'Monitor'),
